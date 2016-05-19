@@ -1,0 +1,63 @@
+/work/zhang/common/usr/lib/python2.7/site-packages/setuptools-12.0.5-py2.7.egg/pkg_resources/__init__.py:1222: UserWarning: /home/student/cx68/.python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+/work/zhang/common/usr/lib/python2.7/site-packages/setuptools-12.0.5-py2.7.egg/pkg_resources/__init__.py:1222: UserWarning: /home/student/cx68/.python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+/work/zhang/common/usr/lib/python2.7/site-packages/setuptools-12.0.5-py2.7.egg/pkg_resources/__init__.py:1222: UserWarning: /home/student/cx68/.python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+/work/zhang/common/usr/lib/python2.7/site-packages/setuptools-12.0.5-py2.7.egg/pkg_resources/__init__.py:1222: UserWarning: /home/student/cx68/.python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+/work/zhang/common/usr/lib/python2.7/site-packages/sklearn/cross_validation.py:43: DeprecationWarning: This module has been deprecated in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  "This module will be removed in 0.20.", DeprecationWarning)
+/work/zhang/common/usr/lib/python2.7/site-packages/sklearn/cross_validation.py:43: DeprecationWarning: This module has been deprecated in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  "This module will be removed in 0.20.", DeprecationWarning)
+/work/zhang/common/usr/lib/python2.7/site-packages/sklearn/cross_validation.py:43: DeprecationWarning: This module has been deprecated in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  "This module will be removed in 0.20.", DeprecationWarning)
+/work/zhang/common/usr/lib/python2.7/site-packages/sklearn/cross_validation.py:43: DeprecationWarning: This module has been deprecated in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  "This module will be removed in 0.20.", DeprecationWarning)
+debug get cfg from NormalGreedyMutation
+debug get cfg from UniformGreedyMutation
+debug get cfg from RandomNelderMead
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/parallel/experiment/multiCPU-4-msg/AUCBanditMetaTechniqueA/diffeq1/3": 文件已存在
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/parallel/experiment/multiCPU-4-msg/AUCBanditMetaTechniqueA/diffeq1/1": 文件已存在
+debug get cfg from DifferentialEvolutionAlt
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/parallel/experiment/multiCPU-4-msg/AUCBanditMetaTechniqueA/diffeq1/0": 文件已存在
+k6_frac_N10_mem32K_40nm/diffeq1...k6_frac_N10_mem32K_40nm/diffeq1...mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/parallel/experiment/multiCPU-4-msg/AUCBanditMetaTechniqueA/diffeq1/2": 文件已存在
+k6_frac_N10_mem32K_40nm/diffeq1...k6_frac_N10_mem32K_40nm/diffeq1...OK
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	58	14	3.92018e+06	1.27229e+06	25.1324	39.7892	0.86	1.59	5.73	661	299	36	162	96	0	5	
+[    13s]    INFO opentuner.search.plugin.DisplayPlugin: tests=1, best #32, cost time=-39.7892, found by RandomNelderMead
+OK
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	64	14	4.29744e+06	1.46594e+06	23.8737	41.887	2.41	10.52	5.6	626	306	43	162	96	0	5	
+[    24s]    INFO opentuner.search.plugin.DisplayPlugin: tests=1, best #14, cost time=-41.8870, found by DifferentialEvolutionAlt
+OK
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	62	14	4.29744e+06	1.43760e+06	25.4412	39.3062	1.98	7.69	14.55	688	306	43	162	96	0	5	
+[    29s]    INFO opentuner.search.plugin.DisplayPlugin: tests=1, best #1, cost time=-39.3062, found by NormalGreedyMutation
+OK
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	66	14	4.35134e+06	1.48996e+06	23.6764	42.2362	2.13	28.31	8.27	646	307	44	162	96	0	5	
+[    45s]    INFO opentuner.search.plugin.DisplayPlugin: tests=1, best #13, cost time=-42.2362, found by UniformGreedyMutation
+debug get cfg from DifferentialEvolutionAlt
+debug get cfg from UniformGreedyMutationdebug get cfg from NormalGreedyMutation
+
+debug get cfg from DifferentialEvolutionAlt
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/parallel/experiment/multiCPU-4-msg/AUCBanditMetaTechniqueA/diffeq1/3": 文件已存在
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/parallel/experiment/multiCPU-4-msg/AUCBanditMetaTechniqueA/diffeq1/2": 文件已存在
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/parallel/experiment/multiCPU-4-msg/AUCBanditMetaTechniqueA/diffeq1/3/2/": 文件已存在
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/parallel/experiment/multiCPU-4-msg/AUCBanditMetaTechniqueA/diffeq1/1": 文件已存在
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/parallel/experiment/multiCPU-4-msg/AUCBanditMetaTechniqueA/diffeq1/0": 文件已存在
+k6_frac_N10_mem32K_40nm/diffeq1...k6_frac_N10_mem32K_40nm/diffeq1...k6_frac_N10_mem32K_40nm/diffeq1...k6_frac_N10_mem32K_40nm/diffeq1...OK
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	50	14	4.51302e+06	1.15747e+06	25.2481	39.6069	2.03	1.92	6.16	671	310	47	162	96	0	5	
+[    58s]    INFO opentuner.search.plugin.DisplayPlugin: tests=2, best #13, cost time=-42.2362, found by UniformGreedyMutation
+debug get cfg from RandomNelderMead
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/parallel/experiment/multiCPU-4-msg/AUCBanditMetaTechniqueA/diffeq1/1": 文件已存在
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	62	14	4.08187e+06	1.43760e+06	24.6352	40.5923	1.23	2.56	10.56	634	302	39	162	96	0	5	
+[    61s]    INFO opentuner.search.plugin.DisplayPlugin: tests=2, best #43, cost time=-40.5923, found by DifferentialEvolutionAlt
+debug get cfg from NormalGreedyMutation
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/parallel/experiment/multiCPU-4-msg/AUCBanditMetaTechniqueA/diffeq1/0": 文件已存在
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	66	14	4.24355e+06	1.48996e+06	25.2118	39.6639	1.12	7.95	16.47	673	305	42	162	96	0	5	
+[    73s]    INFO opentuner.search.plugin.DisplayPlugin: tests=2, best #2, cost time=-39.6639, found by UniformGreedyMutation
+debug get cfg from DifferentialEvolutionAlt
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/parallel/experiment/multiCPU-4-msg/AUCBanditMetaTechniqueA/diffeq1/3": 文件已存在

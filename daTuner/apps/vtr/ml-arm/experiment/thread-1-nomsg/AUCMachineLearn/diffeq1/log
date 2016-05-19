@@ -1,0 +1,41 @@
+/work/zhang/common/usr/lib/python2.7/site-packages/pkg_resources/__init__.py:1268: UserWarning: /home/student/cx68/.python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
+  warnings.warn(msg, UserWarning)
+/work/zhang/common/usr/lib/python2.7/site-packages/sklearn/cross_validation.py:43: DeprecationWarning: This module has been deprecated in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  "This module will be removed in 0.20.", DeprecationWarning)
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	52	14	4.35134e+06	1.18485e+06	23.833	41.9587	1.18	3.89	7.75	674	307	44	162	96	0	5	
+[    17s]    INFO opentuner.search.plugin.DisplayPlugin: tests=1, best #1, cost time=-41.9587, found by DifferentialEvolutionAlt
+/work/zhang/common/usr/lib/python2.7/site-packages/SQLAlchemy-1.0.11-py2.7-linux-x86_64.egg/sqlalchemy/orm/relationships.py:1404: SAWarning: Got None for value of column configuration.id; this is unsupported for a relationship comparison and will not currently produce an IS comparison (but may in a future release)
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/ml-arm/experiment/thread-1-nomsg/AUCMachineLearn/diffeq1/0": 文件已存在
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	52	14	3.92018e+06	1.18485e+06	23.3212	42.8795	0.86	3.26	27.72	717	299	36	162	96	0	5	
+[    50s]    INFO opentuner.search.plugin.DisplayPlugin: tests=2, best #31, cost time=-42.8795, found by ActiveLearn
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/ml-arm/experiment/thread-1-nomsg/AUCMachineLearn/diffeq1/0": 文件已存在
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	52	14	4.02797e+06	1.18485e+06	23.0602	43.3647	0.85	3.22	19.12	682	301	38	162	96	0	5	
+[    75s]    INFO opentuner.search.plugin.DisplayPlugin: tests=3, best #32, cost time=-43.3647, found by UniformGreedyMutation
+check defaultcfg
+{'pres_fac_mult': 1.3, 'initial_pres_fac': 0.5, 'inner_loop_recompute_divider': 0, 'td_place_exp_last': 8, 'bb_factor': 3, 'inner_num': 10, 'seed': 1, 'acc_fac': 1, 'alpha_clustering': 0.75, 'connection_driven_clustering': 'on', 'beta_clustering': 0.9, 'resyn': 'off', 'resyn3': 'off', 'resyn2': 'off', 'max_criticality': 0.99, 'alpha_t': 0.8, 'astar_fac': 1.2, 'base_cost_type': 'delay_normalized', 'timing_tradeoff': 0.5, 'criticality_exp': 1, 'max_router_iterations': 50, 'td_place_exp_first': 1, 'allow_unrelated_clustering': 'on'}
+default result
+-42.8795
+db size: 3
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/ml-arm/experiment/thread-1-nomsg/AUCMachineLearn/diffeq1/0": 文件已存在
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	52	14	4.35134e+06	1.18485e+06	24.7361	40.4267	0.83	1.55	13.11	641	307	44	162	96	0	5	
+[    92s]    INFO opentuner.search.plugin.DisplayPlugin: tests=4, best #32, cost time=-43.3647, found by UniformGreedyMutation
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/ml-arm/experiment/thread-1-nomsg/AUCMachineLearn/diffeq1/0": 文件已存在
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	70	14	3.92018e+06	1.58309e+06	22.503	44.4385	0.83	3.15	9.05	671	299	36	162	96	0	5	
+[   106s]    INFO opentuner.search.plugin.DisplayPlugin: tests=5, best #34, cost time=-44.4385, found by NormalGreedyMutation
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/ml-arm/experiment/thread-1-nomsg/AUCMachineLearn/diffeq1/0": 文件已存在
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	52	14	4.18965e+06	1.18485e+06	24.2265	41.2772	1.17	2.21	13.62	635	304	41	162	96	0	5	
+[   125s]    INFO opentuner.search.plugin.DisplayPlugin: tests=6, best #34, cost time=-44.4385, found by NormalGreedyMutation
+mkdir: 无法创建目录"/work/zhang/users/chang/project/daTuner/opentuner/example/ml-arm/experiment/thread-1-nomsg/AUCMachineLearn/diffeq1/0": 文件已存在
+k6_frac_N10_mem32K_40nm/diffeq1...

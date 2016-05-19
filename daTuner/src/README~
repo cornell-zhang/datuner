@@ -1,0 +1,21 @@
+This project is the extention to OpenTuner project(https://github.com/jansel/opentuner). Compared with previous OpenTuner project, we make the following changes:
+
+-------Modification to OpenTuner Source Code-----
+#under folder of search
+#add knobs in original OpenTuner to enable parallelization
+1. search.bandittechniques.py:16 setmsg() #message sharing in collaborative distributed exploration
+2. search.driver.py:50 setmsg() #message sharing in collaborative distributed exploration
+3. search.driver.py:208 process_new_results()
+  #receive message only when it is ready
+  #set the best configuration
+  #send out the best configuration
+-----------------DATuner Source Code-------------
+#under folder of daTuner
+1. defaultcfg.py # a class to receive default configuration set by users
+2. msgInterface.py # a class to manupulate message passing with MPI. DATuner receives messages only when they are ready and sends messages as soon as possible with non-blocking send.
+3. learnmethod.py # In this class, we define some basic functions used by machine learning algorihtms, like data preprocessing, query database and define neighbourhood.
+4. bayesian.py # Inherit from learnmethod.py. Use Naive Bayes to do classification.
+5. activeLearn.py # Inherit from learnmethod. Use active learn to do classification.
+6. ibmbaseline.py # Implement IBM SynTunSys.[Ziegler, Matthew M., et al. "A synthesis-parameter tuning system for autonomous design-space exploration." 2016 Design, Automation & Test in Europe Conference & Exhibition (DATE). IEEE, 2016.] 
+--------------Interface to Users-----------------
+
