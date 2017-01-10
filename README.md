@@ -1,35 +1,48 @@
-DATuner User Guide
+# DATuner User Guide
 
-1.  Required package:
+###  Required package
+
 Python2.7 
+
 OpenTuner: http://opentuner.org/
+
 Mpich3.2 https://www.mpich.org/ 
 
-2.  Running on multiple hosts:
-1.  SSH login without password 
+### Running on multiple hosts:
+####  SSH login without password 
 http://blog.csdn.net/educast/article/details/7174498
-2.  Make sure programs can run across multiple hosts
+
+####  Make sure programs can run across multiple hosts
 https://www.open-mpi.org/faq/?category=running#diagnose-multi-host-problems 
+
 (11. How can I diagnose problems when running across multiple hosts?)
 
-3.  Run DATuner
+###  Run DATuner
 Note: DATuner now can support tuning VPR and Vivado. 
 DATuner will support other applications by extending the interface later.
 
-1.  Compilation
+####  Compilation
 Go into PathTo-DATuner/parTuner directory
-a.  In Makefile, replace MY_TOOLS_INCL with your python path and the include folder of mpich
-b.  Modify part of MY_TOOLS_LDFLAGS to point to the lib folder of mpich
-c.  Add mpich to PATH
-d.  Type make, which generates master.exe and worker.exe under bin directory.
 
-2.  Evaluation
+#####  In Makefile, replace MY_TOOLS_INCL with your python path and the include folder of mpich
+
+#####  Modify part of MY_TOOLS_LDFLAGS to point to the lib folder of mpich
+
+#####  Add mpich to PATH
+
+#####  Type make, which generates master.exe and worker.exe under bin directory.
+
+####  Evaluation
 Go into PathTo-DATune/evaluation directory
-a.  Under scripts directory
-Please specify the list of multiple machines that DATuner runs on in my_hosts file 
-b.  Tune VPR
+
+Under scripts directory, please specify the list of multiple machines that DATuner runs on in my_hosts file 
+
+#####  Tune VPR
+
 First install VTR https://github.com/verilog-to-routing/vtr-verilog-to-routing 
+
  ./runonevpr.sh <design_name>
+ 
  e.g., ./runonevpr.sh diffeq1
 
 In runonevpr.sh, please replace path with the workspace that you want to run experiment. 
@@ -38,7 +51,8 @@ The output file will be saved in your workspace_path/vpr/daTuner/diffeq1
 Result_1~8 is the samples found by OpenTuner1~8. 
 I have script to pass and visualize the result. Will upload later.
 
-c.  Tune Vivado
+#####  Tune Vivado
+
 First make sure Vivado is installed on every machine that you run DATuner
 ./runonevivado.sh <design_name> <0|1> 0 means you don’t want to tune the default timing constraint. 
 1 means default timing constraint is also a parameter to tune. 
