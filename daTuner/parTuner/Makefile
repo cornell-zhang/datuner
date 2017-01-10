@@ -3,13 +3,14 @@ MY_TOOLS_SRC = ./src
 MY_TOOLS_VPATH = $(MY_TOOLS_SRC)
 
 #replace with correct python path 
-MY_TOOLS_INCL = -I /home/xuchang/nas/opt/Python2.7.12/include/python2.7
+MY_TOOLS_INCL = -I /usr/local/include/python2.7 -I /work/zhang/users/liu/mpich-3.2/build/include
 
 MY_TOOLS_CCFLAGS = #-static -ansi -Wreorder -Wformat -Wunused -Wstrict-aliasing -fopenmp
 
 MY_TOOLS_LDFLAGS = -lm -lpthread -fopenmp -ldl -lutil \
 									 -lpython2.7 \
-									 -L. -lstdc++
+									 -L. -lstdc++ \
+									 -L /work/zhang/users/liu/mpich-3.2/build/lib -lmpicxx
 vpath %.cpp $(MY_TOOLS_VPATH)
 
 
