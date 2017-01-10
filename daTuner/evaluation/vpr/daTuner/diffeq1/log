@@ -1,0 +1,535 @@
+./master.exe
+-vpr
+debug spaceBuf 1 arms: 1
+Worker = 9, My rank = 1, runing on ceca20
+Worker = 9, My rank = 5, runing on ceca13
+Worker = 9, My rank = 2, runing on ceca21
+Worker = 9, My rank = 8, runing on ceca19
+Worker = 9, My rank = 3, runing on ceca22
+#Controller = 9, myrank = 0, running on ceca19
+DBUGE!!! 1
+Worker = 9, My rank = 4, runing on ceca12
+Worker = 9, My rank = 7, runing on ceca15
+Worker = 9, My rank = 6, runing on ceca14
+master send task
+DEBUG!!! round 30, limit 10
+Iter 1
+worker start tuning
+debug score exploit_score -100.000000, normalized_score 0.000000, exploration 1000000.000000
+1, 50000.000000
+Iter: 1, #spaces: 1, #pnum: 8, #pull_arms: 1
+worker start tuning
+worker start tuning
+worker start tuning
+worker start tuning
+worker start tuning
+worker start tuning
+worker start tuning
+Error can't remove StartPointSpace1.json
+for space id 1 no best found
+send task id 1
+Iter: 1, Send task: Space 1 => Pnum 1
+Error can't remove StartPointSpace2.json
+for space id 1 no best found
+send task id 1
+Iter: 1, Send task: Space 1 => Pnum 2
+Error can't remove StartPointSpace3.json
+for space id 1 no best found
+send task id 1
+Iter: 1, Send task: Space 1 => Pnum 3
+Error can't remove StartPointSpace4.json
+for space id 1 no best found
+send task id 1
+Iter: 1, Send task: Space 1 => Pnum 4
+Error can't remove StartPointSpace5.json
+for space id 1 no best found
+send task id 1
+Iter: 1, Send task: Space 1 => Pnum 5
+Error can't remove StartPointSpace6.json
+for space id 1 no best found
+send task id 1
+Iter: 1, Send task: Space 1 => Pnum 6
+Error can't remove StartPointSpace7.json
+for space id 1 no best found
+send task id 1
+Iter: 1, Send task: Space 1 => Pnum 7
+Error can't remove StartPointSpace8.json
+for space id 1 no best found
+send task id 1
+debug argv 
+./worker.exe
+--parallelism=1
+--rank=1
+--seed-configuration
+StartPointSpace1.json
+--test-limit
+10
+Iter: 1, Send task: Space 1 => Pnum 8
+finish parsing
+Going to call OpenTuner
+finish parsing
+Going to call OpenTuner
+finish parsing
+Going to call OpenTuner
+finish parsing
+Going to call OpenTuner
+finish parsing
+Going to call OpenTuner
+finish parsing
+Going to call OpenTuner
+finish parsing
+Going to call OpenTuner
+finish parsing
+Going to call OpenTuner
+debugVPR4
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+debugVPR2
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+debugVPR8
+debugVPR5
+debugVPR7
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+debugVPR6
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+debugVPR3
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+debugVPR1
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max resyn 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max resyn2 0 0 debug name min max astar_fac 1 2
+
+ debug name min max max_criticality 0.8 1
+ debug name min max resyn3 0 0
+ debug name min max criticality_exp 0.8 1
+ debug name min max alpha_clustering 0 1
+finish setting manipulator
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max resyn 0 0
+ debug name min max seed 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max inner_num 0 0
+ debug name min max beta_clustering 0 1
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max max_router_iterations 0 0
+ debug name min max seed 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max inner_num 0 0
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max acc_fac 1 2
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max bb_factor 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max astar_fac 1 2
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max max_criticality 0.8 1
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max criticality_exp 0.8 1
+ debug name min max acc_fac 1 2
+finish setting manipulator
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+debug result id
+1
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+debug result id
+1
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+debug result id
+1
+ debug name min max resyn 0 0
+ debug name min max resyn2 0 0
+ debug name min max resyn3 0 0
+ debug name min max alpha_clustering 0 1
+ debug name min max beta_clustering 0 1
+ debug name min max allow_unrelated_clustering 0 0
+ debug name min max connection_driven_clustering 0 0
+ debug name min max alpha_t 0.5 0.9
+ debug name min max seed 0 0
+ debug name min max inner_num 0 0
+ debug name min max timing_tradeoff 0.3 0.7
+ debug name min max inner_loop_recompute_divider 0 0
+ debug name min max td_place_exp_first 0 0
+ debug name min max td_place_exp_last 0 0
+ debug name min max max_router_iterations 0 0
+ debug name min max initial_pres_fac 0.3 100
+ debug name min max pres_fac_mult 1.2 2
+ debug name min max acc_fac 1 2
+ debug name min max bb_factor 0 0
+ debug name min max base_cost_type 0 0
+ debug name min max astar_fac 1 2
+ debug name min max max_criticality 0.8 1
+ debug name min max criticality_exp 0.8 1
+finish setting manipulator
+debug result id
+1
+debug result id
+1
+debug result id
+1
+debug result id
+1
+debug result id
+1
+k6_frac_N10_mem32K_40nm/diffeq1...k6_frac_N10_mem32K_40nm/diffeq1...k6_frac_N10_mem32K_40nm/diffeq1...k6_frac_N10_mem32K_40nm/diffeq1...k6_frac_N10_mem32K_40nm/diffeq1...k6_frac_N10_mem32K_40nm/diffeq1...k6_frac_N10_mem32K_40nm/diffeq1...k6_frac_N10_mem32K_40nm/diffeq1...OK
+debug result id
+2
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+debug result id
+2
+OK
+debug result id
+2
+k6_frac_N10_mem32K_40nm/diffeq1...k6_frac_N10_mem32K_40nm/diffeq1...OK
+debug result id
+2
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+debug result id
+2
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+debug result id
+2
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+debug result id
+2
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+debug result id
+2
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+debug result id
+3
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+debug result id
+3
+k6_frac_N10_mem32K_40nm/diffeq1...OK
+debug result id
+3
+k6_frac_N10_mem32K_40nm/diffeq1...[mpiexec@ceca19] Sending Ctrl-C to processes as requested
+[mpiexec@ceca19] Press Ctrl-C again to force abort
+call OpenTuner
+rank 6 results size: 1
+rank 6 sending results
+call OpenTuner
+rank 4 results size: 2
+rank 4 sending results
+call OpenTuner
+rank 7 results size: 1
+rank 7 sending results

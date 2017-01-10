@@ -1,0 +1,27 @@
+
+DATuner_OUT = master$(MY_TOOLS_POSTFIX)
+
+MAINSRC     = controler.cpp bandit.cpp space_divider4ISE.cpp space_divider4Vivado.cpp space_divider4VPR.cpp msg_passing.cpp space_partition.cpp 
+
+
+DATuner_SRC = $(MAINSRC)
+
+DATuner_LIB =
+all :: $(MY_TOOLS_BIN)/$(DATuner_OUT)
+
+DATuner_LDFLAGS = $(DATuner_LIB) $(MY_TOOLS_LDFLAGS)
+DATuner_OBJ = $(DATuner_SRC:%.cpp=$(MY_TOOLS_BUILD)/%.o)
+DATuner_DEP = $(patsubst %,%.d,$(basename $(DATuner_OBJ)))
+
+$(DATuner_OUT) :: $(DATuner_OBJ)
+	$(MY_TOOLS_CC) -o $(MY_TOOLS_BIN)/$(DATuner_OUT) $^ $(DATuner_LDFLAGS)
+
+$(MY_TOOLS_BIN)/$(DATuner_OUT) :: $(DATuner_OBJ)
+	$(MY_TOOLS_CC) -o $@ $^ $(DATuner_LDFLAGS)
+
+clean ::
+	rm -f $(DATuner_DEP)
+	rm -f $(DATuner_OBJ)
+	rm -f $(MY_TOOLS_BIN)/$(DATuner_OUT)
+
+-include $(DATuner_DEP)

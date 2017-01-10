@@ -1,0 +1,1 @@
+{"critical_cell_opt": "on", "retime": "on", "Routedirective": "HigherDelayCost", "fanout_opt": "on", "Placedirective": "WLDrivenBlockPlacement", "placement_opt": "off", "rewire": "off", "Timingcst": 19.960558851512268, "Optdirective": "ExploreArea", "critical_pin_opt": "on"}

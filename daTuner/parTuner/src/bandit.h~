@@ -1,0 +1,30 @@
+#ifndef __BANDIT_H__
+#define __BANDIT_H__
+#include <vector>
+#include <queue>
+class Bandit {
+  public:
+    
+    void cal_rewards(std::vector<float>& reward);
+    float bandit_score(int);
+    float exploration_term(int index);
+    float exploitation_term(int index);
+    void set_window(int window) {this->window = window;}
+    void set_c(float a) {this->c = c;}
+
+    void pop_history();
+    void push_history(int index, float score);
+    Bandit(int arms);
+    ~Bandit();
+  protected:
+    float c;
+    int window;
+    int numofArms;
+    float best_reward;
+    std::queue<int> history;
+    std::queue<int> was_best;
+    std::vector<int> use_counts;
+    std::vector<int> auc_sum;
+    std::vector<int> auc_decay;
+};
+#endif

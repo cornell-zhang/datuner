@@ -1,0 +1,1727 @@
+________________________________________________________________________
+                       VPR - The Next Generation                        
+                     Version 0.A15.0 (Linux X86/64)                     
+            This is free open source code under MIT license.            
+________________________________________________________________________
+
+VPR FPGA Placement and Routing.
+Version: Version 7.0
+Compiled: Nov  7 2016.
+University of Toronto
+vpr@eecg.utoronto.ca
+This is free open source code under MIT license.
+
+Architecture file: k6_frac_N10_mem32K_40nm.xml
+Circuit name: diffeq1.blif
+
+Building complex block graph.
+WARNING(1): io[0].clock[0] unconnected pin in architecture.
+Loop for doall = 0, init_parse took 0 seconds.
+Loop for doall = 0 took 0 seconds.
+Loop for doall = 1, init_parse took 0 seconds.
+Loop for doall = 1 took 0.01 seconds.
+Swept away 196 nets with no fanout.
+Net is a constant generator: vcc.
+WARNING(2): logical_block #456 with output vcc has only 0 pin.
+WARNING(3): Block contains output -- may be a constant generator.
+0 unconnected blocks in input netlist.
+Removed 96 LUT buffers.
+Sweeped away 96 nodes.
+BLIF circuit stats:
+	1 LUTs of size 0
+	0 LUTs of size 1
+	50 LUTs of size 2
+	138 LUTs of size 3
+	64 LUTs of size 4
+	67 LUTs of size 5
+	168 LUTs of size 6
+	162 of type input
+	96 of type output
+	193 of type latch
+	488 of type names
+	0 of type dual_port_ram
+	0 of type single_port_ram
+	5 of type multiply
+Timing analysis: ON
+Circuit netlist file: diffeq1.net
+Circuit placement file: diffeq1.place
+Circuit routing file: diffeq1.route
+Circuit SDC file: 
+Operation: RUN_FLOW
+
+Packer: ENABLED
+Placer: ENABLED
+Router: ENABLED
+PackerOpts.allow_early_exit: FALSE
+PackerOpts.allow_unrelated_clustering: FALSE
+PackerOpts.alpha_clustering: 0.048105
+PackerOpts.aspect: 1.000000
+PackerOpts.beta_clustering: 0.165081
+PackerOpts.block_delay: 0.000000
+PackerOpts.cluster_seed_type: TIMING
+PackerOpts.connection_driven: TRUE
+PackerOpts.global_clocks: TRUE
+PackerOpts.hill_climbing_flag: FALSE
+PackerOpts.inter_cluster_net_delay: 1.000000
+PackerOpts.intra_cluster_net_delay: 0.000000
+PackerOpts.recompute_timing_after: 32767
+PackerOpts.sweep_hanging_nets_and_inputs: TRUE
+PackerOpts.timing_driven: TRUE
+
+PlacerOpts.place_freq: PLACE_ONCE
+PlacerOpts.place_algorithm: PATH_TIMING_DRIVEN_PLACE
+PlacerOpts.pad_loc_type: FREE
+PlacerOpts.place_cost_exp: 1.000000
+PlacerOpts.inner_loop_recompute_divider: 1
+PlacerOpts.recompute_crit_iter: 1
+PlacerOpts.timing_tradeoff: 0.615832
+PlacerOpts.td_place_exp_first: 1.000000
+PlacerOpts.td_place_exp_last: 10.000000
+PlaceOpts.seed: 5
+AnnealSched.type: USER_SCHED
+AnnealSched.inner_num: 100.000000
+AnnealSched.init_t: 100.000000
+AnnealSched.alpha_t: 0.653946
+AnnealSched.exit_t: 0.010000
+
+RouterOpts.route_type: DETAILED
+RouterOpts.router_algorithm: TIMING_DRIVEN
+RouterOpts.base_cost_type: DEMAND_ONLY
+RouterOpts.fixed_channel_width: NO_FIXED_CHANNEL_WIDTH
+RouterOpts.acc_fac: 1.075758
+RouterOpts.bb_factor: 5
+RouterOpts.bend_cost: 0.000000
+RouterOpts.first_iter_pres_fac: 0.500000
+RouterOpts.initial_pres_fac: 10.463070
+RouterOpts.pres_fac_mult: 1.465423
+RouterOpts.max_router_iterations: 80
+RouterOpts.astar_fac: 1.095922
+RouterOpts.criticality_exp: 0.845396
+RouterOpts.max_criticality: 0.840981
+
+RoutingArch.directionality: UNI_DIRECTIONAL
+RoutingArch.switch_block_type: WILTON
+RoutingArch.Fs: 3
+
+Initialize packing.
+Begin packing 'diffeq1.pre-vpr.blif'.
+
+After removing unused inputs...
+	total blocks: 944, total nets: 1007, total inputs: 162, total outputs: 96
+Begin prepacking.
+Finish prepacking.
+Using inter-cluster delay: 1.33777e-09
+
+SDC file '' blank or not found.
+
+Defaulting to: constrain all 0 inputs and 0 outputs on the netlist clock.
+Optimize this clock to run as fast as possible.
+Not enough resources expand FPGA size to x = 2 y = 2.
+Complex block 0: cb.n1421, type: clb
+	.........................................
+Passed route at end.
+Complex block 1: cb.n1720, type: clb
+	........................................
+Passed route at end.
+Not enough resources expand FPGA size to x = 3 y = 3.
+Complex block 2: cb.n1712_1, type: clb
+	........................................
+Passed route at end.
+Complex block 3: cb.n1703, type: clb
+	.......................................
+Passed route at end.
+Complex block 4: cb.n1694, type: clb
+	.......................................
+Passed route at end.
+Complex block 5: cb.n1683, type: clb
+	..........................................
+Passed route at end.
+Not enough resources expand FPGA size to x = 4 y = 4.
+Complex block 6: cb.n1664, type: clb
+	.......................................
+Passed route at end.
+Complex block 7: cb.n1655, type: clb
+	.........................................
+Passed route at end.
+Complex block 8: cb.n1596_1, type: clb
+	........................
+Passed route at end.
+Complex block 9: cb.n1624, type: clb
+	..........................................
+Passed route at end.
+Complex block 10: cb.n1604, type: clb
+	..........................................
+Passed route at end.
+Complex block 11: cb.n1688, type: clb
+	.........................................
+Passed route at end.
+Not enough resources expand FPGA size to x = 5 y = 5.
+Complex block 12: cb.n1681_1, type: clb
+	..................
+Passed route at end.
+Complex block 13: cb.n1635, type: clb
+	.........................................
+Passed route at end.
+Complex block 14: cb.n1621_1, type: clb
+	.........................................
+Passed route at end.
+Complex block 15: cb.n1574, type: clb
+	....
+Passed route at end.
+Complex block 16: cb.n1651_1, type: clb
+	.
+Passed route at end.
+Not enough resources expand FPGA size to x = 6 y = 6.
+Complex block 17: cb.top^MULTIPLY~43[0], type: mult_36
+	
+Passed route at end.
+Not enough resources expand FPGA size to x = 7 y = 7.
+Not enough resources expand FPGA size to x = 8 y = 8.
+Complex block 18: cb.top^MULTIPLY~0[0], type: mult_36
+	
+Passed route at end.
+Not enough resources expand FPGA size to x = 9 y = 9.
+Not enough resources expand FPGA size to x = 10 y = 10.
+Not enough resources expand FPGA size to x = 11 y = 11.
+Not enough resources expand FPGA size to x = 12 y = 12.
+Complex block 19: cb.top^MULTIPLY~42[0], type: mult_36
+	
+Passed route at end.
+Complex block 20: cb.top^DXport~31, type: io
+	
+Passed route at end.
+Complex block 21: cb.top^DXport~12, type: io
+	
+Passed route at end.
+Complex block 22: cb.top^DXport~6, type: io
+	
+Passed route at end.
+Complex block 23: cb.top^DXport~10, type: io
+	
+Passed route at end.
+Complex block 24: cb.top^DXport~11, type: io
+	
+Passed route at end.
+Complex block 25: cb.top^DXport~26, type: io
+	
+Passed route at end.
+Complex block 26: cb.top^DXport~9, type: io
+	
+Passed route at end.
+Complex block 27: cb.top^DXport~24, type: io
+	
+Passed route at end.
+Complex block 28: cb.top^DXport~21, type: io
+	
+Passed route at end.
+Complex block 29: cb.top^DXport~22, type: io
+	
+Passed route at end.
+Complex block 30: cb.top^DXport~14, type: io
+	
+Passed route at end.
+Complex block 31: cb.top^DXport~28, type: io
+	
+Passed route at end.
+Complex block 32: cb.top^DXport~8, type: io
+	
+Passed route at end.
+Complex block 33: cb.top^DXport~19, type: io
+	
+Passed route at end.
+Complex block 34: cb.top^DXport~7, type: io
+	
+Passed route at end.
+Complex block 35: cb.top^DXport~27, type: io
+	
+Passed route at end.
+Complex block 36: cb.top^DXport~15, type: io
+	
+Passed route at end.
+Complex block 37: cb.top^DXport~29, type: io
+	
+Passed route at end.
+Complex block 38: cb.top^DXport~2, type: io
+	
+Passed route at end.
+Complex block 39: cb.top^DXport~25, type: io
+	
+Passed route at end.
+Complex block 40: cb.top^DXport~20, type: io
+	
+Passed route at end.
+Complex block 41: cb.top^DXport~23, type: io
+	
+Passed route at end.
+Complex block 42: cb.top^DXport~18, type: io
+	
+Passed route at end.
+Complex block 43: cb.top^DXport~16, type: io
+	
+Passed route at end.
+Complex block 44: cb.top^DXport~13, type: io
+	
+Passed route at end.
+Complex block 45: cb.top^DXport~5, type: io
+	
+Passed route at end.
+Complex block 46: cb.top^DXport~4, type: io
+	
+Passed route at end.
+Complex block 47: cb.top^DXport~17, type: io
+	
+Passed route at end.
+Complex block 48: cb.top^DXport~3, type: io
+	
+Passed route at end.
+Complex block 49: cb.top^DXport~30, type: io
+	
+Passed route at end.
+Complex block 50: cb.top^DXport~1, type: io
+	
+Passed route at end.
+Complex block 51: cb.top^DXport~0, type: io
+	
+Passed route at end.
+Not enough resources expand FPGA size to x = 13 y = 13.
+Not enough resources expand FPGA size to x = 14 y = 14.
+Complex block 52: cb.top^MULTIPLY~46[0], type: mult_36
+	
+Passed route at end.
+Complex block 53: cb.top^MULTIPLY~45[0], type: mult_36
+	
+Passed route at end.
+Complex block 54: cb.n1621, type: clb
+	..........................................
+Passed route at end.
+Complex block 55: cb.n1641, type: clb
+	.........................................
+Passed route at end.
+Complex block 56: cb.n1711, type: clb
+	..............................................................
+Passed route at end.
+Complex block 57: cb.n1666, type: clb
+	.........................................
+Passed route at end.
+Complex block 58: cb.n1681, type: clb
+	.........................................
+Passed route at end.
+Complex block 59: cb.n1676, type: clb
+	.........................................
+Passed route at end.
+Complex block 60: cb.n1726, type: clb
+	.......................................
+Passed route at end.
+Complex block 61: cb.n1591, type: clb
+	......................................
+Passed route at end.
+Complex block 62: cb.n1731, type: clb
+	....................................
+Passed route at end.
+Complex block 63: cb.n1741, type: clb
+	....................................
+Passed route at end.
+Complex block 64: cb.n1451, type: clb
+	..................................
+Passed route at end.
+Complex block 65: cb.n1431, type: clb
+	................................
+Passed route at end.
+Complex block 66: cb.n1511, type: clb
+	....................................................
+Passed route at end.
+Complex block 67: cb.n1491, type: clb
+	..........................................
+Passed route at end.
+Complex block 68: cb.n1810, type: clb
+	.................
+Passed route at end.
+Complex block 69: cb.n1803, type: clb
+	.............................................
+Passed route at end.
+Complex block 70: cb.n1776, type: clb
+	............................................
+Passed route at end.
+Complex block 71: cb.n1645, type: clb
+	.........................................
+Passed route at end.
+Complex block 72: cb.n1883, type: clb
+	............................................
+Passed route at end.
+Complex block 73: cb.n1865, type: clb
+	
+Passed route at end.
+Complex block 74: cb.n1211, type: clb
+	...................
+Passed route at end.
+Complex block 75: cb.n936, type: clb
+	...................
+Passed route at end.
+Complex block 76: cb.n811, type: clb
+	...
+Passed route at end.
+Complex block 77: cb.top^Aport~2, type: io
+	
+Passed route at end.
+Complex block 78: cb.top^Aport~1, type: io
+	
+Passed route at end.
+Complex block 79: cb.top^Aport~0, type: io
+	
+Passed route at end.
+Complex block 80: cb.top^Aport~4, type: io
+	
+Passed route at end.
+Complex block 81: cb.top^Aport~3, type: io
+	
+Passed route at end.
+Complex block 82: cb.top^Aport~6, type: io
+	
+Passed route at end.
+Complex block 83: cb.top^Aport~5, type: io
+	
+Passed route at end.
+Complex block 84: cb.top^Aport~22, type: io
+	
+Passed route at end.
+Complex block 85: cb.top^Aport~21, type: io
+	
+Passed route at end.
+Complex block 86: cb.top^Aport~8, type: io
+	
+Passed route at end.
+Complex block 87: cb.top^Aport~7, type: io
+	
+Passed route at end.
+Complex block 88: cb.top^Aport~24, type: io
+	
+Passed route at end.
+Complex block 89: cb.top^Aport~23, type: io
+	
+Passed route at end.
+Complex block 90: cb.top^Aport~18, type: io
+	
+Passed route at end.
+Complex block 91: cb.top^Aport~17, type: io
+	
+Passed route at end.
+Complex block 92: cb.top^Aport~16, type: io
+	
+Passed route at end.
+Complex block 93: cb.top^Aport~20, type: io
+	
+Passed route at end.
+Complex block 94: cb.top^Aport~19, type: io
+	
+Passed route at end.
+Complex block 95: cb.top^Aport~10, type: io
+	
+Passed route at end.
+Complex block 96: cb.top^Aport~9, type: io
+	
+Passed route at end.
+Complex block 97: cb.top^Aport~28, type: io
+	
+Passed route at end.
+Complex block 98: cb.top^Aport~27, type: io
+	
+Passed route at end.
+Complex block 99: cb.top^Aport~29, type: io
+	
+Passed route at end.
+Complex block 100: cb.top^Aport~31, type: io
+	
+Passed route at end.
+Complex block 101: cb.top^Aport~26, type: io
+	
+Passed route at end.
+Complex block 102: cb.top^Aport~25, type: io
+	
+Passed route at end.
+Complex block 103: cb.top^Aport~30, type: io
+	
+Passed route at end.
+Complex block 104: cb.top^Aport~12, type: io
+	
+Passed route at end.
+Complex block 105: cb.top^Aport~11, type: io
+	
+Passed route at end.
+Complex block 106: cb.top^Aport~15, type: io
+	
+Passed route at end.
+Complex block 107: cb.top^Aport~14, type: io
+	
+Passed route at end.
+Complex block 108: cb.top^Aport~13, type: io
+	
+Passed route at end.
+Complex block 109: cb.top^Uinport~31, type: io
+	
+Passed route at end.
+Complex block 110: cb.top^reset, type: io
+	
+Passed route at end.
+Complex block 111: cb.top^Xinport~30, type: io
+	
+Passed route at end.
+Complex block 112: cb.top^Yinport~29, type: io
+	
+Passed route at end.
+Complex block 113: cb.top^Xinport~29, type: io
+	
+Passed route at end.
+Complex block 114: cb.top^Yinport~26, type: io
+	
+Passed route at end.
+Complex block 115: cb.top^Xinport~6, type: io
+	
+Passed route at end.
+Complex block 116: cb.top^Yinport~23, type: io
+	
+Passed route at end.
+Complex block 117: cb.top^Yinport~22, type: io
+	
+Passed route at end.
+Complex block 118: cb.top^Xinport~26, type: io
+	
+Passed route at end.
+Complex block 119: cb.top^Xinport~5, type: io
+	
+Passed route at end.
+Complex block 120: cb.top^Yinport~18, type: io
+	
+Passed route at end.
+Complex block 121: cb.top^Xinport~11, type: io
+	
+Passed route at end.
+Complex block 122: cb.top^Yinport~16, type: io
+	
+Passed route at end.
+Complex block 123: cb.top^Xinport~23, type: io
+	
+Passed route at end.
+Complex block 124: cb.top^Xinport~2, type: io
+	
+Passed route at end.
+Complex block 125: cb.top^Uinport~30, type: io
+	
+Passed route at end.
+Complex block 126: cb.top^Uinport~28, type: io
+	
+Passed route at end.
+Complex block 127: cb.top^Xinport~22, type: io
+	
+Passed route at end.
+Complex block 128: cb.top^Uinport~26, type: io
+	
+Passed route at end.
+Complex block 129: cb.top^Xinport~1, type: io
+	
+Passed route at end.
+Complex block 130: cb.top^Yinport~11, type: io
+	
+Passed route at end.
+Complex block 131: cb.top^Uinport~23, type: io
+	
+Passed route at end.
+Complex block 132: cb.top^Uinport~22, type: io
+	
+Passed route at end.
+Complex block 133: cb.top^Uinport~20, type: io
+	
+Passed route at end.
+Complex block 134: cb.top^Xinport~0, type: io
+	
+Passed route at end.
+Complex block 135: cb.top^Uinport~18, type: io
+	
+Passed route at end.
+Complex block 136: cb.top^Yinport~8, type: io
+	
+Passed route at end.
+Complex block 137: cb.top^Yinport~7, type: io
+	
+Passed route at end.
+Complex block 138: cb.top^Uinport~15, type: io
+	
+Passed route at end.
+Complex block 139: cb.top^Xinport~4, type: io
+	
+Passed route at end.
+Complex block 140: cb.top^Yinport~6, type: io
+	
+Passed route at end.
+Complex block 141: cb.top^Xinport~18, type: io
+	
+Passed route at end.
+Complex block 142: cb.top^Yinport~5, type: io
+	
+Passed route at end.
+Complex block 143: cb.top^Yinport~4, type: io
+	
+Passed route at end.
+Complex block 144: cb.top^Uinport~9, type: io
+	
+Passed route at end.
+Complex block 145: cb.top^Yinport~3, type: io
+	
+Passed route at end.
+Complex block 146: cb.top^Uinport~7, type: io
+	
+Passed route at end.
+Complex block 147: cb.top^Xinport~8, type: io
+	
+Passed route at end.
+Complex block 148: cb.top^Uinport~6, type: io
+	
+Passed route at end.
+Complex block 149: cb.top^Uinport~5, type: io
+	
+Passed route at end.
+Complex block 150: cb.top^Yinport~2, type: io
+	
+Passed route at end.
+Complex block 151: cb.top^Uinport~4, type: io
+	
+Passed route at end.
+Complex block 152: cb.top^Uinport~3, type: io
+	
+Passed route at end.
+Complex block 153: cb.top^Yinport~1, type: io
+	
+Passed route at end.
+Complex block 154: cb.top^Xinport~16, type: io
+	
+Passed route at end.
+Complex block 155: cb.top^Uinport~2, type: io
+	
+Passed route at end.
+Complex block 156: cb.top^Uinport~1, type: io
+	
+Passed route at end.
+Complex block 157: cb.top^Yinport~0, type: io
+	
+Passed route at end.
+Complex block 158: cb.top^Uinport~0, type: io
+	
+Passed route at end.
+Complex block 159: cb.top^Xinport~7, type: io
+	
+Passed route at end.
+Complex block 160: cb.top^Xinport~3, type: io
+	
+Passed route at end.
+Complex block 161: cb.top^Yinport~30, type: io
+	
+Passed route at end.
+Complex block 162: cb.top^Yinport~28, type: io
+	
+Passed route at end.
+Complex block 163: cb.top^Xinport~14, type: io
+	
+Passed route at end.
+Complex block 164: cb.top^Yinport~27, type: io
+	
+Passed route at end.
+Complex block 165: cb.top^Yinport~25, type: io
+	
+Passed route at end.
+Complex block 166: cb.top^Xinport~28, type: io
+	
+Passed route at end.
+Complex block 167: cb.top^Xinport~27, type: io
+	
+Passed route at end.
+Complex block 168: cb.top^Xinport~13, type: io
+	
+Passed route at end.
+Complex block 169: cb.top^Yinport~24, type: io
+	
+Passed route at end.
+Complex block 170: cb.top^Yinport~21, type: io
+	
+Passed route at end.
+Complex block 171: cb.top^Yinport~20, type: io
+	
+Passed route at end.
+Complex block 172: cb.top^Xinport~25, type: io
+	
+Passed route at end.
+Complex block 173: cb.top^Yinport~19, type: io
+	
+Passed route at end.
+Complex block 174: cb.top^Yinport~17, type: io
+	
+Passed route at end.
+Complex block 175: cb.top^Yinport~15, type: io
+	
+Passed route at end.
+Complex block 176: cb.top^Xinport~24, type: io
+	
+Passed route at end.
+Complex block 177: cb.top^Xinport~12, type: io
+	
+Passed route at end.
+Complex block 178: cb.top^Yinport~14, type: io
+	
+Passed route at end.
+Complex block 179: cb.top^Uinport~29, type: io
+	
+Passed route at end.
+Complex block 180: cb.top^Uinport~27, type: io
+	
+Passed route at end.
+Complex block 181: cb.top^Yinport~13, type: io
+	
+Passed route at end.
+Complex block 182: cb.top^Uinport~25, type: io
+	
+Passed route at end.
+Complex block 183: cb.top^Xinport~21, type: io
+	
+Passed route at end.
+Complex block 184: cb.top^Uinport~24, type: io
+	
+Passed route at end.
+Complex block 185: cb.top^Yinport~12, type: io
+	
+Passed route at end.
+Complex block 186: cb.top^Yinport~10, type: io
+	
+Passed route at end.
+Complex block 187: cb.top^Uinport~21, type: io
+	
+Passed route at end.
+Complex block 188: cb.top^Uinport~19, type: io
+	
+Passed route at end.
+Complex block 189: cb.top^Yinport~9, type: io
+	
+Passed route at end.
+Complex block 190: cb.top^Xinport~10, type: io
+	
+Passed route at end.
+Complex block 191: cb.top^Xinport~9, type: io
+	
+Passed route at end.
+Complex block 192: cb.top^Uinport~17, type: io
+	
+Passed route at end.
+Complex block 193: cb.top^Xinport~19, type: io
+	
+Passed route at end.
+Complex block 194: cb.top^Uinport~16, type: io
+	
+Passed route at end.
+Complex block 195: cb.top^Xinport~20, type: io
+	
+Passed route at end.
+Complex block 196: cb.top^Uinport~14, type: io
+	
+Passed route at end.
+Complex block 197: cb.top^Uinport~13, type: io
+	
+Passed route at end.
+Complex block 198: cb.top^Uinport~12, type: io
+	
+Passed route at end.
+Complex block 199: cb.top^Uinport~11, type: io
+	
+Passed route at end.
+Complex block 200: cb.top^Uinport~10, type: io
+	
+Passed route at end.
+Complex block 201: cb.top^Uinport~8, type: io
+	
+Passed route at end.
+Complex block 202: cb.top^Xinport~17, type: io
+	
+Passed route at end.
+Complex block 203: cb.top^Yinport~31, type: io
+	
+Passed route at end.
+Complex block 204: cb.top^Xinport~31, type: io
+	
+Passed route at end.
+Complex block 205: cb.top^Xinport~15, type: io
+	
+Passed route at end.
+Complex block 206: cb.out:top^Uoutport~28, type: io
+	
+Passed route at end.
+Complex block 207: cb.out:top^Uoutport~27, type: io
+	
+Passed route at end.
+Complex block 208: cb.out:top^Uoutport~26, type: io
+	
+Passed route at end.
+Complex block 209: cb.out:top^Uoutport~25, type: io
+	
+Passed route at end.
+Complex block 210: cb.out:top^Uoutport~24, type: io
+	
+Passed route at end.
+Complex block 211: cb.out:top^Uoutport~23, type: io
+	
+Passed route at end.
+Complex block 212: cb.out:top^Uoutport~22, type: io
+	
+Passed route at end.
+Complex block 213: cb.out:top^Uoutport~21, type: io
+	
+Passed route at end.
+Complex block 214: cb.out:top^Uoutport~20, type: io
+	
+Passed route at end.
+Complex block 215: cb.out:top^Uoutport~19, type: io
+	
+Passed route at end.
+Complex block 216: cb.out:top^Uoutport~18, type: io
+	
+Passed route at end.
+Complex block 217: cb.out:top^Uoutport~17, type: io
+	
+Passed route at end.
+Complex block 218: cb.out:top^Uoutport~16, type: io
+	
+Passed route at end.
+Complex block 219: cb.out:top^Uoutport~15, type: io
+	
+Passed route at end.
+Complex block 220: cb.out:top^Uoutport~14, type: io
+	
+Passed route at end.
+Complex block 221: cb.out:top^Uoutport~13, type: io
+	
+Passed route at end.
+Complex block 222: cb.out:top^Uoutport~12, type: io
+	
+Passed route at end.
+Complex block 223: cb.out:top^Uoutport~11, type: io
+	
+Passed route at end.
+Complex block 224: cb.out:top^Uoutport~10, type: io
+	
+Passed route at end.
+Complex block 225: cb.out:top^Uoutport~9, type: io
+	
+Passed route at end.
+Complex block 226: cb.out:top^Uoutport~8, type: io
+	
+Passed route at end.
+Complex block 227: cb.out:top^Uoutport~7, type: io
+	
+Passed route at end.
+Complex block 228: cb.out:top^Uoutport~6, type: io
+	
+Passed route at end.
+Complex block 229: cb.out:top^Uoutport~5, type: io
+	
+Passed route at end.
+Complex block 230: cb.out:top^Uoutport~4, type: io
+	
+Passed route at end.
+Complex block 231: cb.out:top^Uoutport~3, type: io
+	
+Passed route at end.
+Complex block 232: cb.out:top^Uoutport~2, type: io
+	
+Passed route at end.
+Complex block 233: cb.out:top^Uoutport~1, type: io
+	
+Passed route at end.
+Complex block 234: cb.out:top^Youtport~31, type: io
+	
+Passed route at end.
+Complex block 235: cb.out:top^Uoutport~0, type: io
+	
+Passed route at end.
+Complex block 236: cb.out:top^Youtport~30, type: io
+	
+Passed route at end.
+Complex block 237: cb.out:top^Youtport~29, type: io
+	
+Passed route at end.
+Complex block 238: cb.out:top^Xoutport~29, type: io
+	
+Passed route at end.
+Complex block 239: cb.out:top^Youtport~28, type: io
+	
+Passed route at end.
+Complex block 240: cb.out:top^Youtport~27, type: io
+	
+Passed route at end.
+Complex block 241: cb.out:top^Youtport~26, type: io
+	
+Passed route at end.
+Complex block 242: cb.out:top^Youtport~25, type: io
+	
+Passed route at end.
+Complex block 243: cb.out:top^Youtport~24, type: io
+	
+Passed route at end.
+Complex block 244: cb.out:top^Youtport~23, type: io
+	
+Passed route at end.
+Complex block 245: cb.out:top^Youtport~22, type: io
+	
+Passed route at end.
+Complex block 246: cb.out:top^Youtport~21, type: io
+	
+Passed route at end.
+Complex block 247: cb.out:top^Youtport~20, type: io
+	
+Passed route at end.
+Complex block 248: cb.out:top^Youtport~19, type: io
+	
+Passed route at end.
+Complex block 249: cb.out:top^Youtport~18, type: io
+	
+Passed route at end.
+Complex block 250: cb.out:top^Youtport~17, type: io
+	
+Passed route at end.
+Complex block 251: cb.out:top^Youtport~16, type: io
+	
+Passed route at end.
+Complex block 252: cb.out:top^Youtport~15, type: io
+	
+Passed route at end.
+Complex block 253: cb.out:top^Youtport~14, type: io
+	
+Passed route at end.
+Complex block 254: cb.out:top^Youtport~13, type: io
+	
+Passed route at end.
+Complex block 255: cb.out:top^Youtport~12, type: io
+	
+Passed route at end.
+Complex block 256: cb.out:top^Youtport~11, type: io
+	
+Passed route at end.
+Complex block 257: cb.out:top^Youtport~10, type: io
+	
+Passed route at end.
+Complex block 258: cb.out:top^Youtport~9, type: io
+	
+Passed route at end.
+Complex block 259: cb.out:top^Youtport~8, type: io
+	
+Passed route at end.
+Complex block 260: cb.out:top^Youtport~7, type: io
+	
+Passed route at end.
+Complex block 261: cb.out:top^Youtport~6, type: io
+	
+Passed route at end.
+Complex block 262: cb.out:top^Youtport~5, type: io
+	
+Passed route at end.
+Complex block 263: cb.out:top^Youtport~4, type: io
+	
+Passed route at end.
+Complex block 264: cb.out:top^Youtport~3, type: io
+	
+Passed route at end.
+Complex block 265: cb.out:top^Youtport~2, type: io
+	
+Passed route at end.
+Complex block 266: cb.out:top^Youtport~1, type: io
+	
+Passed route at end.
+Complex block 267: cb.out:top^Youtport~0, type: io
+	
+Passed route at end.
+Complex block 268: cb.out:top^Xoutport~31, type: io
+	
+Passed route at end.
+Complex block 269: cb.out:top^Xoutport~30, type: io
+	
+Passed route at end.
+Complex block 270: cb.out:top^Xoutport~28, type: io
+	
+Passed route at end.
+Complex block 271: cb.out:top^Xoutport~27, type: io
+	
+Passed route at end.
+Complex block 272: cb.out:top^Xoutport~26, type: io
+	
+Passed route at end.
+Complex block 273: cb.out:top^Xoutport~25, type: io
+	
+Passed route at end.
+Complex block 274: cb.out:top^Xoutport~24, type: io
+	
+Passed route at end.
+Complex block 275: cb.out:top^Xoutport~23, type: io
+	
+Passed route at end.
+Complex block 276: cb.out:top^Xoutport~22, type: io
+	
+Passed route at end.
+Complex block 277: cb.out:top^Xoutport~21, type: io
+	
+Passed route at end.
+Complex block 278: cb.out:top^Xoutport~20, type: io
+	
+Passed route at end.
+Complex block 279: cb.out:top^Xoutport~19, type: io
+	
+Passed route at end.
+Complex block 280: cb.out:top^Xoutport~18, type: io
+	
+Passed route at end.
+Complex block 281: cb.out:top^Xoutport~17, type: io
+	
+Passed route at end.
+Complex block 282: cb.out:top^Xoutport~16, type: io
+	
+Passed route at end.
+Complex block 283: cb.out:top^Xoutport~15, type: io
+	
+Passed route at end.
+Complex block 284: cb.out:top^Xoutport~14, type: io
+	
+Passed route at end.
+Complex block 285: cb.out:top^Xoutport~13, type: io
+	
+Passed route at end.
+Complex block 286: cb.out:top^Xoutport~12, type: io
+	
+Passed route at end.
+Complex block 287: cb.out:top^Xoutport~11, type: io
+	
+Passed route at end.
+Complex block 288: cb.out:top^Xoutport~10, type: io
+	
+Passed route at end.
+Complex block 289: cb.out:top^Xoutport~9, type: io
+	
+Passed route at end.
+Complex block 290: cb.out:top^Xoutport~8, type: io
+	
+Passed route at end.
+Complex block 291: cb.out:top^Xoutport~7, type: io
+	
+Passed route at end.
+Complex block 292: cb.out:top^Xoutport~6, type: io
+	
+Passed route at end.
+Complex block 293: cb.out:top^Xoutport~5, type: io
+	
+Passed route at end.
+Complex block 294: cb.out:top^Xoutport~4, type: io
+	
+Passed route at end.
+Complex block 295: cb.out:top^Xoutport~3, type: io
+	
+Passed route at end.
+Complex block 296: cb.out:top^Xoutport~2, type: io
+	
+Passed route at end.
+Complex block 297: cb.out:top^Xoutport~1, type: io
+	
+Passed route at end.
+Complex block 298: cb.out:top^Uoutport~31, type: io
+	
+Passed route at end.
+Complex block 299: cb.out:top^Uoutport~30, type: io
+	
+Passed route at end.
+Complex block 300: cb.out:top^Uoutport~29, type: io
+	
+Passed route at end.
+Complex block 301: cb.out:top^Xoutport~0, type: io
+	
+Passed route at end.
+Complex block 302: cb.vcc, type: clb
+	
+Passed route at end.
+Complex block 303: cb.top^clk, type: io
+	
+Passed route at end.
+	<EMPTY>: # blocks: 0, average # input + clock pins used: 0, average # output pins used: 0
+	io: # blocks: 258, average # input + clock pins used: 0.372093, average # output pins used: 0.627907
+	clb: # blocks: 41, average # input + clock pins used: 17.561, average # output pins used: 8.2439
+	mult_36: # blocks: 5, average # input + clock pins used: 52.8, average # output pins used: 32.8
+	memory: # blocks: 0, average # input + clock pins used: 0, average # output pins used: 0
+Absorbed logical nets 343 out of 1007 nets, 664 nets not absorbed.
+
+Netlist conversion complete.
+
+Packing took 0.57 seconds.
+Packing completed.
+Begin parsing packed FPGA netlist file.
+Finished parsing packed FPGA netlist file.
+Netlist generated from file 'diffeq1.net'.
+vcc is a constant generator.
+WARNING(4): Logic block #302 (vcc) has only 1 pin.
+Pin is an output -- may be a constant generator.
+	Non-fatal, but check this.
+
+Netlist num_nets: 664
+Netlist num_blocks: 304
+Netlist <EMPTY> blocks: 0.
+Netlist clb blocks: 41.
+Netlist mult_36 blocks: 5.
+Netlist memory blocks: 0.
+Netlist inputs pins: 162
+Netlist output pins: 96
+
+Auto-sizing FPGA at x = 17 y = 17
+Auto-sizing FPGA at x = 9 y = 9
+Auto-sizing FPGA at x = 13 y = 13
+Auto-sizing FPGA at x = 15 y = 15
+Auto-sizing FPGA at x = 14 y = 14
+Auto-sizing FPGA at x = 13 y = 13
+FPGA auto-sized to x = 14 y = 14
+The circuit will be mapped into a 14 x 14 array of clbs.
+
+Resource usage...
+	Netlist      0	blocks of type: <EMPTY>
+	Architecture 12	blocks of type: <EMPTY>
+	Netlist      258	blocks of type: io
+	Architecture 448	blocks of type: io
+	Netlist      41	blocks of type: clb
+	Architecture 140	blocks of type: clb
+	Netlist      5	blocks of type: mult_36
+	Architecture 6	blocks of type: mult_36
+	Netlist      0	blocks of type: memory
+	Architecture 4	blocks of type: memory
+
+Computing delta_io_to_io lookup matrix, may take a few seconds, please wait...
+Computing delta_io_to_clb lookup matrix, may take a few seconds, please wait...
+Computing delta_clb_to_io lookup matrix, may take a few seconds, please wait...
+Computing delta_clb_to_clb lookup matrix, may take a few seconds, please wait...
+
+There are 1041 point to point connections in this circuit.
+
+Initial placement cost: 1 bb_cost: 93.7644 td_cost: 2.15081e-07 delay_cost: 5.2241e-07
+
+--------- --------- ----------- ----------- ----------- ----------- -------- -------- ------- ------- ------- --------- -------
+        T      Cost  Av BB Cost  Av TD Cost  Av Tot Del  P to P Del    d_max  Ac Rate Std Dev R limit     Exp Tot Moves   Alpha
+--------- --------- ----------- ----------- ----------- ----------- -------- -------- ------- ------- ------- --------- -------
+100.00000   0.99507     94.3967  2.2582e-07 5.23868e-07 5.01835e-10  24.8940   1.0000  0.0316 15.0000  1.0000    204369  0.6539
+ 65.39465     0.976     94.2899 2.25686e-07 5.23201e-07 5.12042e-10  25.3252   1.0000  0.0323 15.0000  1.0000    408738  0.6539
+ 42.76460   0.99836     94.5521 2.27642e-07 5.24248e-07 5.04235e-10  25.1395   1.0000  0.0324 15.0000  1.0000    613107  0.6539
+ 27.96576    1.0119     94.1099 2.21707e-07 5.22889e-07  4.8786e-10  26.1133   1.0000  0.0326 15.0000  1.0000    817476  0.6539
+ 18.28811    1.0215     94.3076 2.26801e-07 5.22907e-07 4.88357e-10  24.9662   1.0000  0.0337 15.0000  1.0000   1021845  0.6539
+ 11.95944    1.0087     94.4263 2.26679e-07 5.23517e-07  4.9602e-10  25.1361   0.9999  0.0323 15.0000  1.0000   1226214  0.6539
+  7.82084    1.0112     94.0771 2.25505e-07  5.2225e-07 4.90604e-10  24.4681   0.9999  0.0344 15.0000  1.0000   1430583  0.6539
+  5.11441   0.99599     94.2319 2.24816e-07  5.2374e-07 5.07213e-10  25.9426   0.9998  0.0327 15.0000  1.0000   1634952  0.6539
+  3.34455   0.96767     94.2585 2.27229e-07 5.22971e-07 5.10302e-10  24.0803   0.9998  0.0306 15.0000  1.0000   1839321  0.6539
+  2.18716   0.96742     94.1027 2.27985e-07 5.22656e-07 5.16025e-10  25.4288   0.9997  0.0311 15.0000  1.0000   2043690  0.6539
+  1.43028   0.96701     94.2496 2.24192e-07 5.22956e-07 5.11122e-10  25.9073   0.9995  0.0324 15.0000  1.0000   2248059  0.6539
+  0.93533   0.99675     94.0506 2.25541e-07 5.22853e-07 5.00181e-10  25.1377   0.9994  0.0323 15.0000  1.0000   2452428  0.6539
+  0.61165   0.98407     94.0219 2.25595e-07 5.22772e-07 5.08222e-10  24.6574   0.9991  0.0322 15.0000  1.0000   2656797  0.6539
+  0.39999   0.99237      93.969 2.22668e-07 5.22298e-07 5.05164e-10  24.7731   0.9986  0.0315 15.0000  1.0000   2861166  0.6539
+  0.26157   0.97714     93.6977 2.22466e-07 5.21117e-07 5.10339e-10  26.0939   0.9975  0.0315 15.0000  1.0000   3065535  0.6539
+  0.17105   0.99392     93.3898  2.2568e-07 5.20041e-07 4.98212e-10  24.8189   0.9965  0.0324 15.0000  1.0000   3269904  0.6539
+  0.11186    1.0051     93.3604 2.20569e-07 5.19446e-07 4.97844e-10  25.4800   0.9948  0.0329 15.0000  1.0000   3474273  0.6539
+  0.07315   0.98164     93.2442 2.24978e-07 5.19497e-07 5.09169e-10  25.3453   0.9918  0.0305 15.0000  1.0000   3678642  0.6539
+  0.04784    1.0041     92.2252 2.20913e-07 5.15263e-07 4.97057e-10  24.7028   0.9870  0.0321 15.0000  1.0000   3883011  0.6539
+  0.03128   0.97268     91.2948 2.19108e-07 5.11875e-07 5.03668e-10  24.8131   0.9811  0.0303 15.0000  1.0000   4087380  0.6539
+  0.02046    1.0226      89.372 2.14536e-07 5.05432e-07 4.76014e-10  24.3991   0.9690  0.0319 15.0000  1.0000   4291749  0.6539
+  0.01338   0.99764     87.9497 2.11602e-07 4.99513e-07 4.86659e-10  24.4600   0.9562  0.0277 15.0000  1.0000   4496118  0.6539
+  0.00000   0.73554      60.735 1.58229e-07 3.75242e-07 4.90156e-10            0.0149  0.0871 15.0000  1.0000   4700487
+
+BB estimate of min-dist (placement) wirelength: 5431
+bb_cost recomputed from scratch: 54.3144
+timing_cost recomputed from scratch: 1.453e-07
+delay_cost recomputed from scratch: 3.44677e-07
+
+Completed placement consistency check successfully.
+
+Swaps called: 4700487
+
+Placement estimated critical path delay: 21.1822 ns
+Placement cost: 0.672497, bb_cost: 54.3146, td_cost: 1.453e-07, delay_cost: 3.44676e-07
+Placement total # of swap attempts: 4700487
+	Swap reject rate: 0
+	Swap accept rate: 0
+	Swap abort rate: 0
+Placement took 5.56 seconds.
+Using low: -1, high: -1, current: 162
+Build rr_graph took 0.48 seconds.
+Confirming Router Algorithm: TIMING_DRIVEN.
+
+Routing iteration: 1
+Wire length after first iteration 8395, total available wire length 68040, ratio 0.123383
+Critical path: 23.4499 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 2
+Successfully routed after 2 routing iterations.
+Completed net delay value cross check successfully.
+Using low: -1, high: 162, current: 82
+Build rr_graph took 0.14 seconds.
+Confirming Router Algorithm: TIMING_DRIVEN.
+
+Routing iteration: 1
+Wire length after first iteration 8652, total available wire length 34440, ratio 0.25122
+Critical path: 23.5309 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 2
+Critical path: 23.7407 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 3
+Successfully routed after 3 routing iterations.
+Completed net delay value cross check successfully.
+Using low: -1, high: 82, current: 42
+Build rr_graph took 0.04 seconds.
+Confirming Router Algorithm: TIMING_DRIVEN.
+
+Routing iteration: 1
+Wire length after first iteration 9154, total available wire length 17640, ratio 0.518934
+Critical path: 23.6357 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 2
+Critical path: 27.0397 ns
+Routing iteration took 0.11 seconds.
+
+Routing iteration: 3
+Critical path: 28.9073 ns
+Routing iteration took 0.07 seconds.
+
+Routing iteration: 4
+Critical path: 30.0109 ns
+Routing iteration took 0.09 seconds.
+
+Routing iteration: 5
+Critical path: 29.9906 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 6
+Critical path: 29.8506 ns
+Routing iteration took 0.07 seconds.
+
+Routing iteration: 7
+Critical path: 29.055 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 8
+Critical path: 28.6515 ns
+Routing iteration took 0.08 seconds.
+
+Routing iteration: 9
+Critical path: 29.0865 ns
+Routing iteration took 0.09 seconds.
+
+Routing iteration: 10
+Critical path: 27.5222 ns
+Routing iteration took 0.08 seconds.
+
+Routing iteration: 11
+Critical path: 30.7431 ns
+Routing iteration took 0.07 seconds.
+
+Routing iteration: 12
+Critical path: 30.1138 ns
+Routing iteration took 0.09 seconds.
+
+Routing iteration: 13
+Critical path: 30.6956 ns
+Routing iteration took 0.08 seconds.
+
+Routing iteration: 14
+Critical path: 31.7771 ns
+Routing iteration took 0.07 seconds.
+
+Routing iteration: 15
+Critical path: 30.2722 ns
+Routing iteration took 0.07 seconds.
+
+Routing iteration: 16
+Critical path: 30.703 ns
+Routing iteration took 0.07 seconds.
+
+Routing iteration: 17
+Critical path: 30.9549 ns
+Routing iteration took 0.07 seconds.
+
+Routing iteration: 18
+Critical path: 29.2217 ns
+Routing iteration took 0.07 seconds.
+
+Routing iteration: 19
+Critical path: 30.3852 ns
+Routing iteration took 0.08 seconds.
+
+Routing iteration: 20
+Critical path: 29.6725 ns
+Routing iteration took 0.08 seconds.
+
+Routing iteration: 21
+Critical path: 29.4502 ns
+Routing iteration took 0.08 seconds.
+
+Routing iteration: 22
+Critical path: 29.8656 ns
+Routing iteration took 0.08 seconds.
+
+Routing iteration: 23
+Critical path: 29.9317 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 24
+Critical path: 29.0395 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 25
+Critical path: 27.7675 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 26
+Critical path: 30.117 ns
+Routing iteration took 0.07 seconds.
+
+Routing iteration: 27
+Critical path: 28.1449 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 28
+Critical path: 29.0256 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 29
+Critical path: 29.7696 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 30
+Critical path: 29.3817 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 31
+Critical path: 28.7732 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 32
+Critical path: 29.4898 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 33
+Critical path: 29.8673 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 34
+Critical path: 28.2455 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 35
+Critical path: 29.2782 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 36
+Critical path: 31.0053 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 37
+Critical path: 28.8194 ns
+Routing iteration took 0.07 seconds.
+
+Routing iteration: 38
+Critical path: 29.2954 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 39
+Critical path: 29.2022 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 40
+Critical path: 29.4162 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 41
+Critical path: 28.7338 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 42
+Critical path: 28.7438 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 43
+Critical path: 29.6494 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 44
+Critical path: 29.5293 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 45
+Critical path: 28.5375 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 46
+Critical path: 28.0107 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 47
+Critical path: 29.467 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 48
+Critical path: 30.2255 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 49
+Critical path: 29.5142 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 50
+Critical path: 29.864 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 51
+Critical path: 29.9729 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 52
+Critical path: 28.9391 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 53
+Critical path: 28.9391 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 54
+Critical path: 31.413 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 55
+Critical path: 29.3883 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 56
+Critical path: 29.9164 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 57
+Critical path: 29.4513 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 58
+Critical path: 29.4737 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 59
+Critical path: 29.4938 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 60
+Critical path: 30.3308 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 61
+Critical path: 30.4691 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 62
+Critical path: 30.0021 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 63
+Critical path: 29.8387 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 64
+Critical path: 30.4857 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 65
+Critical path: 29.9742 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 66
+Critical path: 30.5502 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 67
+Critical path: 30.026 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 68
+Critical path: 29.8702 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 69
+Critical path: 30.148 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 70
+Critical path: 30.5381 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 71
+Critical path: 32.1157 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 72
+Critical path: 31.6255 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 73
+Critical path: 30.7934 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 74
+Critical path: 32.1442 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 75
+Critical path: 31.3609 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 76
+Critical path: 32.3713 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 77
+Critical path: 31.7913 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 78
+Critical path: 31.0037 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 79
+Critical path: 31.7129 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 80
+Critical path: 31.0858 ns
+Routing iteration took 0.05 seconds.
+Routing failed.
+Using low: 42, high: 82, current: 62
+Build rr_graph took 0.07 seconds.
+Confirming Router Algorithm: TIMING_DRIVEN.
+
+Routing iteration: 1
+Wire length after first iteration 8977, total available wire length 26040, ratio 0.344739
+Critical path: 23.9873 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 2
+Critical path: 24.1984 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 3
+Critical path: 24.139 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 4
+Critical path: 24.0008 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 5
+Critical path: 23.957 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 6
+Critical path: 24.0007 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 7
+Critical path: 23.8416 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 8
+Critical path: 23.7098 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 9
+Successfully routed after 9 routing iterations.
+Completed net delay value cross check successfully.
+Using low: 42, high: 62, current: 52
+Build rr_graph took 0.06 seconds.
+Confirming Router Algorithm: TIMING_DRIVEN.
+
+Routing iteration: 1
+Wire length after first iteration 8842, total available wire length 21840, ratio 0.404853
+Critical path: 23.6357 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 2
+Critical path: 25.6979 ns
+Routing iteration took 0.09 seconds.
+
+Routing iteration: 3
+Critical path: 25.5025 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 4
+Critical path: 24.9972 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 5
+Critical path: 25.4412 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 6
+Critical path: 25.2457 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 7
+Critical path: 25.2457 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 8
+Critical path: 25.1102 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 9
+Critical path: 24.7036 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 10
+Critical path: 24.5624 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 11
+Critical path: 24.4693 ns
+Routing iteration took 0.01 seconds.
+
+Routing iteration: 12
+Critical path: 24.4693 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 13
+Critical path: 24.4919 ns
+Routing iteration took 0.01 seconds.
+
+Routing iteration: 14
+Critical path: 24.4919 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 15
+Critical path: 24.4919 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 16
+Critical path: 24.4919 ns
+Routing iteration took 0.01 seconds.
+
+Routing iteration: 17
+Critical path: 24.4919 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 18
+Critical path: 24.4919 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 19
+Critical path: 24.4693 ns
+Routing iteration took 0.01 seconds.
+
+Routing iteration: 20
+Critical path: 24.4693 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 21
+Critical path: 24.4693 ns
+Routing iteration took 0.01 seconds.
+
+Routing iteration: 22
+Critical path: 24.4693 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 23
+Critical path: 24.4693 ns
+Routing iteration took 0.01 seconds.
+
+Routing iteration: 24
+Critical path: 24.4693 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 25
+Critical path: 24.4693 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 26
+Critical path: 24.4693 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 27
+Successfully routed after 27 routing iterations.
+Completed net delay value cross check successfully.
+Using low: 42, high: 52, current: 48
+Build rr_graph took 0.04 seconds.
+Confirming Router Algorithm: TIMING_DRIVEN.
+
+Routing iteration: 1
+Wire length after first iteration 9133, total available wire length 20160, ratio 0.453026
+Critical path: 23.6055 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 2
+Critical path: 26.3132 ns
+Routing iteration took 0.1 seconds.
+
+Routing iteration: 3
+Critical path: 26.1342 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 4
+Critical path: 26.9922 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 5
+Critical path: 26.4701 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 6
+Critical path: 26.4892 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 7
+Critical path: 26.2944 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 8
+Critical path: 26.4655 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 9
+Critical path: 25.8561 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 10
+Critical path: 25.8335 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 11
+Critical path: 25.5325 ns
+Routing iteration took 0.06 seconds.
+
+Routing iteration: 12
+Critical path: 25.5551 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 13
+Critical path: 25.5551 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 14
+Critical path: 25.1082 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 15
+Critical path: 24.9727 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 16
+Critical path: 24.9727 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 17
+Critical path: 24.8214 ns
+Routing iteration took 0.02 seconds.
+
+Routing iteration: 18
+Critical path: 24.8327 ns
+Routing iteration took 0.05 seconds.
+
+Routing iteration: 19

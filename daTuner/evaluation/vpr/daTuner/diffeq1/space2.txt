@@ -1,0 +1,23 @@
+resyn EnumParameter off 0  0 2 on off
+resyn2 EnumParameter off 0  0 2 on off
+resyn3 EnumParameter off 0  0 2 on off
+alpha_clustering FloatParameter 0.75 0  1 0
+beta_clustering FloatParameter 0.9 0  1 0
+allow_unrelated_clustering EnumParameter on 0  0 2 on off
+connection_driven_clustering EnumParameter on 0  0 2 on off
+alpha_t FloatParameter 0.8 0.5  0.9 0
+seed EnumParameter 1 0  0 5 1 2 3 4 5
+inner_num EnumParameter 10 0  0 3 1 10 100
+timing_tradeoff FloatParameter 0.5 0.3  0.7 0
+inner_loop_recompute_divider EnumParameter 0 0  0 3 1 0 5
+td_place_exp_first EnumParameter 1 0  0 3 1 0 3
+td_place_exp_last EnumParameter 8 0  0 3 5 8 10
+max_router_iterations EnumParameter 50 0  0 3 20 50 80
+initial_pres_fac FloatParameter 0.5 0.3  100 0
+pres_fac_mult FloatParameter 1.3 1.2  2 0
+acc_fac FloatParameter 1 1  2 0
+bb_factor EnumParameter 3 0  0 3 1 3 5
+base_cost_type EnumParameter delay_normalized 0  0 2 demand_only delay_normalized
+astar_fac FloatParameter 1.2 1  2 0
+max_criticality FloatParameter 0.99 0.8  1 0
+criticality_exp FloatParameter 1 0.8  1 0

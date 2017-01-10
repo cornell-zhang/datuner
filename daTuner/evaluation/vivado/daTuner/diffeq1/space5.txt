@@ -1,0 +1,10 @@
+Optdirective EnumParameter Default 0  0 5 Explore ExploreSequentialArea AddRemap ExploreArea Default
+Placedirective EnumParameter Default 0  0 14 Explore ExtraNetDelay_high ExtraNetDelay_medium ExtraNetDelay_low ExtraPostPlacementOpt WLDrivenBlockPlacement LateBlockPlacement SSI_SpreadLogic_high SSI_SpreadLogic_low ExtraTimingOpt AltSpreadLogic_low AltSpreadLogic_medium AltSpreadLogic_high Default
+fanout_opt EnumParameter on 0  0 2 on off
+placement_opt EnumParameter on 0  0 2 on off
+critical_cell_opt EnumParameter on 0  0 2 on off
+critical_pin_opt EnumParameter on 0  0 2 on off
+retime EnumParameter on 0  0 2 on off
+rewire EnumParameter on 0  0 2 on off
+Routedirective EnumParameter Default 0  0 3 Explore HigherDelayCost Default
+Timingcst FloatParameter 20.000000 19.7  20 0

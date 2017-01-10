@@ -1,0 +1,31 @@
+#-----------------------------------------------------------
+# Vivado v2015.4.2 (64-bit)
+# SW Build 1494164 on Fri Feb 26 04:18:54 MST 2016
+# IP Build 1491208 on Wed Feb 24 03:25:39 MST 2016
+# Start of session at: Mon Jan  9 23:55:16 2017
+# Process ID: 7528
+# Current directory: /home/xuchang/nas/project/daTuner/evaluation/vivado/daTuner/diffeq1
+# Command line: vivado -mode batch -source /home/xuchang/nas/project/daTuner/evaluation/vivado//daTuner/diffeq1/rank6//run_vivado.tcl
+# Log file: /home/xuchang/nas/project/daTuner/evaluation/vivado/daTuner/diffeq1/vivado.log
+# Journal file: /home/xuchang/nas/project/daTuner/evaluation/vivado/daTuner/diffeq1/vivado.jou
+#-----------------------------------------------------------
+source /home/xuchang/nas/project/daTuner/evaluation/vivado//daTuner/diffeq1/rank6//run_vivado.tcl
+# set design diffeq1
+# set type daTuner
+# set path /home/xuchang/nas/project/daTuner/evaluation/vivado//daTuner/diffeq1
+# set srcdir /home/xuchang/nas/project/daTuner/evaluation/vivado_design//$design/
+# set rank 6
+# set workdir $path/rank$rank/
+# set outputDir $workdir/output
+# file delete -force $outputDir
+# file mkdir $outputDir
+# read_xdc $workdir/design.xdc
+WARNING: [Labtools 27-1428] Failed writing XML file '/home/xuchang/nas/project/daTuner/evaluation/vivado/daTuner/diffeq1/.Xil/Vivado-7528-ceca14/.lpr'
+Resolution: Check the file and directory permissions to ensure the file can be written to the specified path.
+# read_verilog $srcdir/$design.v
+# synth_design
+Command: synth_design
+0 Infos, 0 Warnings, 0 Critical Warnings and 1 Errors encountered.
+synth_design failed
+ERROR: [Common 17-1294] Unable to create directory [./.Xil/Vivado-7528-ceca14/wt].
+INFO: [Common 17-206] Exiting Vivado at Mon Jan  9 23:55:30 2017...

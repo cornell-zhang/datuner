@@ -1,0 +1,1144 @@
+
+/home/xuchang/nas/project/daTuner/experiment/vtr_release/vtr_flow/../vpr/vpr k6_frac_N10_mem32K_40nm.xml diffeq1 --blif_file diffeq1.pre-vpr.blif --timing_analysis on --timing_driven_clustering on --cluster_seed_type timing --sdc_file  --alpha_clustering 0.802320049601 --beta_clustering 0.00275640132163 --allow_unrelated_clustering off --connection_driven_clustering off --alpha_t 0.893256709669 --seed 4 --inner_num 100 --timing_tradeoff 0.612864810635 --inner_loop_recompute_divider 1 --td_place_exp_first 1 --td_place_exp_last 8 --max_router_iterations 50 --initial_pres_fac 45.9140330729 --pres_fac_mult 1.42603869362 --acc_fac 1.35913337927 --bb_factor 5 --base_cost_type demand_only --astar_fac 1.48117753516 --max_criticality 0.894729300165 --criticality_exp 0.924636810333 --nodisp
+
+VPR FPGA Placement and Routing.
+Version: Version 7.0
+Compiled: Nov  7 2016.
+University of Toronto
+vpr@eecg.utoronto.ca
+This is free open source code under MIT license.
+
+Architecture file: k6_frac_N10_mem32K_40nm.xml
+Circuit name: diffeq1.blif
+
+Building complex block graph.
+WARNING(1): io[0].clock[0] unconnected pin in architecture.
+Loop for doall = 0, init_parse took 0 seconds.
+Loop for doall = 0 took 0.01 seconds.
+Loop for doall = 1, init_parse took 0.01 seconds.
+Loop for doall = 1 took 0.01 seconds.
+Swept away 196 nets with no fanout.
+Net is a constant generator: vcc.
+WARNING(2): logical_block #456 with output vcc has only 0 pin.
+WARNING(3): Block contains output -- may be a constant generator.
+0 unconnected blocks in input netlist.
+Removed 96 LUT buffers.
+Sweeped away 96 nodes.
+BLIF circuit stats:
+	1 LUTs of size 0
+	0 LUTs of size 1
+	43 LUTs of size 2
+	32 LUTs of size 3
+	137 LUTs of size 4
+	148 LUTs of size 5
+	124 LUTs of size 6
+	162 of type input
+	96 of type output
+	193 of type latch
+	485 of type names
+	0 of type dual_port_ram
+	0 of type single_port_ram
+	5 of type multiply
+Timing analysis: ON
+Circuit netlist file: diffeq1.net
+Circuit placement file: diffeq1.place
+Circuit routing file: diffeq1.route
+Circuit SDC file: 
+Operation: RUN_FLOW
+
+Packer: ENABLED
+Placer: ENABLED
+Router: ENABLED
+PackerOpts.allow_early_exit: FALSE
+PackerOpts.allow_unrelated_clustering: FALSE
+PackerOpts.alpha_clustering: 0.802320
+PackerOpts.aspect: 1.000000
+PackerOpts.beta_clustering: 0.002756
+PackerOpts.block_delay: 0.000000
+PackerOpts.cluster_seed_type: TIMING
+PackerOpts.connection_driven: FALSE
+PackerOpts.global_clocks: TRUE
+PackerOpts.hill_climbing_flag: FALSE
+PackerOpts.inter_cluster_net_delay: 1.000000
+PackerOpts.intra_cluster_net_delay: 0.000000
+PackerOpts.recompute_timing_after: 32767
+PackerOpts.sweep_hanging_nets_and_inputs: TRUE
+PackerOpts.timing_driven: TRUE
+
+PlacerOpts.place_freq: PLACE_ONCE
+PlacerOpts.place_algorithm: PATH_TIMING_DRIVEN_PLACE
+PlacerOpts.pad_loc_type: FREE
+PlacerOpts.place_cost_exp: 1.000000
+PlacerOpts.inner_loop_recompute_divider: 1
+PlacerOpts.recompute_crit_iter: 1
+PlacerOpts.timing_tradeoff: 0.612865
+PlacerOpts.td_place_exp_first: 1.000000
+PlacerOpts.td_place_exp_last: 8.000000
+PlaceOpts.seed: 4
+AnnealSched.type: USER_SCHED
+AnnealSched.inner_num: 100.000000
+AnnealSched.init_t: 100.000000
+AnnealSched.alpha_t: 0.893257
+AnnealSched.exit_t: 0.010000
+
+RouterOpts.route_type: DETAILED
+RouterOpts.router_algorithm: TIMING_DRIVEN
+RouterOpts.base_cost_type: DEMAND_ONLY
+RouterOpts.fixed_channel_width: NO_FIXED_CHANNEL_WIDTH
+RouterOpts.acc_fac: 1.359133
+RouterOpts.bb_factor: 5
+RouterOpts.bend_cost: 0.000000
+RouterOpts.first_iter_pres_fac: 0.500000
+RouterOpts.initial_pres_fac: 45.914032
+RouterOpts.pres_fac_mult: 1.426039
+RouterOpts.max_router_iterations: 50
+RouterOpts.astar_fac: 1.481178
+RouterOpts.criticality_exp: 0.924637
+RouterOpts.max_criticality: 0.894729
+
+RoutingArch.directionality: UNI_DIRECTIONAL
+RoutingArch.switch_block_type: WILTON
+RoutingArch.Fs: 3
+
+Initialize packing.
+Begin packing 'diffeq1.pre-vpr.blif'.
+
+After removing unused inputs...
+	total blocks: 941, total nets: 1004, total inputs: 162, total outputs: 96
+Begin prepacking.
+Finish prepacking.
+Using inter-cluster delay: 1.33777e-09
+
+SDC file '' blank or not found.
+
+Defaulting to: constrain all 0 inputs and 0 outputs on the netlist clock.
+Optimize this clock to run as fast as possible.
+Not enough resources expand FPGA size to x = 2 y = 2.
+Complex block 0: cb.n1416, type: clb
+	...........................................................
+Passed route at end.
+Complex block 1: cb.n1702_1, type: clb
+	........................................
+Passed route at end.
+Not enough resources expand FPGA size to x = 3 y = 3.
+Complex block 2: cb.n1692_1, type: clb
+	........................................
+Passed route at end.
+Complex block 3: cb.n1406, type: clb
+	.......................................
+Passed route at end.
+Complex block 4: cb.n1681_1, type: clb
+	........................................
+Passed route at end.
+Complex block 5: cb.n1662_1, type: clb
+	............................
+Passed route at end.
+Not enough resources expand FPGA size to x = 4 y = 4.
+Complex block 6: cb.n1622_1, type: clb
+	........................................
+Passed route at end.
+Complex block 7: cb.n1595, type: clb
+	....................
+Passed route at end.
+Complex block 8: cb.n1706_1, type: clb
+	.......................................
+Passed route at end.
+Complex block 9: cb.n1665, type: clb
+	.......................................
+Passed route at end.
+Complex block 10: cb.n1632_1, type: clb
+	.....................................................
+Passed route at end.
+Complex block 11: cb.n1585, type: clb
+	..........
+Passed route at end.
+Not enough resources expand FPGA size to x = 5 y = 5.
+Not enough resources expand FPGA size to x = 6 y = 6.
+Complex block 12: cb.top^MULTIPLY~43[0], type: mult_36
+	
+Passed route at end.
+Not enough resources expand FPGA size to x = 7 y = 7.
+Not enough resources expand FPGA size to x = 8 y = 8.
+Complex block 13: cb.top^MULTIPLY~0[0], type: mult_36
+	
+Passed route at end.
+Complex block 14: cb.n1336, type: clb
+	........................................
+Passed route at end.
+Not enough resources expand FPGA size to x = 9 y = 9.
+Not enough resources expand FPGA size to x = 10 y = 10.
+Not enough resources expand FPGA size to x = 11 y = 11.
+Not enough resources expand FPGA size to x = 12 y = 12.
+Complex block 15: cb.top^MULTIPLY~42[0], type: mult_36
+	
+Passed route at end.
+Complex block 16: cb.n1569, type: clb
+	...........................................
+Passed route at end.
+Complex block 17: cb.top^DXport~2, type: io
+	
+Passed route at end.
+Complex block 18: cb.top^DXport~5, type: io
+	
+Passed route at end.
+Complex block 19: cb.top^DXport~31, type: io
+	
+Passed route at end.
+Complex block 20: cb.top^DXport~23, type: io
+	
+Passed route at end.
+Complex block 21: cb.top^DXport~18, type: io
+	
+Passed route at end.
+Complex block 22: cb.top^DXport~9, type: io
+	
+Passed route at end.
+Complex block 23: cb.top^DXport~11, type: io
+	
+Passed route at end.
+Complex block 24: cb.top^DXport~22, type: io
+	
+Passed route at end.
+Complex block 25: cb.top^DXport~30, type: io
+	
+Passed route at end.
+Complex block 26: cb.top^DXport~17, type: io
+	
+Passed route at end.
+Complex block 27: cb.top^DXport~24, type: io
+	
+Passed route at end.
+Complex block 28: cb.top^DXport~1, type: io
+	
+Passed route at end.
+Complex block 29: cb.top^DXport~16, type: io
+	
+Passed route at end.
+Complex block 30: cb.top^DXport~3, type: io
+	
+Passed route at end.
+Complex block 31: cb.top^DXport~4, type: io
+	
+Passed route at end.
+Complex block 32: cb.top^DXport~26, type: io
+	
+Passed route at end.
+Complex block 33: cb.top^DXport~13, type: io
+	
+Passed route at end.
+Complex block 34: cb.top^DXport~21, type: io
+	
+Passed route at end.
+Complex block 35: cb.top^DXport~20, type: io
+	
+Passed route at end.
+Complex block 36: cb.top^DXport~14, type: io
+	
+Passed route at end.
+Complex block 37: cb.top^DXport~19, type: io
+	
+Passed route at end.
+Complex block 38: cb.top^DXport~7, type: io
+	
+Passed route at end.
+Complex block 39: cb.top^DXport~25, type: io
+	
+Passed route at end.
+Complex block 40: cb.top^DXport~29, type: io
+	
+Passed route at end.
+Complex block 41: cb.top^DXport~12, type: io
+	
+Passed route at end.
+Complex block 42: cb.top^DXport~27, type: io
+	
+Passed route at end.
+Complex block 43: cb.top^DXport~10, type: io
+	
+Passed route at end.
+Complex block 44: cb.top^DXport~8, type: io
+	
+Passed route at end.
+Complex block 45: cb.top^DXport~6, type: io
+	
+Passed route at end.
+Complex block 46: cb.top^DXport~0, type: io
+	
+Passed route at end.
+Complex block 47: cb.top^DXport~15, type: io
+	
+Passed route at end.
+Complex block 48: cb.top^DXport~28, type: io
+	
+Passed route at end.
+Not enough resources expand FPGA size to x = 13 y = 13.
+Not enough resources expand FPGA size to x = 14 y = 14.
+Complex block 49: cb.top^MULTIPLY~46[0], type: mult_36
+	
+Passed route at end.
+Complex block 50: cb.top^MULTIPLY~45[0], type: mult_36
+	
+Passed route at end.
+Complex block 51: cb.n1654, type: clb
+	......................................
+Passed route at end.
+Complex block 52: cb.n1611, type: clb
+	........................................................
+Passed route at end.
+Complex block 53: cb.n1631, type: clb
+	...............................................
+Passed route at end.
+Complex block 54: cb.n1636, type: clb
+	........................................
+Passed route at end.
+Complex block 55: cb.n1716, type: clb
+	.......................................
+Passed route at end.
+Complex block 56: cb.n1656, type: clb
+	.......................................
+Passed route at end.
+Complex block 57: cb.n1691, type: clb
+	........................................
+Passed route at end.
+Complex block 58: cb.n1721, type: clb
+	......................................
+Passed route at end.
+Complex block 59: cb.n1591, type: clb
+	........................................
+Passed route at end.
+Complex block 60: cb.n1496, type: clb
+	.............................................
+Passed route at end.
+Complex block 61: cb.n1426, type: clb
+	.........................................
+Passed route at end.
+Complex block 62: cb.n1521, type: clb
+	.........................................
+Passed route at end.
+Complex block 63: cb.n1461, type: clb
+	......................................
+Passed route at end.
+Complex block 64: cb.n1471, type: clb
+	.........................................
+Passed route at end.
+Complex block 65: cb.n1526, type: clb
+	........................................
+Passed route at end.
+Complex block 66: cb.n1501, type: clb
+	.......................................
+Passed route at end.
+Complex block 67: cb.n1541, type: clb
+	......................................
+Passed route at end.
+Complex block 68: cb.n1571, type: clb
+	.......................................
+Passed route at end.
+Complex block 69: cb.n1551, type: clb
+	........................................
+Passed route at end.
+Complex block 70: cb.n1638, type: clb
+	......................................
+Passed route at end.
+Complex block 71: cb.n1630, type: clb
+	.......................................
+Passed route at end.
+Complex block 72: cb.n1644, type: clb
+	......................................
+Passed route at end.
+Complex block 73: cb.n1642_1, type: clb
+	
+Passed route at end.
+Complex block 74: cb.n1903, type: clb
+	........................................
+Passed route at end.
+Complex block 75: cb.n1647_1, type: clb
+	
+Passed route at end.
+Complex block 76: cb.n1618, type: clb
+	.............................
+Passed route at end.
+Complex block 77: cb.n1673, type: clb
+	..................
+Passed route at end.
+Complex block 78: cb.n1597_1, type: clb
+	.............
+Passed route at end.
+Complex block 79: cb.n1588, type: clb
+	.....
+Passed route at end.
+Complex block 80: cb.top^Aport~2, type: io
+	
+Passed route at end.
+Complex block 81: cb.top^Aport~1, type: io
+	
+Passed route at end.
+Complex block 82: cb.top^Aport~0, type: io
+	
+Passed route at end.
+Complex block 83: cb.n1575, type: clb
+	
+Passed route at end.
+Complex block 84: cb.top^Aport~4, type: io
+	
+Passed route at end.
+Complex block 85: cb.top^Aport~3, type: io
+	
+Passed route at end.
+Complex block 86: cb.n1850, type: clb
+	.
+Passed route at end.
+Complex block 87: cb.top^Aport~5, type: io
+	
+Passed route at end.
+Complex block 88: cb.n1464, type: clb
+	.....
+Passed route at end.
+Complex block 89: cb.n1443, type: clb
+	....
+Passed route at end.
+Complex block 90: cb.top^Aport~7, type: io
+	
+Passed route at end.
+Complex block 91: cb.top^Aport~6, type: io
+	
+Passed route at end.
+Complex block 92: cb.top^Aport~16, type: io
+	
+Passed route at end.
+Complex block 93: cb.top^Aport~15, type: io
+	
+Passed route at end.
+Complex block 94: cb.top^Aport~14, type: io
+	
+Passed route at end.
+Complex block 95: cb.top^Aport~24, type: io
+	
+Passed route at end.
+Complex block 96: cb.top^Aport~21, type: io
+	
+Passed route at end.
+Complex block 97: cb.n1446_1, type: clb
+	
+Passed route at end.
+Complex block 98: cb.top^Aport~23, type: io
+	
+Passed route at end.
+Complex block 99: cb.top^Aport~22, type: io
+	
+Passed route at end.
+Complex block 100: cb.top^Aport~17, type: io
+	
+Passed route at end.
+Complex block 101: cb.top^Aport~13, type: io
+	
+Passed route at end.
+Complex block 102: cb.top^Aport~9, type: io
+	
+Passed route at end.
+Complex block 103: cb.top^Aport~8, type: io
+	
+Passed route at end.
+Complex block 104: cb.top^Aport~27, type: io
+	
+Passed route at end.
+Complex block 105: cb.top^Aport~26, type: io
+	
+Passed route at end.
+Complex block 106: cb.top^Aport~28, type: io
+	
+Passed route at end.
+Complex block 107: cb.top^Aport~25, type: io
+	
+Passed route at end.
+Complex block 108: cb.top^Aport~29, type: io
+	
+Passed route at end.
+Complex block 109: cb.top^Aport~11, type: io
+	
+Passed route at end.
+Complex block 110: cb.top^Aport~10, type: io
+	
+Passed route at end.
+Complex block 111: cb.top^Aport~31, type: io
+	
+Passed route at end.
+Complex block 112: cb.top^Aport~20, type: io
+	
+Passed route at end.
+Complex block 113: cb.top^Aport~19, type: io
+	
+Passed route at end.
+Complex block 114: cb.top^Aport~18, type: io
+	
+Passed route at end.
+Complex block 115: cb.top^Aport~30, type: io
+	
+Passed route at end.
+Complex block 116: cb.top^Aport~12, type: io
+	
+Passed route at end.
+Complex block 117: cb.top^Uinport~31, type: io
+	
+Passed route at end.
+Complex block 118: cb.top^reset, type: io
+	
+Passed route at end.
+Complex block 119: cb.top^Xinport~30, type: io
+	
+Passed route at end.
+Complex block 120: cb.top^Uinport~23, type: io
+	
+Passed route at end.
+Complex block 121: cb.top^Uinport~22, type: io
+	
+Passed route at end.
+Complex block 122: cb.top^Uinport~20, type: io
+	
+Passed route at end.
+Complex block 123: cb.top^Uinport~15, type: io
+	
+Passed route at end.
+Complex block 124: cb.top^Uinport~9, type: io
+	
+Passed route at end.
+Complex block 125: cb.top^Uinport~7, type: io
+	
+Passed route at end.
+Complex block 126: cb.top^Uinport~6, type: io
+	
+Passed route at end.
+Complex block 127: cb.top^Uinport~5, type: io
+	
+Passed route at end.
+Complex block 128: cb.top^Uinport~4, type: io
+	
+Passed route at end.
+Complex block 129: cb.top^Uinport~3, type: io
+	
+Passed route at end.
+Complex block 130: cb.top^Uinport~2, type: io
+	
+Passed route at end.
+Complex block 131: cb.top^Uinport~1, type: io
+	
+Passed route at end.
+Complex block 132: cb.top^Yinport~0, type: io
+	
+Passed route at end.
+Complex block 133: cb.top^Uinport~0, type: io
+	
+Passed route at end.
+Complex block 134: cb.top^Xinport~0, type: io
+	
+Passed route at end.
+Complex block 135: cb.top^Yinport~30, type: io
+	
+Passed route at end.
+Complex block 136: cb.top^Yinport~29, type: io
+	
+Passed route at end.
+Complex block 137: cb.top^Yinport~28, type: io
+	
+Passed route at end.
+Complex block 138: cb.top^Xinport~14, type: io
+	
+Passed route at end.
+Complex block 139: cb.top^Yinport~27, type: io
+	
+Passed route at end.
+Complex block 140: cb.top^Xinport~29, type: io
+	
+Passed route at end.
+Complex block 141: cb.top^Yinport~26, type: io
+	
+Passed route at end.
+Complex block 142: cb.top^Yinport~25, type: io
+	
+Passed route at end.
+Complex block 143: cb.top^Xinport~28, type: io
+	
+Passed route at end.
+Complex block 144: cb.top^Yinport~24, type: io
+	
+Passed route at end.
+Complex block 145: cb.top^Xinport~13, type: io
+	
+Passed route at end.
+Complex block 146: cb.top^Xinport~6, type: io
+	
+Passed route at end.
+Complex block 147: cb.top^Yinport~23, type: io
+	
+Passed route at end.
+Complex block 148: cb.top^Xinport~27, type: io
+	
+Passed route at end.
+Complex block 149: cb.top^Yinport~22, type: io
+	
+Passed route at end.
+Complex block 150: cb.top^Yinport~21, type: io
+	
+Passed route at end.
+Complex block 151: cb.top^Xinport~26, type: io
+	
+Passed route at end.
+Complex block 152: cb.top^Yinport~20, type: io
+	
+Passed route at end.
+Complex block 153: cb.top^Xinport~12, type: io
+	
+Passed route at end.
+Complex block 154: cb.top^Yinport~19, type: io
+	
+Passed route at end.
+Complex block 155: cb.top^Xinport~25, type: io
+	
+Passed route at end.
+Complex block 156: cb.top^Yinport~18, type: io
+	
+Passed route at end.
+Complex block 157: cb.top^Yinport~17, type: io
+	
+Passed route at end.
+Complex block 158: cb.top^Xinport~24, type: io
+	
+Passed route at end.
+Complex block 159: cb.top^Yinport~16, type: io
+	
+Passed route at end.
+Complex block 160: cb.top^Xinport~11, type: io
+	
+Passed route at end.
+Complex block 161: cb.top^Xinport~5, type: io
+	
+Passed route at end.
+Complex block 162: cb.top^Yinport~15, type: io
+	
+Passed route at end.
+Complex block 163: cb.top^Xinport~23, type: io
+	
+Passed route at end.
+Complex block 164: cb.top^Xinport~2, type: io
+	
+Passed route at end.
+Complex block 165: cb.top^Uinport~30, type: io
+	
+Passed route at end.
+Complex block 166: cb.top^Yinport~14, type: io
+	
+Passed route at end.
+Complex block 167: cb.top^Uinport~29, type: io
+	
+Passed route at end.
+Complex block 168: cb.top^Uinport~28, type: io
+	
+Passed route at end.
+Complex block 169: cb.top^Yinport~13, type: io
+	
+Passed route at end.
+Complex block 170: cb.top^Uinport~27, type: io
+	
+Passed route at end.
+Complex block 171: cb.top^Xinport~22, type: io
+	
+Passed route at end.
+Complex block 172: cb.top^Uinport~26, type: io
+	
+Passed route at end.
+Complex block 173: cb.top^Yinport~12, type: io
+	
+Passed route at end.
+Complex block 174: cb.top^Uinport~25, type: io
+	
+Passed route at end.
+Complex block 175: cb.top^Xinport~10, type: io
+	
+Passed route at end.
+Complex block 176: cb.top^Uinport~24, type: io
+	
+Passed route at end.
+Complex block 177: cb.top^Yinport~11, type: io
+	
+Passed route at end.
+Complex block 178: cb.top^Xinport~21, type: io
+	
+Passed route at end.
+Complex block 179: cb.top^Yinport~10, type: io
+	
+Passed route at end.
+Complex block 180: cb.top^Uinport~21, type: io
+	
+Passed route at end.
+Complex block 181: cb.top^Yinport~9, type: io
+	
+Passed route at end.
+Complex block 182: cb.top^Uinport~19, type: io
+	
+Passed route at end.
+Complex block 183: cb.top^Xinport~20, type: io
+	
+Passed route at end.
+Complex block 184: cb.top^Xinport~3, type: io
+	
+Passed route at end.
+Complex block 185: cb.top^Uinport~18, type: io
+	
+Passed route at end.
+Complex block 186: cb.top^Xinport~1, type: io
+	
+Passed route at end.
+Complex block 187: cb.top^Yinport~8, type: io
+	
+Passed route at end.
+Complex block 188: cb.top^Uinport~17, type: io
+	
+Passed route at end.
+Complex block 189: cb.top^Xinport~4, type: io
+	
+Passed route at end.
+Complex block 190: cb.top^Uinport~16, type: io
+	
+Passed route at end.
+Complex block 191: cb.top^Xinport~19, type: io
+	
+Passed route at end.
+Complex block 192: cb.top^Yinport~7, type: io
+	
+Passed route at end.
+Complex block 193: cb.top^Xinport~9, type: io
+	
+Passed route at end.
+Complex block 194: cb.top^Uinport~14, type: io
+	
+Passed route at end.
+Complex block 195: cb.top^Uinport~13, type: io
+	
+Passed route at end.
+Complex block 196: cb.top^Yinport~6, type: io
+	
+Passed route at end.
+Complex block 197: cb.top^Uinport~12, type: io
+	
+Passed route at end.
+Complex block 198: cb.top^Uinport~11, type: io
+	
+Passed route at end.
+Complex block 199: cb.top^Yinport~5, type: io
+	
+Passed route at end.
+Complex block 200: cb.top^Xinport~18, type: io
+	
+Passed route at end.
+Complex block 201: cb.top^Uinport~10, type: io
+	
+Passed route at end.
+Complex block 202: cb.top^Yinport~4, type: io
+	
+Passed route at end.
+Complex block 203: cb.top^Uinport~8, type: io
+	
+Passed route at end.
+Complex block 204: cb.top^Yinport~3, type: io
+	
+Passed route at end.
+Complex block 205: cb.top^Xinport~17, type: io
+	
+Passed route at end.
+Complex block 206: cb.top^Xinport~8, type: io
+	
+Passed route at end.
+Complex block 207: cb.top^Yinport~2, type: io
+	
+Passed route at end.
+Complex block 208: cb.top^Yinport~1, type: io
+	
+Passed route at end.
+Complex block 209: cb.top^Xinport~16, type: io
+	
+Passed route at end.
+Complex block 210: cb.top^Xinport~31, type: io
+	
+Passed route at end.
+Complex block 211: cb.top^Yinport~31, type: io
+	
+Passed route at end.
+Complex block 212: cb.top^Xinport~15, type: io
+	
+Passed route at end.
+Complex block 213: cb.top^Xinport~7, type: io
+	
+Passed route at end.
+Complex block 214: cb.out:top^Uoutport~28, type: io
+	
+Passed route at end.
+Complex block 215: cb.out:top^Uoutport~27, type: io
+	
+Passed route at end.
+Complex block 216: cb.out:top^Uoutport~26, type: io
+	
+Passed route at end.
+Complex block 217: cb.out:top^Uoutport~25, type: io
+	
+Passed route at end.
+Complex block 218: cb.out:top^Uoutport~24, type: io
+	
+Passed route at end.
+Complex block 219: cb.out:top^Uoutport~23, type: io
+	
+Passed route at end.
+Complex block 220: cb.out:top^Uoutport~22, type: io
+	
+Passed route at end.
+Complex block 221: cb.out:top^Uoutport~21, type: io
+	
+Passed route at end.
+Complex block 222: cb.out:top^Uoutport~20, type: io
+	
+Passed route at end.
+Complex block 223: cb.out:top^Uoutport~19, type: io
+	
+Passed route at end.
+Complex block 224: cb.out:top^Uoutport~18, type: io
+	
+Passed route at end.
+Complex block 225: cb.out:top^Uoutport~17, type: io
+	
+Passed route at end.
+Complex block 226: cb.out:top^Uoutport~16, type: io
+	
+Passed route at end.
+Complex block 227: cb.out:top^Uoutport~15, type: io
+	
+Passed route at end.
+Complex block 228: cb.out:top^Uoutport~14, type: io
+	
+Passed route at end.
+Complex block 229: cb.out:top^Uoutport~13, type: io
+	
+Passed route at end.
+Complex block 230: cb.out:top^Uoutport~12, type: io
+	
+Passed route at end.
+Complex block 231: cb.out:top^Uoutport~11, type: io
+	
+Passed route at end.
+Complex block 232: cb.out:top^Uoutport~10, type: io
+	
+Passed route at end.
+Complex block 233: cb.out:top^Uoutport~9, type: io
+	
+Passed route at end.
+Complex block 234: cb.out:top^Uoutport~8, type: io
+	
+Passed route at end.
+Complex block 235: cb.out:top^Uoutport~7, type: io
+	
+Passed route at end.
+Complex block 236: cb.out:top^Uoutport~6, type: io
+	
+Passed route at end.
+Complex block 237: cb.out:top^Uoutport~5, type: io
+	
+Passed route at end.
+Complex block 238: cb.out:top^Uoutport~4, type: io
+	
+Passed route at end.
+Complex block 239: cb.out:top^Uoutport~3, type: io
+	
+Passed route at end.
+Complex block 240: cb.out:top^Uoutport~2, type: io
+	
+Passed route at end.
+Complex block 241: cb.out:top^Uoutport~1, type: io
+	
+Passed route at end.
+Complex block 242: cb.out:top^Youtport~31, type: io
+	
+Passed route at end.
+Complex block 243: cb.out:top^Uoutport~0, type: io
+	
+Passed route at end.
+Complex block 244: cb.out:top^Youtport~30, type: io
+	
+Passed route at end.
+Complex block 245: cb.out:top^Youtport~29, type: io
+	
+Passed route at end.
+Complex block 246: cb.out:top^Xoutport~29, type: io
+	
+Passed route at end.
+Complex block 247: cb.out:top^Youtport~28, type: io
+	
+Passed route at end.
+Complex block 248: cb.out:top^Youtport~27, type: io
+	
+Passed route at end.
+Complex block 249: cb.out:top^Youtport~26, type: io
+	
+Passed route at end.
+Complex block 250: cb.out:top^Youtport~25, type: io
+	
+Passed route at end.
+Complex block 251: cb.out:top^Youtport~24, type: io
+	
+Passed route at end.
+Complex block 252: cb.out:top^Youtport~23, type: io
+	
+Passed route at end.
+Complex block 253: cb.out:top^Youtport~22, type: io
+	
+Passed route at end.
+Complex block 254: cb.out:top^Youtport~21, type: io
+	
+Passed route at end.
+Complex block 255: cb.out:top^Youtport~20, type: io
+	
+Passed route at end.
+Complex block 256: cb.out:top^Youtport~19, type: io
+	
+Passed route at end.
+Complex block 257: cb.out:top^Youtport~18, type: io
+	
+Passed route at end.
+Complex block 258: cb.out:top^Youtport~17, type: io
+	
+Passed route at end.
+Complex block 259: cb.out:top^Youtport~16, type: io
+	
+Passed route at end.
+Complex block 260: cb.out:top^Youtport~15, type: io
+	
+Passed route at end.
+Complex block 261: cb.out:top^Youtport~14, type: io
+	
+Passed route at end.
+Complex block 262: cb.out:top^Youtport~13, type: io
+	
+Passed route at end.
+Complex block 263: cb.out:top^Youtport~12, type: io
+	
+Passed route at end.
+Complex block 264: cb.out:top^Youtport~11, type: io
+	
+Passed route at end.
+Complex block 265: cb.out:top^Youtport~10, type: io
+	
+Passed route at end.
+Complex block 266: cb.out:top^Youtport~9, type: io
+	
+Passed route at end.
+Complex block 267: cb.out:top^Youtport~8, type: io
+	
+Passed route at end.
+Complex block 268: cb.out:top^Youtport~7, type: io
+	
+Passed route at end.
+Complex block 269: cb.out:top^Youtport~6, type: io
+	
+Passed route at end.
+Complex block 270: cb.out:top^Youtport~5, type: io
+	
+Passed route at end.
+Complex block 271: cb.out:top^Youtport~4, type: io
+	
+Passed route at end.
+Complex block 272: cb.out:top^Youtport~3, type: io
+	
+Passed route at end.
+Complex block 273: cb.out:top^Youtport~2, type: io
+	
+Passed route at end.
+Complex block 274: cb.out:top^Youtport~1, type: io
+	
+Passed route at end.
+Complex block 275: cb.out:top^Youtport~0, type: io
+	
+Passed route at end.
+Complex block 276: cb.out:top^Xoutport~31, type: io
+	
+Passed route at end.
+Complex block 277: cb.out:top^Xoutport~30, type: io
+	
+Passed route at end.
+Complex block 278: cb.out:top^Xoutport~28, type: io
+	
+Passed route at end.
+Complex block 279: cb.out:top^Xoutport~27, type: io
+	
+Passed route at end.
+Complex block 280: cb.out:top^Xoutport~26, type: io
+	
+Passed route at end.
+Complex block 281: cb.out:top^Xoutport~25, type: io
+	
+Passed route at end.
+Complex block 282: cb.out:top^Xoutport~24, type: io
+	
+Passed route at end.
+Complex block 283: cb.out:top^Xoutport~23, type: io
+	
+Passed route at end.
+Complex block 284: cb.out:top^Xoutport~22, type: io
+	
+Passed route at end.
+Complex block 285: cb.out:top^Xoutport~21, type: io
+	
+Passed route at end.
+Complex block 286: cb.out:top^Xoutport~20, type: io
+	
+Passed route at end.
+Complex block 287: cb.out:top^Xoutport~19, type: io
+	
+Passed route at end.
+Complex block 288: cb.out:top^Xoutport~18, type: io
+	
+Passed route at end.
+Complex block 289: cb.out:top^Xoutport~17, type: io
+	
+Passed route at end.
+Complex block 290: cb.out:top^Xoutport~16, type: io
+	
+Passed route at end.
+Complex block 291: cb.out:top^Xoutport~15, type: io
+	
+Passed route at end.
+Complex block 292: cb.out:top^Xoutport~14, type: io
+	
+Passed route at end.
+Complex block 293: cb.out:top^Xoutport~13, type: io
+	
+Passed route at end.
+Complex block 294: cb.out:top^Xoutport~12, type: io
+	
+Passed route at end.
+Complex block 295: cb.out:top^Xoutport~11, type: io
+	
+Passed route at end.
+Complex block 296: cb.out:top^Xoutport~10, type: io
+	
+Passed route at end.
+Complex block 297: cb.out:top^Xoutport~9, type: io
+	
+Passed route at end.
+Complex block 298: cb.out:top^Xoutport~8, type: io
+	
+Passed route at end.
+Complex block 299: cb.out:top^Xoutport~7, type: io
+	
+Passed route at end.
+Complex block 300: cb.out:top^Xoutport~6, type: io
+	
+Passed route at end.
+Complex block 301: cb.out:top^Xoutport~5, type: io
+	
+Passed route at end.
+Complex block 302: cb.out:top^Xoutport~4, type: io
+	
+Passed route at end.
+Complex block 303: cb.out:top^Xoutport~3, type: io
+	
+Passed route at end.
+Complex block 304: cb.out:top^Xoutport~2, type: io
+	
+Passed route at end.
+Complex block 305: cb.out:top^Xoutport~1, type: io
+	
+Passed route at end.
+Complex block 306: cb.out:top^Uoutport~31, type: io
+	
+Passed route at end.
+Complex block 307: cb.out:top^Uoutport~30, type: io
+	
+Passed route at end.
+Complex block 308: cb.out:top^Uoutport~29, type: io
+	
+Passed route at end.
+Complex block 309: cb.out:top^Xoutport~0, type: io
+	
+Passed route at end.
+Complex block 310: cb.vcc, type: clb
+	
+Passed route at end.
+Complex block 311: cb.top^clk, type: io
+	
+Passed route at end.
+	<EMPTY>: # blocks: 0, average # input + clock pins used: 0, average # output pins used: 0
+	io: # blocks: 258, average # input + clock pins used: 0.372093, average # output pins used: 0.627907
+	clb: # blocks: 49, average # input + clock pins used: 17.6735, average # output pins used: 7.42857
+	mult_36: # blocks: 5, average # input + clock pins used: 52.8, average # output pins used: 32.8
+	memory: # blocks: 0, average # input + clock pins used: 0, average # output pins used: 0
+Absorbed logical nets 314 out of 1004 nets, 690 nets not absorbed.
+
+Netlist conversion complete.
+
+Packing took 1.15 seconds.
+Packing completed.
+Begin parsing packed FPGA netlist file.
+Finished parsing packed FPGA netlist file.
+Netlist generated from file 'diffeq1.net'.
+vcc is a constant generator.
+WARNING(4): Logic block #310 (vcc) has only 1 pin.
+Pin is an output -- may be a constant generator.
+	Non-fatal, but check this.
+
+Netlist num_nets: 690
+Netlist num_blocks: 312
+Netlist <EMPTY> blocks: 0.
+Netlist clb blocks: 49.
+Netlist mult_36 blocks: 5.
+Netlist memory blocks: 0.
+Netlist inputs pins: 162
+Netlist output pins: 96
+
+Auto-sizing FPGA at x = 18 y = 18
+Auto-sizing FPGA at x = 9 y = 9
+Auto-sizing FPGA at x = 13 y = 13
+Auto-sizing FPGA at x = 15 y = 15
+Auto-sizing FPGA at x = 14 y = 14
+Auto-sizing FPGA at x = 13 y = 13
+FPGA auto-sized to x = 14 y = 14
+The circuit will be mapped into a 14 x 14 array of clbs.
+
+Resource usage...
+	Netlist      0	blocks of type: <EMPTY>
+	Architecture 12	blocks of type: <EMPTY>
+	Netlist      258	blocks of type: io
+	Architecture 448	blocks of type: io
+	Netlist      49	blocks of type: clb
+	Architecture 140	blocks of type: clb
+	Netlist      5	blocks of type: mult_36
+	Architecture 6	blocks of type: mult_36
+	Netlist      0	blocks of type: memory
+	Architecture 4	blocks of type: memory
+
+Computing delta_io_to_io lookup matrix, may take a few seconds, please wait...
+Computing delta_io_to_clb lookup matrix, may take a few seconds, please wait...
+Computing delta_clb_to_io lookup matrix, may take a few seconds, please wait...
+Computing delta_clb_to_clb lookup matrix, may take a few seconds, please wait...
+
+There are 1182 point to point connections in this circuit.
+
+Initial placement cost: 1 bb_cost: 104.26 td_cost: 2.52646e-07 delay_cost: 6.17435e-07
+
+--------- --------- ----------- ----------- ----------- ----------- -------- -------- ------- ------- ------- --------- -------
+        T      Cost  Av BB Cost  Av TD Cost  Av Tot Del  P to P Del    d_max  Ac Rate Std Dev R limit     Exp Tot Moves   Alpha
+--------- --------- ----------- ----------- ----------- ----------- -------- -------- ------- ------- ------- --------- -------
+100.00000   0.94718     100.794 2.43188e-07 5.96292e-07 5.22364e-10  24.1559   1.0000  0.0310 15.0000  1.0000    211571  0.8933
+ 89.32568   0.99961     100.858 2.45758e-07 5.96811e-07 5.04288e-10  23.0649   1.0000  0.0329 15.0000  1.0000    423142  0.8933
+ 79.79076    1.0235     100.697 2.45739e-07 5.95937e-07 4.89714e-10  23.3512   1.0000  0.0332 15.0000  1.0000    634713  0.8933
+ 71.27364    1.0051     100.903 2.44468e-07 5.96956e-07 5.08208e-10  23.6188   1.0000  0.0320 15.0000  1.0000    846284  0.8933
+ 63.66565   0.98748     100.815 2.48281e-07 5.96652e-07 5.15273e-10  22.5831   1.0000  0.0319 15.0000  1.0000   1057855  0.8933
+ 56.86977   0.96415     101.166 2.45025e-07 5.98097e-07 5.18805e-10  23.7475   1.0000  0.0316 15.0000  1.0000   1269426  0.8933
+ 50.79931   0.93397     100.704 2.42611e-07 5.96222e-07 5.21679e-10  24.3446   1.0000  0.0309 15.0000  1.0000   1480997  0.8933
+ 45.37682   0.98068     100.808 2.39133e-07 5.96939e-07 5.04979e-10  24.6093   1.0000  0.0317 15.0000  1.0000   1692568  0.8933
+ 40.53315   0.96612     100.887 2.40144e-07 5.96846e-07 5.11737e-10  25.1473   1.0000  0.0320 15.0000  1.0000   1904139  0.8933
+ 36.20651    1.0356     100.882 2.43292e-07 5.96956e-07 4.99475e-10  23.5251   1.0000  0.0346 15.0000  1.0000   2115710  0.8933
+ 32.34171   0.98376     100.709 2.40852e-07 5.96256e-07 5.05114e-10  24.1752   1.0000  0.0325 15.0000  1.0000   2327281  0.8933
+ 28.88945    1.0251     100.676 2.42099e-07 5.95633e-07 4.91567e-10  23.3585   1.0000  0.0340 15.0000  1.0000   2538852  0.8933
+ 25.80569    1.0446      100.86 2.45544e-07 5.96166e-07 4.92195e-10  22.9117   0.9999  0.0345 15.0000  1.0000   2750423  0.8933
+ 23.05111   0.99298     100.642 2.43079e-07 5.96016e-07 5.02394e-10  23.5276   1.0000  0.0333 15.0000  1.0000   2961994  0.8933
+ 20.59056         1     100.518 2.40308e-07 5.95705e-07 4.95152e-10  24.2848   1.0000  0.0333 15.0000  1.0000   3173565  0.8933
+ 18.39265   0.98362     100.797 2.43388e-07 5.96912e-07 5.09686e-10  24.1090   1.0000  0.0340 15.0000  1.0000   3385136  0.8933
+ 16.42936   0.99311     100.718 2.45223e-07 5.96298e-07 5.08951e-10  23.5084   0.9999  0.0328 15.0000  1.0000   3596707  0.8933
+ 14.67564   0.98343     100.607 2.42755e-07 5.95673e-07  5.0584e-10  24.0028   0.9999  0.0323 15.0000  1.0000   3808278  0.8933
+ 13.10911    1.0118     100.933 2.42918e-07 5.97022e-07 4.93293e-10  24.2069   0.9999  0.0345 15.0000  1.0000   4019849  0.8933

@@ -1,0 +1,118 @@
+Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2015.4.2 (lin64) Build 1494164 Fri Feb 26 04:18:54 MST 2016
+| Date         : Tue Jan 10 00:10:32 2017
+| Host         : ceca20 running 64-bit unknown
+| Command      : report_timing -sort_by group -max_paths 100 -path_type summary -file /home/xuchang/nas/project/daTuner/evaluation/vivado//daTuner/diffeq1/rank1//output/post_route_timing.rpt
+| Design       : diffeq_paj_convert
+| Device       : 7vx485t-ffg1157
+| Speed File   : -1  PRODUCTION 1.12 2014-09-11
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Startpoint                     Endpoint                       Slack(ns)     
+----------------------------------------------------------------------------
+temp__0/CLK                    u_var_reg[27]/D                4.142         
+temp__0/CLK                    temp/B[14]                     4.184         
+temp__0/CLK                    temp/B[12]                     4.200         
+temp__0/CLK                    temp/B[11]                     4.222         
+temp__0/CLK                    u_var_reg[21]/D                4.261         
+temp__0/CLK                    temp/B[13]                     4.265         
+temp__0/CLK                    temp/B[10]                     4.287         
+temp__0/CLK                    temp/B[4]                      4.327         
+temp__0/CLK                    temp/B[9]                      4.382         
+temp__0/CLK                    u_var_reg[31]/D                4.394         
+temp__0/CLK                    temp/B[6]                      4.397         
+temp__0/CLK                    u_var_reg[20]/D                4.400         
+temp__0/CLK                    temp/B[8]                      4.407         
+temp__0/CLK                    temp/B[7]                      4.433         
+temp__0/CLK                    u_var_reg[29]/D                4.434         
+temp__0/CLK                    temp/B[3]                      4.532         
+temp__0/CLK                    u_var_reg[23]/D                4.554         
+temp__0/CLK                    u_var_reg[30]/D                4.612         
+temp__0/CLK                    u_var_reg[25]/D                4.650         
+temp__0/CLK                    u_var_reg[19]/D                4.655         
+temp__0/CLK                    u_var_reg[18]/D                4.728         
+temp__0/CLK                    u_var_reg[26]/D                4.734         
+temp__0/CLK                    u_var_reg[22]/D                4.741         
+temp__0/CLK                    temp/B[5]                      4.769         
+temp__0/CLK                    u_var_reg[24]/D                4.770         
+temp__0/CLK                    temp/B[2]                      4.782         
+temp__0/CLK                    temp/B[1]                      4.811         
+temp__0/CLK                    u_var_reg[28]/D                4.855         
+temp__0/CLK                    temp/B[0]                      5.002         
+temp__0/CLK                    u_var_reg[17]/D                5.254         
+temp__0/CLK                    temp__0/A[13]                  6.461         
+temp__0/CLK                    temp__1/A[13]                  6.584         
+temp__0/CLK                    temp__1/A[11]                  6.602         
+temp__0/CLK                    temp__1/A[14]                  6.620         
+temp__0/CLK                    temp__0/A[11]                  6.623         
+temp__0/CLK                    temp__1/A[8]                   6.652         
+temp__0/CLK                    temp__0/A[8]                   6.673         
+temp__0/CLK                    temp__1/A[12]                  6.749         
+temp__0/CLK                    temp__0/A[14]                  6.785         
+temp__0/CLK                    temp__0/A[15]                  6.809         
+temp__0/CLK                    temp__0/A[16]                  6.856         
+temp__0/CLK                    temp__1/A[5]                   6.884         
+temp__0/CLK                    temp__1/A[9]                   6.901         
+temp__0/CLK                    temp__0/A[5]                   6.905         
+temp__0/CLK                    temp__0/A[12]                  6.914         
+temp__0/CLK                    temp__0/A[9]                   6.922         
+temp__0/CLK                    temp__1/A[7]                   6.938         
+temp__0/CLK                    temp__1/A[10]                  6.946         
+temp__0/CLK                    temp__0/A[7]                   6.959         
+temp__0/CLK                    temp__1/A[6]                   6.965         
+temp__0/CLK                    temp__0/A[10]                  6.967         
+temp__0/CLK                    temp__0/A[6]                   6.986         
+temp__0/CLK                    temp__1/A[2]                   7.038         
+temp__0/CLK                    temp__0/A[2]                   7.059         
+temp__0/CLK                    temp__1/A[4]                   7.094         
+temp__0/CLK                    temp__0/A[4]                   7.115         
+temp__0/CLK                    temp__1/A[3]                   7.165         
+temp__0/CLK                    temp__0/A[3]                   7.186         
+temp__0/CLK                    temp__1/A[1]                   7.381         
+temp__0/CLK                    temp__0/A[1]                   7.402         
+temp__0/CLK                    u_var_reg[16]/D                7.653         
+temp__0/CLK                    u_var_reg[11]/D                7.740         
+temp__0/CLK                    u_var_reg[8]/D                 7.776         
+temp__0/CLK                    u_var_reg[13]/D                7.790         
+temp__0/CLK                    u_var_reg[14]/D                7.868         
+temp__0/CLK                    u_var_reg[5]/D                 7.910         
+temp__0/CLK                    u_var_reg[15]/D                7.946         
+temp__0/CLK                    u_var_reg[12]/D                7.981         
+temp__0/CLK                    u_var_reg[6]/D                 7.988         
+temp__0/CLK                    u_var_reg[9]/D                 8.022         
+temp__0/CLK                    temp__1/A[0]                   8.050         
+temp__0/CLK                    u_var_reg[7]/D                 8.066         
+temp__0/CLK                    temp__0/A[0]                   8.071         
+temp__0/CLK                    u_var_reg[10]/D                8.100         
+temp__0/CLK                    u_var_reg[4]/D                 8.101         
+temp__0/CLK                    u_var_reg[2]/D                 8.203         
+temp__0/CLK                    u_var_reg[3]/D                 8.291         
+temp__0/CLK                    u_var_reg[1]/D                 8.406         
+temp__0/CLK                    u_var_reg[0]/D                 9.056         
+temp__0/CLK                    u_var1__1/B[4]                 10.577        
+temp__0/CLK                    u_var1__1/B[14]                10.648        
+temp__0/CLK                    u_var1__1/B[6]                 10.657        
+temp__0/CLK                    u_var1__1/B[13]                10.673        
+temp__0/CLK                    u_var1__1/B[11]                10.798        
+temp__0/CLK                    u_var1__1/B[12]                10.803        
+temp__0/CLK                    u_var1__1/B[10]                10.830        
+temp__0/CLK                    u_var1__1/B[8]                 10.850        
+temp__0/CLK                    u_var1__1/B[7]                 10.876        
+temp__0/CLK                    u_var1__1/B[9]                 10.924        
+temp__0/CLK                    u_var1__1/B[2]                 10.960        
+temp__0/CLK                    u_var1__1/B[5]                 11.070        
+temp__0/CLK                    u_var1__1/B[1]                 11.117        
+temp__0/CLK                    u_var1__1/B[3]                 11.229        
+temp__0/CLK                    u_var1__1/B[0]                 12.002        
+temp__0/CLK                    y_var_reg[29]/D                12.120        
+temp__0/CLK                    y_var_reg[31]/D                12.154        
+temp__0/CLK                    y_var_reg[25]/D                12.178        
+temp__0/CLK                    y_var_reg[28]/D                12.194        
+temp__0/CLK                    y_var_reg[30]/D                12.197        
+temp__0/CLK                    y_var_reg[27]/D                12.212        
+
+
+
