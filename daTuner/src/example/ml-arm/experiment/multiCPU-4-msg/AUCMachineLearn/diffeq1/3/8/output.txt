@@ -1,3 +1,0 @@
-vpr_status=success
-vpr_seconds=27
-error=

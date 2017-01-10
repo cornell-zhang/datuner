@@ -1,7 +1,0 @@
-1. search.bandittechniques.py:16 setmsg() #message sharing in collaborative distributed exploration
-2. search.driver.py:50 setmsg() #message sharing in collaborative distributed exploration
-3. search.driver.py:208 process_new_results()
-  #receive message only when it is ready
-  #set the best configuration
-  #send out the best configuration
-4.
