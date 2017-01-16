@@ -10,9 +10,7 @@ Mpich3.2 https://www.mpich.org/
 
 ###  Compilation
 
-#### Build the prerequisites
-
-#### Configure DATuner
+First build the prerequisites, then follow the instructions below to configure DATuner.
 
 Go into PathTo-DATuner/parTuner directory
 
