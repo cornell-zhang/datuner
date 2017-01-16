@@ -1,27 +1,19 @@
 # DATuner User Guide
 
-###  Required package
+### Prerequisites
 
-Python2.7 
+Python2.7 (compile with --enable-shared option)
 
-OpenTuner: http://opentuner.org/
+OpenTuner: http://opentuner.org/tutorial/setup/
 
 Mpich3.2 https://www.mpich.org/ 
 
-### Running on multiple hosts:
-####  SSH login without password 
-http://blog.csdn.net/educast/article/details/7174498
+###  Compilation
 
-####  Make sure programs can run across multiple hosts
-https://www.open-mpi.org/faq/?category=running#diagnose-multi-host-problems 
+#### Build the prerequisites
 
-(11. How can I diagnose problems when running across multiple hosts?)
+#### Configure DATuner
 
-###  Run DATuner
-Note: DATuner now can support tuning VPR and Vivado. 
-DATuner will support other applications by extending the interface later.
-
-####  Compilation
 Go into PathTo-DATuner/parTuner directory
 
 1.  In Makefile, replace MY_TOOLS_INCL with your python path and the include folder of mpich
@@ -32,12 +24,12 @@ Go into PathTo-DATuner/parTuner directory
 
 4.  Type make, which generates master.exe and worker.exe under bin directory.
 
-####  Evaluation
+###  Evaluation
 Go into PathTo-DATune/evaluation directory
 
 Under scripts directory, please specify the list of multiple machines that DATuner runs on in my_hosts file 
 
-#####  Tune VPR
+####  Tune VPR
 
 First install VTR https://github.com/verilog-to-routing/vtr-verilog-to-routing 
 
@@ -53,7 +45,7 @@ Result_1~8 is the samples found by OpenTuner1~8.
 
 I have script to pass and visualize the result. Will upload later.
 
-#####  Tune Vivado
+####  Tune Vivado
 
 First make sure Vivado is installed on every machine that you run DATuner
 ./runonevivado.sh <design_name> <0|1> 0 means you don’t want to tune the default timing constraint. 
@@ -72,3 +64,13 @@ Also the output file will be saved in your workspace_path/vivado/daTuner/diffeq1
 
 Please make sure that under your design path, 
 you have .xdc file which is the timing constraint file and you have run_vivado.tcl file.
+
+### Additional Information
+#### Running on multiple hosts:
+####  SSH login without password 
+http://blog.csdn.net/educast/article/details/7174498
+
+####  Make sure programs can run across multiple hosts
+https://www.open-mpi.org/faq/?category=running#diagnose-multi-host-problems 
+
+(11. How can I diagnose problems when running across multiple hosts?)
