@@ -1,0 +1,178 @@
+
+/home/xuchang/nas/project/daTuner/experiment/vtr_release/vtr_flow/../ODIN_II/odin_II.exe -c odin_config.xml
+Preprocessing verilog.
+Warning: The constant OR1200_SPRGRP_SYS_VR defined on line 793 in or1200.v was previously defined on line 140 in or1200.v
+Warning: The constant OR1200_SPRGRP_SYS_UPR defined on line 794 in or1200.v was previously defined on line 141 in or1200.v
+Warning: The constant OR1200_SPRGRP_SYS_CPUCFGR defined on line 795 in or1200.v was previously defined on line 142 in or1200.v
+Warning: The constant OR1200_SPRGRP_SYS_DMMUCFGR defined on line 796 in or1200.v was previously defined on line 143 in or1200.v
+Warning: The constant OR1200_SPRGRP_SYS_IMMUCFGR defined on line 797 in or1200.v was previously defined on line 144 in or1200.v
+Warning: The constant OR1200_SPRGRP_SYS_DCCFGR defined on line 798 in or1200.v was previously defined on line 145 in or1200.v
+Warning: The constant OR1200_SPRGRP_SYS_ICCFGR defined on line 799 in or1200.v was previously defined on line 146 in or1200.v
+Warning: The constant OR1200_SPRGRP_SYS_DCFGR defined on line 800 in or1200.v was previously defined on line 147 in or1200.v
+Warning: The constant OR1200_VR_REV defined on line 804 in or1200.v was previously defined on line 157 in or1200.v
+Warning: The constant OR1200_VR_RES1 defined on line 805 in or1200.v was previously defined on line 158 in or1200.v
+Warning: The constant OR1200_VR_CFG defined on line 806 in or1200.v was previously defined on line 159 in or1200.v
+Warning: The constant OR1200_VR_VER defined on line 807 in or1200.v was previously defined on line 160 in or1200.v
+Warning: The constant OR1200_UPR_RES1 defined on line 833 in or1200.v was previously defined on line 178 in or1200.v
+Warning: The constant OR1200_UPR_CUP defined on line 834 in or1200.v was previously defined on line 179 in or1200.v
+Warning: The constant OR1200_CPUCFGR_HGF_BITS defined on line 837 in or1200.v was previously defined on line 83 in or1200.v
+Warning: The constant OR1200_CPUCFGR_OB32S_BITS defined on line 838 in or1200.v was previously defined on line 84 in or1200.v
+Warning: The constant OR1200_CPUCFGR_OB64S_BITS defined on line 839 in or1200.v was previously defined on line 85 in or1200.v
+Warning: The constant OR1200_CPUCFGR_OF32S_BITS defined on line 840 in or1200.v was previously defined on line 86 in or1200.v
+Warning: The constant OR1200_CPUCFGR_OF64S_BITS defined on line 841 in or1200.v was previously defined on line 87 in or1200.v
+Warning: The constant OR1200_CPUCFGR_OV64S_BITS defined on line 842 in or1200.v was previously defined on line 88 in or1200.v
+Warning: The constant OR1200_CPUCFGR_NSGF defined on line 845 in or1200.v was previously defined on line 92 in or1200.v
+Warning: The constant OR1200_CPUCFGR_HGF defined on line 846 in or1200.v was previously defined on line 93 in or1200.v
+Warning: The constant OR1200_CPUCFGR_OB32S defined on line 847 in or1200.v was previously defined on line 94 in or1200.v
+Warning: The constant OR1200_CPUCFGR_OB64S defined on line 848 in or1200.v was previously defined on line 95 in or1200.v
+Warning: The constant OR1200_CPUCFGR_OF32S defined on line 849 in or1200.v was previously defined on line 96 in or1200.v
+Warning: The constant OR1200_CPUCFGR_OF64S defined on line 850 in or1200.v was previously defined on line 97 in or1200.v
+Warning: The constant OR1200_CPUCFGR_OV64S defined on line 851 in or1200.v was previously defined on line 98 in or1200.v
+Warning: The constant OR1200_CPUCFGR_RES1 defined on line 852 in or1200.v was previously defined on line 99 in or1200.v
+Warning: The constant OR1200_DMMUCFGR_CRI_BITS defined on line 855 in or1200.v was previously defined on line 107 in or1200.v
+Warning: The constant OR1200_DMMUCFGR_PRI_BITS defined on line 856 in or1200.v was previously defined on line 108 in or1200.v
+Warning: The constant OR1200_DMMUCFGR_TEIRI_BITS defined on line 857 in or1200.v was previously defined on line 109 in or1200.v
+Warning: The constant OR1200_DMMUCFGR_HTR_BITS defined on line 858 in or1200.v was previously defined on line 110 in or1200.v
+Warning: The constant OR1200_DMMUCFGR_NTW defined on line 861 in or1200.v was previously defined on line 115 in or1200.v
+Warning: The constant OR1200_DMMUCFGR_NAE defined on line 862 in or1200.v was previously defined on line 117 in or1200.v
+Warning: The constant OR1200_DMMUCFGR_CRI defined on line 863 in or1200.v was previously defined on line 118 in or1200.v
+Warning: The constant OR1200_DMMUCFGR_PRI defined on line 864 in or1200.v was previously defined on line 119 in or1200.v
+Warning: The constant OR1200_DMMUCFGR_TEIRI defined on line 865 in or1200.v was previously defined on line 120 in or1200.v
+Warning: The constant OR1200_DMMUCFGR_HTR defined on line 866 in or1200.v was previously defined on line 121 in or1200.v
+Warning: The constant OR1200_DMMUCFGR_RES1 defined on line 867 in or1200.v was previously defined on line 122 in or1200.v
+Warning: The constant OR1200_IMMUCFGR_CRI_BITS defined on line 871 in or1200.v was previously defined on line 131 in or1200.v
+Warning: The constant OR1200_IMMUCFGR_PRI_BITS defined on line 872 in or1200.v was previously defined on line 132 in or1200.v
+Warning: The constant OR1200_IMMUCFGR_TEIRI_BITS defined on line 873 in or1200.v was previously defined on line 133 in or1200.v
+Warning: The constant OR1200_IMMUCFGR_HTR_BITS defined on line 874 in or1200.v was previously defined on line 134 in or1200.v
+Warning: The constant OR1200_IMMUCFGR_NTW defined on line 876 in or1200.v was previously defined on line 72 in or1200.v
+Warning: The constant OR1200_IMMUCFGR_NAE defined on line 877 in or1200.v was previously defined on line 74 in or1200.v
+Warning: The constant OR1200_IMMUCFGR_CRI defined on line 878 in or1200.v was previously defined on line 75 in or1200.v
+Warning: The constant OR1200_IMMUCFGR_PRI defined on line 879 in or1200.v was previously defined on line 76 in or1200.v
+Warning: The constant OR1200_IMMUCFGR_TEIRI defined on line 880 in or1200.v was previously defined on line 77 in or1200.v
+Warning: The constant OR1200_IMMUCFGR_HTR defined on line 881 in or1200.v was previously defined on line 78 in or1200.v
+Warning: The constant OR1200_IMMUCFGR_RES1 defined on line 882 in or1200.v was previously defined on line 79 in or1200.v
+Warning: The constant OR1200_DCCFGR_CBS_BITS defined on line 885 in or1200.v was previously defined on line 61 in or1200.v
+Warning: The constant OR1200_DCCFGR_CWS_BITS defined on line 886 in or1200.v was previously defined on line 62 in or1200.v
+Warning: The constant OR1200_DCCFGR_CCRI_BITS defined on line 887 in or1200.v was previously defined on line 63 in or1200.v
+Warning: The constant OR1200_DCCFGR_CBIRI_BITS defined on line 888 in or1200.v was previously defined on line 64 in or1200.v
+Warning: The constant OR1200_DCCFGR_CBPRI_BITS defined on line 889 in or1200.v was previously defined on line 65 in or1200.v
+Warning: The constant OR1200_DCCFGR_CBLRI_BITS defined on line 890 in or1200.v was previously defined on line 66 in or1200.v
+Warning: The constant OR1200_DCCFGR_CBFRI_BITS defined on line 891 in or1200.v was previously defined on line 67 in or1200.v
+Warning: The constant OR1200_DCCFGR_CBWBRI_BITS defined on line 892 in or1200.v was previously defined on line 68 in or1200.v
+Warning: The constant OR1200_DCCFGR_NCW defined on line 895 in or1200.v was previously defined on line 45 in or1200.v
+Warning: The constant OR1200_DCCFGR_CWS defined on line 896 in or1200.v was previously defined on line 48 in or1200.v
+Warning: The constant OR1200_DCCFGR_CCRI defined on line 897 in or1200.v was previously defined on line 49 in or1200.v
+Warning: The constant OR1200_DCCFGR_CBIRI defined on line 898 in or1200.v was previously defined on line 50 in or1200.v
+Warning: The constant OR1200_DCCFGR_CBPRI defined on line 899 in or1200.v was previously defined on line 51 in or1200.v
+Warning: The constant OR1200_DCCFGR_CBLRI defined on line 900 in or1200.v was previously defined on line 52 in or1200.v
+Warning: The constant OR1200_DCCFGR_CBFRI defined on line 901 in or1200.v was previously defined on line 53 in or1200.v
+Warning: The constant OR1200_DCCFGR_CBWBRI defined on line 902 in or1200.v was previously defined on line 54 in or1200.v
+Warning: The constant OR1200_DCCFGR_RES1 defined on line 903 in or1200.v was previously defined on line 55 in or1200.v
+Warning: The constant OR1200_ICCFGR_CBS_BITS defined on line 907 in or1200.v was previously defined on line 34 in or1200.v
+Warning: The constant OR1200_ICCFGR_CWS_BITS defined on line 908 in or1200.v was previously defined on line 35 in or1200.v
+Warning: The constant OR1200_ICCFGR_CCRI_BITS defined on line 909 in or1200.v was previously defined on line 36 in or1200.v
+Warning: The constant OR1200_ICCFGR_CBIRI_BITS defined on line 910 in or1200.v was previously defined on line 37 in or1200.v
+Warning: The constant OR1200_ICCFGR_CBPRI_BITS defined on line 911 in or1200.v was previously defined on line 38 in or1200.v
+Warning: The constant OR1200_ICCFGR_CBLRI_BITS defined on line 912 in or1200.v was previously defined on line 39 in or1200.v
+Warning: The constant OR1200_ICCFGR_CBFRI_BITS defined on line 913 in or1200.v was previously defined on line 40 in or1200.v
+Warning: The constant OR1200_ICCFGR_CBWBRI_BITS defined on line 914 in or1200.v was previously defined on line 41 in or1200.v
+Warning: The constant OR1200_ICCFGR_NCW defined on line 916 in or1200.v was previously defined on line 20 in or1200.v
+Warning: The constant OR1200_ICCFGR_CWS defined on line 917 in or1200.v was previously defined on line 23 in or1200.v
+Warning: The constant OR1200_ICCFGR_CCRI defined on line 918 in or1200.v was previously defined on line 24 in or1200.v
+Warning: The constant OR1200_ICCFGR_CBIRI defined on line 919 in or1200.v was previously defined on line 25 in or1200.v
+Warning: The constant OR1200_ICCFGR_CBPRI defined on line 920 in or1200.v was previously defined on line 26 in or1200.v
+Warning: The constant OR1200_ICCFGR_CBLRI defined on line 921 in or1200.v was previously defined on line 27 in or1200.v
+Warning: The constant OR1200_ICCFGR_CBFRI defined on line 922 in or1200.v was previously defined on line 28 in or1200.v
+Warning: The constant OR1200_ICCFGR_CBWBRI defined on line 923 in or1200.v was previously defined on line 29 in or1200.v
+Warning: The constant OR1200_ICCFGR_RES1 defined on line 924 in or1200.v was previously defined on line 30 in or1200.v
+Warning: The constant OR1200_DCFGR_NDP defined on line 932 in or1200.v was previously defined on line 1 in or1200.v
+Warning: The constant OR1200_DCFGR_WPCI defined on line 933 in or1200.v was previously defined on line 2 in or1200.v
+Warning: The constant OR1200_DCFGR_RES1 defined on line 935 in or1200.v was previously defined on line 4 in or1200.v
+Warning: The constant OR1200_ITAG_IDLE defined on line 1581 in or1200.v was previously defined on line 315 in or1200.v
+Warning: The constant OR1200_ITAG_NI defined on line 1582 in or1200.v was previously defined on line 316 in or1200.v
+Warning: The constant OR1200_ITAG_BE defined on line 1583 in or1200.v was previously defined on line 317 in or1200.v
+Warning: The constant OR1200_ITAG_PE defined on line 1584 in or1200.v was previously defined on line 318 in or1200.v
+Warning: The constant OR1200_ITAG_TE defined on line 1585 in or1200.v was previously defined on line 319 in or1200.v
+Warning: The constant OR1200_BRANCHOP_WIDTH defined on line 1586 in or1200.v was previously defined on line 255 in or1200.v
+Warning: The constant OR1200_BRANCHOP_NOP defined on line 1587 in or1200.v was previously defined on line 256 in or1200.v
+Warning: The constant OR1200_BRANCHOP_J defined on line 1588 in or1200.v was previously defined on line 257 in or1200.v
+Warning: The constant OR1200_BRANCHOP_JR defined on line 1589 in or1200.v was previously defined on line 258 in or1200.v
+Warning: The constant OR1200_BRANCHOP_BAL defined on line 1590 in or1200.v was previously defined on line 259 in or1200.v
+Warning: The constant OR1200_BRANCHOP_BF defined on line 1591 in or1200.v was previously defined on line 260 in or1200.v
+Warning: The constant OR1200_BRANCHOP_BNF defined on line 1592 in or1200.v was previously defined on line 261 in or1200.v
+Warning: The constant OR1200_BRANCHOP_RFE defined on line 1593 in or1200.v was previously defined on line 262 in or1200.v
+Warning: The constant OR1200_EXCEPT_WIDTH defined on line 1594 in or1200.v was previously defined on line 434 in or1200.v
+Warning: The constant OR1200_EXCEPT_EPH0_P defined on line 1595 in or1200.v was previously defined on line 427 in or1200.v
+Warning: The constant OR1200_EXCEPT_EPH1_P defined on line 1596 in or1200.v was previously defined on line 428 in or1200.v
+Warning: The constant OR1200_EXCEPT_V defined on line 1597 in or1200.v was previously defined on line 429 in or1200.v
+Warning: The constant OR1200_ITAG_IDLE defined on line 1803 in or1200.v was previously defined on line 315 in or1200.v
+Warning: The constant OR1200_ITAG_NI defined on line 1804 in or1200.v was previously defined on line 316 in or1200.v
+Warning: The constant OR1200_ITAG_BE defined on line 1805 in or1200.v was previously defined on line 317 in or1200.v
+Warning: The constant OR1200_ITAG_PE defined on line 1806 in or1200.v was previously defined on line 318 in or1200.v
+Warning: The constant OR1200_ITAG_TE defined on line 1807 in or1200.v was previously defined on line 319 in or1200.v
+Warning: The constant OR1200_OR32_J defined on line 1809 in or1200.v was previously defined on line 361 in or1200.v
+Warning: The constant OR1200_OR32_JAL defined on line 1810 in or1200.v was previously defined on line 362 in or1200.v
+Warning: The constant OR1200_OR32_BNF defined on line 1811 in or1200.v was previously defined on line 363 in or1200.v
+Warning: The constant OR1200_OR32_BF defined on line 1812 in or1200.v was previously defined on line 364 in or1200.v
+Warning: The constant OR1200_OR32_NOP defined on line 1813 in or1200.v was previously defined on line 365 in or1200.v
+Warning: The constant OR1200_OR32_MOVHI defined on line 1814 in or1200.v was previously defined on line 366 in or1200.v
+Warning: The constant OR1200_OR32_XSYNC defined on line 1815 in or1200.v was previously defined on line 367 in or1200.v
+Warning: The constant OR1200_OR32_RFE defined on line 1816 in or1200.v was previously defined on line 368 in or1200.v
+Warning: The constant OR1200_OR32_JR defined on line 1818 in or1200.v was previously defined on line 370 in or1200.v
+Warning: The constant OR1200_OR32_JALR defined on line 1819 in or1200.v was previously defined on line 371 in or1200.v
+Warning: The constant OR1200_OR32_MACI defined on line 1820 in or1200.v was previously defined on line 372 in or1200.v
+Warning: The constant OR1200_OR32_LWZ defined on line 1822 in or1200.v was previously defined on line 374 in or1200.v
+Warning: The constant OR1200_OR32_LBZ defined on line 1823 in or1200.v was previously defined on line 375 in or1200.v
+Warning: The constant OR1200_OR32_LBS defined on line 1824 in or1200.v was previously defined on line 376 in or1200.v
+Warning: The constant OR1200_OR32_LHZ defined on line 1825 in or1200.v was previously defined on line 377 in or1200.v
+Warning: The constant OR1200_OR32_LHS defined on line 1826 in or1200.v was previously defined on line 378 in or1200.v
+Warning: The constant OR1200_OR32_ADDI defined on line 1827 in or1200.v was previously defined on line 379 in or1200.v
+Warning: The constant OR1200_OR32_ADDIC defined on line 1828 in or1200.v was previously defined on line 380 in or1200.v
+Warning: The constant OR1200_OR32_ANDI defined on line 1829 in or1200.v was previously defined on line 381 in or1200.v
+Warning: The constant OR1200_OR32_ORI defined on line 1830 in or1200.v was previously defined on line 382 in or1200.v
+Warning: The constant OR1200_OR32_XORI defined on line 1831 in or1200.v was previously defined on line 383 in or1200.v
+Warning: The constant OR1200_OR32_MULI defined on line 1832 in or1200.v was previously defined on line 384 in or1200.v
+Warning: The constant OR1200_OR32_MFSPR defined on line 1833 in or1200.v was previously defined on line 385 in or1200.v
+Warning: The constant OR1200_OR32_SH_ROTI defined on line 1834 in or1200.v was previously defined on line 386 in or1200.v
+Warning: The constant OR1200_OR32_SFXXI defined on line 1835 in or1200.v was previously defined on line 387 in or1200.v
+Warning: The constant OR1200_OR32_MTSPR defined on line 1837 in or1200.v was previously defined on line 389 in or1200.v
+Warning: The constant OR1200_OR32_MACMSB defined on line 1838 in or1200.v was previously defined on line 390 in or1200.v
+Warning: The constant OR1200_OR32_SW defined on line 1840 in or1200.v was previously defined on line 392 in or1200.v
+Warning: The constant OR1200_OR32_SB defined on line 1841 in or1200.v was previously defined on line 393 in or1200.v
+Warning: The constant OR1200_OR32_SH defined on line 1842 in or1200.v was previously defined on line 394 in or1200.v
+Warning: The constant OR1200_OR32_ALU defined on line 1843 in or1200.v was previously defined on line 395 in or1200.v
+Warning: The constant OR1200_OR32_SFXX defined on line 1844 in or1200.v was previously defined on line 396 in or1200.v
+--------------------------------------------------------------------
+Welcome to ODIN II version 0.1 - the better High level synthesis tools++ targetting FPGAs (mainly VPR)
+Email: jamieson.peter@gmail.com and ken@unb.ca for support issues
+
+Reading Configuration file
+Reading FPGA Architecture file
+--------------------------------------------------------------------
+High-level synthesis Begin
+Parser starting - we'll create an abstract syntax tree.  Note this tree can be viewed using GraphViz (see documentation)
+Optimizing module by AST based optimizations
+Converting AST into a Netlist. Note this netlist can be viewed using GraphViz (see documentation)
+Performing Optimizations of the Netlist
+
+Hard Logical Memory Distribution
+============================
+DPRAM: 32 width 5 depth
+DPRAM: 32 width 5 depth
+
+Total Logical Memory Blocks = 2 
+Total Logical Memory bits = 2048 
+Max Memory Width = 32 
+Max Memory Depth = 5 
+
+Performing Partial Map to target device
+Outputting the netlist to the specified output format
+Successful High-level synthesis by Odin in 581.3ms
+--------------------------------------------------------------------
+
+Hard Multiplier Distribution
+============================
+32 X 32 => 1
+
+
+Total # of multipliers = 1

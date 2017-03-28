@@ -1,0 +1,447 @@
+________________________________________________________________________
+                       VPR - The Next Generation                        
+                     Version 0.A15.0 (Linux X86/64)                     
+            This is free open source code under MIT license.            
+________________________________________________________________________
+
+VPR FPGA Placement and Routing.
+Version: Version 7.0
+Compiled: Nov  7 2016.
+University of Toronto
+vpr@eecg.utoronto.ca
+This is free open source code under MIT license.
+
+Architecture file: k6_frac_N10_mem32K_40nm.xml
+Circuit name: boundtop.blif
+
+Building complex block graph.
+WARNING(1): io[0].clock[0] unconnected pin in architecture.
+Loop for doall = 0, init_parse took 0 seconds.
+Loop for doall = 0 took 0.04 seconds.
+Loop for doall = 1, init_parse took 0.01 seconds.
+Loop for doall = 1 took 0.04 seconds.
+Swept away 0 nets with no fanout.
+Net is a constant generator: top^tm3_sram_addr~18.
+WARNING(2): logical_block #5144 with output top^tm3_sram_addr~18 has only 0 pin.
+WARNING(3): Block contains output -- may be a constant generator.
+Net is a constant generator: n2240.
+WARNING(4): logical_block #5229 with output n2240 has only 0 pin.
+WARNING(5): Block contains output -- may be a constant generator.
+Net is a constant generator: n3090.
+WARNING(6): logical_block #5253 with output n3090 has only 0 pin.
+WARNING(7): Block contains output -- may be a constant generator.
+Net is a constant generator: n3175.
+WARNING(8): logical_block #5254 with output n3175 has only 0 pin.
+WARNING(9): Block contains output -- may be a constant generator.
+Net is a constant generator: n3700.
+WARNING(10): logical_block #5256 with output n3700 has only 0 pin.
+WARNING(11): Block contains output -- may be a constant generator.
+Net is a constant generator: n4105.
+WARNING(12): logical_block #5257 with output n4105 has only 0 pin.
+WARNING(13): Block contains output -- may be a constant generator.
+Net is a constant generator: n4885.
+WARNING(14): logical_block #5258 with output n4885 has only 0 pin.
+WARNING(15): Block contains output -- may be a constant generator.
+Net is a constant generator: n4890.
+WARNING(16): logical_block #5259 with output n4890 has only 0 pin.
+WARNING(17): Block contains output -- may be a constant generator.
+Net is a constant generator: n4895.
+WARNING(18): logical_block #5260 with output n4895 has only 0 pin.
+WARNING(19): Block contains output -- may be a constant generator.
+Net is a constant generator: n4900.
+WARNING(20): logical_block #5261 with output n4900 has only 0 pin.
+WARNING(21): Block contains output -- may be a constant generator.
+Net is a constant generator: n5105.
+WARNING(22): logical_block #5263 with output n5105 has only 0 pin.
+WARNING(23): Block contains output -- may be a constant generator.
+Net is a constant generator: n5110.
+WARNING(24): logical_block #5264 with output n5110 has only 0 pin.
+WARNING(25): Block contains output -- may be a constant generator.
+Net is a constant generator: n5115.
+WARNING(26): logical_block #5265 with output n5115 has only 0 pin.
+WARNING(27): Block contains output -- may be a constant generator.
+Net is a constant generator: n5540.
+WARNING(28): logical_block #5267 with output n5540 has only 0 pin.
+WARNING(29): Block contains output -- may be a constant generator.
+Net is a constant generator: n5945.
+WARNING(30): logical_block #5268 with output n5945 has only 0 pin.
+WARNING(31): Block contains output -- may be a constant generator.
+Net is a constant generator: n6735.
+WARNING(32): logical_block #5269 with output n6735 has only 0 pin.
+WARNING(33): Block contains output -- may be a constant generator.
+Net is a constant generator: n6740.
+WARNING(34): logical_block #5270 with output n6740 has only 0 pin.
+WARNING(35): Block contains output -- may be a constant generator.
+Net is a constant generator: n6745.
+WARNING(36): logical_block #5271 with output n6745 has only 0 pin.
+WARNING(37): Block contains output -- may be a constant generator.
+Net is a constant generator: n6750.
+WARNING(38): logical_block #5272 with output n6750 has only 0 pin.
+WARNING(39): Block contains output -- may be a constant generator.
+Net is a constant generator: n10555.
+WARNING(40): logical_block #5275 with output n10555 has only 0 pin.
+WARNING(41): Block contains output -- may be a constant generator.
+Net is a constant generator: n10559.
+WARNING(42): logical_block #5276 with output n10559 has only 0 pin.
+WARNING(43): Block contains output -- may be a constant generator.
+Net is a constant generator: n10563.
+WARNING(44): logical_block #5277 with output n10563 has only 0 pin.
+WARNING(45): Block contains output -- may be a constant generator.
+Net is a constant generator: n10567.
+WARNING(46): logical_block #5278 with output n10567 has only 0 pin.
+WARNING(47): Block contains output -- may be a constant generator.
+Net is a constant generator: n10571.
+WARNING(48): logical_block #5279 with output n10571 has only 0 pin.
+WARNING(49): Block contains output -- may be a constant generator.
+Net is a constant generator: n10575.
+WARNING(50): logical_block #5280 with output n10575 has only 0 pin.
+WARNING(51): Block contains output -- may be a constant generator.
+Net is a constant generator: n10579.
+WARNING(52): logical_block #5281 with output n10579 has only 0 pin.
+WARNING(53): Block contains output -- may be a constant generator.
+Net is a constant generator: n10583.
+WARNING(54): logical_block #5282 with output n10583 has only 0 pin.
+WARNING(55): Block contains output -- may be a constant generator.
+Net is a constant generator: n10587.
+WARNING(56): logical_block #5283 with output n10587 has only 0 pin.
+WARNING(57): Block contains output -- may be a constant generator.
+Net is a constant generator: n10591.
+WARNING(58): logical_block #5284 with output n10591 has only 0 pin.
+WARNING(59): Block contains output -- may be a constant generator.
+Net is a constant generator: n10595.
+WARNING(60): logical_block #5285 with output n10595 has only 0 pin.
+WARNING(61): Block contains output -- may be a constant generator.
+Net is a constant generator: n10599.
+WARNING(62): logical_block #5286 with output n10599 has only 0 pin.
+WARNING(63): Block contains output -- may be a constant generator.
+Net is a constant generator: n10603.
+WARNING(64): logical_block #5287 with output n10603 has only 0 pin.
+WARNING(65): Block contains output -- may be a constant generator.
+Net is a constant generator: n10607.
+WARNING(66): logical_block #5288 with output n10607 has only 0 pin.
+WARNING(67): Block contains output -- may be a constant generator.
+Net is a constant generator: n10611.
+WARNING(68): logical_block #5289 with output n10611 has only 0 pin.
+WARNING(69): Block contains output -- may be a constant generator.
+Net is a constant generator: n10615.
+WARNING(70): logical_block #5290 with output n10615 has only 0 pin.
+WARNING(71): Block contains output -- may be a constant generator.
+Net is a constant generator: n10619.
+WARNING(72): logical_block #5291 with output n10619 has only 0 pin.
+WARNING(73): Block contains output -- may be a constant generator.
+Net is a constant generator: n10623.
+WARNING(74): logical_block #5292 with output n10623 has only 0 pin.
+WARNING(75): Block contains output -- may be a constant generator.
+Net is a constant generator: n10627.
+WARNING(76): logical_block #5293 with output n10627 has only 0 pin.
+WARNING(77): Block contains output -- may be a constant generator.
+Net is a constant generator: n10631.
+WARNING(78): logical_block #5294 with output n10631 has only 0 pin.
+WARNING(79): Block contains output -- may be a constant generator.
+Net is a constant generator: n10635.
+WARNING(80): logical_block #5295 with output n10635 has only 0 pin.
+WARNING(81): Block contains output -- may be a constant generator.
+Net is a constant generator: n10639.
+WARNING(82): logical_block #5296 with output n10639 has only 0 pin.
+WARNING(83): Block contains output -- may be a constant generator.
+Net is a constant generator: n10643.
+WARNING(84): logical_block #5297 with output n10643 has only 0 pin.
+WARNING(85): Block contains output -- may be a constant generator.
+Net is a constant generator: n10647.
+WARNING(86): logical_block #5298 with output n10647 has only 0 pin.
+WARNING(87): Block contains output -- may be a constant generator.
+Net is a constant generator: n10651.
+WARNING(88): logical_block #5299 with output n10651 has only 0 pin.
+WARNING(89): Block contains output -- may be a constant generator.
+Net is a constant generator: n10655.
+WARNING(90): logical_block #5300 with output n10655 has only 0 pin.
+WARNING(91): Block contains output -- may be a constant generator.
+0 unconnected blocks in input netlist.
+Removed 77 LUT buffers.
+Sweeped away 77 nodes.
+BLIF circuit stats:
+	45 LUTs of size 0
+	0 LUTs of size 1
+	681 LUTs of size 2
+	461 LUTs of size 3
+	360 LUTs of size 4
+	289 LUTs of size 5
+	1218 LUTs of size 6
+	275 of type input
+	192 of type output
+	1671 of type latch
+	3054 of type names
+	0 of type dual_port_ram
+	32 of type single_port_ram
+	0 of type multiply
+Timing analysis: ON
+Circuit netlist file: boundtop.net
+Circuit placement file: boundtop.place
+Circuit routing file: boundtop.route
+Circuit SDC file: /home/xuchang/nas/project/daTuner/experiment/vtr_release/vtr_flow/sdc/boundtop.sdc
+Operation: RUN_FLOW
+
+Packer: DISABLED
+Placer: DISABLED
+Router: ENABLED
+RouterOpts.route_type: DETAILED
+RouterOpts.router_algorithm: TIMING_DRIVEN
+RouterOpts.base_cost_type: DELAY_NORMALIZED
+RouterOpts.fixed_channel_width: 78
+RouterOpts.acc_fac: 1.000000
+RouterOpts.bb_factor: 3
+RouterOpts.bend_cost: 0.000000
+RouterOpts.first_iter_pres_fac: 0.500000
+RouterOpts.initial_pres_fac: 0.500000
+RouterOpts.pres_fac_mult: 1.300000
+RouterOpts.max_router_iterations: 100
+RouterOpts.astar_fac: 1.200000
+RouterOpts.criticality_exp: 1.000000
+RouterOpts.max_criticality: 0.990000
+
+RoutingArch.directionality: UNI_DIRECTIONAL
+RoutingArch.switch_block_type: WILTON
+RoutingArch.Fs: 3
+
+Begin parsing packed FPGA netlist file.
+Finished parsing packed FPGA netlist file.
+Netlist generated from file 'boundtop.net'.
+n4885 is a constant generator.
+n4890 is a constant generator.
+n5945 is a constant generator.
+n5540 is a constant generator.
+n3700 is a constant generator.
+n4105 is a constant generator.
+n5110 is a constant generator.
+n3090 is a constant generator.
+n5105 is a constant generator.
+n2240 is a constant generator.
+n6745 is a constant generator.
+n6740 is a constant generator.
+n6735 is a constant generator.
+n10643 is a constant generator.
+n10627 is a constant generator.
+n10631 is a constant generator.
+n10587 is a constant generator.
+n10583 is a constant generator.
+n10591 is a constant generator.
+n10651 is a constant generator.
+n10635 is a constant generator.
+n10639 is a constant generator.
+n10571 is a constant generator.
+n10555 is a constant generator.
+n10559 is a constant generator.
+n10619 is a constant generator.
+n10623 is a constant generator.
+n10575 is a constant generator.
+n10579 is a constant generator.
+n10567 is a constant generator.
+n10647 is a constant generator.
+n6750 is a constant generator.
+n4900 is a constant generator.
+n4895 is a constant generator.
+n10595 is a constant generator.
+n10563 is a constant generator.
+n10611 is a constant generator.
+n10607 is a constant generator.
+n10615 is a constant generator.
+top^tm3_sram_addr~18 is a constant generator.
+n10655 is a constant generator.
+n10603 is a constant generator.
+n10599 is a constant generator.
+n5115 is a constant generator.
+n3175 is a constant generator.
+
+Netlist num_nets: 2200
+Netlist num_blocks: 701
+Netlist <EMPTY> blocks: 0.
+Netlist clb blocks: 233.
+Netlist mult_36 blocks: 0.
+Netlist memory blocks: 1.
+Netlist inputs pins: 275
+Netlist output pins: 192
+
+Auto-sizing FPGA at x = 26 y = 26
+Auto-sizing FPGA at x = 13 y = 13
+Auto-sizing FPGA at x = 19 y = 19
+Auto-sizing FPGA at x = 16 y = 16
+Auto-sizing FPGA at x = 17 y = 17
+Auto-sizing FPGA at x = 18 y = 18
+Auto-sizing FPGA at x = 17 y = 17
+FPGA auto-sized to x = 18 y = 18
+The circuit will be mapped into a 18 x 18 array of clbs.
+
+Resource usage...
+	Netlist      0	blocks of type: <EMPTY>
+	Architecture 8	blocks of type: <EMPTY>
+	Netlist      467	blocks of type: io
+	Architecture 576	blocks of type: io
+	Netlist      233	blocks of type: clb
+	Architecture 234	blocks of type: clb
+	Netlist      0	blocks of type: mult_36
+	Architecture 8	blocks of type: mult_36
+	Netlist      1	blocks of type: memory
+	Architecture 9	blocks of type: memory
+
+
+SDC file '/home/xuchang/nas/project/daTuner/experiment/vtr_release/vtr_flow/sdc/boundtop.sdc' blank or not found.
+
+Defaulting to: constrain all 0 inputs and 0 outputs on the netlist clock.
+Optimize this clock to run as fast as possible.
+Build rr_graph took 0.18 seconds.
+Confirming Router Algorithm: TIMING_DRIVEN.
+
+Routing iteration: 1
+Wire length after first iteration 26366, total available wire length 53352, ratio 0.49419
+Critical path: 6.46127 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 2
+Critical path: 6.46127 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 3
+Critical path: 6.46127 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 4
+Critical path: 6.46127 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 5
+Critical path: 6.46127 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 6
+Critical path: 6.46127 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 7
+Critical path: 6.46127 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 8
+Critical path: 6.46127 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 9
+Critical path: 6.46016 ns
+Routing iteration took 0.04 seconds.
+
+Routing iteration: 10
+Critical path: 6.46016 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 11
+Critical path: 6.46016 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 12
+Critical path: 6.46016 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 13
+Critical path: 6.46016 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 14
+Critical path: 6.46016 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 15
+Critical path: 6.46016 ns
+Routing iteration took 0.03 seconds.
+
+Routing iteration: 16
+Successfully routed after 16 routing iterations.
+Completed net delay value cross check successfully.
+
+Checking to ensure routing is legal...
+Completed routing consistency check successfully.
+
+Serial number (magic cookie) for the routing is: -1094995304
+Circuit successfully routed with a channel width factor of 78.
+
+
+Average number of bends per net: 1.75125  Maximum # of bends: 80
+
+Number of routed nets (nonglobal): 2199
+Wirelength results (in units of 1 clb segments)...
+	Total wirelength: 28470, average net length: 12.9468
+	Maximum net length: 370
+
+Wirelength results in terms of physical segments...
+	Total wiring segments used: 7632, average wire segments per net: 3.47067
+	Maximum segments used by a net: 101
+	Total local nets with reserved CLB opins: 0
+
+X - Directed channels: j	max occ	av_occ		capacity
+0	65	38.1111  	78
+1	57	36.2778  	78
+2	55	35.7222  	78
+3	56	40.6111  	78
+4	59	39.7222  	78
+5	59	43.3889  	78
+6	62	44.2222  	78
+7	57	42.5000  	78
+8	63	41.4444  	78
+9	59	45.6111  	78
+10	60	44.5000  	78
+11	55	44.3889  	78
+12	57	45.9444  	78
+13	58	45.6111  	78
+14	56	46.0556  	78
+15	55	42.6667  	78
+16	57	45.2222  	78
+17	49	39.2222  	78
+18	50	41.9444  	78
+
+Y - Directed channels: i	max occ	av_occ		capacity
+0	50	36.7778  	78
+1	40	26.7778  	78
+2	42	28.8333  	78
+3	67	47.8889  	78
+4	63	47.9444  	78
+5	54	36.8333  	78
+6	55	38.0000  	78
+7	64	50.3333  	78
+8	69	54.1667  	78
+9	67	49.0000  	78
+10	61	46.7778  	78
+11	70	54.5556  	78
+12	62	52.6667  	78
+13	46	37.0556  	78
+14	49	38.6111  	78
+15	51	41.3333  	78
+16	54	36.8889  	78
+17	31	22.1667  	78
+18	41	31.8889  	78
+
+Total tracks in x-direction: 1482, in y-direction: 1482
+
+Logic area (in minimum width transistor areas, excludes I/Os and empty grid tiles)...
+	Total logic block area (Warning, need to add pitch of routing to blocks with height > 3): 2.07112e+07
+	Total used logic block area: 1.31053e+07
+
+Routing area (in minimum width transistor areas)...
+	Total routing area: 2.79605e+06, per logic tile: 8629.77
+
+Segment usage by type (index):
+Segment type       Fractional utilization
+------------       ----------------------
+       0                   0.49
+
+Segment usage by length:
+Segment length       Fractional utilization
+--------------       ----------------------
+        4                    0.49
+
+Nets on critical path: 7 normal, 0 global.
+Total logic delay: 3.547e-09 (s), total net delay: 2.91316e-09 (s)
+Final critical path: 6.46016 ns
+f_max: 154.795 MHz
+
+Least slack in design: -6.46016 ns
+
+Routing took 0.73 seconds.
+The entire flow of VPR took 1.27 seconds.

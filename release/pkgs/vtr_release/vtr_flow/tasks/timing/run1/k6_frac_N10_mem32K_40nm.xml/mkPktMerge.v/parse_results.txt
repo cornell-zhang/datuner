@@ -1,0 +1,2 @@
+vpr_status	min_chan_width	chipSize	logicarea	routingarea	critical_path_delay	fmax	pack_time	place_time	min_chan_width_route_time	crit_path_route_time	placementwl	num_pre_packed_nets	num_pre_packed_blocks	num_post_packed_nets	num_blocks	num_clb	num_io	num_outputs	num_memories	num_mult	error
+success	46	26	9.02841e+06	3.35615e+06	4.57233	218.707	0.49	3.12	35.46	2.07	

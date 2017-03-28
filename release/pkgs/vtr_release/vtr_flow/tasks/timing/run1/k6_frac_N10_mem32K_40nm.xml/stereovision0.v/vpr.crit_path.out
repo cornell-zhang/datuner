@@ -1,0 +1,979 @@
+
+/home/xuchang/nas/project/daTuner/experiment/vtr_release/vtr_flow/../vpr/vpr k6_frac_N10_mem32K_40nm.xml stereovision0 --route --blif_file stereovision0.pre-vpr.blif --route_chan_width 78 --cluster_seed_type timing --max_router_iterations 100 --nodisp --gen_postsynthesis_netlist off --sdc_file /home/xuchang/nas/project/daTuner/experiment/vtr_release/vtr_flow/sdc/stereovision0.sdc
+
+VPR FPGA Placement and Routing.
+Version: Version 7.0
+Compiled: Nov  7 2016.
+University of Toronto
+vpr@eecg.utoronto.ca
+This is free open source code under MIT license.
+
+Architecture file: k6_frac_N10_mem32K_40nm.xml
+Circuit name: stereovision0.blif
+
+Building complex block graph.
+WARNING(1): io[0].clock[0] unconnected pin in architecture.
+Loop for doall = 0, init_parse took 0 seconds.
+Loop for doall = 0 took 0.12 seconds.
+Loop for doall = 1, init_parse took 0.01 seconds.
+Loop for doall = 1 took 0.13 seconds.
+Swept away 12 nets with no fanout.
+WARNING(2): logical_block top^x_in~10 #147 has no fanout.
+Removing input.
+WARNING(3): logical_block top^x_in~11 #148 has no fanout.
+Removing input.
+WARNING(4): logical_block top^x_in~12 #149 has no fanout.
+Removing input.
+WARNING(5): logical_block top^x_in~13 #150 has no fanout.
+Removing input.
+WARNING(6): logical_block top^x_in~14 #151 has no fanout.
+Removing input.
+WARNING(7): logical_block top^x_in~15 #152 has no fanout.
+Removing input.
+WARNING(8): logical_block top^y_in~10 #163 has no fanout.
+Removing input.
+WARNING(9): logical_block top^y_in~11 #164 has no fanout.
+Removing input.
+WARNING(10): logical_block top^y_in~12 #165 has no fanout.
+Removing input.
+WARNING(11): logical_block top^y_in~13 #166 has no fanout.
+Removing input.
+WARNING(12): logical_block top^y_in~14 #167 has no fanout.
+Removing input.
+WARNING(13): logical_block top^y_in~15 #168 has no fanout.
+Removing input.
+Net is a constant generator: n13065.
+WARNING(14): logical_block #13771 with output n13065 has only 0 pin.
+WARNING(15): Block contains output -- may be a constant generator.
+Net is a constant generator: n1093.
+WARNING(16): logical_block #20487 with output n1093 has only 0 pin.
+WARNING(17): Block contains output -- may be a constant generator.
+Net is a constant generator: n1166.
+WARNING(18): logical_block #20497 with output n1166 has only 0 pin.
+WARNING(19): Block contains output -- may be a constant generator.
+Net is a constant generator: n1171.
+WARNING(20): logical_block #20498 with output n1171 has only 0 pin.
+WARNING(21): Block contains output -- may be a constant generator.
+Net is a constant generator: n1175.
+WARNING(22): logical_block #20499 with output n1175 has only 0 pin.
+WARNING(23): Block contains output -- may be a constant generator.
+Net is a constant generator: n2114.
+WARNING(24): logical_block #20583 with output n2114 has only 0 pin.
+WARNING(25): Block contains output -- may be a constant generator.
+Net is a constant generator: n2119.
+WARNING(26): logical_block #20584 with output n2119 has only 0 pin.
+WARNING(27): Block contains output -- may be a constant generator.
+Net is a constant generator: n2124.
+WARNING(28): logical_block #20585 with output n2124 has only 0 pin.
+WARNING(29): Block contains output -- may be a constant generator.
+Net is a constant generator: n2164.
+WARNING(30): logical_block #20592 with output n2164 has only 0 pin.
+WARNING(31): Block contains output -- may be a constant generator.
+Net is a constant generator: n2169.
+WARNING(32): logical_block #20593 with output n2169 has only 0 pin.
+WARNING(33): Block contains output -- may be a constant generator.
+Net is a constant generator: n2254.
+WARNING(34): logical_block #20607 with output n2254 has only 0 pin.
+WARNING(35): Block contains output -- may be a constant generator.
+Net is a constant generator: n2259.
+WARNING(36): logical_block #20608 with output n2259 has only 0 pin.
+WARNING(37): Block contains output -- may be a constant generator.
+Net is a constant generator: n2284.
+WARNING(38): logical_block #20613 with output n2284 has only 0 pin.
+WARNING(39): Block contains output -- may be a constant generator.
+Net is a constant generator: n2289.
+WARNING(40): logical_block #20614 with output n2289 has only 0 pin.
+WARNING(41): Block contains output -- may be a constant generator.
+Net is a constant generator: n2294.
+WARNING(42): logical_block #20615 with output n2294 has only 0 pin.
+WARNING(43): Block contains output -- may be a constant generator.
+Net is a constant generator: n2625.
+WARNING(44): logical_block #20666 with output n2625 has only 0 pin.
+WARNING(45): Block contains output -- may be a constant generator.
+Net is a constant generator: n2630.
+WARNING(46): logical_block #20667 with output n2630 has only 0 pin.
+WARNING(47): Block contains output -- may be a constant generator.
+Net is a constant generator: n2635.
+WARNING(48): logical_block #20668 with output n2635 has only 0 pin.
+WARNING(49): Block contains output -- may be a constant generator.
+Net is a constant generator: n2645.
+WARNING(50): logical_block #20669 with output n2645 has only 0 pin.
+WARNING(51): Block contains output -- may be a constant generator.
+Net is a constant generator: n2650.
+WARNING(52): logical_block #20670 with output n2650 has only 0 pin.
+WARNING(53): Block contains output -- may be a constant generator.
+Net is a constant generator: n2655.
+WARNING(54): logical_block #20671 with output n2655 has only 0 pin.
+WARNING(55): Block contains output -- may be a constant generator.
+Net is a constant generator: n3276.
+WARNING(56): logical_block #20765 with output n3276 has only 0 pin.
+WARNING(57): Block contains output -- may be a constant generator.
+Net is a constant generator: n3281.
+WARNING(58): logical_block #20766 with output n3281 has only 0 pin.
+WARNING(59): Block contains output -- may be a constant generator.
+Net is a constant generator: n3286.
+WARNING(60): logical_block #20767 with output n3286 has only 0 pin.
+WARNING(61): Block contains output -- may be a constant generator.
+Net is a constant generator: n3341.
+WARNING(62): logical_block #20777 with output n3341 has only 0 pin.
+WARNING(63): Block contains output -- may be a constant generator.
+Net is a constant generator: n3346.
+WARNING(64): logical_block #20778 with output n3346 has only 0 pin.
+WARNING(65): Block contains output -- may be a constant generator.
+Net is a constant generator: n3351.
+WARNING(66): logical_block #20779 with output n3351 has only 0 pin.
+WARNING(67): Block contains output -- may be a constant generator.
+Net is a constant generator: n3355.
+WARNING(68): logical_block #20780 with output n3355 has only 0 pin.
+WARNING(69): Block contains output -- may be a constant generator.
+Net is a constant generator: n3359.
+WARNING(70): logical_block #20781 with output n3359 has only 0 pin.
+WARNING(71): Block contains output -- may be a constant generator.
+Net is a constant generator: n3363.
+WARNING(72): logical_block #20782 with output n3363 has only 0 pin.
+WARNING(73): Block contains output -- may be a constant generator.
+Net is a constant generator: n3367.
+WARNING(74): logical_block #20783 with output n3367 has only 0 pin.
+WARNING(75): Block contains output -- may be a constant generator.
+Net is a constant generator: n3371.
+WARNING(76): logical_block #20784 with output n3371 has only 0 pin.
+WARNING(77): Block contains output -- may be a constant generator.
+Net is a constant generator: n3375.
+WARNING(78): logical_block #20785 with output n3375 has only 0 pin.
+WARNING(79): Block contains output -- may be a constant generator.
+Net is a constant generator: n3380.
+WARNING(80): logical_block #20786 with output n3380 has only 0 pin.
+WARNING(81): Block contains output -- may be a constant generator.
+Net is a constant generator: n3385.
+WARNING(82): logical_block #20787 with output n3385 has only 0 pin.
+WARNING(83): Block contains output -- may be a constant generator.
+Net is a constant generator: n3389.
+WARNING(84): logical_block #20788 with output n3389 has only 0 pin.
+WARNING(85): Block contains output -- may be a constant generator.
+Net is a constant generator: n3393.
+WARNING(86): logical_block #20789 with output n3393 has only 0 pin.
+WARNING(87): Block contains output -- may be a constant generator.
+Net is a constant generator: n3397.
+WARNING(88): logical_block #20790 with output n3397 has only 0 pin.
+WARNING(89): Block contains output -- may be a constant generator.
+Net is a constant generator: n3401.
+WARNING(90): logical_block #20791 with output n3401 has only 0 pin.
+WARNING(91): Block contains output -- may be a constant generator.
+Net is a constant generator: n3844.
+WARNING(92): logical_block #20803 with output n3844 has only 0 pin.
+WARNING(93): Block contains output -- may be a constant generator.
+Net is a constant generator: n3917.
+WARNING(94): logical_block #20813 with output n3917 has only 0 pin.
+WARNING(95): Block contains output -- may be a constant generator.
+Net is a constant generator: n3921.
+WARNING(96): logical_block #20814 with output n3921 has only 0 pin.
+WARNING(97): Block contains output -- may be a constant generator.
+Net is a constant generator: n3925.
+WARNING(98): logical_block #20815 with output n3925 has only 0 pin.
+WARNING(99): Block contains output -- may be a constant generator.
+Net is a constant generator: n4804.
+WARNING(100): logical_block #20899 with output n4804 has only 0 pin.
+WARNING(101): Block contains output -- may be a constant generator.
+Net is a constant generator: n4809.
+WARNING(102): logical_block #20900 with output n4809 has only 0 pin.
+WARNING(103): Block contains output -- may be a constant generator.
+Net is a constant generator: n4814.
+WARNING(104): logical_block #20901 with output n4814 has only 0 pin.
+WARNING(105): Block contains output -- may be a constant generator.
+Net is a constant generator: n4854.
+WARNING(106): logical_block #20908 with output n4854 has only 0 pin.
+WARNING(107): Block contains output -- may be a constant generator.
+Net is a constant generator: n4859.
+WARNING(108): logical_block #20909 with output n4859 has only 0 pin.
+WARNING(109): Block contains output -- may be a constant generator.
+Net is a constant generator: n4944.
+WARNING(110): logical_block #20923 with output n4944 has only 0 pin.
+WARNING(111): Block contains output -- may be a constant generator.
+Net is a constant generator: n4949.
+WARNING(112): logical_block #20924 with output n4949 has only 0 pin.
+WARNING(113): Block contains output -- may be a constant generator.
+Net is a constant generator: n4974.
+WARNING(114): logical_block #20929 with output n4974 has only 0 pin.
+WARNING(115): Block contains output -- may be a constant generator.
+Net is a constant generator: n4979.
+WARNING(116): logical_block #20930 with output n4979 has only 0 pin.
+WARNING(117): Block contains output -- may be a constant generator.
+Net is a constant generator: n4984.
+WARNING(118): logical_block #20931 with output n4984 has only 0 pin.
+WARNING(119): Block contains output -- may be a constant generator.
+Net is a constant generator: n5315.
+WARNING(120): logical_block #20982 with output n5315 has only 0 pin.
+WARNING(121): Block contains output -- may be a constant generator.
+Net is a constant generator: n5320.
+WARNING(122): logical_block #20983 with output n5320 has only 0 pin.
+WARNING(123): Block contains output -- may be a constant generator.
+Net is a constant generator: n5325.
+WARNING(124): logical_block #20984 with output n5325 has only 0 pin.
+WARNING(125): Block contains output -- may be a constant generator.
+Net is a constant generator: n5335.
+WARNING(126): logical_block #20985 with output n5335 has only 0 pin.
+WARNING(127): Block contains output -- may be a constant generator.
+Net is a constant generator: n5340.
+WARNING(128): logical_block #20986 with output n5340 has only 0 pin.
+WARNING(129): Block contains output -- may be a constant generator.
+Net is a constant generator: n5345.
+WARNING(130): logical_block #20987 with output n5345 has only 0 pin.
+WARNING(131): Block contains output -- may be a constant generator.
+Net is a constant generator: n5966.
+WARNING(132): logical_block #21081 with output n5966 has only 0 pin.
+WARNING(133): Block contains output -- may be a constant generator.
+Net is a constant generator: n5971.
+WARNING(134): logical_block #21082 with output n5971 has only 0 pin.
+WARNING(135): Block contains output -- may be a constant generator.
+Net is a constant generator: n5976.
+WARNING(136): logical_block #21083 with output n5976 has only 0 pin.
+WARNING(137): Block contains output -- may be a constant generator.
+Net is a constant generator: n6031.
+WARNING(138): logical_block #21093 with output n6031 has only 0 pin.
+WARNING(139): Block contains output -- may be a constant generator.
+Net is a constant generator: n6036.
+WARNING(140): logical_block #21094 with output n6036 has only 0 pin.
+WARNING(141): Block contains output -- may be a constant generator.
+Net is a constant generator: n6041.
+WARNING(142): logical_block #21095 with output n6041 has only 0 pin.
+WARNING(143): Block contains output -- may be a constant generator.
+Net is a constant generator: n6045.
+WARNING(144): logical_block #21096 with output n6045 has only 0 pin.
+WARNING(145): Block contains output -- may be a constant generator.
+Net is a constant generator: n6049.
+WARNING(146): logical_block #21097 with output n6049 has only 0 pin.
+WARNING(147): Block contains output -- may be a constant generator.
+Net is a constant generator: n6053.
+WARNING(148): logical_block #21098 with output n6053 has only 0 pin.
+WARNING(149): Block contains output -- may be a constant generator.
+Net is a constant generator: n6057.
+WARNING(150): logical_block #21099 with output n6057 has only 0 pin.
+WARNING(151): Block contains output -- may be a constant generator.
+Net is a constant generator: n6061.
+WARNING(152): logical_block #21100 with output n6061 has only 0 pin.
+WARNING(153): Block contains output -- may be a constant generator.
+Net is a constant generator: n6065.
+WARNING(154): logical_block #21101 with output n6065 has only 0 pin.
+WARNING(155): Block contains output -- may be a constant generator.
+Net is a constant generator: n6070.
+WARNING(156): logical_block #21102 with output n6070 has only 0 pin.
+WARNING(157): Block contains output -- may be a constant generator.
+Net is a constant generator: n6075.
+WARNING(158): logical_block #21103 with output n6075 has only 0 pin.
+WARNING(159): Block contains output -- may be a constant generator.
+Net is a constant generator: n6079.
+WARNING(160): logical_block #21104 with output n6079 has only 0 pin.
+WARNING(161): Block contains output -- may be a constant generator.
+Net is a constant generator: n6083.
+WARNING(162): logical_block #21105 with output n6083 has only 0 pin.
+WARNING(163): Block contains output -- may be a constant generator.
+Net is a constant generator: n6087.
+WARNING(164): logical_block #21106 with output n6087 has only 0 pin.
+WARNING(165): Block contains output -- may be a constant generator.
+Net is a constant generator: n6091.
+WARNING(166): logical_block #21107 with output n6091 has only 0 pin.
+WARNING(167): Block contains output -- may be a constant generator.
+Net is a constant generator: n8801.
+WARNING(168): logical_block #21554 with output n8801 has only 0 pin.
+WARNING(169): Block contains output -- may be a constant generator.
+Net is a constant generator: n8835.
+WARNING(170): logical_block #21557 with output n8835 has only 0 pin.
+WARNING(171): Block contains output -- may be a constant generator.
+Net is a constant generator: n8869.
+WARNING(172): logical_block #21560 with output n8869 has only 0 pin.
+WARNING(173): Block contains output -- may be a constant generator.
+Net is a constant generator: n8903.
+WARNING(174): logical_block #21563 with output n8903 has only 0 pin.
+WARNING(175): Block contains output -- may be a constant generator.
+Net is a constant generator: n13075.
+WARNING(176): logical_block #21990 with output n13075 has only 0 pin.
+WARNING(177): Block contains output -- may be a constant generator.
+Net is a constant generator: n13085.
+WARNING(178): logical_block #21991 with output n13085 has only 0 pin.
+WARNING(179): Block contains output -- may be a constant generator.
+Net is a constant generator: n13095.
+WARNING(180): logical_block #21992 with output n13095 has only 0 pin.
+WARNING(181): Block contains output -- may be a constant generator.
+Net is a constant generator: n14038.
+WARNING(182): logical_block #22112 with output n14038 has only 0 pin.
+WARNING(183): Block contains output -- may be a constant generator.
+Net is a constant generator: n14043.
+WARNING(184): logical_block #22113 with output n14043 has only 0 pin.
+WARNING(185): Block contains output -- may be a constant generator.
+Net is a constant generator: n14048.
+WARNING(186): logical_block #22114 with output n14048 has only 0 pin.
+WARNING(187): Block contains output -- may be a constant generator.
+Net is a constant generator: n14053.
+WARNING(188): logical_block #22115 with output n14053 has only 0 pin.
+WARNING(189): Block contains output -- may be a constant generator.
+Net is a constant generator: n17163.
+WARNING(190): logical_block #22345 with output n17163 has only 0 pin.
+WARNING(191): Block contains output -- may be a constant generator.
+Net is a constant generator: n17168.
+WARNING(192): logical_block #22346 with output n17168 has only 0 pin.
+WARNING(193): Block contains output -- may be a constant generator.
+Net is a constant generator: n17173.
+WARNING(194): logical_block #22347 with output n17173 has only 0 pin.
+WARNING(195): Block contains output -- may be a constant generator.
+Net is a constant generator: n17178.
+WARNING(196): logical_block #22348 with output n17178 has only 0 pin.
+WARNING(197): Block contains output -- may be a constant generator.
+Net is a constant generator: n20496.
+WARNING(198): logical_block #22633 with output n20496 has only 0 pin.
+WARNING(199): Block contains output -- may be a constant generator.
+Net is a constant generator: n20506.
+WARNING(200): logical_block #22634 with output n20506 has only 0 pin.
+WARNING(201): Block contains output -- may be a constant generator.
+Net is a constant generator: n20516.
+WARNING(202): logical_block #22635 with output n20516 has only 0 pin.
+WARNING(203): Block contains output -- may be a constant generator.
+Net is a constant generator: n20526.
+WARNING(204): logical_block #22636 with output n20526 has only 0 pin.
+WARNING(205): Block contains output -- may be a constant generator.
+Net is a constant generator: n23995.
+WARNING(206): logical_block #22948 with output n23995 has only 0 pin.
+WARNING(207): Block contains output -- may be a constant generator.
+Net is a constant generator: n24000.
+WARNING(208): logical_block #22949 with output n24000 has only 0 pin.
+WARNING(209): Block contains output -- may be a constant generator.
+Net is a constant generator: n24005.
+WARNING(210): logical_block #22950 with output n24005 has only 0 pin.
+WARNING(211): Block contains output -- may be a constant generator.
+Net is a constant generator: n24010.
+WARNING(212): logical_block #22951 with output n24010 has only 0 pin.
+WARNING(213): Block contains output -- may be a constant generator.
+Net is a constant generator: n27397.
+WARNING(214): logical_block #23244 with output n27397 has only 0 pin.
+WARNING(215): Block contains output -- may be a constant generator.
+Net is a constant generator: n27412.
+WARNING(216): logical_block #23245 with output n27412 has only 0 pin.
+WARNING(217): Block contains output -- may be a constant generator.
+Net is a constant generator: n27427.
+WARNING(218): logical_block #23246 with output n27427 has only 0 pin.
+WARNING(219): Block contains output -- may be a constant generator.
+Net is a constant generator: n27442.
+WARNING(220): logical_block #23247 with output n27442 has only 0 pin.
+WARNING(221): Block contains output -- may be a constant generator.
+Net is a constant generator: n30939.
+WARNING(222): logical_block #23562 with output n30939 has only 0 pin.
+WARNING(223): Block contains output -- may be a constant generator.
+Net is a constant generator: n30944.
+WARNING(224): logical_block #23563 with output n30944 has only 0 pin.
+WARNING(225): Block contains output -- may be a constant generator.
+Net is a constant generator: n30949.
+WARNING(226): logical_block #23564 with output n30949 has only 0 pin.
+WARNING(227): Block contains output -- may be a constant generator.
+Net is a constant generator: n30954.
+WARNING(228): logical_block #23565 with output n30954 has only 0 pin.
+WARNING(229): Block contains output -- may be a constant generator.
+Net is a constant generator: n34336.
+WARNING(230): logical_block #23858 with output n34336 has only 0 pin.
+WARNING(231): Block contains output -- may be a constant generator.
+Net is a constant generator: n34346.
+WARNING(232): logical_block #23859 with output n34346 has only 0 pin.
+WARNING(233): Block contains output -- may be a constant generator.
+Net is a constant generator: n34356.
+WARNING(234): logical_block #23860 with output n34356 has only 0 pin.
+WARNING(235): Block contains output -- may be a constant generator.
+Net is a constant generator: n34366.
+WARNING(236): logical_block #23861 with output n34366 has only 0 pin.
+WARNING(237): Block contains output -- may be a constant generator.
+Net is a constant generator: n37803.
+WARNING(238): logical_block #24165 with output n37803 has only 0 pin.
+WARNING(239): Block contains output -- may be a constant generator.
+Net is a constant generator: n37808.
+WARNING(240): logical_block #24166 with output n37808 has only 0 pin.
+WARNING(241): Block contains output -- may be a constant generator.
+Net is a constant generator: n37813.
+WARNING(242): logical_block #24167 with output n37813 has only 0 pin.
+WARNING(243): Block contains output -- may be a constant generator.
+Net is a constant generator: n37818.
+WARNING(244): logical_block #24168 with output n37818 has only 0 pin.
+WARNING(245): Block contains output -- may be a constant generator.
+Net is a constant generator: n95494.
+WARNING(246): logical_block #28182 with output n95494 has only 0 pin.
+WARNING(247): Block contains output -- may be a constant generator.
+Net is a constant generator: n95498.
+WARNING(248): logical_block #28183 with output n95498 has only 0 pin.
+WARNING(249): Block contains output -- may be a constant generator.
+Net is a constant generator: n95502.
+WARNING(250): logical_block #28184 with output n95502 has only 0 pin.
+WARNING(251): Block contains output -- may be a constant generator.
+Net is a constant generator: n95506.
+WARNING(252): logical_block #28185 with output n95506 has only 0 pin.
+WARNING(253): Block contains output -- may be a constant generator.
+Net is a constant generator: n95510.
+WARNING(254): logical_block #28186 with output n95510 has only 0 pin.
+WARNING(255): Block contains output -- may be a constant generator.
+Net is a constant generator: n95514.
+WARNING(256): logical_block #28187 with output n95514 has only 0 pin.
+WARNING(257): Block contains output -- may be a constant generator.
+Net is a constant generator: n95518.
+WARNING(258): logical_block #28188 with output n95518 has only 0 pin.
+WARNING(259): Block contains output -- may be a constant generator.
+Net is a constant generator: n95522.
+WARNING(260): logical_block #28189 with output n95522 has only 0 pin.
+WARNING(261): Block contains output -- may be a constant generator.
+Net is a constant generator: n95526.
+WARNING(262): logical_block #28190 with output n95526 has only 0 pin.
+WARNING(263): Block contains output -- may be a constant generator.
+Net is a constant generator: n95530.
+WARNING(264): logical_block #28191 with output n95530 has only 0 pin.
+WARNING(265): Block contains output -- may be a constant generator.
+Net is a constant generator: n95534.
+WARNING(266): logical_block #28192 with output n95534 has only 0 pin.
+WARNING(267): Block contains output -- may be a constant generator.
+Net is a constant generator: n95538.
+WARNING(268): logical_block #28193 with output n95538 has only 0 pin.
+WARNING(269): Block contains output -- may be a constant generator.
+Net is a constant generator: n95542.
+WARNING(270): logical_block #28194 with output n95542 has only 0 pin.
+WARNING(271): Block contains output -- may be a constant generator.
+Net is a constant generator: n95546.
+WARNING(272): logical_block #28195 with output n95546 has only 0 pin.
+WARNING(273): Block contains output -- may be a constant generator.
+Net is a constant generator: n95550.
+WARNING(274): logical_block #28196 with output n95550 has only 0 pin.
+WARNING(275): Block contains output -- may be a constant generator.
+Net is a constant generator: n95554.
+WARNING(276): logical_block #28197 with output n95554 has only 0 pin.
+WARNING(277): Block contains output -- may be a constant generator.
+Net is a constant generator: n95558.
+WARNING(278): logical_block #28198 with output n95558 has only 0 pin.
+WARNING(279): Block contains output -- may be a constant generator.
+Net is a constant generator: n95562.
+WARNING(280): logical_block #28199 with output n95562 has only 0 pin.
+WARNING(281): Block contains output -- may be a constant generator.
+Net is a constant generator: n95566.
+WARNING(282): logical_block #28200 with output n95566 has only 0 pin.
+WARNING(283): Block contains output -- may be a constant generator.
+Net is a constant generator: n95570.
+WARNING(284): logical_block #28201 with output n95570 has only 0 pin.
+WARNING(285): Block contains output -- may be a constant generator.
+Net is a constant generator: n95574.
+WARNING(286): logical_block #28202 with output n95574 has only 0 pin.
+WARNING(287): Block contains output -- may be a constant generator.
+Net is a constant generator: n95578.
+WARNING(288): logical_block #28203 with output n95578 has only 0 pin.
+WARNING(289): Block contains output -- may be a constant generator.
+Net is a constant generator: n95582.
+WARNING(290): logical_block #28204 with output n95582 has only 0 pin.
+WARNING(291): Block contains output -- may be a constant generator.
+Net is a constant generator: n95586.
+WARNING(292): logical_block #28205 with output n95586 has only 0 pin.
+WARNING(293): Block contains output -- may be a constant generator.
+Net is a constant generator: n95590.
+WARNING(294): logical_block #28206 with output n95590 has only 0 pin.
+WARNING(295): Block contains output -- may be a constant generator.
+Net is a constant generator: n95594.
+WARNING(296): logical_block #28207 with output n95594 has only 0 pin.
+WARNING(297): Block contains output -- may be a constant generator.
+Net is a constant generator: n95598.
+WARNING(298): logical_block #28208 with output n95598 has only 0 pin.
+WARNING(299): Block contains output -- may be a constant generator.
+Net is a constant generator: n95602.
+WARNING(300): logical_block #28209 with output n95602 has only 0 pin.
+WARNING(301): Block contains output -- may be a constant generator.
+Net is a constant generator: n95606.
+WARNING(302): logical_block #28210 with output n95606 has only 0 pin.
+WARNING(303): Block contains output -- may be a constant generator.
+Net is a constant generator: n95610.
+WARNING(304): logical_block #28211 with output n95610 has only 0 pin.
+WARNING(305): Block contains output -- may be a constant generator.
+Net is a constant generator: n95614.
+WARNING(306): logical_block #28212 with output n95614 has only 0 pin.
+WARNING(307): Block contains output -- may be a constant generator.
+Net is a constant generator: n95618.
+WARNING(308): logical_block #28213 with output n95618 has only 0 pin.
+WARNING(309): Block contains output -- may be a constant generator.
+Net is a constant generator: n95622.
+WARNING(310): logical_block #28214 with output n95622 has only 0 pin.
+WARNING(311): Block contains output -- may be a constant generator.
+Net is a constant generator: n95646.
+WARNING(312): logical_block #28215 with output n95646 has only 0 pin.
+WARNING(313): Block contains output -- may be a constant generator.
+Net is a constant generator: n95654.
+WARNING(314): logical_block #28217 with output n95654 has only 0 pin.
+WARNING(315): Block contains output -- may be a constant generator.
+Net is a constant generator: n95662.
+WARNING(316): logical_block #28219 with output n95662 has only 0 pin.
+WARNING(317): Block contains output -- may be a constant generator.
+Net is a constant generator: n95670.
+WARNING(318): logical_block #28221 with output n95670 has only 0 pin.
+WARNING(319): Block contains output -- may be a constant generator.
+Net is a constant generator: n95674.
+WARNING(320): logical_block #28222 with output n95674 has only 0 pin.
+WARNING(321): Block contains output -- may be a constant generator.
+Net is a constant generator: n95678.
+WARNING(322): logical_block #28223 with output n95678 has only 0 pin.
+WARNING(323): Block contains output -- may be a constant generator.
+Net is a constant generator: n96054.
+WARNING(324): logical_block #28256 with output n96054 has only 0 pin.
+WARNING(325): Block contains output -- may be a constant generator.
+Net is a constant generator: n96058.
+WARNING(326): logical_block #28257 with output n96058 has only 0 pin.
+WARNING(327): Block contains output -- may be a constant generator.
+Net is a constant generator: n96062.
+WARNING(328): logical_block #28258 with output n96062 has only 0 pin.
+WARNING(329): Block contains output -- may be a constant generator.
+Net is a constant generator: n96066.
+WARNING(330): logical_block #28259 with output n96066 has only 0 pin.
+WARNING(331): Block contains output -- may be a constant generator.
+Net is a constant generator: n96070.
+WARNING(332): logical_block #28260 with output n96070 has only 0 pin.
+WARNING(333): Block contains output -- may be a constant generator.
+Net is a constant generator: n96074.
+WARNING(334): logical_block #28261 with output n96074 has only 0 pin.
+WARNING(335): Block contains output -- may be a constant generator.
+Net is a constant generator: n96078.
+WARNING(336): logical_block #28262 with output n96078 has only 0 pin.
+WARNING(337): Block contains output -- may be a constant generator.
+Net is a constant generator: n96082.
+WARNING(338): logical_block #28263 with output n96082 has only 0 pin.
+WARNING(339): Block contains output -- may be a constant generator.
+Net is a constant generator: n96112.
+WARNING(340): logical_block #28266 with output n96112 has only 0 pin.
+WARNING(341): Block contains output -- may be a constant generator.
+Net is a constant generator: n102555.
+WARNING(342): logical_block #28652 with output n102555 has only 0 pin.
+WARNING(343): Block contains output -- may be a constant generator.
+Net is a constant generator: n102563.
+WARNING(344): logical_block #28654 with output n102563 has only 0 pin.
+WARNING(345): Block contains output -- may be a constant generator.
+Net is a constant generator: n102571.
+WARNING(346): logical_block #28656 with output n102571 has only 0 pin.
+WARNING(347): Block contains output -- may be a constant generator.
+0 unconnected blocks in input netlist.
+Removed 3502 LUT buffers.
+Sweeped away 3514 nodes.
+BLIF circuit stats:
+	167 LUTs of size 0
+	4 LUTs of size 1
+	191 LUTs of size 2
+	7985 LUTs of size 3
+	611 LUTs of size 4
+	1708 LUTs of size 5
+	794 LUTs of size 6
+	157 of type input
+	197 of type output
+	13405 of type latch
+	11460 of type names
+	0 of type dual_port_ram
+	0 of type single_port_ram
+	0 of type multiply
+Timing analysis: ON
+Circuit netlist file: stereovision0.net
+Circuit placement file: stereovision0.place
+Circuit routing file: stereovision0.route
+Circuit SDC file: /home/xuchang/nas/project/daTuner/experiment/vtr_release/vtr_flow/sdc/stereovision0.sdc
+Operation: RUN_FLOW
+
+Packer: DISABLED
+Placer: DISABLED
+Router: ENABLED
+RouterOpts.route_type: DETAILED
+RouterOpts.router_algorithm: TIMING_DRIVEN
+RouterOpts.base_cost_type: DELAY_NORMALIZED
+RouterOpts.fixed_channel_width: 78
+RouterOpts.acc_fac: 1.000000
+RouterOpts.bb_factor: 3
+RouterOpts.bend_cost: 0.000000
+RouterOpts.first_iter_pres_fac: 0.500000
+RouterOpts.initial_pres_fac: 0.500000
+RouterOpts.pres_fac_mult: 1.300000
+RouterOpts.max_router_iterations: 100
+RouterOpts.astar_fac: 1.200000
+RouterOpts.criticality_exp: 1.000000
+RouterOpts.max_criticality: 0.990000
+
+RoutingArch.directionality: UNI_DIRECTIONAL
+RoutingArch.switch_block_type: WILTON
+RoutingArch.Fs: 3
+
+Begin parsing packed FPGA netlist file.
+Finished parsing packed FPGA netlist file.
+Netlist generated from file 'stereovision0.net'.
+n102571 is a constant generator.
+n3375 is a constant generator.
+n3925 is a constant generator.
+n3397 is a constant generator.
+n3385 is a constant generator.
+n3401 is a constant generator.
+n6083 is a constant generator.
+n4804 is a constant generator.
+n3359 is a constant generator.
+n2625 is a constant generator.
+n2284 is a constant generator.
+n5340 is a constant generator.
+n6049 is a constant generator.
+n6061 is a constant generator.
+n6065 is a constant generator.
+n5345 is a constant generator.
+n5315 is a constant generator.
+n3380 is a constant generator.
+n3286 is a constant generator.
+n3341 is a constant generator.
+n6075 is a constant generator.
+n4974 is a constant generator.
+n1175 is a constant generator.
+n5976 is a constant generator.
+n6031 is a constant generator.
+n3363 is a constant generator.
+n3367 is a constant generator.
+n2655 is a constant generator.
+n6070 is a constant generator.
+n6087 is a constant generator.
+n6091 is a constant generator.
+n6057 is a constant generator.
+n6053 is a constant generator.
+n27427 is a constant generator.
+n30949 is a constant generator.
+n30954 is a constant generator.
+n27442 is a constant generator.
+n37818 is a constant generator.
+n34366 is a constant generator.
+n27412 is a constant generator.
+n30944 is a constant generator.
+n37808 is a constant generator.
+n34346 is a constant generator.
+n23995 is a constant generator.
+n20496 is a constant generator.
+n8869 is a constant generator.
+n17173 is a constant generator.
+n8835 is a constant generator.
+n17168 is a constant generator.
+n37803 is a constant generator.
+n34336 is a constant generator.
+n17163 is a constant generator.
+n8801 is a constant generator.
+n24000 is a constant generator.
+n20506 is a constant generator.
+n20526 is a constant generator.
+n24010 is a constant generator.
+n24005 is a constant generator.
+n20516 is a constant generator.
+n95662 is a constant generator.
+n14048 is a constant generator.
+n13085 is a constant generator.
+n102563 is a constant generator.
+n13095 is a constant generator.
+n14053 is a constant generator.
+n14038 is a constant generator.
+n13065 is a constant generator.
+n14043 is a constant generator.
+n13075 is a constant generator.
+n95586 is a constant generator.
+n95514 is a constant generator.
+n95614 is a constant generator.
+n95574 is a constant generator.
+n95506 is a constant generator.
+n95542 is a constant generator.
+n2114 is a constant generator.
+n95598 is a constant generator.
+n95554 is a constant generator.
+n95562 is a constant generator.
+n95522 is a constant generator.
+n95606 is a constant generator.
+n95602 is a constant generator.
+n95610 is a constant generator.
+n95594 is a constant generator.
+n95618 is a constant generator.
+n95622 is a constant generator.
+n95502 is a constant generator.
+n95546 is a constant generator.
+n95570 is a constant generator.
+n95530 is a constant generator.
+n95538 is a constant generator.
+n95510 is a constant generator.
+n95566 is a constant generator.
+n95550 is a constant generator.
+n95534 is a constant generator.
+n95578 is a constant generator.
+n95518 is a constant generator.
+n95494 is a constant generator.
+n95498 is a constant generator.
+n95526 is a constant generator.
+n95582 is a constant generator.
+n95558 is a constant generator.
+n95590 is a constant generator.
+n95670 is a constant generator.
+n95678 is a constant generator.
+n95674 is a constant generator.
+n8903 is a constant generator.
+n37813 is a constant generator.
+n17178 is a constant generator.
+n95646 is a constant generator.
+n34356 is a constant generator.
+n30939 is a constant generator.
+n27397 is a constant generator.
+n3389 is a constant generator.
+n3355 is a constant generator.
+n3346 is a constant generator.
+n3276 is a constant generator.
+n2645 is a constant generator.
+n2630 is a constant generator.
+n1166 is a constant generator.
+n1093 is a constant generator.
+n3393 is a constant generator.
+n3371 is a constant generator.
+n2124 is a constant generator.
+n2119 is a constant generator.
+n6079 is a constant generator.
+n1171 is a constant generator.
+n2635 is a constant generator.
+n2650 is a constant generator.
+n4809 is a constant generator.
+n3921 is a constant generator.
+n2169 is a constant generator.
+n2164 is a constant generator.
+n2289 is a constant generator.
+n2294 is a constant generator.
+n3844 is a constant generator.
+n3917 is a constant generator.
+n2259 is a constant generator.
+n2254 is a constant generator.
+n3281 is a constant generator.
+n3351 is a constant generator.
+n95654 is a constant generator.
+n6041 is a constant generator.
+n4859 is a constant generator.
+n4854 is a constant generator.
+n6045 is a constant generator.
+n4814 is a constant generator.
+n5335 is a constant generator.
+n5966 is a constant generator.
+n96066 is a constant generator.
+n96062 is a constant generator.
+n4949 is a constant generator.
+n4944 is a constant generator.
+n5320 is a constant generator.
+n5325 is a constant generator.
+n96054 is a constant generator.
+n96058 is a constant generator.
+n4984 is a constant generator.
+n4979 is a constant generator.
+n5971 is a constant generator.
+n6036 is a constant generator.
+n96078 is a constant generator.
+n96074 is a constant generator.
+n102555 is a constant generator.
+n96070 is a constant generator.
+n96112 is a constant generator.
+n96082 is a constant generator.
+
+Netlist num_nets: 7936
+Netlist num_blocks: 1259
+Netlist <EMPTY> blocks: 0.
+Netlist clb blocks: 905.
+Netlist mult_36 blocks: 0.
+Netlist memory blocks: 0.
+Netlist inputs pins: 157
+Netlist output pins: 197
+
+Auto-sizing FPGA at x = 35 y = 35
+Auto-sizing FPGA at x = 18 y = 18
+Auto-sizing FPGA at x = 26 y = 26
+Auto-sizing FPGA at x = 30 y = 30
+Auto-sizing FPGA at x = 32 y = 32
+Auto-sizing FPGA at x = 33 y = 33
+Auto-sizing FPGA at x = 34 y = 34
+Auto-sizing FPGA at x = 34 y = 34
+FPGA auto-sized to x = 35 y = 35
+The circuit will be mapped into a 35 x 35 array of clbs.
+
+Resource usage...
+	Netlist      0	blocks of type: <EMPTY>
+	Architecture 41	blocks of type: <EMPTY>
+	Netlist      354	blocks of type: io
+	Architecture 1120	blocks of type: io
+	Netlist      905	blocks of type: clb
+	Architecture 910	blocks of type: clb
+	Netlist      0	blocks of type: mult_36
+	Architecture 32	blocks of type: mult_36
+	Netlist      0	blocks of type: memory
+	Architecture 25	blocks of type: memory
+
+
+SDC file '/home/xuchang/nas/project/daTuner/experiment/vtr_release/vtr_flow/sdc/stereovision0.sdc' blank or not found.
+
+Defaulting to: constrain all 0 inputs and 0 outputs on the netlist clock.
+Optimize this clock to run as fast as possible.
+Build rr_graph took 0.64 seconds.
+Confirming Router Algorithm: TIMING_DRIVEN.
+
+Routing iteration: 1
+Wire length after first iteration 89304, total available wire length 196560, ratio 0.454335
+Critical path: 4.3641 ns
+Routing iteration took 0.1 seconds.
+
+Routing iteration: 2
+Critical path: 4.3641 ns
+Routing iteration took 0.09 seconds.
+
+Routing iteration: 3
+Critical path: 4.3641 ns
+Routing iteration took 0.1 seconds.
+
+Routing iteration: 4
+Critical path: 4.3641 ns
+Routing iteration took 0.1 seconds.
+
+Routing iteration: 5
+Critical path: 4.3641 ns
+Routing iteration took 0.1 seconds.
+
+Routing iteration: 6
+Critical path: 4.3641 ns
+Routing iteration took 0.1 seconds.
+
+Routing iteration: 7
+Critical path: 4.3641 ns
+Routing iteration took 0.1 seconds.
+
+Routing iteration: 8
+Critical path: 4.3641 ns
+Routing iteration took 0.1 seconds.
+
+Routing iteration: 9
+Critical path: 4.3641 ns
+Routing iteration took 0.1 seconds.
+
+Routing iteration: 10
+Critical path: 4.3641 ns
+Routing iteration took 0.1 seconds.
+
+Routing iteration: 11
+Critical path: 4.3641 ns
+Routing iteration took 0.1 seconds.
+
+Routing iteration: 12
+Critical path: 4.3641 ns
+Routing iteration took 0.11 seconds.
+
+Routing iteration: 13
+Successfully routed after 13 routing iterations.
+Completed net delay value cross check successfully.
+
+Checking to ensure routing is legal...
+Completed routing consistency check successfully.
+
+Serial number (magic cookie) for the routing is: 472308675
+Circuit successfully routed with a channel width factor of 78.
+
+
+Average number of bends per net: 1.10095  Maximum # of bends: 90
+
+Number of routed nets (nonglobal): 7935
+Wirelength results (in units of 1 clb segments)...
+	Total wirelength: 90962, average net length: 11.4634
+	Maximum net length: 474
+
+Wirelength results in terms of physical segments...
+	Total wiring segments used: 23370, average wire segments per net: 2.94518
+	Maximum segments used by a net: 122
+	Total local nets with reserved CLB opins: 0
+
+X - Directed channels: j	max occ	av_occ		capacity
+0	56	25.4286  	78
+1	50	34.2571  	78
+2	54	36.7143  	78
+3	51	34.8286  	78
+4	61	37.4857  	78
+5	66	42.2000  	78
+6	63	41.8571  	78
+7	61	45.9429  	78
+8	57	43.1143  	78
+9	57	43.7714  	78
+10	62	43.9429  	78
+11	55	38.3143  	78
+12	54	37.5143  	78
+13	50	38.5429  	78
+14	58	42.4571  	78
+15	53	40.3714  	78
+16	52	39.8571  	78
+17	54	42.1714  	78
+18	52	41.2286  	78
+19	49	39.9714  	78
+20	59	38.5429  	78
+21	62	43.1714  	78
+22	56	41.2286  	78
+23	54	40.6857  	78
+24	52	38.6000  	78
+25	56	38.6286  	78
+26	53	36.2286  	78
+27	50	34.5143  	78
+28	40	30.2571  	78
+29	42	33.6857  	78
+30	48	32.4571  	78
+31	47	29.8571  	78
+32	38	25.6286  	78
+33	44	26.7714  	78
+34	43	24.3143  	78
+35	40	19.4286  	78
+
+Y - Directed channels: i	max occ	av_occ		capacity
+0	43	23.6286  	78
+1	30	16.1714  	78
+2	38	25.1714  	78
+3	56	38.5429  	78
+4	51	37.7429  	78
+5	48	32.6571  	78
+6	49	33.7429  	78
+7	57	45.3714  	78
+8	63	49.1429  	78
+9	53	38.8857  	78
+10	54	35.6286  	78
+11	64	47.6571  	78
+12	58	45.4857  	78
+13	49	36.2000  	78
+14	43	29.8857  	78
+15	64	42.8571  	78
+16	59	42.8857  	78
+17	50	37.3429  	78
+18	48	30.7143  	78
+19	56	43.4286  	78
+20	57	44.7143  	78
+21	44	28.9143  	78
+22	35	28.4286  	78
+23	58	48.4000  	78
+24	54	38.6000  	78
+25	34	23.4000  	78
+26	52	31.1714  	78
+27	58	43.9429  	78
+28	52	38.5143  	78
+29	40	26.3429  	78
+30	43	29.4000  	78
+31	56	43.6571  	78
+32	53	39.0857  	78
+33	40	24.9429  	78
+34	38	23.5143  	78
+35	52	28.7714  	78
+
+Total tracks in x-direction: 2808, in y-direction: 2808
+
+Logic area (in minimum width transistor areas, excludes I/Os and empty grid tiles)...
+	Total logic block area (Warning, need to add pitch of routing to blocks with height > 3): 7.54166e+07
+	Total used logic block area: 4.87746e+07
+
+Routing area (in minimum width transistor areas)...
+	Total routing area: 1.02576e+07, per logic tile: 8373.58
+
+Segment usage by type (index):
+Segment type       Fractional utilization
+------------       ----------------------
+       0                  0.438
+
+Segment usage by length:
+Segment length       Fractional utilization
+--------------       ----------------------
+        4                   0.438
+
+Nets on critical path: 6 normal, 0 global.
+Total logic delay: 2.444e-09 (s), total net delay: 1.9201e-09 (s)
+Final critical path: 4.3641 ns
+f_max: 229.142 MHz
+
+Least slack in design: -4.3641 ns
+
+Routing took 2.13 seconds.
+The entire flow of VPR took 3.89 seconds.
