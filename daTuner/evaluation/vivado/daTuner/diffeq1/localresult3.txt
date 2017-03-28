@@ -1,1 +1,0 @@
-Configuration: opt_design directive  AddRemap  place_design directive  AltSpreadLogic_low  phys_opt_design  fanout_opt  on   placement_opt  off   critical_cell_opt  on   retime  on   rewire  on   critical_pin_opt  on   route_design directive  Default  Timingcst 20.0 WNS -10000

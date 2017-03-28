@@ -1,7 +1,0 @@
-[2017-01-09 17:06:49,563]   ERROR opentuner.search.driver: no such file for --seed-configuration StartPointSpace8.json @driver.py:103
-[2017-01-09 17:12:07,605]   ERROR opentuner.search.driver: no such file for --seed-configuration StartPointSpace8.json @driver.py:103
-[2017-01-09 17:13:37,058]   ERROR opentuner.search.driver: no such file for --seed-configuration StartPointSpace8.json @driver.py:103
-[2017-01-09 23:36:11,129]   ERROR opentuner.search.driver: no such file for --seed-configuration StartPointSpace8.json @driver.py:103
-[2017-01-09 23:36:58,400]   ERROR opentuner.search.driver: no such file for --seed-configuration StartPointSpace8.json @driver.py:103
-[2017-01-09 23:38:48,515]   ERROR opentuner.search.driver: no such file for --seed-configuration StartPointSpace8.json @driver.py:103
-[2017-01-09 23:55:16,298]   ERROR opentuner.search.driver: no such file for --seed-configuration StartPointSpace8.json @driver.py:103
