@@ -17,6 +17,7 @@ Go into PathTo-DATuner/release/src directory
 In Makefile, add the include folder of your Python and Mpich. And point out the path of your Python and Mpich lib.
 
 E.g., `INCLUDES = -I PathTo-Python/include/python2.7 -I PathTo-Mpich/include`
+
 `LDFLAGS = -L PathTo-Mpich/lib -lmpi -L PathTo-Python/lib -lpython2.7`
 
 Go into PathTo-DATuner/release directory
@@ -33,7 +34,7 @@ Go into PathTo-DATuner/scripts directory, we support two modes to use DATuner: e
 
 Easy mode
 
-  run_DATuner_easy.sh –t <vivado|quartus|vpr> -d <design> -o <objective> [options]
+    run_DATuner_easy.sh –t <vivado|quartus|vpr> -d <design> -o <objective> [options]
     
     Parameters:
       
@@ -50,13 +51,13 @@ Easy mode
       -temp_dir <dir>: directory used for all temporary files
 
 
-  E.g., `./run_DATuner_easy.sh –t vpr –d diffeq1 –o timing`
+    E.g., `./run_DATuner_easy.sh –t vpr –d diffeq1 –o timing`
 
-  Outputs: under release/experiment/vpr/diffeq1/ 
+    Outputs: under release/experiment/vpr/diffeq1/ 
 
 Advance mode:
 
-  run_DATuner_advance.sh –s <space_definition> -c <python_code> -d <design> [options]
+    run_DATuner_advance.sh –s <space_definition> -c <python_code> -d <design> [options]
 
     Parameters:
 
@@ -74,9 +75,9 @@ Advance mode:
 
       -temp_dir <dir>: directory used for all temporary files
 
-  E.g., `./run_DATuner_easy.sh –s ./user_program_example/space.txt  -c ./user_program_example/tuneProgram.py –d diffeq1 -t my`
+    E.g., `./run_DATuner_easy.sh –s ./user_program_example/space.txt  -c ./user_program_example/tuneProgram.py –d diffeq1 -t my`
 
-  Outputs: under release/experiment/my/diffeq1
+    Outputs: under release/experiment/my/diffeq1
 
 
 ### Additional Information
