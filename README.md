@@ -12,56 +12,72 @@ Mpich3.2 https://www.mpich.org/
 
 First build the prerequisites, then follow the instructions below to configure DATuner.
 
-Go into PathTo-DATuner/parTuner directory
+Go into PathTo-DATuner/release/src directory
 
-1.  In Makefile, replace MY_TOOLS_INCL with your python path and the include folder of mpich
+In Makefile, add the include folder of your Python and Mpich. And point out the path of your Python and Mpich lib.
 
-2.  Modify part of MY_TOOLS_LDFLAGS to point to the lib folder of mpich
+E.g., `INCLUDES = -I PathTo-Python/include/python2.7 -I PathTo-Mpich/include`
+`LDFLAGS = -L PathTo-Mpich/lib -lmpi -L PathTo-Python/lib -lpython2.7`
 
-3.  Add mpich to PATH
+Go into PathTo-DATuner/release directory
 
-4.  Type make, which generates master.exe and worker.exe under bin directory.
+`./configure`
+
+`make`
+
+Generate master and worker in PathTo-DATuner/release/src
 
 ###  Evaluation
-Go into PathTo-DATune/evaluation directory
 
-Under scripts directory, please specify the list of multiple machines that DATuner runs on in my_hosts file 
+Go into PathTo-DATuner/scripts directory, we support two modes to use DATuner: easy mode and advance mode.
 
-####  Tune VPR
+Easy mode
 
-First install VTR https://github.com/verilog-to-routing/vtr-verilog-to-routing 
+  run_DATuner_easy.sh –t <vivado|quartus|vpr> -d <design> -o <objective> [options]
+    
+    Parameters:
+      
+      -tool <vivado|quartus|vpr>: specify which EDA flow uses
+      
+      -design <design>: the design to tune
+      
+      -obj <objective>: will support delay\area\wirelength (now only support timing)
+    
+    Options:
+      
+      -process_num <number>: how many processes used
+      
+      -temp_dir <dir>: directory used for all temporary files
 
- `./runonevpr.sh <design_name>`
- 
- `e.g., ./runonevpr.sh diffeq1`
 
-In runonevpr.sh, please replace path with the workspace that you want to run experiment. 
-And replace vprpath with the path that you install vpr.
+  E.g., `./run_DATuner_easy.sh –t vpr –d diffeq1 –o timing`
 
-The output file will be saved in your workspace_path/vpr/daTuner/diffeq1
-Result_1~8 is the samples found by OpenTuner1~8. 
+  Outputs: under release/experiment/vpr/diffeq1/ 
 
-I have script to pass and visualize the result. Will upload later.
+Advance mode:
 
-####  Tune Vivado
+  run_DATuner_advance.sh –s <space_definition> -c <python_code> -d <design> [options]
 
-First make sure Vivado is installed on every machine that you run DATuner
-./runonevivado.sh <design_name> <0|1> 0 means you don’t want to tune the default timing constraint. 
-1 means default timing constraint is also a parameter to tune. 
+    Parameters:
 
-If you want to tune the default timing constraint, 
-please specify the default timing constraint (mydefaultcst) 
-and the amount of time you want to relax (maxcst). 
+      -space < space_definition >: specify the path to space definition file
 
-For example, if you set mydefaultcst=2 and maxcst=0.5, 
-DATuner will choose the timing constraint from [1.7-2.5].
+      -design <design>: the design to tune
 
-In runonevivado.sh, please replace path with the workspace that you want to run experiment. 
-And replace designpath with the path where saves the test benches. 
-Also the output file will be saved in your workspace_path/vivado/daTuner/diffeq1. 
+      -pycode <python_code>:  python code for tuning
 
-Please make sure that under your design path, 
-you have .xdc file which is the timing constraint file and you have run_vivado.tcl file.
+    Options:
+  
+      -tool_name <name>: user’s program’s name
+
+      -process_num <number>: how many processes used
+
+      -temp_dir <dir>: directory used for all temporary files
+
+  E.g., `./run_DATuner_easy.sh –s ./user_program_example/space.txt  -c ./user_program_example/tuneProgram.py –d diffeq1 -t my`
+
+  Outputs: under release/experiment/my/diffeq1
+
 
 ### Additional Information
 #### Running on multiple hosts:
