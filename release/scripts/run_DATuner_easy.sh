@@ -70,7 +70,8 @@ CURRENT_PATH=$(pwd)
 TEMP_DIR=$CURRENT_PATH/../experiment/$TOOL/$DESIGN
 
 ###############Preparation##############
-BIN_DIR=$CURRENT_PATH/../bin/
+#BIN_DIR=$CURRENT_PATH/../bin/
+SRC_DIR=$CURRENT_PATH/../src/
 SCRIPT_DIR=$CURRENT_PATH/
 mkdir $CURRENT_PATH/../experiment
 mkdir $CURRENT_PATH/../experiment/$TOOL
@@ -83,7 +84,7 @@ sed -e "s/BENCH_HOLDER/$DESIGN/g" -e "s:PATH_HOLDER:$TEMP_DIR:g" -e "s:TOOL_PATH
 cd $TEMP_DIR 
 rm -r opentuner.db
 rm log
-mpirun -np 1 $BIN_DIR/master -$TOOL : -np $PROC_NUM --hostfile $SCRIPT_DIR/my_hosts $BIN_DIR/worker -design $DESIGN -path $TEMP_DIR --parallelism=1  >log 
+mpirun -np 1 $SRC_DIR/master -$TOOL : -np $PROC_NUM --hostfile $SCRIPT_DIR/my_hosts $SRC_DIR/worker -design $DESIGN -path $TEMP_DIR --parallelism=1  >log 
 
 ##############Visualization##############
 

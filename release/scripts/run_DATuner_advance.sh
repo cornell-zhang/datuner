@@ -74,6 +74,7 @@ TEMP_DIR=$CURRENT_PATH/../experiment/$TOOL_NAME/$DESIGN
 ###???how to mkdir for TEMP_DIR
 ###############Preparation##############
 BIN_DIR=$CURRENT_PATH/../bin/
+SRC_DIR=$CURRENT_PATH/../src/
 SCRIPT_DIR=$CURRENT_PATH
 mkdir $CURRENT_PATH/../experiment
 mkdir $CURRENT_PATH/../experiment/$TOOL_NAME
@@ -85,7 +86,7 @@ sed -e "s:BENCH_HOLDER:$DESIGN:g" -e "s:PATH_HOLDER:$TEMP_DIR:g" $PYCODE > $TEMP
 cd $TEMP_DIR 
 rm -r opentuner.db
 rm log
-mpirun -np 1 $BIN_DIR/master -space $TEMP_DIR/orgspace.txt : -np $PROC_NUM --hostfile $SCRIPT_DIR/my_hosts $BIN_DIR/worker -design $DESIGN  -path $TEMP_DIR --parallelism=1  >log 
+mpirun -np 1 $SRC_DIR/master -space $TEMP_DIR/orgspace.txt : -np $PROC_NUM --hostfile $SCRIPT_DIR/my_hosts $SRC_DIR/worker -design $DESIGN  -path $TEMP_DIR --parallelism=1  >log 
 
 ##############Visualization##############
 

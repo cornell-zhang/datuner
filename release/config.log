@@ -340,7 +340,7 @@ configure:4783: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:46:6: warning: conflicting types for built-in function 'floor' [enabled by default]
  char floor ();
       ^
-/tmp/ccDbtRWK.o: In function `main':
+/tmp/ccJl3RP2.o: In function `main':
 /home/xuchang/nas/project/daTuner/release/conftest.c:57: undefined reference to `floor'
 collect2: error: ld returned 1 exit status
 configure:4783: $? = 1
@@ -411,7 +411,7 @@ configure:4783: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:46:6: warning: conflicting types for built-in function 'sqrt' [enabled by default]
  char sqrt ();
       ^
-/tmp/cczVTNeU.o: In function `main':
+/tmp/ccGwWJqb.o: In function `main':
 /home/xuchang/nas/project/daTuner/release/conftest.c:57: undefined reference to `sqrt'
 collect2: error: ld returned 1 exit status
 configure:4783: $? = 1
