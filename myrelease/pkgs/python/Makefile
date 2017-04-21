@@ -1,0 +1,39 @@
+.NOTPARALLEL:
+
+PKG_LEVEL = ..
+include $(PKG_LEVEL)/Makefile.pkg.common
+
+#https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tgz
+PyVersion := 2.7.10
+PkgBuildDir = $(DATuner_PKG_BUILD)/python
+PkgTarBall = Python-$(PyVersion).tgz
+PythonBuildDir = $(PkgBuildDir)/build
+PythonSrcDir = $(PkgBuildDir)/Python-$(PyVersion)
+
+## Rules
+all:: download-python config-python make-python
+
+#=== Build Python ===#
+
+download-python: $(PkgBuildDir)/$(PkgTarBall) 
+
+$(PkgBuildDir)/$(PkgTarBall): $(PkgBuildDir)/.dir
+	cd $(PkgBuildDir); \
+	wget https://www.python.org/ftp/python/$(PyVersion)/$(PkgTarBall); 
+	@touch $@
+
+config-python: $(PythonBuildDir)/config.status 
+
+$(PythonBuildDir)/config.status: $(PkgBuildDir)/.unpacked $(PythonBuildDir)/.dir $(PythonSrcDir)/configure
+	cd $(PythonBuildDir); \
+	$(PythonSrcDir)/configure --prefix=$(DATuner_PKG_INSTALL) --enable-shared; 
+
+make-python:: $(PythonBuildDir)/python
+
+$(PythonBuildDir)/python:
+	cd $(PythonBuildDir); \
+	make; \
+	make install;
+
+#=== Install OpenTuner ===#
+

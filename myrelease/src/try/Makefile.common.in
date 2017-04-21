@@ -1,0 +1,17 @@
+# Set the name of the project here
+PROJECT_NAME := DATuner
+PROJ_VERSION := 0.1
+
+
+# Set the directory root of this project's source files
+PROJ_SRC_ROOT := $(subst //,/,@abs_top_srcdir@)
+
+# Set the root directory of this project's object files
+PROJ_OBJ_ROOT := $(subst //,/,@abs_top_builddir@)
+
+# Set the root directory of this project's install prefix
+PROJ_INSTALL_ROOT := @prefix@
+
+# Configuration file for the actual project source code
+include $(PROJ_OBJ_ROOT)/Makefile.src.config
+
