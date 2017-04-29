@@ -103,7 +103,7 @@ build-src:
 #	$(SrcDir)/configure #--with-llvmsrc=$(LLVM_SRC) --with-llvmobj=$(LLVM_BUILD) 
 
 release:: $(ReleaseDir)/.dir release-DATuner release-scripts release-docs
-#	$(Echo) "$(Prompt) DATuner v$(RELEASE_VERSION) installed under $(ReleaseDir)"
+	$(Echo) "$(Prompt) DATuner v$(RELEASE_VERSION) installed under $(ReleaseDir)"
 
 ifdef RELEASE_PKGS
 release:: release-pkgs
@@ -157,8 +157,8 @@ release-docs:
 
 # Release examples
 release-examples:: $(ReleaseExampleDir)/.dir
-	$(Echo) "$(Prompt) Installing examples ... "
-	cp -rf $(DATuner_SRC)/docs/examples/* $(ReleaseExampleDir)/
+	#$(Echo) "$(Prompt) Installing examples ... "
+	#cp -rf $(DATuner_SRC)/docs/examples/* $(ReleaseExampleDir)/
 
 # To create other directories, as needed, and timestamp their creation
 %/.dir:

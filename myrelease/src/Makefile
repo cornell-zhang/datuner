@@ -10,7 +10,7 @@ LEVEL = $(SRC_LEVEL)/..
 #
 include ./Makefile.src.config
 
-MY_TOOL_CC    = mpicxx -g
+MY_TOOL_CC    = $(DATuner_PKG_INSTALL)/bin/mpicxx -g
 MY_TOOL_BUILD = $(DATuner_OBJ)/build
 MY_TOOL_BIN   = $(DATuner_OBJ)/bin
 MY_TOOL_CPPFLAGS = $(CPPFLAGS)
