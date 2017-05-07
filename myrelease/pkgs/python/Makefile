@@ -3,15 +3,15 @@
 PKG_LEVEL = ..
 include $(PKG_LEVEL)/Makefile.pkg.common
 
-#https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tgz
-PyVersion := 2.7.10
+PyVersion := 2.7.5
 PkgBuildDir = $(DATuner_PKG_BUILD)/python
 PkgTarBall = Python-$(PyVersion).tgz
 PythonBuildDir = $(PkgBuildDir)/build
 PythonSrcDir = $(PkgBuildDir)/Python-$(PyVersion)
+PythonInstallDir = $(PkgBuildDir)/install
 
 ## Rules
-all:: download-python config-python make-python
+all:: download-python config-python make-python install-OpenTuner
 
 #=== Build Python ===#
 
@@ -24,9 +24,9 @@ $(PkgBuildDir)/$(PkgTarBall): $(PkgBuildDir)/.dir
 
 config-python: $(PythonBuildDir)/config.status 
 
-$(PythonBuildDir)/config.status: $(PkgBuildDir)/.unpacked $(PythonBuildDir)/.dir $(PythonSrcDir)/configure
+$(PythonBuildDir)/config.status: $(PkgBuildDir)/.unpacked $(PythonBuildDir)/.dir $(PythonSrcDir)/configure $(PythonInstallDir)/.dir
 	cd $(PythonBuildDir); \
-	$(PythonSrcDir)/configure --prefix=$(DATuner_PKG_INSTALL) --enable-shared; 
+	$(PythonSrcDir)/configure --prefix=$(PythonInstallDir) --enable-shared; 
 
 make-python:: $(PythonBuildDir)/python
 
@@ -36,4 +36,7 @@ $(PythonBuildDir)/python:
 	make install;
 
 #=== Install OpenTuner ===#
+
+install-OpenTuner:
+#	pip install -t $(DATuner_PKG_INSTALL)/lib/python2.7/site-packages/ opentuner 
 

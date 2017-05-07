@@ -50,16 +50,12 @@ endif
 
 ReleaseDir = $(ReleaseDirPrefix)/$(ReleaseName)
 
-ReleaseIncDir = $(ReleaseDir)/include
-ReleaseSrcDir = $(ReleaseDir)/src
 ReleaseDocDir = $(ReleaseDir)/docs
 ReleaseExampleDir = $(ReleaseDir)/examples
 
 
 ReleaseTargetDir := $(ReleaseDir)/$(OS)_$(ARCH)
 ReleaseTargetBinDir = $(ReleaseTargetDir)/bin
-ReleaseTargetLibDir = $(ReleaseTargetDir)/lib
-ReleaseTargetToolDir = $(ReleaseTargetDir)/tools
 ReleaseTargetScriptDir = $(ReleaseTargetDir)/scripts
 
 # Copy or link
@@ -89,20 +85,8 @@ build-pkgs:
 build-src:
 	$(MAKE) -C src
 
-#SrcDir := $(DATuner_SRC)
-#SrcBuildDir := $(DATuner_OBJ)
-
-#config-src: $(SrcBuildDir)/.dir $(SrcBuildDir)/config.status
-
-#make-src: 
-#	cd $(SrcBuildDir); \
-	$(MAKE) ENABLE_OPTIMIZED=$(ENABLE_OPTIMIZED) ENABLE_PROFILING=$(ENABLE_PROFILING) DISABLE_ASSERTIONS=$(DISABLE_ASSERTIONS) || exit 1
-
-#$(SrcBuildDir)/config.status: $(SrcDir)/configure
-#	cd $(SrcBuildDir); \
-#	$(SrcDir)/configure #--with-llvmsrc=$(LLVM_SRC) --with-llvmobj=$(LLVM_BUILD) 
-
-release:: $(ReleaseDir)/.dir release-DATuner release-scripts release-docs
+release:: $(ReleaseDir)/.dir release-DATuner release-scripts release-docs 
+	#release-examples
 	$(Echo) "$(Prompt) DATuner v$(RELEASE_VERSION) installed under $(ReleaseDir)"
 
 ifdef RELEASE_PKGS
@@ -141,7 +125,6 @@ install-DATuner-bin:: $(ReleaseTargetBinDir)/.dir
 	  	$(INSTALL) $(DATuner_OBJ)/bin/$$cmd $(ReleaseTargetBinDir)/$$cmd ; \
 	done 
 
-
 ifndef EXTERN_RELEASE
 ReleaseExe = $(DATuner_OBJ)/Release/bin/$(DATuner_BIN_NAME)
 DebugExe = $(DATuner_OBJ)/Debug/bin/$(DATuner_BIN_NAME)
@@ -156,9 +139,9 @@ release-scripts:: $(ReleaseTargetScriptDir)/.dir
 release-docs: 
 
 # Release examples
-release-examples:: $(ReleaseExampleDir)/.dir
-	#$(Echo) "$(Prompt) Installing examples ... "
-	#cp -rf $(DATuner_SRC)/docs/examples/* $(ReleaseExampleDir)/
+#release-examples:: $(ReleaseExampleDir)/.dir
+#	$(Echo) "$(Prompt) Installing examples ... "
+#	cp -rf $(DATuner_SRC)/docs/examples/* $(ReleaseExampleDir)/
 
 # To create other directories, as needed, and timestamp their creation
 %/.dir:

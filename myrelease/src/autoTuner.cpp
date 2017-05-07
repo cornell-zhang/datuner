@@ -11,19 +11,6 @@ using namespace std;
 bool AutoTuner::callOpenTuner(Task* task, vector<Result*>& results, int rank, string path, string pycode) {
   
   _path = path;
-  //if(_tune_type == 1) _path = _path+"/vpr/";
-  //if(_tune_type == 2) _path = _path+"/vivado/";
-
-  //if(_tune_type == 1) _path = "/home/xuchang/nas/project/daTuner/experiment/vtr_release/vtr_flow/tasks/openTunerTiming/experiment/";
-    //_path = "/proj/xsjhdstaff3/changx/project/parTuner/experiment/vpr/vtr_release/vtr_flow/tasks/openTunerTiming/experiment/";
-  //if(_tune_type == 2) _path = "/home/xuchang/nas/project/daTuner/experiment/vivado/";
-  //if(_tune_type == 3) _path = "/proj/xsjhdstaff3/changx/project/parTuner/experiment/ise/";
-
-  //if(_exp_type == 1) _path = _path+"daTuner/";
-  //if(_exp_type == 2) _path = _path+"whole/";
-  //if(_exp_type == 3) _path = _path+"restart/";
-  //if(_exp_type == 4) _path = _path+"exp-fix/";
-  //if(_exp_type == 5) _path = _path+"exp-fix-MAB/";
   assert(task != NULL);
 
   param_parse(task,rank);
@@ -264,15 +251,19 @@ void AutoTuner::parse_Vivado_result(vector<Result*>& results,int rank) {
 }
 int AutoTuner::c2py2(vector<Result*>& results,int rank, string pycode) {
   printf("Going to call OpenTuner\n");
-  FILE* file;
-  string python_name;
-  if(_tune_type == 1) python_name = _path+"/tunevpr.py";
-  if(_tune_type == 2) python_name = _path+"/tunevivado.py";
-  if(_tune_type == 3) python_name = _path+"/tuneProgram.py";
-  //"tuneProgram.py";
-  
-  file=fopen(python_name.c_str(),"r");
-  PyRun_SimpleFile(file,python_name.c_str());
+  FILE* file = NULL;
+  if(_tune_type == 1) {
+    file=fopen("tunevtr.py","r");
+    PyRun_SimpleFile(file,"tunevtr.py");
+  }
+  if(_tune_type == 2) {
+    file=fopen("tunevivado.py","r");
+    PyRun_SimpleFile(file,"tunevivado.py");
+  }
+  if(_tune_type == 3) {
+    file=fopen("tuneProgram.py","r");
+    PyRun_SimpleFile(file,"tuneProgram.py");
+  }
 
   if(PyErr_Occurred()) {
     PyErr_Print();

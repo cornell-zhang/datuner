@@ -253,17 +253,17 @@ void correct_check(map<int,Space*> spaceBuf, vector<int> arms) {
 int main(int argc, char** argv){
 
   if(argc < 3) {
-    printf("./master -space <space_file> [-vpr|-vivado] [-DATuner|-parOpenTuner|-parFix]\n");
+    printf("./master -space <space_file> [-vtr|-vivado] [-DATuner|-parOpenTuner|-parFix]\n");
   }
 
-  enum app{vpr,vivado,other};
+  enum app{vtr,vivado,other};
   app myApp = other;
   enum exp_type{DATuner, parOpenTuner, parFix};
   exp_type myType = DATuner;
 
   string tmp_tcst = "-tunecst"; //tune timing constraint for Vivado
   double tcst_default = 0.0;
-  bool vpr_flag = false;
+  bool vtr_flag = false;
   bool vivado_flag = false;
   bool whole_flag = false;
   bool restart_flag = false;
@@ -274,7 +274,7 @@ int main(int argc, char** argv){
   string space_file;
 
   for(int i = 0; i < argc; i++) {
-    if(string(argv[i]).find("vpr") != string::npos) myApp = vpr;
+    if(string(argv[i]).find("vtr") != string::npos) myApp = vtr;
     if(string(argv[i]).find("vivado") != string::npos) myApp = vivado;
     if(string(argv[i]).find("parOpenTuner") != string::npos) myType = parOpenTuner;
     if(string(argv[i]).find("parFix") != string::npos) myType = parFix;
@@ -288,7 +288,7 @@ int main(int argc, char** argv){
       space_file = string(argv[i+1]);
     }
     /*
-    if(strcmp(argv[i],tmp_vpr.c_str()) == 0) vpr_flag = true;
+    if(strcmp(argv[i],tmp_vtr.c_str()) == 0) vtr_flag = true;
     if(strcmp(argv[i],tmp_ise.c_str()) == 0) ise_flag = true;
     if(strcmp(argv[i],tmp_vivado.c_str()) == 0) vivado_flag = true;
     if(strcmp(argv[i],tmp_whole.c_str()) == 0) whole_flag = true;
@@ -302,7 +302,7 @@ int main(int argc, char** argv){
   //Static space division
   Space* orgSpace = NULL;
   {
-    if(myApp == vpr) genOrgSpace4VPR(orgSpace);
+    if(myApp == vtr) genOrgSpace4VPR(orgSpace);
     else if(myApp == vivado) genOrgSpace4Vivado(orgSpace, tcst_default);
     else genOrgSpace(orgSpace,space_file);
   }
@@ -317,7 +317,7 @@ int main(int argc, char** argv){
 
   map<int,Space*> spaceBuf;
   if(myType == parFix) {//pre-defined fixed partition 
-    if(myApp == vpr) initDivision8_VPR(orgSpace,spaceBuf);
+    if(myApp == vtr) initDivision8_VPR(orgSpace,spaceBuf);
     if(myApp == vivado) initDivision8_Vivado(orgSpace,spaceBuf);
   }
   else initDivision(orgSpace,spaceBuf);
@@ -344,7 +344,7 @@ int main(int argc, char** argv){
   printf("#Controller = %d, myrank = %d, running on %s\n",pnum,myrank,hostname);
 
   int tune_type;
-  if(myApp == vpr) tune_type = 1;
+  if(myApp == vtr) tune_type = 1;
   else if(myApp ==vivado) tune_type = 2;
   else tune_type = 3;
   for(int i = 1; i < pnum; i++) 
@@ -431,7 +431,7 @@ int main(int argc, char** argv){
       old_max_id += add_num;
     }
     if(!ready_2_par_space(iter,spaceBuf.size(),pnum-1)&& can_partition) {
-      if(vpr_flag) {limit+=5;}
+      if(vtr_flag) {limit+=5;}
       if(vivado_flag) {limit = 10;}
     }
 
