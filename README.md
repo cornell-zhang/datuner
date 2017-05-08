@@ -4,10 +4,11 @@
 
 OpenTuner: http://opentuner.org/tutorial/setup/
 
-% pip install --user opentuner
-
-
 ###  Compilation
+
+To build DATuner:
+    % make
+    
 
 First build the prerequisites, then follow the instructions below to configure DATuner.
 
