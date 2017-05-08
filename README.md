@@ -18,6 +18,15 @@ Add MPI Path on your PATH (example):
 
 To setup environment for parallel tuning:
 
+  1) Specify the number of machines used in my_hosts 
+  
+  2) Password-less login
+    
+    in each machine do:
+    
+    % cd releases/Linux_x86_64
+
+
 
     
 
