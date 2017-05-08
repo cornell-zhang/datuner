@@ -32,14 +32,32 @@ To setup environment for parallel tuning:
 
             % cd releases/Linux_x86_64/scripts/eda_flows
     
+    The usage of run_easy.py script is: 
 
-Go into PathTo-DATuner/scripts directory, we support two modes to use DATuner: easy mode and advance mode.
-
-Easy mode
-
-    run_DATuner_easy.sh –t <vivado|quartus|vpr> -d <design> -o <objective> [options]
+    Usage: run_easy.py [options]
     
-    Parameters:
+    Options:
+      
+      -h, --help 
+      
+      Show this help msg and exit
+      
+      -t TOOL, --tool=TOOL  
+      
+      Currently support VTR and Vivado. If your tool is not supported, try advance mode
+      
+      -v VTRPATH, --vtrPath=VTRPATH If VTR is used, please specify the path to vtr_flow
+      
+      -c DESIGN, --circuit=DESIGN The design to tune. For VTR just specify the design name; For Vivado specify the absoluate path to design
+      
+      -m TOPMODULE, --topmodule=TOPMODULE Vivado design's top module
+      
+      -o OBJ, --objective=OBJ The objective to tune. default: timing
+      
+      -n PROCNUM, --proc_num=PROCNUM The number of machines to use
+      
+      -d TEMDIR,
+      
       
       -tool <vivado|quartus|vpr>: specify which EDA flow uses
       
