@@ -34,49 +34,37 @@ To setup environment for parallel tuning:
     
     The usage of run_easy.py script is: 
 
-    Usage: run_easy.py [options]
+       Usage: run_easy.py [options]
     
-    Options:
+       Options:
       
-      -h, --help 
+         -h, --help  Show this help msg and exit
       
-      Show this help msg and exit
+         -t TOOL, --tool=TOOL  Currently support VTR and Vivado. If your tool is not supported, try advance mode
       
-      -t TOOL, --tool=TOOL  
+         -v VTRPATH, --vtrPath=VTRPATH If VTR is used, please specify the path to vtr_flow
       
-      Currently support VTR and Vivado. If your tool is not supported, try advance mode
+         -c DESIGN, --circuit=DESIGN The design to tune. For VTR just specify the design name; For Vivado specify the absoluate path to design
       
-      -v VTRPATH, --vtrPath=VTRPATH If VTR is used, please specify the path to vtr_flow
+         -m TOPMODULE, --topmodule=TOPMODULE Vivado design's top module
       
-      -c DESIGN, --circuit=DESIGN The design to tune. For VTR just specify the design name; For Vivado specify the absoluate path to design
+         -o OBJ, --objective=OBJ The objective to tune. default: timing
       
-      -m TOPMODULE, --topmodule=TOPMODULE Vivado design's top module
+         -n PROCNUM, --proc_num=PROCNUM The number of machines to use
       
-      -o OBJ, --objective=OBJ The objective to tune. default: timing
-      
-      -n PROCNUM, --proc_num=PROCNUM The number of machines to use
-      
-      -d TEMDIR,
+         -d TEMPDIR, --dir=TEMPDIR Directory to save temporary files.(use absoluate path)
+         
+         -p SCRIPTPATH, --path=SCRIPTPATH The scriptpath of DATuner package.(use absoluate path)
       
       
-      -tool <vivado|quartus|vpr>: specify which EDA flow uses
-      
-      -design <design>: the design to tune
-      
-      -obj <objective>: will support delay\area\wirelength (now only support timing)
-    
-    Options:
-      
-      -process_num <number>: how many processes used
-      
-      -temp_dir <dir>: directory used for all temporary files
+   Examples:
+   
+       % ./run_easy.py -t vtr -v /home/xuchang/nas/project/daTuner/myrelease/build/pkgs/vtr/vtr_release/vtr_flow -c diffeq1 -d /home/xuchang/nas/project/daTuner/workspace
+       
+       % ./run_easy.py -t vivado -c /home/xuchang/nas/project/daTuner/myrelease/scripts/eda_flows/vivado/design/diffeq1 -m diffeq_paj_convert -d /home/xuchang/nas/project/daTuner/workspace
+   
 
-
-    E.g., `./run_DATuner_easy.sh –t vpr –d diffeq1 –o timing`
-
-    Outputs: under release/experiment/vpr/diffeq1/ 
-
-Advance mode:
+2) Advance mode:
 
     run_DATuner_advance.sh –s <space_definition> -c <python_code> -d <design> [options]
 
