@@ -2,11 +2,10 @@
 
 ### Prerequisites
 
-Python2.7 (compile with --enable-shared option)
-
 OpenTuner: http://opentuner.org/tutorial/setup/
 
-Mpich3.2 https://www.mpich.org/ 
+% pip install --user opentuner
+
 
 ###  Compilation
 
