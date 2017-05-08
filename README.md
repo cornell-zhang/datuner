@@ -2,60 +2,69 @@
 
 ### Prerequisites
 
-Python2.7 (compile with --enable-shared option)
-
 OpenTuner: http://opentuner.org/tutorial/setup/
-
-Mpich3.2 https://www.mpich.org/ 
 
 ###  Compilation
 
-First build the prerequisites, then follow the instructions below to configure DATuner.
+To build DATuner:
 
-Go into PathTo-DATuner/release/src directory
+            % make
+    
+It generates files under releases/$(OS)\_$(ARCH). Then add MPI Path on your PATH (example):
 
-In Makefile, add the include folder of your Python and Mpich. And point out the path of your Python and Mpich lib.
+            % export PATH=releases/Linux_x86_64/install/bin:$PATH
 
-E.g., `INCLUDES = -I PathTo-Python/include/python2.7 -I PathTo-Mpich/include`
+To setup environment for parallel tuning:
 
-`LDFLAGS = -L PathTo-Mpich/lib -lmpi -L PathTo-Python/lib -lpython2.7`
-
-Go into PathTo-DATuner/release directory
-
-`./configure`
-
-`make`
-
-Generate master and worker in PathTo-DATuner/release/src
+  1) Specify the number of machines used in my_hosts 
+  
+  2) Password-less login. on each machine do:
+    
+            % cd releases/Linux_x86_64/scripts
+    
+            % ssh-keygen -t rsa
+    
+            % ./envset.sh
 
 ###  Evaluation
 
-Go into PathTo-DATuner/scripts directory, we support two modes to use DATuner: easy mode and advance mode.
+1) Easy mode:(currently support VTR and Vivado)
 
-Easy mode
-
-    run_DATuner_easy.sh –t <vivado|quartus|vpr> -d <design> -o <objective> [options]
+            % cd releases/Linux_x86_64/scripts/eda_flows
     
-    Parameters:
-      
-      -tool <vivado|quartus|vpr>: specify which EDA flow uses
-      
-      -design <design>: the design to tune
-      
-      -obj <objective>: will support delay\area\wirelength (now only support timing)
+    The usage of run_easy.py script is: 
+
+       Usage: run_easy.py [options]
     
-    Options:
+       Options:
       
-      -process_num <number>: how many processes used
+         -h, --help  Show this help msg and exit
       
-      -temp_dir <dir>: directory used for all temporary files
+         -t TOOL, --tool=TOOL  Currently support VTR and Vivado. If your tool is not supported, try advance mode
+      
+         -v VTRPATH, --vtrPath=VTRPATH If VTR is used, please specify the path to vtr_flow
+      
+         -c DESIGN, --circuit=DESIGN The design to tune. For VTR just specify the design name; For Vivado specify the absoluate path to design
+      
+         -m TOPMODULE, --topmodule=TOPMODULE Vivado design's top module
+      
+         -o OBJ, --objective=OBJ The objective to tune. default: timing
+      
+         -n PROCNUM, --proc_num=PROCNUM The number of machines to use
+      
+         -d TEMPDIR, --dir=TEMPDIR Directory to save temporary files.(use absoluate path)
+         
+         -p SCRIPTPATH, --path=SCRIPTPATH The scriptpath of DATuner package.(use absoluate path)
+      
+      
+   Examples:
+   
+       % ./run_easy.py -t vtr -v /home/xuchang/nas/project/daTuner/myrelease/build/pkgs/vtr/vtr_release/vtr_flow -c diffeq1 -d /home/xuchang/nas/project/daTuner/workspace
+       
+       % ./run_easy.py -t vivado -c /home/xuchang/nas/project/daTuner/myrelease/scripts/eda_flows/vivado/design/diffeq1 -m diffeq_paj_convert -d /home/xuchang/nas/project/daTuner/workspace
+   
 
-
-    E.g., `./run_DATuner_easy.sh –t vpr –d diffeq1 –o timing`
-
-    Outputs: under release/experiment/vpr/diffeq1/ 
-
-Advance mode:
+2) Advance mode:
 
     run_DATuner_advance.sh –s <space_definition> -c <python_code> -d <design> [options]
 
