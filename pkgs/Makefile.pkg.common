@@ -1,0 +1,31 @@
+#===-- Makefile.common - Common makefile for DATuner --------*- Makefile -*--===#
+#
+# The DATuner HLS Infrastructure
+#
+
+LEVEL = $(PKG_LEVEL)/..
+
+include $(PKG_LEVEL)/Makefile.pkg.config
+
+all clean:: 
+	$(Verb) for dir in $(DIRS); do \
+		if [ -f $$dir/Makefile ]; then \
+			($(MAKE) $@ -C $$dir) || exit 1; \
+		else \
+			$(ECHO) "Cannote find Makefile in directory $$dir"; \
+		fi; \
+	done
+
+
+%/.dir:
+	$(Verb)if [ ! -d $* ]; then \
+		$(MKDIR) $* > /dev/null; \
+		$(DATE) > $@; \
+	fi
+
+%/.unpacked:: %/$(PkgTarBall) 
+	$(Verb)if [ ! -f $@ ]; then \
+		cd $(PkgBuildDir); \
+		tar xfvz $(PkgTarBall); \
+		touch $@; \
+	fi
