@@ -10,9 +10,9 @@ To build DATuner:
 
     % make
     
-It generates files under releases/$(OS)\_$(ARCH).
+    It generates files under releases/$(OS)\_$(ARCH).
 
-Add MPI Path on your PATH (example):
+    Add MPI Path on your PATH (example):
 
     % export PATH=releases/Linux_x86_64/install/bin:$PATH
 
