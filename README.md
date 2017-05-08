@@ -10,11 +10,9 @@ To build DATuner:
 
     % make
     
-    It generates files under releases/$(OS)\_$(ARCH).
+   It generates files under releases/$(OS)\_$(ARCH). Then add MPI Path on your PATH (example):
 
-    Add MPI Path on your PATH (example):
-
-    % export PATH=releases/Linux_x86_64/install/bin:$PATH
+        % export PATH=releases/Linux_x86_64/install/bin:$PATH
 
 To setup environment for parallel tuning:
 
