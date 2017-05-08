@@ -10,9 +10,9 @@ To build DATuner:
 
     % make
     
-   It generates files under releases/$(OS)\_$(ARCH). Then add MPI Path on your PATH (example):
+It generates files under releases/$(OS)\_$(ARCH). Then add MPI Path on your PATH (example):
 
-        % export PATH=releases/Linux_x86_64/install/bin:$PATH
+    % export PATH=releases/Linux_x86_64/install/bin:$PATH
 
 To setup environment for parallel tuning:
 
@@ -30,7 +30,7 @@ To setup environment for parallel tuning:
 
 1) Easy mode:(currently support VTR and Vivado)
 
-    % cd releases/Linux_x86_64/scripts/eda_flows
+        % cd releases/Linux_x86_64/scripts/eda_flows
     
 
 Go into PathTo-DATuner/scripts directory, we support two modes to use DATuner: easy mode and advance mode.
