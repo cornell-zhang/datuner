@@ -20,35 +20,20 @@ To setup environment for parallel tuning:
 
   1) Specify the number of machines used in my_hosts 
   
-  2) Password-less login
+  2) Password-less login. on each machine do:
     
-    in each machine do:
+    % cd releases/Linux_x86_64/scripts
     
-    % cd releases/Linux_x86_64
-
-
-
+    % ssh-keygen -t rsa
     
-
-First build the prerequisites, then follow the instructions below to configure DATuner.
-
-Go into PathTo-DATuner/release/src directory
-
-In Makefile, add the include folder of your Python and Mpich. And point out the path of your Python and Mpich lib.
-
-E.g., `INCLUDES = -I PathTo-Python/include/python2.7 -I PathTo-Mpich/include`
-
-`LDFLAGS = -L PathTo-Mpich/lib -lmpi -L PathTo-Python/lib -lpython2.7`
-
-Go into PathTo-DATuner/release directory
-
-`./configure`
-
-`make`
-
-Generate master and worker in PathTo-DATuner/release/src
+    % ./envset.sh
 
 ###  Evaluation
+
+1) Easy mode:(currently support VTR and Vivado)
+
+    % cd releases/Linux_x86_64/scripts/eda_flows
+    
 
 Go into PathTo-DATuner/scripts directory, we support two modes to use DATuner: easy mode and advance mode.
 
