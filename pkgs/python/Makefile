@@ -38,5 +38,9 @@ $(PythonBuildDir)/python:
 #=== Install OpenTuner ===#
 
 install-OpenTuner:
+	cd $(PythonInstallDir)/bin; \
+	wget https://bootstrap.pypa.io/get-pip.py; \
+	./python get-pip.py; \
+	./pip install --user opentuner;
 #	pip install -t $(DATuner_PKG_INSTALL)/lib/python2.7/site-packages/ opentuner 
 
