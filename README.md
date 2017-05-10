@@ -6,6 +6,7 @@ EDA tools (VTR and Vivado).
 Make sure the tool is on your PATH.
 
 ### Compilation
+(tested on zhang-05)
 
 To build DATuner (including python, mpich and opentuner):
 
