@@ -13,8 +13,8 @@ Build time: ~18 minitues on zhang-05.
     
 ### Environment setup
 
-            % export PATH= $HOME/datuner/build/pkgs/python/install/bin:$HOME/datuner/releases/Linux_x86_64/install/bin:$PATH
-            % export LD_LIBRARY_PATH = $HOME/datuner/build/pkgs/python/install/lib:$LD_LIBRARY_PATH
+            % export PATH=$HOME/datuner/build/pkgs/python/install/bin:$HOME/datuner/releases/Linux_x86_64/install/bin:$PATH
+            % export LD_LIBRARY_PATH=$HOME/datuner/build/pkgs/python/install/lib:$LD_LIBRARY_PATH
        
 ### Enable password-less SSH between machines
 
@@ -29,7 +29,7 @@ One way to enable password-less SSH:
 
 ###  Evaluation
 
-  * Easy mode:(currently supports VTR and Vivado)
+  * Easy mode: (currently supports VTR and Vivado)
 
             % cd $HOME/releases/Linux_x86_64/scripts/eda_flows
     
@@ -43,7 +43,6 @@ One way to enable password-less SSH:
          -t TOOL, --tool=TOOL  Currently support VTR and Vivado. If your tool is not supported, try advance mode
          -v VTRPATH, --vtrPath=VTRPATH If VTR is used, please specify the path to vtr_flow
          -c DESIGN, --circuit=DESIGN The design to tune. For VTR just specify the design name; For Vivado specify the absoluate path to design
-      
          -m TOPMODULE, --topmodule=TOPMODULE Vivado design's top module
          -o OBJ, --objective=OBJ The objective to tune. default: timing
          -n PROCNUM, --proc_num=PROCNUM The number of machines to use
