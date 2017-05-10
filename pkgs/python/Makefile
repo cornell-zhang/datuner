@@ -36,16 +36,9 @@ $(PythonBuildDir)/python:
 	make install;
 
 #=== Install OpenTuner ===#
-
-pip_status = $(shell if [ -n `which pip` ]; then echo "exist"; else echo "notexist"; fi;)
-
 install-OpenTuner:
-ifeq ($(pip_status), exist)
-		pip install -t $(PythonInstallDir)/lib/python2.7/site-packages/ opentuner 
-else
-		cd $(PythonInstallDir)/bin; \
-		wget https://bootstrap.pypa.io/get-pip.py; \
-		./python get-pip.py; \
-		./pip install --user opentuner;
-endif
-
+	cd $(PythonInstallDir)/bin; \
+	export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
+	wget https://bootstrap.pypa.io/get-pip.py; \
+	./python get-pip.py; \
+	./pip install --user opentuner;
