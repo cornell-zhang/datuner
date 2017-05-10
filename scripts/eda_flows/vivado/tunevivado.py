@@ -19,10 +19,10 @@ from opentuner import Result
 argparser = argparse.ArgumentParser(add_help=False)
 argparser.add_argument('--myrank',type=int, default=0,
     help='the rank of process')
-argparser.add_argument('--tunecst',type=int,
-    help='specify whether to tune default cst or not')
-argparser.add_argument('--defaultcst',type=float,
-    help='specify the default cst')
+#argparser.add_argument('--tunecst',type=int,
+#    help='specify whether to tune default cst or not')
+#argparser.add_argument('--defaultcst',type=float,
+#    help='specify the default cst')
 
 
 #----------------------------------------
@@ -90,6 +90,7 @@ class VIVADOFlagsTuner(MeasurementInterface):
     subprocess.Popen(cmd,shell=True).wait()
     cmd='mkdir -p '+self.workspace+'/'+str(self.args.myrank)+'/'+str(result_id)+'/'
     subprocess.Popen(cmd,shell=True).wait()
+
     workdir = self.workspace+'/'+str(self.args.myrank)+'/'+str(result_id)+'/'
     srcdir = self.designpath+'/'+self.design+'/'
 
@@ -133,11 +134,11 @@ class VIVADOFlagsTuner(MeasurementInterface):
     f.write(routestr+'\n')
     f.close()
 
-    tunetiming = args.tunecst
-    print "debug tunecst: "+str(tunetiming)
-    cstset = args.defaultcst
-    if tunetiming == 1:
-      cstset = cfg['Timingcst']
+    #tunetiming = args.tunecst
+    #print "debug tunecst: "+str(tunetiming)
+    #cstset = args.defaultcst
+    #if tunetiming == 1:
+    #  cstset = cfg['Timingcst']
 
 
     wns = 0.0
@@ -146,76 +147,73 @@ class VIVADOFlagsTuner(MeasurementInterface):
     BRam=str(0)
     DSP=str(0)
 
-    if True:
-      print "Running Vivado...\n"
-      print result_id
+    cmd = 'sed -e \'s:BENCH:'+self.design+':g\' -e \'s:TOPMODULE:'+self.topmodule+':g\' -e \'s:DESIGN_PATH:'+self.designpath+':g\' -e \'s:WORKDIR_HOLDER:'+workdir+':g\' '+self.designpath+'/../run_vivado.tcl > '+workdir+'run_vivado.tcl'
+    subprocess.Popen(cmd,shell=True).wait()
+    os.chdir(workdir)
 
-      cmd =' sed -e \'s:BENCH:'+self.design+':g\' -e \'s:TOPMODULE:'+self.topmodule+':g\' -e \'s:DESIGN_PATH:'+self.designpath+':g\' -e \'s:WORKDIR_HOLDER:'+workdir+':g\' '+self.designpath+'/../run_vivado.tcl > '+workdir+'run_vivado.tcl'
-      subprocess.Popen(cmd,shell=True).wait()
+    run_cmd = 'vivado -mode batch -source '+workdir+'/run_vivado.tcl'
+    subprocess.call(run_cmd,shell=True)
+    print "Finish running Vivado...\n"
 
-      run_cmd = 'vivado -mode batch -source '+workdir+'/run_vivado.tcl'
-      subprocess.call(run_cmd,shell=True)
-      print "Finish running Vivado...\n"
-
-      timingFile=workdir + '/output/post_route_timing.rpt'
-      if os.path.isfile(timingFile):
-        f = open(timingFile)
-        while 1:
-          line = f.readline()
-          if line.find('Startpoint') != -1:
-            f.readline()
-            singleLine = f.readline()
-            bufs = singleLine.split()
-            i = len(bufs)
-            if i >= 3:
-              wns = float(bufs[2])
-            else:
-              while 1:
-                singleLine = f.readline()
-                bufs = singleLine.split()
-                if len(bufs)+i >= 3:
-                  wns = float(bufs[2-i])
-                  break
-                i = i+len(bufs)
-            break
-        f.close()
-      else:
-        wns=-10000
+    timingFile=workdir + '/output/post_route_timing.rpt'
+    if os.path.isfile(timingFile):
+      f = open(timingFile)
+      while 1:
+        line = f.readline()
+        if line.find('Startpoint') != -1:
+          f.readline()
+          singleLine = f.readline()
+          bufs = singleLine.split()
+          i = len(bufs)
+          if i >= 3:
+            wns = float(bufs[2])
+          else:
+            while 1:
+              singleLine = f.readline()
+              bufs = singleLine.split()
+              if len(bufs)+i >= 3:
+                wns = float(bufs[2-i])
+                break
+              i = i+len(bufs)
+          break
+      f.close()
+    else:
+      wns=-10000
 
 
-      ResourceFile = workdir+'/output/post_route_util.rpt'
-      if os.path.isfile(ResourceFile):
-        blockFlag = False
-        f = open(ResourceFile)
-        while 1:
-          line = f.readline()
-          if not line: break
-          if line.find('Slice LUTs')!=-1:
-            bufs = line.split("| ")
-            SLUT = bufs[2]
-          if line.find('Slice Registers')!=-1:
-            bufs = line.split("| ")
-            SReg = bufs[2]
-          if line.find('Block RAM Tile') != -1 and blockFlag != True:
-            bufs = line.split("| ")
-            BRam = bufs[2]
-            blockFlag = True
-          if line.find('DSPs')!=-1:
-            bufs = line.split("| ")
-            DSP = bufs[2]
-        f.close()
-
+    ResourceFile = workdir+'/output/post_route_util.rpt'
+    if os.path.isfile(ResourceFile):
+      blockFlag = False
+      f = open(ResourceFile)
+      while 1:
+        line = f.readline()
+        if not line: break
+        if line.find('Slice LUTs')!=-1:
+          bufs = line.split("| ")
+          SLUT = bufs[2]
+        if line.find('Slice Registers')!=-1:
+          bufs = line.split("| ")
+          SReg = bufs[2]
+        if line.find('Block RAM Tile') != -1 and blockFlag != True:
+          bufs = line.split("| ")
+          BRam = bufs[2]
+          blockFlag = True
+        if line.find('DSPs')!=-1:
+          bufs = line.split("| ")
+          DSP = bufs[2]
+      f.close()
 
     end = time.time()
 
     myscore = wns
-    if tunetiming == 1:
-      if wns != -10000:
-        myscore = -(cstset-wns)
+    #if tunetiming == 1:
+    #  if wns != -10000:
+    #    myscore = -(cstset-wns)
 
     writename='./result'+str(self.args.myrank)+'.txt'
     f = open(writename,'a')
-    f.write('Configuration: '+optres+' '+placeres+' '+physoptres+' '+routeres+' '+'Timingcst '+str(cstset))
+    f.write('Configuration: '+optres+' '+placeres+' '+physoptres+' '+routeres)
+#+' '+'Timingcst '+str(cstset))
     f.write(" WNS:  ")
     f.write(str(myscore))
     rt = str(end - start)
@@ -227,7 +225,8 @@ class VIVADOFlagsTuner(MeasurementInterface):
 
     writename='./localresult'+str(self.args.myrank)+'.txt'
     f = open(writename,'a')
-    f.write('Configuration: '+optres+' '+placeres+' '+physoptres+' '+routeres+' '+'Timingcst '+str(cstset))
+    f.write('Configuration: '+optres+' '+placeres+' '+physoptres+' '+routeres)
+#+' '+'Timingcst '+str(cstset))
     f.write(' WNS '+str(myscore))
     f.write("\n")
     f.close()

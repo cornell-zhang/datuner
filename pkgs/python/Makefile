@@ -37,10 +37,15 @@ $(PythonBuildDir)/python:
 
 #=== Install OpenTuner ===#
 
+pip_status = $(shell if [ -n `which pip` ]; then echo "exist"; else echo "notexist"; fi;)
+
 install-OpenTuner:
-	cd $(PythonInstallDir)/bin; \
-	wget https://bootstrap.pypa.io/get-pip.py; \
-	./python get-pip.py; \
-	./pip install --user opentuner;
-#	pip install -t $(DATuner_PKG_INSTALL)/lib/python2.7/site-packages/ opentuner 
+ifeq ($(pip_status), exist)
+		pip install -t $(PythonInstallDir)/lib/python2.7/site-packages/ opentuner 
+else
+		cd $(PythonInstallDir)/bin; \
+		wget https://bootstrap.pypa.io/get-pip.py; \
+		./python get-pip.py; \
+		./pip install --user opentuner;
+endif
 
