@@ -41,4 +41,4 @@ install-OpenTuner:
 	export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
 	wget https://bootstrap.pypa.io/get-pip.py; \
 	./python get-pip.py; \
-	./pip install --user opentuner;
+	./pip install opentuner;
