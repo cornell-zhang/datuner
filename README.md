@@ -1,5 +1,10 @@
 # DATuner User Guide
 
+### Prerequisites
+
+EDA tools (VTR and Vivado).
+Make sure the tool is on your PATH.
+
 ### Compilation
 
 To build DATuner (including python, mpich and opentuner):
