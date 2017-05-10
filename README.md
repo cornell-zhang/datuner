@@ -41,7 +41,7 @@ One way to enable password-less SSH:
     
     The usage of run_easy.py script is: 
 
-       Usage: run_easy.py [options]
+       `run_easy.py [options]`
     
        Options:
       
