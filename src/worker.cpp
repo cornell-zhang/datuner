@@ -1,19 +1,18 @@
 #include <cfloat>
 #include <cstdio>
+#include <cassert>
 #include <map>
 #include <string>
 #include <vector>
 #include <utility>
+#include <unistd.h>
+#include <iostream>
+#include <Python.h>
 #include "mpi.h"
 #include "structure.h"
 #include "msg_passing.h"
-#include "autoTuner.h"
+#include "autotuner.h"
 #include "space_partition.h"
-#include <unistd.h>
-#include <iostream>
-#include <cassert>
-#include <unistd.h>
-#include <Python.h>
 
 using namespace std;
 
@@ -31,14 +30,11 @@ int main(int argc, char** argv) {
   MPI_Comm_rank(MPI_COMM_WORLD,&myrank);
   MPI_Comm_size(MPI_COMM_WORLD,&pnum);
   MPI_Get_processor_name(hostname,&len);
-  printf("Worker = %d, My rank = %d, runing on %s\n",pnum,myrank,hostname);
+  
+  printf("wake machine %s...\n",hostname);
 
   int tune_type = 0; //1: VPR 2: Vivado 3: ISE
   MPI_Recv(&tune_type,1,MPI_INT,0,0,MPI_COMM_WORLD,&status);
-  
-  //int exp_type = 0; //1: my 2: whole 3: restart 4: fix 5: fix-mab
-  //MPI_Recv(&exp_type,1,MPI_INT,0,0,MPI_COMM_WORLD,&status);
-
   int share_best = 1; //0:false 1:true
   //MPI_Recv(&share_best,1,MPI_INT,0,0,MPI_COMM_WORLD,&status);
   
@@ -105,7 +101,6 @@ int main(int argc, char** argv) {
       sprintf(name,"StartPointSpace%d.json",myrank);
       //sprintf(name,"/proj/xsjhdstaff3/changx/project/parTuner/experiment/vpr/vtr_release/vtr_flow/tasks/openTunerTiming/experiment/my/ch_intrinsics/StartPointSpace%d.json",myrank);
       tmp_fake_argv.push_back(string(name));
-
     }
 
     /*
@@ -118,19 +113,10 @@ int main(int argc, char** argv) {
    
   }
 
-
-
-
-  
-
-  printf("worker start tuning\n");
- 
-
+  /***********invoke autotuner****************/
   Py_Initialize();
   if(!Py_IsInitialized()) return -1;
-  //PySys_SetArgv(fake_argc,fake_argv);
-  //printf("Pass Initialization\n");
-
+  
   int cond = 0;//0:stop, 1:autotuning
   while(1) {
     MPI_Recv(&cond,1,MPI_INT,0,0,MPI_COMM_WORLD,&status);
@@ -160,46 +146,19 @@ int main(int argc, char** argv) {
       fake_argv[i] = new char[100];
       strcpy(fake_argv[i],tmp_fake_argv[i].c_str());
     }
-
- 
-  if(myrank == 1) {
-    cout<<"debug argv "<<endl;
-    for(int i = 0; i < fake_argc; i++) {
-      cout<<fake_argv[i]<<endl;
-    }
-  }
-
     PySys_SetArgv(fake_argc,fake_argv);
-
-
 
     Task* task = NULL;
     Recv_Task(task, 0);
     assert(task != NULL);
-    //printf("debug recved task %d,%d,%d,%d\n",myrank,task->step,task->subspace->id,task->subspace->params.size());
       
     vector<Result*> results;
     AutoTuner* tuner = new AutoTuner(task->subspace->id, design, tune_type); //start from 1
     assert(tuner != NULL);
-    //usleep(1000000*myrank);
-    //if(myrank == 1) 
     tuner->callOpenTuner(task,results,myrank,spacepath,pycode);
-
-    /*
-    Result* best_result = NULL;
-    float score = +DBL_MAX;
-    for(int i = 0; i < results.size(); i++) {
-      if(score > results[i]->score) {
-        score = results[i]->score;
-        best_result = results[i];
-        printf("My rank %d, result %f\n",myrank,score);
-      }
-    }
-    if(best_result != NULL) Send_Result(best_result,0);
-    //if(false){
-    //}*/
-
+#ifdef DEBUG_MSG
     printf("rank %d sending results, result size %d\n",myrank, results.size());
+#endif
     if(results.size() != 0) {
       Send_MultiResult(results,0);
     }

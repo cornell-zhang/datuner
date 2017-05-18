@@ -153,7 +153,6 @@ class VIVADOFlagsTuner(MeasurementInterface):
 
     run_cmd = 'vivado -mode batch -source '+workdir+'/run_vivado.tcl'
     subprocess.call(run_cmd,shell=True)
-    print "Finish running Vivado...\n"
 
     timingFile=workdir + '/output/post_route_timing.rpt'
     if os.path.isfile(timingFile):
@@ -234,11 +233,11 @@ class VIVADOFlagsTuner(MeasurementInterface):
     return Result(time=-myscore)
 
 
-  def save_final_config(self, configuration):
-    """called at the end of tuning"""
-    print "Optimal b01 options written to bench_config.json:", configuration.data
-    self.manipulator().save_to_file(configuration.data,
-                                    'inline_config.json')
+  #def save_final_config(self, configuration):
+  #  """called at the end of tuning"""
+  #  print "Optimal b01 options written to bench_config.json:", configuration.data
+  #  self.manipulator().save_to_file(configuration.data,
+  #                                  'inline_config.json')
 
 if __name__ == '__main__':
   argparsers = opentuner.argparsers()

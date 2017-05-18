@@ -30,8 +30,10 @@ string getValue(string param_name, Space* orgspace, float orgvalue) {
     return string(tmp);
 }
 
-void param_entropy(map<int,vector<Result*> > points, Space* space, Space* orgspace, float default_value, vector<string>& params){
+void param_entropy(map<int,vector<Result*> > points, Space* space, Space* orgspace, vector<string>& params){
+#ifdef DEBUG_MSG
   printf("debug space id %d is going to be splited, %d data in this space has been searched\n",space->id, points.find(space->id)->second.size());
+#endif
   assert(points.count(space->id) > 0);
   int pos_num = 0;
   int neg_num = 0;
@@ -45,8 +47,9 @@ void param_entropy(map<int,vector<Result*> > points, Space* space, Space* orgspa
   }
   assert(spaceResults.size() != 0);
   avg_def_value = avg_def_value / float(spaceResults.size());
+#ifdef DEBUG_MSG
   printf("debug avg_def_score %f\n",avg_def_value); 
-  
+#endif
   map<string,map<string,vector<int> > > local_buf;
   for(int i = 0; i < spaceResults.size(); i++) {
     Result* result = spaceResults[i];
@@ -67,7 +70,6 @@ void param_entropy(map<int,vector<Result*> > points, Space* space, Space* orgspa
       Param* tmp_param = getParam(space,param_name);
       assert(tmp_param != NULL);
       if(is_single_param(tmp_param,orgspace)) {
-        printf("single param %s\n",param_name.c_str());
         continue;
       }
       //getvalue
@@ -116,8 +118,9 @@ void param_entropy(map<int,vector<Result*> > points, Space* space, Space* orgspa
   assert(total_size != 0);
   if(pos_num == 0 || neg_num == 0) hd = 0;
   else hd = -(float(pos_num)/float(total_size))*log2(float(pos_num)/float(total_size))-(float(neg_num)/float(total_size))*log2(float(neg_num)/float(total_size));
+#ifdef DEBUG_MSG
   printf("space %d hd: %f, pos_num: %d, neg_num %d\n",space->id,hd,pos_num,neg_num);
-
+#endif
   vector<pair<string,float> >param2hd;
   for(map<string,map<string,vector<int> > >::iterator it = local_buf.begin();
     it != local_buf.end(); it++) {
@@ -145,7 +148,7 @@ void param_entropy(map<int,vector<Result*> > points, Space* space, Space* orgspa
   sort(param2hd.begin(),param2hd.end(), myfunction1);
   for(int i = 0; i < param2hd.size(); i++) {
     params.push_back(param2hd[i].first);
-    cout<<"check entropy "<<param2hd[i].first<<" "<<param2hd[i].second<<endl;
+    //cout<<"check entropy "<<param2hd[i].first<<" "<<param2hd[i].second<<endl;
   }
 }
 
@@ -188,7 +191,9 @@ int paramSize(Param* param, Space* orgspace) {
     assert(orgparam != NULL);
     size = lenRatio(param,orgparam);
   }
+#ifdef DEBUG_MSG
   printf("param: %s, size: %d\n",param->name.c_str(),size);
+#endif
   return size;
 }
 
@@ -219,7 +224,7 @@ void gennewSpace(Space* orgspace, Param* param, int old_space_num, vector<Space*
     assert(add_size == 4); //param equals to orgparam
     unit = fabs(param->max-param->min)/4;
   }
-  cout<<"debug add_size "<<add_size<<endl;
+  //cout<<"debug add_size "<<add_size<<endl;
   for(int i = 0; i < add_size; i++) {
     vector<Param*> tmp_vector;
     for(int j = 0; j < orgspace->params.size(); j++) {
@@ -238,11 +243,7 @@ void gennewSpace(Space* orgspace, Param* param, int old_space_num, vector<Space*
           tmp_param->max = tmp_param->min + unit;
           tmp_param->min = tmp_param->min < param->min ? param->min : tmp_param->min;
           tmp_param->max = tmp_param->max > param->max ? param->max : tmp_param->max;
-          if(tmp_param->min >= tmp_param->max) {
-            printf("debug error: %s, min %f , max %f\n",tmp_param->name.c_str(),tmp_param->min,tmp_param->max);
-          }
           assert(tmp_param->min < tmp_param->max);
-          printf("debug new min: %f, new max %f\n", tmp_param->min,tmp_param->max);
         }
       }
       tmp_vector.push_back(tmp_param);
@@ -253,7 +254,7 @@ void gennewSpace(Space* orgspace, Param* param, int old_space_num, vector<Space*
   }
 }
 
-void space_partition(float default_value, int old_max_id, Space* orgspace, map<int,vector<Result*> >& points, map<int,Result*>& space2best, map<int, Space*>& spaceBuf, int& remove_space, int &add_num) {
+void divide_space(int old_max_id, Space* orgspace, map<int,vector<Result*> >& points, map<int,Result*>& space2best, map<int, Space*>& spaceBuf, int& remove_space, int &add_num) {
   int size_threshold = 30;
   //find space to partition
   //TODO: combine both average score and best score
@@ -271,9 +272,11 @@ void space_partition(float default_value, int old_max_id, Space* orgspace, map<i
     space2perf_vec.push_back(tmp_pair);
   }
   sort(space2perf_vec.begin(), space2perf_vec.end(), myfunction);
+#ifdef DEBUG_MSG
   for(int i = 0; i < space2perf_vec.size(); i++) {
     printf("Space id: %d, Avg_score: %f\n",space2perf_vec[i].first,space2perf_vec[i].second);
   }
+#endif
   
 
  
@@ -286,7 +289,7 @@ void space_partition(float default_value, int old_max_id, Space* orgspace, map<i
    
     //calculate information entropy gain
     vector<string> params;
-    param_entropy(points,space, orgspace, default_value,params);
+    param_entropy(points,space, orgspace,params);
     for(int j = 0; j < params.size(); j++) {
       string param_name = params[j];
       Param* param = getParam(space,param_name); 
@@ -301,7 +304,7 @@ void space_partition(float default_value, int old_max_id, Space* orgspace, map<i
         remove_space = space->id;
         add_num = newSpaces.size();
 
-        cout<<"[INFO] split space "<<remove_space<<" into "<<add_num<<" spaces based on parameter: "<<param_name<<endl;
+        //cout<<"[INFO] split space "<<remove_space<<" into "<<add_num<<" spaces based on parameter: "<<param_name<<endl;
 
         //warning only support enumParameter now
         map<string,int> newvalue2id;
@@ -336,7 +339,7 @@ void space_partition(float default_value, int old_max_id, Space* orgspace, map<i
             }
           }
           assert(newspace_id != 0);
-          cout<<"debug move from space id "<<space->id<<" to new space "<<newspace_id<<endl;
+          //cout<<"debug move from space id "<<space->id<<" to new space "<<newspace_id<<endl;
           if(points.count(newspace_id) > 0) {
             points.find(newspace_id)->second.push_back(tmp_result);
             assert(space2best.count(newspace_id) > 0);

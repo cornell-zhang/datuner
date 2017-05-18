@@ -1,6 +1,15 @@
 #include <cstdio>
-#include "mpi.h"
+#include <cassert>
+#include <cmath>
+#include <cfloat>
+#include <cstring>
+#include <cstdlib>
+#include <map>
+#include <iostream>
+#include <fstream>
+#include <algorithm>
 #include <vector>
+#include "mpi.h"
 #include "space_divider4Vivado.h"
 #include "space_divider4VPR.h"
 #include "space_divider.h"
@@ -8,21 +17,11 @@
 #include "bandit.h"
 #include "space_partition.h"
 #include "msg_passing.h"
-#include <cassert>
-#include <map>
-#include <cmath>
-#include <cfloat>
-#include <iostream>
-#include <fstream>
-#include <cstring>
-#include <algorithm>
-#include <cstdlib>
 
 using namespace std;
 
 bool myfunction2(pair<int,float> p1, pair<int,float> p2) {return p1.second > p2.second;}
-
-bool ready_2_par_space(int iter,int,int);
+bool stop_partition(int iter,int,int);
 
 void taskAssign_fix(map<string,string> name2type, map<int,Result*> space2best, bool share_best, map<int,Space*> spaceBuf, int pnum) {
   assert(pnum-1 == spaceBuf.size());
@@ -59,7 +58,9 @@ void taskAssign_fix(map<string,string> name2type, map<int,Result*> space2best, b
 }
 
 void taskAssign_cyclic(int pull_arms,map<string,string> name2type, map<int,Result*> space2best, bool share_best, map<int,Space*> spaceBuf, vector<pair<int,float> >reward, int pnum, int iter){
+#ifdef DEBUG_MSG
   printf("Iter: %d, #spaces: %d, #pnum: %d, #pull_arms: %d\n",iter,spaceBuf.size(), pnum-1, pull_arms);
+#endif
   for(int i = 1; i < pnum; i++) {
    int index = i % pull_arms;
    if(index == 0) index = pull_arms;
@@ -73,11 +74,13 @@ void taskAssign_cyclic(int pull_arms,map<string,string> name2type, map<int,Resul
       char name[500];
       sprintf(name,"StartPointSpace%d.json",i);
       remove(name);
+#ifdef DEBUG_MSG      
       if(space2best.count(space_id) <= 0) printf("for space id %d no best found\n",space_id);
+#endif
       if(space2best.count(space_id) > 0) {
         ftr.open(name,fstream::out);
         ftr<<"{";
-     
+    
         for(int t_i = 0; t_i < space2best[space_id]->name2choice.size(); t_i++) {
           ftr<<"\""<<space2best[space_id]->name2choice[t_i].first<<"\": ";
           string type = name2type[space2best[space_id]->name2choice[t_i].first];
@@ -91,12 +94,12 @@ void taskAssign_cyclic(int pull_arms,map<string,string> name2type, map<int,Resul
       }
     }
  
-
-
    Task* task = new Task(space,5);
    assert(task != NULL);
    Send_Task(task,i);
+#ifdef DEBUG_MSG
    printf("Iter: %d, Send task: Space %d => Pnum %d\n",iter,space_id,i);
+#endif
   }
 }
 
@@ -128,7 +131,9 @@ void taskAssign(map<string,string> name2type, map<int,Result*> space2best, bool 
       char name[500];
       sprintf(name,"StartPointSpace%d.json",last_pnum+1);
       remove(name);
+#ifdef DEBUG_MSG
       if(space2best.count(space_id) <= 0) printf("for space id %d no best found\n",space_id);
+#endif
       if(space2best.count(space_id) > 0) {
         ftr.open(name,fstream::out);
         ftr<<"{";
@@ -152,7 +157,9 @@ void taskAssign(map<string,string> name2type, map<int,Result*> space2best, bool 
     assert(task != NULL);
     Send_Task(task,last_pnum+1);
     last_pnum++;
+#ifdef DEBUG_MSG
     printf("Iter: %d, Send task: Space %d => Pnum %d\n",iter,space_id,last_pnum);
+#endif
   }
   if(last_pnum == pnum-1) return;
 
@@ -195,17 +202,17 @@ void taskAssign(map<string,string> name2type, map<int,Result*> space2best, bool 
     int alloc_res = rest_res < int(ceil(res_size)) ? rest_res:int(ceil(res_size));
     Space* space = spaceBuf.find(space_id)->second;
     assert(space != NULL);
-    printf("space_id %d ratio: %f, allocate res: %d\n",space_id,ratio[i].second,alloc_res);
+    //printf("space_id %d ratio: %f, allocate res: %d\n",space_id,ratio[i].second,alloc_res);
     for(int j = 0; j < alloc_res; j++) {
      
     if(share_best){
       fstream ftr;
       char name[500];
       sprintf(name,"StartPointSpace%d.json",last_pnum+1);
-      if(remove(name) != 0) {printf("Error can't remove %s\n",name);}
-      else {printf("Remove successfully %s\n",name);}
-      
+      remove(name);
+#ifdef DEBUG_MSG
       if(space2best.count(space_id) <= 0) printf("for space id %d no best found\n",space_id);
+#endif
       if(space2best.count(space_id) > 0 && false) { //Do not partition
         ftr.open(name,fstream::out);
         ftr<<"{";
@@ -229,7 +236,9 @@ void taskAssign(map<string,string> name2type, map<int,Result*> space2best, bool 
       assert(task != NULL);
       Send_Task(task,last_pnum+1);
       last_pnum++;
+#ifdef DEBUG_MSG
       printf("Iter: %d, Send task: Space %d => Pnum %d\n",iter,space_id,last_pnum);
+#endif     
     }
     rest_res -= alloc_res;
     assert(rest_res >= 0);
@@ -240,10 +249,8 @@ void taskAssign(map<string,string> name2type, map<int,Result*> space2best, bool 
 
 
 void correct_check(map<int,Space*> spaceBuf, vector<int> arms) {
-  cout<<"debug spaceBuf "<<spaceBuf.size()<<" arms: "<<arms.size()<<endl;
+  //cout<<"debug spaceBuf "<<spaceBuf.size()<<" arms: "<<arms.size()<<endl;
   assert(spaceBuf.size() == arms.size());
-  //for(map<int,Space*>::iterator it = spaceBuf.begin(); it != spaceBuf.end(); it++) cout<<it->first<<endl;
-  //for(int i = 0; i < arms.size(); i++) cout<<arms[i]<<endl;
   for(int i = 0; i < arms.size(); i++) {
     assert(spaceBuf.count(arms[i]) > 0);
   }
@@ -253,7 +260,8 @@ void correct_check(map<int,Space*> spaceBuf, vector<int> arms) {
 int main(int argc, char** argv){
 
   if(argc < 3) {
-    printf("./master -space <space_file> [-vtr|-vivado] [-DATuner|-parOpenTuner|-parFix]\n");
+    //cerr<<"Usage: ./master -space <space_file> [-vtr|-vivado] [-DATuner|-parOpenTuner|-parFix]"<<endl;
+    //exit(EXIT_FAILURE);
   }
 
   enum app{vtr,vivado,other};
@@ -261,16 +269,11 @@ int main(int argc, char** argv){
   enum exp_type{DATuner, parOpenTuner, parFix};
   exp_type myType = DATuner;
 
-  string tmp_tcst = "-tunecst"; //tune timing constraint for Vivado
+  printf("Start DATuner...\n");
+
+  /******** parse parameters ***********/
   double tcst_default = 0.0;
-  bool vtr_flag = false;
-  bool vivado_flag = false;
-  bool whole_flag = false;
-  bool restart_flag = false;
-  bool exp_fix = false;
-  bool exp_fix_MAB = false;
   bool share_best = true;
-  bool vivado_default = false;
   string space_file;
 
   for(int i = 0; i < argc; i++) {
@@ -279,7 +282,7 @@ int main(int argc, char** argv){
     if(string(argv[i]).find("parOpenTuner") != string::npos) myType = parOpenTuner;
     if(string(argv[i]).find("parFix") != string::npos) myType = parFix;
     if(string(argv[i]).find("DATuner") != string::npos) myType = DATuner;
-    if(strcmp(argv[i],tmp_tcst.c_str()) == 0) {
+    if(string(argv[i]) == "-tunecst") {
       assert(i < argc-1);
       tcst_default = atof(argv[i+1]);
     }
@@ -287,19 +290,9 @@ int main(int argc, char** argv){
       assert(i < argc-1);
       space_file = string(argv[i+1]);
     }
-    /*
-    if(strcmp(argv[i],tmp_vtr.c_str()) == 0) vtr_flag = true;
-    if(strcmp(argv[i],tmp_ise.c_str()) == 0) ise_flag = true;
-    if(strcmp(argv[i],tmp_vivado.c_str()) == 0) vivado_flag = true;
-    if(strcmp(argv[i],tmp_whole.c_str()) == 0) whole_flag = true;
-    if(strcmp(argv[i],tmp_restart.c_str()) == 0) restart_flag = true;
-    if(strcmp(argv[i],tmp_exp1.c_str()) == 0) exp_fix = true;
-    if(strcmp(argv[i],tmp_exp2.c_str()) == 0) exp_fix_MAB = true;
-    if(strcmp(argv[i],tmp_best.c_str()) == 0) share_best = true;
-    */
   }
 
-  //Static space division
+  /********generate solution space************/
   Space* orgSpace = NULL;
   {
     if(myApp == vtr) genOrgSpace4VPR(orgSpace);
@@ -315,14 +308,17 @@ int main(int argc, char** argv){
     }
   }
 
+  /********initial space division***************/
   map<int,Space*> spaceBuf;
   if(myType == parFix) {//pre-defined fixed partition 
     if(myApp == vtr) initDivision8_VPR(orgSpace,spaceBuf);
     if(myApp == vivado) initDivision8_Vivado(orgSpace,spaceBuf);
   }
   else initDivision(orgSpace,spaceBuf);
-
   assert(spaceBuf.size() != 0);
+
+
+  /*********initialize bandit************/
   Bandit* auc_bandit = new Bandit(spaceBuf.size());
   assert(auc_bandit != NULL);
   vector<int> tmp_arms;
@@ -331,7 +327,7 @@ int main(int argc, char** argv){
   int old_max_id = spaceBuf.size();//index startting from one;
 
   
-  //MPI initialization
+  /*********MPI*********/
   int myrank;
   int pnum;
   int len;
@@ -341,35 +337,30 @@ int main(int argc, char** argv){
   MPI_Comm_rank(MPI_COMM_WORLD,&myrank);
   MPI_Comm_size(MPI_COMM_WORLD,&pnum);
   MPI_Get_processor_name(hostname,&len);
-  printf("#Controller = %d, myrank = %d, running on %s\n",pnum,myrank,hostname);
 
   int tune_type;
   if(myApp == vtr) tune_type = 1;
   else if(myApp ==vivado) tune_type = 2;
   else tune_type = 3;
-  for(int i = 1; i < pnum; i++) 
-    MPI_Send(&tune_type, 1,MPI_INT,i,0,MPI_COMM_WORLD);
-  /*
-  int share_best_int = 0;
-  if(share_best) share_best_int = 1;
-  for(int i = 1; i < pnum; i++) MPI_Send(&share_best_int,1,MPI_INT,i,0,MPI_COMM_WORLD);
-*/
+  for(int i = 1; i < pnum; i++) MPI_Send(&tune_type, 1,MPI_INT,i,0,MPI_COMM_WORLD);
 
-  //save samples
+  /********database to save results**********/
   map<int,vector<Result*> > points; //space2results 
-  map<int,Result*> space2best;
+  map<int,Result*> space2best; //the best points in each subspace
   
+
+  /********searching**************/
   int round = 30; //total #iterations
   int iter = 1; //iteration counter
-  int cond = 0; //condition flag
+  int cond = 0; //condition flag: indicates whether stop or not 
   int limit = 10; //#steps per iteration
 
   bool can_partition = false;
   if(myType == DATuner) can_partition = true;
   if(myType == parOpenTuner) {round = 2; limit=800;}
-  
+  Result* gbest_result = NULL;
+
   while(iter < round) {
-    printf("Iter %d\n",iter);
     cond = 1;
     for(int i = 1; i < pnum; i++) {
       MPI_Send(&cond,1,MPI_INT,i,0,MPI_COMM_WORLD);
@@ -378,22 +369,29 @@ int main(int argc, char** argv){
       MPI_Send(&limit,1,MPI_INT,i,0,MPI_COMM_WORLD);
     }
 
-
+    //calculate bandit score
     vector<pair<int,float> > reward;
     auc_bandit->cal_rewards(points,reward);
     sort(reward.begin(), reward.end(), myfunction2);
     
+    //task assignment
     taskAssign(name2type, space2best,share_best,spaceBuf, reward, points, pnum, iter);
 
+    //get samples
     map<int,float> spaceid2result;
     for(int i = 1; i < pnum; i++) {
       vector<Result*> result_buf;
       Recv_MultiResult(result_buf,i);
       assert(result_buf.size() != 0);
+      
       for(int j = 0; j < result_buf.size(); j++) {
         Result* result = result_buf[j];
         assert(result != NULL);
-        printf("debug recved result proc %d, space %d, wns %f\n",i,result->id, result->score);
+        if(!gbest_result) gbest_result = result;
+        else {
+          if(result->score < gbest_result->score) gbest_result = result;
+        }
+
         if(points.count(result->id) > 0) {
           points.find(result->id)->second.push_back(result);
           assert(space2best.count(result->id) > 0);
@@ -406,6 +404,7 @@ int main(int argc, char** argv){
           assert(space2best.count(result->id) <= 0);
           space2best.insert(pair<int,Result*>(result->id,result));
         }
+
         if(spaceid2result.count(result->id) > 0) {
           spaceid2result.find(result->id)->second = spaceid2result.find(result->id)->second > result->score ? result->score : spaceid2result.find(result->id)->second;
         }
@@ -414,27 +413,36 @@ int main(int argc, char** argv){
         }
       }
     }
-    for(map<int,float>::iterator im = spaceid2result.begin(); im != spaceid2result.end(); im++) 
-      auc_bandit->on_result(im->first,im->second);
-
+    //update bandit
+    for(map<int,float>::iterator im = spaceid2result.begin(); im != spaceid2result.end(); im++) auc_bandit->on_result(im->first,im->second);
 
     //check space division
-    
-    if(ready_2_par_space(iter,spaceBuf.size(),pnum-1)&& can_partition) {
+    if(stop_partition(iter,spaceBuf.size(),pnum-1)&& can_partition) {
       int remove_id;
       int add_num;
-      space_partition(100, old_max_id, orgSpace, points, space2best, spaceBuf,remove_id,add_num); //100 is the fake number
+      divide_space(old_max_id, orgSpace, points, space2best, spaceBuf,remove_id,add_num);
       if(add_num > 0) auc_bandit->update_bandit(remove_id,add_num); 
       vector<int> tmp_arms;
       auc_bandit->arms(tmp_arms);
       correct_check(spaceBuf,tmp_arms);
       old_max_id += add_num;
     }
-    if(!ready_2_par_space(iter,spaceBuf.size(),pnum-1)&& can_partition) {
-      if(vtr_flag) {limit+=5;}
-      if(vivado_flag) {limit = 10;}
-    }
 
+    //if(!stop_partition(iter,spaceBuf.size(),pnum-1)&& can_partition) {
+    //  if(vtr_flag) {limit+=5;}
+    //  if(vivado_flag) {limit = 10;}
+    //}
+    
+    //output
+    printf("Iter%d\n",iter);
+    printf("  #subspaces: %d\n", spaceBuf.size());
+    printf("  best QoR: %f\n", gbest_result->score);
+    printf("  best cfg: ");
+    for(int ti = 0; ti < gbest_result->name2choice.size(); ti++) {
+      printf("%s : %s ",gbest_result->name2choice[ti].first.c_str(), 
+          gbest_result->name2choice[ti].second.c_str());
+    }
+    printf("\n");
     iter++;
   }
 
@@ -442,12 +450,11 @@ int main(int argc, char** argv){
   cond = 0;
   for(int i = 1; i < pnum; i++)
     MPI_Send(&cond,1,MPI_INT,i,0,MPI_COMM_WORLD);
-
   MPI_Finalize();
   return 0;
 }
 
-bool ready_2_par_space(int iter, int size, int processNum) {
+bool stop_partition(int iter, int size, int processNum) {
   if(iter < 15 || size < 3*processNum) return true;
   else return false;
 }

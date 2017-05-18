@@ -1,6 +1,6 @@
 EXE_OUT = DATuner_worker
 
-Worker_SRC = worker.cpp autoTuner.cpp msg_passing.cpp
+Worker_SRC = worker.cpp autotuner.cpp msg_passing.cpp
 Worker_OBJ = $(Worker_SRC:%.cpp=$(MY_TOOL_BUILD)/%.o)
 Worker_DEP = $(patsubst %,%.d,$(basename $(Worker_OBJ)))
 

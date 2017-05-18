@@ -1,12 +1,12 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <cassert>
 #include "space_divider.h"
-#include "structure.h"
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <cassert>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include "structure.h"
 
 using namespace std;
 

@@ -1,27 +1,23 @@
-#include "structure.h"
+#include "autotuner.h"
+#include <cassert>
 #include <vector>
 #include <iostream>
 #include <Python.h>
-#include "autoTuner.h"
 #include <fstream>
-#include <cassert>
+#include "structure.h"
 
 using namespace std;
 
 bool AutoTuner::callOpenTuner(Task* task, vector<Result*>& results, int rank, string path, string pycode) {
-  
   _path = path;
   assert(task != NULL);
-
   param_parse(task,rank);
- 
-  cout<<"finish parsing"<<endl;  
-  if(c2py2(results,rank, pycode) == -1) {
-    cout<<"Call OpenTuner failed"<<endl;
+  if(c2py(results,rank, pycode) == -1) {
     return false;
   }
+#ifdef DEBUG_MSG
   cout<<"rank "<<rank<<" results size: "<<results.size()<<endl;
-  //save Result
+#endif
   return true;
 }
 void AutoTuner::param_parse(Task* task, int rank) {
@@ -249,8 +245,7 @@ void AutoTuner::parse_Vivado_result(vector<Result*>& results,int rank) {
   ftr.close();
   
 }
-int AutoTuner::c2py2(vector<Result*>& results,int rank, string pycode) {
-  printf("Going to call OpenTuner\n");
+int AutoTuner::c2py(vector<Result*>& results,int rank, string pycode) {
   FILE* file = NULL;
   if(_tune_type == 1) {
     file=fopen("tunevtr.py","r");
@@ -273,54 +268,5 @@ int AutoTuner::c2py2(vector<Result*>& results,int rank, string pycode) {
   if(_tune_type == 1) parse_VPR_result(results,rank);
   if(_tune_type == 2) parse_Vivado_result(results,rank);
   if(_tune_type == 3) parse_program_result(results,rank);
-  printf("call OpenTuner\n");
-
   return 0;
 }
-int AutoTuner::c2py(int argc, char** argv) {
-  for(int i = 0; i < argc; i++) {
-    printf("%s\n",argv[i]);
-  }
-  Py_Initialize();
-  if(!Py_IsInitialized()) return -1;
-  PySys_SetArgv(argc,argv);
-
-  printf("Pass Initialization\n");
-  //PyRun_SimpleString("import sys");
-  //PyRun_SimpleString("sys.path.append('/home/changx/parTuner/openTuner-test/bgcd/script')");
-  //PyRun_SimpleString("print sys.path");
-
-  PyObject* pModule = PyImport_ImportModule("tuneVivado");
-  cout<<"pass import module"<<endl;
-  if(!pModule) {
-    cout<<"Can't import module"<<endl;
-    return -1;
-  }
-  PyObject* pDict = PyModule_GetDict(pModule);
-  cout<<"pass find dict"<<endl;
-  if(!pDict) {
-    cout<<"Can't get dictonary "<<endl;
-    return -1;
-  }
-  PyObject* pClass = PyDict_GetItemString(pDict,"VIVADOFlagsTuner");
-  cout<<"pass find class"<<endl;
-  if(!pClass) {
-    cout<<"Can't find Class"<<endl;
-    return -1;
-  }
-  string str = "fake_main";
-  char *name = new char[str.length()+1];
-  strcpy(name,str.c_str());
-  cout<<name<<endl;
-  printf("Start calling OpenTuner\n");
-  PyObject_CallMethod(pClass,name,NULL);
-  printf("Finish calling OpenTuner\n");  
-  if(pModule) Py_DECREF(pModule);
-  if(pDict) Py_DECREF(pDict);
-  if(pClass) Py_DECREF(pClass);
-  Py_Finalize();
-
-  printf("finish calling OPENTUNER\n");
-  return 0;
-}
-

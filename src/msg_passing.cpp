@@ -1,11 +1,11 @@
-#include "structure.h"
 #include "msg_passing.h"
-#include "mpi.h"
+#include <cassert>
 #include <string>
 #include <vector>
-#include <cassert>
 #include <utility>
 #include <iostream>
+#include "structure.h"
+#include "mpi.h"
 
 using namespace std;
 
@@ -24,7 +24,6 @@ void Send_Task(Task* task, int dst) {
   assert(task != NULL);
   MPI_Send(&task->step,1,MPI_INT,dst,0,MPI_COMM_WORLD);
   MPI_Send(&task->subspace->id,1,MPI_INT,dst,0,MPI_COMM_WORLD);
-  printf("send task id %d\n",task->subspace->id);
   int size = task->subspace->params.size();
   MPI_Send(&size,1,MPI_INT,dst,0,MPI_COMM_WORLD);
   for(int i = 0; i < size; i++) {
@@ -102,7 +101,6 @@ void Recv_Result(Result*& result, int src) {
     string choice;
     MPI_Recv_Str(name,src);
     MPI_Recv_Str(choice,src);
-    cout<<name<<" "<<choice<<endl;
     pair<string,string> tmp_pair = make_pair(name,choice);
     result->name2choice.push_back(tmp_pair);
   }

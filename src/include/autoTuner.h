@@ -11,12 +11,11 @@ class AutoTuner{
     bool callOpenTuner(Task*, std::vector<Result*>&, int rank, std::string path, std::string pycode="");
   protected:
     void param_parse(Task*,int rank);
-    int c2py(int argc, char** argv);
     void parse_Vivado_result(std::vector<Result*>&, int);
     void parse_VPR_result(std::vector<Result*>&, int);
     void parse_ISE_result(std::vector<Result*>&, int);
     void parse_program_result(std::vector<Result*>&, int);
-    int c2py2(std::vector<Result*>&, int rank, std::string pycode="");
+    int c2py(std::vector<Result*>&, int rank, std::string pycode="");
     int _step;
     int _task;
     int _tune_type;
