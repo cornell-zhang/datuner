@@ -17,9 +17,9 @@ void genOrgSpace(Space*& orgSpace, string file) {
   vector<Param*> params;
 
   //modify!!!
-  char buf[1000];
+  char buf[10000];
   while(!ftr.eof()) {
-    ftr.getline(buf,1000);
+    ftr.getline(buf,10000);
     if(ftr.eof()) break;
     char* ptr;
     ptr = strtok(buf," ,{}[]");
@@ -54,6 +54,15 @@ void genOrgSpace(Space*& orgSpace, string file) {
 
   orgSpace = new Space(params,0);
   assert(orgSpace != NULL);
+  return;
+}
+
+void initDivision(Space* orgSpace, map<int,Space*>& space_buffer) {
+  Space* subspace = new Space(orgSpace->params,1);
+  assert(subspace != NULL);
+  space_buffer.insert(pair<int,Space*>(1,subspace));
+  assert(space_buffer.size() != 0);
+  return;
 }
 
 

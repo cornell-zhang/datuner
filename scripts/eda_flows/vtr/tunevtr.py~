@@ -140,7 +140,7 @@ class VTRTuner(MeasurementInterface):
     bench = basedir+'/benchmarks/verilog/'+self.design+'.v'
     cmd = workdir+'run_vtr_flow_'+str(self.args.myrank)+'.pl '+bench+' '+arch+' -temp_dir '+workdir+str(self.args.myrank)+'/'+str(reqid)
     subprocess.Popen(cmd,shell=True).wait()
-    cmd = sdir+'parse_vtr_flow.pl '+workdir+str(self.args.myrank)+'/'+str(reqid)+' '+self.scriptpath+'/eda_flows/vtr/vtr_parse_result.txt > '+workdir+str(self.args.myrank)+'/'+str(reqid)+'/parseResult.txt'
+    cmd = sdir+'parse_vtr_flow.pl '+workdir+str(self.args.myrank)+'/'+str(reqid)+' '+self.scriptpath+'/eda_flows/vtr/vtr_my.txt > '+workdir+str(self.args.myrank)+'/'+str(reqid)+'/parseResult.txt'
     subprocess.Popen(cmd,shell=True).wait()
 
 

@@ -23,7 +23,7 @@ class Bandit {
     void push_history(int index, float score);
     void on_result(int index, float score);
     int update_bandit(int remove, int add_num);
-    void arms(std::vector<int>&);
+    void check_arms(std::map<int,Space*> space_buffer);
     Bandit(int arms);
     ~Bandit();
   protected:

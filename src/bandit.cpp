@@ -24,10 +24,11 @@ Bandit::Bandit(int arms){
 }
 Bandit::~Bandit(){}
 
-void Bandit::arms(vector<int>&arms) {
+void Bandit::check_arms(map<int,Space*> space_buffer) {
+  assert(space_buffer.size() == use_counts.size());
   for(map<int,int>::iterator it = use_counts.begin();
     it != use_counts.end(); it++) {
-    arms.push_back(it->first);
+    assert(space_buffer.count(it->first) > 0);
   }
 }
 float Bandit::exploitation_term(int index) {

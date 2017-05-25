@@ -6,6 +6,7 @@
 #include <vector>
 #include <utility>
 #include <unistd.h>
+#include <cstdlib>
 #include <iostream>
 #include <Python.h>
 #include "mpi.h"
@@ -13,6 +14,7 @@
 #include "msg_passing.h"
 #include "autotuner.h"
 #include "space_partition.h"
+#include "database.h"
 
 using namespace std;
 
@@ -77,46 +79,29 @@ int main(int argc, char** argv) {
         diffdb = true;
         continue;
       }
-
       tmp_fake_argv.push_back(string(argv[i]));
      }
      
      char rankname[50];
      sprintf(rankname,"--myrank=%d",myrank);
      tmp_fake_argv.push_back(string(rankname));
-     if(diffdb) {
-      tmp_fake_argv.push_back("--database");
-      string dbdir="/home/xuchang/nas/project/daTuner/experiment/vivado/"+design+"/";
-      char dbtmp[20];
-      sprintf(dbtmp,"rank%d",myrank);
-      dbdir += string(dbtmp);
-      dbdir += "/opentuner.db";
-      tmp_fake_argv.push_back(dbdir);
-     }
-
 
     if(share_best) {
       tmp_fake_argv.push_back("--seed-configuration");
       char name[500];
       sprintf(name,"StartPointSpace%d.json",myrank);
-      //sprintf(name,"/proj/xsjhdstaff3/changx/project/parTuner/experiment/vpr/vtr_release/vtr_flow/tasks/openTunerTiming/experiment/my/ch_intrinsics/StartPointSpace%d.json",myrank);
       tmp_fake_argv.push_back(string(name));
     }
-
-    /*
-     fake_argc = tmp_fake_argv.size();
-     fake_argv = new char*[fake_argc];
-     for(int i = 0; i < fake_argc; i++) {
-        fake_argv[i] = new char[100];
-        strcpy(fake_argv[i],tmp_fake_argv[i].c_str());
-     }*/
-   
   }
+
+  /***********build database******************/
+  DataBase* db = new DataBase(spacepath);
+  if(!db->OpenDB()) return -1; 
 
   /***********invoke autotuner****************/
   Py_Initialize();
   if(!Py_IsInitialized()) return -1;
-  
+  int result_id = 0; 
   int cond = 0;//0:stop, 1:autotuning
   while(1) {
     MPI_Recv(&cond,1,MPI_INT,0,0,MPI_COMM_WORLD,&status);
@@ -151,7 +136,9 @@ int main(int argc, char** argv) {
     Task* task = NULL;
     Recv_Task(task, 0);
     assert(task != NULL);
-      
+    
+    if(!db->CreateTable(task->subspace)) return -1;
+
     vector<Result*> results;
     AutoTuner* tuner = new AutoTuner(task->subspace->id, design, tune_type); //start from 1
     assert(tuner != NULL);
@@ -161,6 +148,8 @@ int main(int argc, char** argv) {
 #endif
     if(results.size() != 0) {
       Send_MultiResult(results,0);
+      if(!db->SaveResults(task->subspace, results, result_id)) return -1;
+      result_id += results.size();
     }
     else{ 
       Result* best_result = new Result();
@@ -175,6 +164,8 @@ int main(int argc, char** argv) {
       delete []fake_argv; fake_argv=NULL;
     }
   }
+
+  if(!db->CloseDB()) return -1;
 
   Py_Finalize();
   MPI_Finalize();
