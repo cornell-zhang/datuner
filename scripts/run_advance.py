@@ -1,10 +1,10 @@
 #!/usr/bin/python
 #===================================================
-# run easy mode
+# run advanced mode
 #===================================================
 # @author : Chang Xu
 # @date   : 4/20/2017
-# @brief  : A python script to run DATuner in easy mode
+# @brief  : A python script to run DATuner in advanced mode
 #
 
 import os
@@ -19,9 +19,6 @@ parser = optparse.OptionParser()
 
 parser.add_option('-s', '--spaceFile', action="store", dest="spaceFile",
     help='User defined search space')
-
-#parser.add_option('-f', '--pyCode', action="store", dest="pyCode",
-#    help='User\'s tune code')
 
 parser.add_option('-c','--circuit',action="store",dest="designpath",
     help='Path to design to tune. (use absolute path). For vtr, only specify design name is also legal')

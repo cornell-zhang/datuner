@@ -95,8 +95,6 @@ if opts.tool == "vivado":
 
 cpcmd = "cp "+binDir+"/DATuner_master "+binDir+"/DATuner_worker "+workspace
 os.system(cpcmd)
-cpcmd = "cp "+opts.scriptPath+"/eda_flows/"+opts.tool+"/"+opts.tool+"_space.txt "+workspace
-os.system(cpcmd)
 
 #---------------------------
 # Run DATuner

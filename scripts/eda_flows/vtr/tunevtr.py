@@ -126,6 +126,8 @@ class VTRTuner(MeasurementInterface):
     sdir = basedir+'/scripts/'
     workdir = self.workspace+'/'
 
+    print "runing vtr"
+
     #run_abc_cmd = ""
     cmd = 'sed -e \'s:ABC_OTHER_OPTIONS:'+run_abc_cmd+':g\' -e \'s:VPR_OTHER_OPTIONS:'+run_vtr_cmd+':g\' -e \'s:VTRFlowPath_Holder:'+self.vtrpath+':g\' '+self.scriptpath+'/eda_flows/vtr/run_vtr_flow.pl > '+workdir+'run_vtr_flow_'+str(self.args.myrank)+'.pl'
     subprocess.Popen(cmd,shell=True).wait()
@@ -140,7 +142,7 @@ class VTRTuner(MeasurementInterface):
     bench = basedir+'/benchmarks/verilog/'+self.design+'.v'
     cmd = workdir+'run_vtr_flow_'+str(self.args.myrank)+'.pl '+bench+' '+arch+' -temp_dir '+workdir+str(self.args.myrank)+'/'+str(reqid)
     subprocess.Popen(cmd,shell=True).wait()
-    cmd = sdir+'parse_vtr_flow.pl '+workdir+str(self.args.myrank)+'/'+str(reqid)+' '+self.scriptpath+'/eda_flows/vtr/vtr_parse_result.txt > '+workdir+str(self.args.myrank)+'/'+str(reqid)+'/parseResult.txt'
+    cmd = sdir+'parse_vtr_flow.pl '+workdir+str(self.args.myrank)+'/'+str(reqid)+' '+self.scriptpath+'/eda_flows/vtr/vpr_my.txt > '+workdir+str(self.args.myrank)+'/'+str(reqid)+'/parseResult.txt'
     subprocess.Popen(cmd,shell=True).wait()
 
 
@@ -203,11 +205,11 @@ class VTRTuner(MeasurementInterface):
     f.write(str(fmax)+'\n')
     f.close()
 
-  #def save_final_config(self, configuration):
-  #  """called at the end of tuning"""
-  #  print "Optimal b01 options written to bench_config.json:", configuration.data
-  #  self.manipulator().save_to_file(configuration.data,
-  #                                      'inline_config.json')
+  def save_final_config(self, configuration):
+    """called at the end of tuning"""
+    print "Optimal b01 options written to bench_config.json:", configuration.data
+    self.manipulator().save_to_file(configuration.data,
+                                        'inline_config.json')
 
 
 if __name__ == '__main__':
