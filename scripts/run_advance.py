@@ -72,7 +72,7 @@ srcFile = opts.scriptPath+"/user_program_example/tuneProgram.py"
 sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:SCRIPTPATH_HOLDER:"+opts.scriptPath+":g\" "+srcFile+" > "+workspace+"/tuneProgram.py"
 os.system(sedcmd)
 
-cpcmd = "cp "+opts.scriptPath+"/programWrapper.py "+workspace
+cpcmd = "cp "+opts.scriptPath+"/user_program_example/programWrapper.py "+workspace
 os.system(cpcmd)
 
 cpcmd = "cp "+opts.scriptPath+"/adddeps.py "+workspace
@@ -93,7 +93,7 @@ except:
 
 
 runcmd = "mpirun -np 1 "+\
-    "./DATuner_master -space "+opts.spaceFile+" : -np "+str(opts.procNum)+" --hostfile "+\
+    "./DATuner_master --space "+opts.spaceFile+" : -np "+str(opts.procNum)+" --hostfile "+\
     opts.scriptPath+"/my_hosts "+"./DATuner_worker -design "+design+" -path "+workspace+\
     " --parallelism=1 > log"
 os.system(runcmd)

@@ -41,7 +41,7 @@ struct Task{
   Space* subspace;
   int step;
   Task(){subspace = NULL;step = 0;}
-  Task(Space* subspace, int step = 5) {
+  Task(Space* subspace, int step) {
     this->subspace = subspace;
     this->step = step; 
   }

@@ -1,5 +1,5 @@
-#ifndef __SPACE_DIVIDER_H__
-#define __SPACE_DIVIDER_H__
+#ifndef __SPACE_GENERATOR_H__
+#define __SPACE_GENERATOR_H__
 
 #include <map>
 #include "structure.h"

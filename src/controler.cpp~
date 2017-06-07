@@ -218,7 +218,7 @@ int main(int argc, char** argv){
     output_ftr<<" best QoR: "<<gbest_result->score<<endl;
     output_ftr<<" best cfg: ";
     for(int ti = 0; ti < gbest_result->name2choice.size(); ti++) {
-      output_ftr<<gbest_result->name2choice[ti].first.c_str()<<" : "<<gbest_result->name2choice[ti].second.c_str()<<" ";
+      output_ftr<<gbest_result->name2choice[ti].first.c_str()<<" : "<<gbest_result->name2choice[ti].second.c_str();
     }
     output_ftr<<endl;
 

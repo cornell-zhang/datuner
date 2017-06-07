@@ -14,7 +14,7 @@
 #include "msg_passing.h"
 #include "autotuner.h"
 #include "space_partition.h"
-//#include "database.h"
+#include "database.h"
 
 using namespace std;
 
@@ -81,8 +81,8 @@ int main(int argc, char** argv) {
   }
 
   /***********build database******************/
-  //DataBase* db = new DataBase(spacepath);
-  //if(!db->OpenDB()) return -1; 
+  DataBase* db = new DataBase(spacepath);
+  if(!db->OpenDB()) return -1; 
 
   /***********invoke autotuner****************/
   Py_Initialize();
@@ -126,7 +126,7 @@ int main(int argc, char** argv) {
     Recv_Task(task, 0);
     assert(task != NULL);
 
-    //if(!db->CreateTable(task->subspace)) return -1;
+    if(!db->CreateTable(task->subspace)) return -1;
 
     vector<Result*> results;
     AutoTuner* tuner = new AutoTuner(task->subspace->id, design, tune_type); //start from 1
@@ -137,10 +137,10 @@ int main(int argc, char** argv) {
 #endif
     
     Send_MultiResult(results,0);
-    //if(results.size() != 0) {
-      //db->SaveResults(task->subspace, results, result_id);
-      //result_id += results.size();
-    //}
+    if(results.size() != 0) {
+      db->SaveResults(task->subspace, results, result_id);
+      result_id += results.size();
+    }
     
     if(fake_argv) {
       for(int i = 0; i < fake_argc; i++) {delete []fake_argv[i]; fake_argv[i] = NULL;}
@@ -148,7 +148,7 @@ int main(int argc, char** argv) {
     }
   }
 
-  //if(!db->CloseDB()) return -1;
+  if(!db->CloseDB()) return -1;
 
   Py_Finalize();
   MPI_Finalize();

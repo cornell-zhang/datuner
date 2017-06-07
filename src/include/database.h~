@@ -31,8 +31,7 @@ DataBase::DataBase(std::string path) {
   pDB_ = NULL;
   char hostname[HOST_NAME_MAX];
   gethostname(hostname, HOST_NAME_MAX);
-  //path_ = path+"/results/"+std::string(hostname)+".db";
-  path_ = path+"/results/result.db";
+  path_ = path+"/results/"+std::string(hostname)+".db";
   std::string cmd = "mkdir -p "+path+"/results/";
   system(cmd.c_str());
 }

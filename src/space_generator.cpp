@@ -1,7 +1,8 @@
-#include "space_divider.h"
+#include "space_generator.h"
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <climits>
 #include <cassert>
 #include <iostream>
 #include <fstream>
@@ -10,12 +11,13 @@
 
 using namespace std;
 
-void genOrgSpace(Space*& orgSpace, string file) {
+void genOrgSpace(Space*& orgSpace, string file, int &search_space_size) {
   fstream ftr;
   ftr.open(file.c_str(), fstream::in);
   assert(ftr.is_open());
   vector<Param*> params;
 
+  search_space_size = 1;
   //modify!!!
   char buf[10000];
   while(!ftr.eof()) {
@@ -33,12 +35,15 @@ void genOrgSpace(Space*& orgSpace, string file) {
         tmp->options.push_back(string(ptr));
         ptr = strtok(NULL, " ,{}[]");
       }
+      if(search_space_size != +INT_MAX)
+        search_space_size = search_space_size*tmp->options.size();
     }
     if(type == "FloatParameter") {
       ptr = strtok(NULL, " ,{}[]");
       tmp->min = atof(ptr);
       ptr = strtok(NULL, " ,{}[]");
       tmp->max = atof(ptr);
+      search_space_size = +INT_MAX;
     }
     //how to support IntegerParameter??
     if(type == "IntegerParameter") {
@@ -46,6 +51,8 @@ void genOrgSpace(Space*& orgSpace, string file) {
       tmp->min = atoi(ptr);
       ptr = strtok(NULL, " ,{}[]");
       tmp->max = atoi(ptr);
+      if(search_space_size != +INT_MAX) 
+        search_space_size = search_space_size*(tmp->max-tmp->min+1);
     }
     params.push_back(tmp);
   }

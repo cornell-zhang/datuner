@@ -46,6 +46,14 @@ parser.add_option('-p', '--path', action="store",
     default=sys.path[0], dest="scriptPath",
     help='The script path of DATuner package. (use absolute path)')
 
+parser.add_option('-l', '--test-limit', action="store", dest="test_limit",
+    default=100,
+    help='The number of tests DATuner runs')
+
+parser.add_option('-s', '--stop-after', action="store", dest="stop_after",
+    default=7200,
+    help="Stop running DATuner after the time")
+
 (opts, args) = parser.parse_args()
 
 if opts.tool is None:
@@ -109,8 +117,9 @@ except:
   pass
 
 
-runcmd = "mpirun -np 1 "+\
-    "./DATuner_master -"+opts.tool+" : -np "+str(opts.procNum)+" --hostfile "+\
+runcmd = "/home/xuchang/nas/project/daTuner/myrelease/build/pkgs/install/bin/mpirun -np 1 "+\
+    "./DATuner_master -"+opts.tool+" --test-limit "+str(opts.test_limit)+" --stop-after "+\
+    str(opts.stop_after)+" --path "+workspace+" : -np "+str(opts.procNum)+" --hostfile "+\
     opts.scriptPath+"/my_hosts "+"./DATuner_worker -design "+design+" -path "+workspace+\
     " --parallelism=1 > log"
 os.system(runcmd)
