@@ -40,8 +40,8 @@ $(PythonBuildDir)/python:
 pip_status = $(shell if [ -n `which pip` ]; then echo "exist"; else echo "notexist"; fi;)
 
 install-OpenTuner:
-cd $(PythonInstallDir)/bin; \
-export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
-wget https://bootstrap.pypa.io/get-pip.py; \
-./python get-pip.py; \
-./pip install opentuner;
+	cd $(PythonInstallDir)/bin; \
+	export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
+	wget https://bootstrap.pypa.io/get-pip.py; \
+	./python get-pip.py; \
+	./pip install opentuner;
