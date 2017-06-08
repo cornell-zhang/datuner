@@ -26,7 +26,7 @@ config-mpich: $(mpichBuildDir)/config.status
 
 $(mpichBuildDir)/config.status: $(PkgBuildDir)/.unpacked $(mpichBuildDir)/.dir $(mpichSrcDir)/configure
 	cd $(mpichBuildDir); \
-	$(mpichSrcDir)/configure --prefix=$(DATuner_PKG_INSTALL); 
+	$(mpichSrcDir)/configure --prefix=$(DATuner_PKG_INSTALL) --disable-fortran; 
 
 make-mpich:: $(mpichBuildDir)/mpich
 
