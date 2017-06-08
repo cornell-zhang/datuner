@@ -90,7 +90,7 @@ try:
 except:
   pass
 
-binDir = opts.scriptPath+"/../bin"
+binDir = opts.scriptPath+"/../releases/Linux_x86_64/bin"
 srcFile = opts.scriptPath+"/eda_flows/"+opts.tool+"/tune"+opts.tool+".py"
 if opts.tool == "vtr":
   sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:VTRFLOWPATH_HOLDER:"+opts.vtrPath+":g\" -e \"s:SCRIPTPATH_HOLDER:"+opts.scriptPath+":g\" "+srcFile+" > "+workspace+"/tune"+opts.tool+".py"
@@ -117,7 +117,7 @@ except:
   pass
 
 
-runcmd = "/home/xuchang/nas/project/daTuner/myrelease/build/pkgs/install/bin/mpirun -np 1 "+\
+runcmd = "mpirun -np 1 "+\
     "./DATuner_master -"+opts.tool+" --test-limit "+str(opts.test_limit)+" --stop-after "+\
     str(opts.stop_after)+" --path "+workspace+" : -np "+str(opts.procNum)+" --hostfile "+\
     opts.scriptPath+"/my_hosts "+"./DATuner_worker -design "+design+" -path "+workspace+\
