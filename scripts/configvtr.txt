@@ -1,0 +1,13 @@
+TOOL_NAME vtr
+TOOL_INSTALL_PATH /home/xuchang/nas/project/daTuner/myrelease/build/pkgs/vtr/vtr_release/vtr_flow
+DESIGN_NAME diffeq1
+DESIGN_SAVE_PATH 
+TOPMODULE 
+SPACE_DEFINITION 
+PYTHON_CODE
+WORKSPACE /home/xuchang/nas/project/daTuner/workspace
+PROC_NUM
+TEST_LIMIT
+STOP_AFTER
+DATuner_PATH
+OBJECTIVE 

@@ -80,9 +80,6 @@ int main(int argc, char** argv) {
     tmp_fake_argv.push_back(string(name));
   }
 
-  /***********build database******************/
-  //DataBase* db = new DataBase(spacepath);
-  //if(!db->OpenDB()) return -1; 
 
   /***********invoke autotuner****************/
   Py_Initialize();
@@ -126,7 +123,6 @@ int main(int argc, char** argv) {
     Recv_Task(task, 0);
     assert(task != NULL);
 
-    //if(!db->CreateTable(task->subspace)) return -1;
 
     vector<Result*> results;
     AutoTuner* tuner = new AutoTuner(task->subspace->id, design, tune_type); //start from 1
@@ -137,18 +133,12 @@ int main(int argc, char** argv) {
 #endif
     
     Send_MultiResult(results,0);
-    //if(results.size() != 0) {
-      //db->SaveResults(task->subspace, results, result_id);
-      //result_id += results.size();
-    //}
     
     if(fake_argv) {
       for(int i = 0; i < fake_argc; i++) {delete []fake_argv[i]; fake_argv[i] = NULL;}
       delete []fake_argv; fake_argv=NULL;
     }
   }
-
-  //if(!db->CloseDB()) return -1;
 
   Py_Finalize();
   MPI_Finalize();
