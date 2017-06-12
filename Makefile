@@ -83,7 +83,7 @@ all: build
 build: build-pkgs build-src release
 
 build-pkgs:
-	#$(MAKE) -C pkgs
+	$(MAKE) -C pkgs
 
 build-src:
 	$(MAKE) -C src
