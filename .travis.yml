@@ -1,2 +1,7 @@
-language: C
-script: make
+language: python
+python:
+  - '2.7'
+script: 
+  - make
+  - source ./scripts/setup.sh
+  - python auto_test.py 
