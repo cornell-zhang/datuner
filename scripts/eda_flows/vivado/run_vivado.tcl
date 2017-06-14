@@ -9,7 +9,7 @@ file mkdir $outputDir
 read_xdc $srcdir/design.xdc
 read_verilog $srcdir/$design.v
 
-synth_design -top $topmodule
+synth_design -top $topmodule -part xc7z020clg484-2
 source $workdir/options.tcl
 
 write_checkpoint -force $outputDir/post_route
