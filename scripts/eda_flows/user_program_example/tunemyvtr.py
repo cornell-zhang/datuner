@@ -1,5 +1,4 @@
 import sys
-sys.path.append("SCRIPTPATH_HOLDER")
 import logging
 import re
 import time
@@ -15,13 +14,14 @@ from opentuner import EnumParameter
 from opentuner import FloatParameter
 from opentuner import MeasurementInterface
 from opentuner import Result
+from programWrapper import *
 
 argparser = argparse.ArgumentParser(add_help=False)
 argparser.add_argument('--myrank',type=int, default=0,
     help='the rank of process')
 
 #--------------------------------------------
-# VTR parameter space
+# definition of search space
 #--------------------------------------------
 
 abc_flags = [
@@ -42,44 +42,25 @@ vtr_route_flags = [
     ]
 
 
-class VTRTuner(MeasurementInterface):
+class ProgramTuner(Wrapper):
   design='BENCH_HOLDER'
   workspace='WORKSPACE_HOLDER'
-  vtrpath='VTRFLOWPATH_HOLDER'
   scriptpath='SCRIPTPATH_HOLDER'
 
   def __init__(self, *pargs, **kwargs):
-    super(VTRTuner, self).__init__(program_name="hello", *pargs, **kwargs)
+    super(ProgramTuner, self).__init__(program_name="hello", *pargs, **kwargs)
+    self.vtrpath = '/home/xuchang/nas/project/daTuner/myrelease/build/pkgs/vtr/vtr_release/vtr_flow/'
 
   def manipulator(self):
     """
+    call super manipulator
     Define the search space by creating a
     ConfigurationManipulator
     """
-    manipulator = ConfigurationManipulator()
     filename=self.workspace+"/space"+str(self.args.myrank)+".txt"
-    if os.path.isfile(filename):
-      f = open(filename,'r')
-      while(1):
-        line = f.readline()
-        if not line: break
-        buf = []
-        buf = line.split()
-        name = buf[0]
-        paramType = buf[1]
-        minval = buf[2]
-        maxval = buf[3]
-        optnum = buf[4]
-        if paramType == "EnumParameter":
-          opt = []
-          for it in range(int(optnum)):
-            opt.append(buf[5+it])
-          manipulator.add_parameter(EnumParameter(name,opt))
+    manipulator = super(ProgramTuner,self).manipulator(filename)
 
-        if paramType == "FloatParameter":
-          manipulator.add_parameter(FloatParameter(name,float(minval),float(maxval)))
     return manipulator
-
 
 
   def run(self, desired_result, input, limit):
@@ -117,6 +98,8 @@ class VTRTuner(MeasurementInterface):
     requestor = desired_result.requestor
     self.runvtr(run_abc_cmd,run_vtr_cmd, abc_config, vtr_config, result_id, res, requestor)
     end = time.time()
+
+    super(ProgramTuner,self).dumpresult(self.args.myrank,cfg,res)
     return Result(time=-float(res[0]))
 
   def runvtr(self,run_abc_cmd, run_vtr_cmd, abc_config, vtr_config, reqid, res, requestor):
@@ -197,11 +180,12 @@ class VTRTuner(MeasurementInterface):
       +str(end-start)+' '+str(requestor)+' '+str(fmax)+'\n')
     f.close()
 
-    f = open('./localresult'+str(self.args.myrank)+'.txt','a')
-    f.write(abc_config+' ')
-    f.write(vtr_config+' ')
-    f.write(str(fmax)+'\n')
-    f.close()
+
+  def save_final_config(self, configuration):
+    """called at the end of tuning"""
+    print "Optimal b01 options written to bench_config.json:", configuration.data
+    self.manipulator().save_to_file(configuration.data,
+                                        'inline_config.json')
 
 
 if __name__ == '__main__':
@@ -213,7 +197,7 @@ if __name__ == '__main__':
   mycmd='rm -f ./localresult'+str(args.myrank)+'.txt'
   subprocess.call(mycmd,shell=True)
 
-  VTRTuner.main(args)
+  ProgramTuner.main(args)
 
 
 

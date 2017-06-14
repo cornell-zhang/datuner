@@ -69,23 +69,39 @@ bool DataBase::CreateTable(Space* cspace){
 bool DataBase::SaveResults(std::vector<Result*> results, int id) {
   if(results.size() == 0) return true;
   assert(pDB_);
+  //debug
+  printf("debug result format\n");
+  for(int i = 0; i < results.size(); i++) {
+    printf("%d\n",i);
+    for(int j = 0; j < results[i]->name2choice.size(); j++) {
+      printf("%s : %s, ", results[i]->name2choice[j].first.c_str(), results[i]->name2choice[j].second.c_str());
+    }
+    printf("\n");
+  }
+  printf("end debug\n");
+  
+  
   for(int i = 0; i < results.size(); i++) {
     char buf[50];
     char* cErrMsg;
     sprintf(buf,"%d",id+1+i);
     std::string cSql = "INSERT INTO result ( id, ";
     for(int j = 0; j < results[i]->name2choice.size(); j++) {
+      printf("%s, ",results[i]->name2choice[j].first.c_str());
       cSql += results[i]->name2choice[j].first;
       cSql += ", ";
     }
+    printf("\n");
     cSql += "qor) VALUES ";
     cSql += "("+std::string(buf)+",";
     for(int j = 0; j < results[i]->name2choice.size(); j++) {
       std::string value = results[i]->name2choice[j].second;
       cSql += "\""+value+"\",";
+      printf("%s, ",value.c_str());
     }
     sprintf(buf,"%f",results[i]->score);
     cSql += std::string(buf)+");";
+    printf("%s\n",buf);
 
     int nRes = sqlite3_exec(pDB_, cSql.c_str(), 0,0,&cErrMsg);
     if(nRes != SQLITE_OK) {

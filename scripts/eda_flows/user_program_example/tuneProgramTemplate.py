@@ -1,5 +1,5 @@
 import sys
-sys.path.append("SCRIPTPATH_HOLDER")
+#sys.path.append("SCRIPTPATH_HOLDER")
 import logging
 import re
 import time

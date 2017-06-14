@@ -193,8 +193,10 @@ void AutoTuner::parse_Vivado_result(vector<Result*>& results,int rank) {
     string val10;
     ftr>>val10;
 
+    string score;
+    ftr>>buf>>score;
     Result* result = new Result();
-    result->score = -1*atof(val10.c_str()); //maximize WNS
+    result->score = -1*atof(score.c_str()); //maximize WNS
     result->id = _task;
     if(name1 == "opt_design") {
       pair<string,string> tmp = make_pair("Optdirective",val1);
@@ -234,6 +236,10 @@ void AutoTuner::parse_Vivado_result(vector<Result*>& results,int rank) {
       result->name2choice.push_back(tmp);
     }
 
+    {
+      pair<string,string> tmp = make_pair(name10,val10);
+      result->name2choice.push_back(tmp);
+    }
     results.push_back(result);
    
   }

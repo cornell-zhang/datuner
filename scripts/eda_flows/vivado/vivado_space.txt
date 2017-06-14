@@ -1,5 +1,5 @@
 Optdirective EnumParameter {Default, Explore, ExploreSequentialArea, AddRemap, ExploreArea}
-Placedirective EnumParameter {Default, Explore, ExtraNetDelay_high, ExtraNetDelay_medium,ExtraNetDelay_low, ExtraPostPlacementOpt, WLDrivenBlockPlacement, LateBlockPlacement, SSI_SpreadLogic_high, SSI_SpreadLogic_low, ExtraTimingOpt, AltSpreadLogic_low, AltSpreadLogic_medium, AltSpreadLogic_high} 
+Placedirective EnumParameter {Default, Explore, ExtraNetDelay_high, ExtraNetDelay_medium,ExtraNetDelay_low, ExtraPostPlacementOpt, WLDrivenBlockPlacement, LateBlockPlacement, AltSpreadLogic_low, AltSpreadLogic_medium, AltSpreadLogic_high} 
 fanout_opt EnumParameter {on, off}
 placement_opt EnumParameter {on, off}
 critical_cell_opt EnumParameter {on, off}

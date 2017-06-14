@@ -312,9 +312,9 @@ void taskAssign(map<string, string> name2type, map<int, Result*> space2best, boo
       Task* task = new Task(space);
       assert(task != NULL);        
       Send_Task(task,used_proc+j+1);
-#ifdef DEBUG_MSG
+      //#ifdef DEBUG_MSG
       printf("Iter: %d, Send task: Space %d => Pnum %d\n", iter, space_id, used_proc+j+1);
-#endif 
+      //      //#endif 
     }
   }
 

@@ -19,11 +19,6 @@ from opentuner import Result
 argparser = argparse.ArgumentParser(add_help=False)
 argparser.add_argument('--myrank',type=int, default=0,
     help='the rank of process')
-#argparser.add_argument('--tunecst',type=int,
-#    help='specify whether to tune default cst or not')
-#argparser.add_argument('--defaultcst',type=float,
-#    help='specify the default cst')
-
 
 #----------------------------------------
 # Vivado parameter space
@@ -36,8 +31,6 @@ Physoptdesign_flags = [
   'rewire',
   'critical_pin_opt'
   ]
-
-
 
 class VIVADOFlagsTuner(MeasurementInterface):
   design='BENCH_HOLDER'
@@ -134,13 +127,6 @@ class VIVADOFlagsTuner(MeasurementInterface):
     f.write(routestr+'\n')
     f.close()
 
-    #tunetiming = args.tunecst
-    #print "debug tunecst: "+str(tunetiming)
-    #cstset = args.defaultcst
-    #if tunetiming == 1:
-    #  cstset = cfg['Timingcst']
-
-
     wns = 0.0
     SLUT=str(0)
     SReg=str(0)
@@ -151,9 +137,11 @@ class VIVADOFlagsTuner(MeasurementInterface):
     subprocess.Popen(cmd,shell=True).wait()
     os.chdir(workdir)
 
+    #------------run vivado---------#
     run_cmd = 'vivado -mode batch -source '+workdir+'/run_vivado.tcl'
     subprocess.call(run_cmd,shell=True)
 
+    #-----------pass result---------#
     timingFile=workdir + '/output/post_route_timing.rpt'
     if os.path.isfile(timingFile):
       f = open(timingFile)
@@ -177,6 +165,7 @@ class VIVADOFlagsTuner(MeasurementInterface):
           break
       f.close()
     else:
+      return Result(time=float("inf"))
       wns=-10000
 
 
@@ -205,19 +194,16 @@ class VIVADOFlagsTuner(MeasurementInterface):
     end = time.time()
 
     myscore = wns
-    #if tunetiming == 1:
-    #  if wns != -10000:
-    #    myscore = -(cstset-wns)
 
-    writename='./result'+str(self.args.myrank)+'.txt'
+    os.chdir(self.workspace)
+    writename='./result_'+str(self.args.myrank)+'.txt'
     f = open(writename,'a')
     f.write('Configuration: '+optres+' '+placeres+' '+physoptres+' '+routeres)
-#+' '+'Timingcst '+str(cstset))
-    f.write(" WNS:  ")
-    f.write(str(myscore))
     rt = str(end - start)
     f.write(" RT: "+rt)
     f.write(" SLUT: "+SLUT+"  SReg: "+SReg+"  BRam: "+BRam+"  DSP:  "+DSP)
+    f.write(" WNS: ")
+    f.write(str(myscore))
     f.write(" \n")
     f.close()
 
@@ -225,19 +211,11 @@ class VIVADOFlagsTuner(MeasurementInterface):
     writename='./localresult'+str(self.args.myrank)+'.txt'
     f = open(writename,'a')
     f.write('Configuration: '+optres+' '+placeres+' '+physoptres+' '+routeres)
-#+' '+'Timingcst '+str(cstset))
     f.write(' WNS '+str(myscore))
     f.write("\n")
     f.close()
 
     return Result(time=-myscore)
-
-
-  #def save_final_config(self, configuration):
-  #  """called at the end of tuning"""
-  #  print "Optimal b01 options written to bench_config.json:", configuration.data
-  #  self.manipulator().save_to_file(configuration.data,
-  #                                  'inline_config.json')
 
 if __name__ == '__main__':
   argparsers = opentuner.argparsers()

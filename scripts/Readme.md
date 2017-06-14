@@ -1,32 +1,46 @@
-We support two modes to use DATuner.
+#---------------------Environment Setting----------#
 
-##########Easy mode######################
-  run_DATuner_easy.sh –t <vivado|quartus|vpr> -d <design> -o <objective> [options]
-    Parameters:
-      -tool <vivado|quartus|vpr>: specify which EDA flow uses
-      -design <design>: the design to tune
-      -obj <objective>: will support delay\area\wirelength (now only support timing)
-    Options:
-      -process_num <number>: how many processes used
-      -temp_dir <dir>: directory used for all temporary files
+envset.sh
 
-  E.g., ./run_DATuner_easy.sh –t vpr –d diffeq1 –o timing
-  Outputs: under release/experiment/vpr/diffeq1/ 
+#---------------------Run DATuner------------------#
 
+To use DATuner, please support a configuration file to direct DATuner. 
+DATuner project already contains scripts to tune several EDA tools(Built-in tool): vtr and vivado.
+Users can also tune their own tool(User tool). To support user defined tool, the space 
+definition file and python code to use OpenTuner are required.
 
-#########Advance mode###################
-  run_DATuner_advance.sh –s <space_definition> -c <python_code> -d <design> [options]
-    Parameters:
-      -space < space_definition >: specify the path to space definition file
-      -design <design>: the design to tune
-      -pycode <python_code>:  python code for tuning
-    Options:
-      -tool_name <name>: user’s program’s name
-      -process_num <number>: how many processes used
-      -temp_dir <dir>: directory used for all temporary files
+For Built-in tool and User tool, the required items of configuration file are different.  
 
-  E.g., ./run_DATuner_easy.sh –s ./user_program_example/space.txt  -c ./user_program_example/tuneProgram.py –d diffeq1 -t my 
-  Outputs: under release/experiment/my/diffeq1
+configuration file:
 
+---------------
 
+  
+  TOOL_NAME: required for both built-in tools(now only support vtr and vivado) and user tools 
+
+  TOOL_INSTALL_PATH required only for vtr.(the path to vtr_flow directory)
+  
+  DESIGN_NAME required for both built-in tools and user tools 
+  
+  DESIGN_SAVE_PATH required only for vivado
+
+  TOPMODULE required only for vivado
+
+  SPACE_DEFINITION required only for user tools
+
+  PYTHON_CODE required only for user tools
+
+  WORKSPACE required for both built-in tools and user tools
+
+  PROC_NUM optional default value: 3
+
+  TEST_LIMIT optional default value: 100
+
+  STOP_AFTER optional default value: 7200(s)
+
+  DATuner_PATH optional 
+
+  OBJECTIVE optional
+
+#---------------------Virsualization---------------#
 

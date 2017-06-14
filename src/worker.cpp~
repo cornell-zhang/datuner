@@ -130,15 +130,6 @@ int main(int argc, char** argv) {
     tuner->callOpenTuner(task,results,myrank,spacepath,pycode);
 #ifdef DEBUG_MSG
     printf("rank %d sending results, result size %d\n",myrank, results.size());
-    printf("debug worker results: \n");
-    for(int i = 0; i < results.size(); i++) {
-      printf("%d\n",i)
-      for(int j = 0; j < results[i]->name2choice.size(); j++) {
-        printf("%s : %s  ",results[i]->name2choice[j].first.c_str(), results[i]->name2choice[j].second.c_str());
-      }
-      printf("\n");
-    }
-    printf("finish\n");
 #endif
     
     Send_MultiResult(results,0);

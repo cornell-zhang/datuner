@@ -1,5 +1,0 @@
-gate_clock EnumParameter {on, off}
-retime EnumParameter {on, off}
-timing_high_effort_script EnumParameter {on, off}
-area_high_effort_script EnumParameter {on, off}
-no_boundary_optimization EnumParameter {on, off}

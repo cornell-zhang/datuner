@@ -15,13 +15,12 @@ import optparse
 # parse parameters
 #-------------------------
 if len(sys.argv) < 2:
-  print "Usage: run_easy.py <configuration file>"
+  print "Usage: run_DATuner.py <configuration file>"
   sys.exit(1)
 
 config_file = sys.argv[1]
 argument = {'TOOL_NAME':'', 'TOOL_INSTALL_PATH':'', 'DESIGN_NAME':'', 'DESIGN_SAVE_PATH':'', 'TOPMODULE':'', 'SPACE_DEFINITION':'', 'PYTHON_CODE':'', 'WORKSPACE':'', 'DATuner_PATH':sys.path[0], 'PROC_NUM':'3', 'TEST_LIMIT':'100', 'STOP_AFTER':'7200', 'OBJECTIVE':'time'}
 
-print argument['DATuner_PATH']
 file = open(config_file)
 while 1:
   line = file.readline()
@@ -29,15 +28,11 @@ while 1:
     break
   line =line[:-1]
   lists = line.split(' ')
-  print lists
   if len(lists) > 1:
     argument[lists[0]] = lists[1]
 
 
 #-------parameters check------
-for word in argument:
-  print word, argument[word]
-
 if argument['TOOL_NAME'] == "vtr":
   if argument['TOOL_INSTALL_PATH'] == '':
     print "vtr is used. Please specify the vtr path."
@@ -57,12 +52,8 @@ else:
 #--------------------------
 # Preparation & Check
 #--------------------------
-
 design = argument['DESIGN_NAME']
 designdir = argument['DESIGN_SAVE_PATH']
-
-print design
-print designdir
 
 workspace = argument['WORKSPACE']+"/"+argument['TOOL_NAME']+"/"+design
 try:
@@ -83,7 +74,6 @@ if argument['TOOL_NAME'] == "vtr":
 elif argument['TOOL_NAME'] == "vivado":
   srcFile = argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']+"/tune"+argument['TOOL_NAME']+".py"
   sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:TOPMODULE_HOLDER:"+argument['TOPMODULE']+":g\" -e \"s:SCRIPTPATH_HOLDER:"+argument['DATuner_PATH']+":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+":g\" "+srcFile+" > "+workspace+"/tune"+argument['TOOL_NAME']+".py"
-  print sedcmd
   os.system(sedcmd)
   cpcmd = "cp "+argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']+"/"+argument['TOOL_NAME']+"_space.txt "+workspace
   os.system(cpcmd)
