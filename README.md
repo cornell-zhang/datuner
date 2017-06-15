@@ -43,13 +43,15 @@ One way to enable password-less SSH:
 
     Explaination of confirmation file:
 
-      Name                 Usage                                    Values                 Note
+      |Name                 |Usage                                    |Values                 |Note|
+      
+      |----|----|----|----|
 
-      TOOL_NAME            The name of tool to tune                 vtr|vivado|other       required for all tools
+      |TOOL_NAME            |The name of tool to tune                 |vtr|vivado|other       |required for all tools|
 
-      TOOL_INSTALL_PATH    Path of tools                            absoluate path         required only for vtr.(the path to vtr_flow directory)
+      |TOOL_INSTALL_PATH    |Path of tools                            |absoluate path         |required only for vtr.(the path to vtr_flow directory)|
 
-      DESIGN_NAME          The name of design to tune               string                 required for all tools
+      |DESIGN_NAME          |The name of design to tune               |string                 |required for all tools|
 
       DESIGN_SAVE_PATH     Path to find design                      absoluate path         required only for vivado
 
