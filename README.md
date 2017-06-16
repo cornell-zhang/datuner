@@ -67,19 +67,23 @@ One way to enable password-less SSH:
   
   1) Under the $workspace/$tool/$design, we dump database and log file
       
-      database: $workspace/$tool/$design/results/result.db There is one table named "result" in the database. Inside table, it contains the following columns: id, parameters, and QoR. id is the index of configuration, which is unique and works as primary key. parameters are tool options, which are stings. QoR is the metric users want to tune, which is float type.
+      database: $workspace/$tool/$design/results/result.db 
+      
+      There is one table named "result" in the database. Inside table, it contains the following columns: id, parameters, and QoR. id is the index of configuration, which is unique and works as primary key. parameters are tool options, which are stings. QoR is the metric users want to tune, which is float type.
       
       The schema of table:
       
-      |----|----|----|
-      |id|integer|primary key|
-      |parameter_1|text|not null|
-      |parameter_2|text|not null|
-      |...|...|...|
-      |parameter_n|text|not null|
-      |QoR|float|not null|
+            |----|----|----|
+            |id|integer|primary key|
+            |parameter_1|text|not null|
+            |parameter_2|text|not null|
+            |...|...|...|
+            |parameter_n|text|not null|
+            |QoR|float|not null|
       
-      log file: tune.log. We calculate the best found configuration and QoR in each iteration
+      log file: tune.log. 
+      
+      We calculate the best found configuration and QoR in each iteration
       
   2) Visualization
   
