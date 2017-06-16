@@ -35,13 +35,13 @@ One way to enable password-less SSH:
             % ssh-keygen -t rsa
             % ./envset.sh
 
-###  Run DATuner
+###  Tune with DATuner
 
   * configuration file
     
-    Save your configuration file under $HOME/releases/Linux_x86_64/scripts/. We support three examples for vivado, vtr, and user_program.
+    Under $HOME/releases/Linux_x86_64/scripts/,  we support three examples of configuration files for vivado, vtr, and user_program.
 
-    Explaination of confirmation file:
+    Explaination of configuration file:
 
       |Name                 |Usage                                    |Values                 |Note|
       |----|----|----|----|
@@ -58,6 +58,42 @@ One way to enable password-less SSH:
       |STOP_AFTER           |Stop DATuner when time out(s)            |integer                |optional default value: 7200(s)|
       |DATuner_PATH         |The path to DATuner scripts directory    |absoluate path         |optional default value: current path|
 
+  * run DATuner
+  
+            % cd $HOME/releases/Linux_x86_64/scripts/
+            % ./run_DATuner.py <configuration file>
+  
+  * get results
+  
+  1) Under the $workspace/$tool/$design, we dump database and log file
+      
+      database: $workspace/$tool/$design/results/result.db There is one table named "result" in the database. Inside table, it contains the following columns: id, parameters, and QoR. id is the index of configuration, which is unique and works as primary key. parameters are tool options, which are stings. QoR is the metric users want to tune, which is float type.
+      
+      The schema of table:
+      
+      |----|----|----|
+      |id|integer|primary key|
+      |parameter_1|text|not null|
+      |parameter_2|text|not null|
+      |...|...|...|
+      |parameter_n|text|not null|
+      |QoR|float|not null|
+      
+      log file: tune.log. We calculate the best found configuration and QoR in each iteration
+      
+  2) Visualization
+  
+     Under $HOME/releases/Linux_x86_64/scripts/visualization folder contains python script to plot the trace of DATuner tuning. We support plot multiple designs in one graph for comparison. Please define the series of designs you want to plot in the design list file. e.g, vivado_design.txt
+     
+            % cd $HOME/releases/Linux_x86_64/scripts/visualization
+            % ./plot_design_performance.py <workspace> <design_list> <proc_num> <search_num> 
+            % <workspace>: where to find the tunning results; <design_list>: text file; <proc_num>: the number of machines used; <search_num>: the number of iterations to plot.
+            
+            
+      
+      
+      
+  
 
       
 
