@@ -90,9 +90,9 @@ One way to enable password-less SSH:
   
          Under $HOME/releases/Linux_x86_64/scripts/visualization folder contains python script to plot the trace of DATuner tuning. We support plot multiple designs in one graph for comparison. Please define the series of designs you want to plot in the design list file. e.g, vivado_design.txt
      
-            % cd $HOME/releases/Linux_x86_64/scripts/visualization
-            % ./plot_design_performance.py <workspace> <design_list> <proc_num> <search_num> 
-            % <workspace>: where to find the tunning results; <design_list>: text file; <proc_num>: the number of machines used; <search_num>: the number of iterations to plot.
+                        % cd $HOME/releases/Linux_x86_64/scripts/visualization
+                        % ./plot_design_performance.py <workspace> <design_list> <proc_num> <search_num> 
+                        % <workspace>: where to find the tunning results; <design_list>: text file; <proc_num>: the number of machines used; <search_num>: the number of iterations to plot.
             
             
             
