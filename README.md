@@ -65,13 +65,14 @@ One way to enable password-less SSH:
   
   * get results
   
-            1) Under the $workspace/$tool/$design, we dump database and log file
+      1) Under the $workspace/$tool/$design, we dump database and log file
       
       database: $workspace/$tool/$design/results/result.db 
       
       There is one table named "result" in the database. Inside table, it contains the following columns: id, parameters, and QoR. id is the index of configuration, which is unique and works as primary key. parameters are tool options, which are stings. QoR is the metric users want to tune, which is float type.
       
       The schema of table:
+      
             |column_1|column_2|column_3|
             |----|----|----|
             |id|integer|primary key|
