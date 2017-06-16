@@ -67,70 +67,39 @@ One way to enable password-less SSH:
   
       1) Under the $workspace/$tool/$design, we dump database and log file
       
-      database: $workspace/$tool/$design/results/result.db 
+         database: $workspace/$tool/$design/results/result.db 
       
-      There is one table named "result" in the database. Inside table, it contains the following columns: id, parameters, and QoR. id is the index of configuration, which is unique and works as primary key. parameters are tool options, which are stings. QoR is the metric users want to tune, which is float type.
+         There is one table named "result" in the database. Inside table, it contains the following columns: id, parameters, and QoR. id is the index of configuration, which is unique and works as primary key. parameters are tool options, which are stings. QoR is the metric users want to tune, which is float type.
       
-      The schema of table:
+         The schema of table:
       
-            |column_1|column_2|column_3|
-            |----|----|----|
-            |id|integer|primary key|
-            |parameter_1|text|not null|
-            |parameter_2|text|not null|
-            |...|...|...|
-            |parameter_n|text|not null|
-            |QoR|float|not null|
+         |column_1|column_2|column_3|
+         |----|----|----|
+         |id|integer|primary key|
+         |parameter_1|text|not null|
+         |parameter_2|text|not null|
+         |...|...|...|
+         |parameter_n|text|not null|
+         |QoR|float|not null|
       
-      log file: tune.log. 
+         log file: tune.log. 
       
-      We calculate the best found configuration and QoR in each iteration
+         We calculate the best found configuration and QoR in each iteration
       
-  2) Visualization
+      2) Visualization
   
-     Under $HOME/releases/Linux_x86_64/scripts/visualization folder contains python script to plot the trace of DATuner tuning. We support plot multiple designs in one graph for comparison. Please define the series of designs you want to plot in the design list file. e.g, vivado_design.txt
+         Under $HOME/releases/Linux_x86_64/scripts/visualization folder contains python script to plot the trace of DATuner tuning. We support plot multiple designs in one graph for comparison. Please define the series of designs you want to plot in the design list file. e.g, vivado_design.txt
      
             % cd $HOME/releases/Linux_x86_64/scripts/visualization
             % ./plot_design_performance.py <workspace> <design_list> <proc_num> <search_num> 
             % <workspace>: where to find the tunning results; <design_list>: text file; <proc_num>: the number of machines used; <search_num>: the number of iterations to plot.
             
             
-      
-      
-      
-  
+            
+###  Applications
 
-      
-
-  * Easy mode: (currently supports VTR and Vivado)
-
-            % cd $HOME/releases/Linux_x86_64/scripts/eda_flows
-    
-    The usage of run_easy.py script is: 
-
-       `run_easy.py [options]`
-    
-       Options:
-      
-         -h, --help  Show this help msg and exit
-         -t TOOL, --tool=TOOL  Currently support VTR and Vivado. If your tool is not supported, try advance mode
-         -v VTRPATH, --vtrPath=VTRPATH If VTR is used, please specify the path to vtr_flow
-         -c DESIGN, --circuit=DESIGN The design to tune. For VTR just specify the design name; For Vivado specify the absoluate path to design
-         -m TOPMODULE, --topmodule=TOPMODULE Vivado design's top module
-         -o OBJ, --objective=OBJ The objective to tune. default: timing
-         -n PROCNUM, --proc_num=PROCNUM The number of machines to use
-         -d TEMPDIR, --dir=TEMPDIR Directory to save temporary files.(use absoluate path)
-         -p SCRIPTPATH, --path=SCRIPTPATH The scriptpath of DATuner package.(use absoluate path)
-      
-      
-   Examples:
+   * Tune VTR
    
-       % ./run_easy.py -t vtr -v $HOME/vtr/vtr_release/vtr_flow -c diffeq1 -d $HOME/workspace -n 4
-       % ./run_easy.py -t vivado -c $HOME/datuner/releases/Linux_x86_64/scripts/eda_flows/vivado/design/diffeq1 -m diffeq_paj_convert -d $HOME/workspace -n 4
+   * Tune Vivado
    
-
-  * Advance mode:
-  
-    Examples: (more details will give later)
-    
-            % ./run_advance.py -s $HOME/datuner/releases/Linux_x86_64/scripts/user_program_example/space.txt -c diffeq1  -d $HOME/workspace
+   * Tuner other programs
