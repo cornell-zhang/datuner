@@ -41,6 +41,15 @@ One way to enable password-less SSH:
 
 ###  Tune with DATuner
 
+  * run DATuner
+  
+    DATuner is an autotuner to tune EDA tool's parameters. We already support vivado and vtr. If you want to tune other EDA tools, please support the required documents. Please refer to the application part.
+    
+    To run DATuner:
+  
+            % cd $HOME/releases/Linux_x86_64/scripts/
+            % ./run_DATuner.py <configuration file>
+
   * configuration file
     
     Under $HOME/releases/Linux_x86_64/scripts/,  we support three examples of configuration files for vivado, vtr, and user_program.
@@ -61,11 +70,6 @@ One way to enable password-less SSH:
       |TEST_LIMIT           |The max number of searches to try        |interger               |optional default value: 100|
       |STOP_AFTER           |Stop DATuner when time out(s)            |integer                |optional default value: 7200(s)|
       |DATuner_PATH         |The path to DATuner scripts directory    |absoluate path         |optional default value: current path|
-
-  * run DATuner
-  
-            % cd $HOME/releases/Linux_x86_64/scripts/
-            % ./run_DATuner.py <configuration file>
   
   * get results
   
