@@ -33,7 +33,7 @@ Build time: ~18 minitues on zhang-05.
  * Make sure you can ssh without password from the host to each other machine. *You actually need to ssh to each of the machines at least once, because the first time you ssh into a new machine, a confirmation to the command line prompt is needed. Without this, mpich will actually error out.*
   
 One way to enable password-less SSH:
-    
+            % ssh to each machine
             % cd $HOME/releases/Linux_x86_64/scripts
             % ssh-keygen -t rsa
             % ./envset.sh
