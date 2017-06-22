@@ -192,7 +192,6 @@ int main(int argc, char** argv){
       }
     }
    
-    cout<<"1 best QoR: "<<gbest_result->score<<endl;
     //update bandit
     for(map<int,float>::iterator im = spaceid2result.begin(); im != spaceid2result.end(); im++) auc_bandit->on_result(im->first,im->second);
 
@@ -205,7 +204,6 @@ int main(int argc, char** argv){
       auc_bandit->check_arms(space_buffer);
       last_space_id += add_num;
     }
-    cout<<"2 best QoR: "<<gbest_result->score<<endl;
 
     //checkpoint 
     stop(&timer);

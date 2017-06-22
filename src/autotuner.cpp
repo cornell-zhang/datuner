@@ -6,7 +6,7 @@
 #include <fstream>
 #include "structure.h"
 
-#define DEBUG_MSG
+//#define DEBUG_MSG
 using namespace std;
 
 bool AutoTuner::callOpenTuner(Task* task, vector<Result*>& results, int rank, string path, string pycode) {
@@ -135,7 +135,7 @@ void AutoTuner::parse_VPR_result(vector<Result*>& results,int rank) {
       result->name2choice.push_back(tmp);
     }
     ftr>>buf;
-    result->score = -1*atof(buf.c_str());
+    result->score = atof(buf.c_str());
     results.push_back(result); 
   }
   ftr.close();
@@ -194,7 +194,7 @@ void AutoTuner::parse_Vivado_result(vector<Result*>& results,int rank) {
     ftr>>val10;
 
     Result* result = new Result();
-    result->score = -1*atof(val10.c_str()); //maximize WNS
+    result->score = atof(val10.c_str()); //maximize WNS
     result->id = _task;
     if(name1 == "opt_design") {
       pair<string,string> tmp = make_pair("Optdirective",val1);

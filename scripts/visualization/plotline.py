@@ -36,7 +36,7 @@ def plot_acu_line(ax,dir,proc):
         num+=1
         if num == 1:
           tmp_best = y[iy][ix]
-        if tmp_best < y[iy][ix]:
+        if tmp_best > y[iy][ix]:
           tmp_best = y[iy][ix]
         tmp_avg += y[iy][ix]
     tmp_avg = tmp_avg/num

@@ -2,7 +2,7 @@ TOOL_NAME other
 TOOL_INSTALL_PATH
 DESIGN_NAME diffeq1
 DESIGN_SAVE_PATH
-TOPMODULE
+TOP_MODULE
 SPACE_DEFINITION /home/xuchang/nas/project/daTuner/myrelease/scripts/eda_flows/user_program_example/space.txt
 PYTHON_CODE /home/xuchang/nas/project/daTuner/myrelease/scripts/eda_flows/user_program_example/tunemyvtr.py
 WORKSPACE /home/xuchang/nas/project/daTuner/workspace

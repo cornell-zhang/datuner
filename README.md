@@ -23,9 +23,6 @@ Build time: ~18 minitues on zhang-05.
 
             % cd $HOME
             % source setup.sh
-            
-            % export PATH=$HOME/datuner/build/pkgs/python/install/bin:$HOME/datuner/releases/Linux_x86_64/install/bin:$PATH
-            % export LD_LIBRARY_PATH=$HOME/datuner/build/pkgs/python/install/lib:$LD_LIBRARY_PATH
        
 ### Enable password-less SSH between machines
 
@@ -105,6 +102,11 @@ One way to enable password-less SSH:
             
             
 ###  Applications
+
+   * Autotest 
+
+        % cd $HOME
+        % python auto_test.py
 
    * Tune VTR
    

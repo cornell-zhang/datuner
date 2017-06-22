@@ -1,8 +1,8 @@
 TOOL_NAME vivado
 TOOL_INSTALL_PATH
-DESIGN_NAME mul
+DESIGN_NAME diffeq1
 DESIGN_SAVE_PATH /home/xuchang/nas/project/daTuner/myrelease/scripts/eda_flows/vivado/design/
-TOPMODULE IntMulFixedLatRTL
+TOP_MODULE diffeq_paj_convert
 SPACE_DEFINITION 
 PYTHON_CODE
 WORKSPACE /home/xuchang/nas/project/daTuner/workspace

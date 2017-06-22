@@ -203,7 +203,7 @@ class VIVADOFlagsTuner(MeasurementInterface):
     f.write(" RT: "+rt)
     f.write(" SLUT: "+SLUT+"  SReg: "+SReg+"  BRam: "+BRam+"  DSP:  "+DSP)
     f.write(" WNS: ")
-    f.write(str(myscore))
+    f.write(str(myscore*-1))
     f.write(" \n")
     f.close()
 
@@ -211,7 +211,7 @@ class VIVADOFlagsTuner(MeasurementInterface):
     writename='./localresult'+str(self.args.myrank)+'.txt'
     f = open(writename,'a')
     f.write('Configuration: '+optres+' '+placeres+' '+physoptres+' '+routeres)
-    f.write(' WNS '+str(myscore))
+    f.write(' WNS '+str(myscore*-1))
     f.write("\n")
     f.close()
 

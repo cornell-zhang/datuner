@@ -194,13 +194,13 @@ class VTRTuner(MeasurementInterface):
     f.write(str(min_chan_width)+' '+str(chipSize)+' '+str(logicarea)+' '+str(routearea)+' '
       +str(rt)+' '+str(nets)+' '
       +str(blocks)+' '+str(clb)+' '+str(io)+' '+str(bram)+' '+str(mult)+' '
-      +str(end-start)+' '+str(requestor)+' '+str(fmax)+'\n')
+      +str(end-start)+' '+str(requestor)+' '+str(float(fmax)*-1)+'\n')
     f.close()
 
     f = open('./localresult'+str(self.args.myrank)+'.txt','a')
     f.write(abc_config+' ')
     f.write(vtr_config+' ')
-    f.write(str(fmax)+'\n')
+    f.write(str(float(fmax)*-1)+'\n')
     f.close()
 
 

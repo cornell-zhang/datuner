@@ -58,7 +58,6 @@ bool DataBase::CreateTable(Space* cspace){
     cSql += param->name+" text NOT NULL,";
   }
   cSql += "qor float NOT NULL);";
-  printf("create table: %s\n",cSql.c_str());
   int nRes = sqlite3_exec(pDB_,cSql.c_str(),0,0,&cErrMsg);
   if(nRes != SQLITE_OK) {
     printf("create table fail\n");
