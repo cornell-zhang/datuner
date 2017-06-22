@@ -37,8 +37,6 @@ $(PythonBuildDir)/python:
 
 #=== Install OpenTuner ===#
 
-pip_status = $(shell if [ -n `which pip` ]; then echo "exist"; else echo "notexist"; fi;)
-
 install-OpenTuner:
 	cd $(PythonInstallDir)/bin; \
 	export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
