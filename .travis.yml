@@ -3,5 +3,5 @@ python:
   - '2.7'
 script: 
   - make
-  - source ./scripts/setup.sh
+  - source ./setup.sh
   - python auto_test.py 
