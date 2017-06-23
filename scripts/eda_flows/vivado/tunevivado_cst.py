@@ -133,7 +133,9 @@ class VIVADOFlagsTuner(MeasurementInterface):
     BRam=str(0)
     DSP=str(0)
 
-    cmd = 'cp '+srcdir+'/design.xdc '+workdir
+    print "test debug "
+    cmd = 'sed -e \'s:PERIOD_HOLDER:'+str(cfg['tune_cst'])+':g\' '+srcdir+'/design_cst.xdc > '+workdir+'design.xdc'
+    print "debug sed cmd "+cmd+"\n"
     subprocess.Popen(cmd, shell=True).wait()
 
     cmd = 'sed -e \'s:BENCH:'+self.design+':g\' -e \'s:TOPMODULE:'+self.topmodule+':g\' -e \'s:DESIGN_PATH:'+self.designpath+':g\' -e \'s:WORKDIR_HOLDER:'+workdir+':g\' '+self.designpath+'/../run_vivado.tcl > '+workdir+'run_vivado.tcl'
@@ -197,6 +199,7 @@ class VIVADOFlagsTuner(MeasurementInterface):
     end = time.time()
 
     myscore = wns
+    delay = float(cfg['tune_cst'])-myscore
 
     os.chdir(self.workspace)
     writename='./result_'+str(self.args.myrank)+'.txt'
@@ -205,8 +208,9 @@ class VIVADOFlagsTuner(MeasurementInterface):
     rt = str(end - start)
     f.write(" RT: "+rt)
     f.write(" SLUT: "+SLUT+"  SReg: "+SReg+"  BRam: "+BRam+"  DSP:  "+DSP)
-    f.write(" WNS: ")
-    f.write(str(myscore*-1))
+    f.write(" CST: "+str(cfg['tune_cst']))
+    f.write(" Delay: ")
+    f.write(str(delay))
     f.write(" \n")
     f.close()
 
@@ -214,11 +218,12 @@ class VIVADOFlagsTuner(MeasurementInterface):
     writename='./localresult'+str(self.args.myrank)+'.txt'
     f = open(writename,'a')
     f.write('Configuration: '+optres+' '+placeres+' '+physoptres+' '+routeres)
-    f.write(' WNS '+str(myscore*-1))
+    f.write(' tune_cst '+str(cfg['tune_cst']))
+    f.write(' Delay '+str(delay))
     f.write("\n")
     f.close()
 
-    return Result(time=-myscore)
+    return Result(time=delay)
 
 if __name__ == '__main__':
   argparsers = opentuner.argparsers()

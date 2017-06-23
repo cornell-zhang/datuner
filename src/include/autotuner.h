@@ -6,7 +6,7 @@
 
 class AutoTuner{
   public:
-    AutoTuner(int task, std::string design, int tune_type){_task = task; _design = design; _tune_type = tune_type;}
+    AutoTuner(int task, std::string design, int tune_type, int tune_cst){_task = task; _design = design; _tune_type = tune_type; _tune_cst = tune_cst;}
     ~AutoTuner(){}
     bool callOpenTuner(Task*, std::vector<Result*>&, int rank, std::string path, std::string pycode="");
   protected:
@@ -19,6 +19,7 @@ class AutoTuner{
     int _step;
     int _task;
     int _tune_type;
+    int _tune_cst;
     std::string _design;
     std::string _path;
 };

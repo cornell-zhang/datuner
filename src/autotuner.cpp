@@ -188,13 +188,17 @@ void AutoTuner::parse_Vivado_result(vector<Result*>& results,int rank) {
     ftr>>name9;
     string val9;
     ftr>>buf>>val9;
-    string name10;
-    ftr>>name10;
-    string val10;
-    ftr>>val10;
+    string name10,val10;
+    if(_tune_cst) {
+      ftr>>name10>>val10;
+    }
+    string metric;
+    ftr>>metric;
+    string score;
+    ftr>>score;
 
     Result* result = new Result();
-    result->score = atof(val10.c_str()); //maximize WNS
+    result->score = atof(score.c_str()); //maximize WNS
     result->id = _task;
     if(name1 == "opt_design") {
       pair<string,string> tmp = make_pair("Optdirective",val1);
@@ -231,6 +235,12 @@ void AutoTuner::parse_Vivado_result(vector<Result*>& results,int rank) {
 
     if(name9 == "route_design") {
       pair<string,string> tmp = make_pair("Routedirective",val9);
+      result->name2choice.push_back(tmp);
+    }
+   
+    //check name10!!
+    if(_tune_cst) {
+      pair<string,string> tmp = make_pair(name10,val10);
       result->name2choice.push_back(tmp);
     }
 

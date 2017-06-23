@@ -20,7 +20,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
   if(argc < 5) {
-    printf("./worker -design <design name> -path <path2workspace> -pycode <pythoncode>\n");
+    printf("./worker -design <design name> -path <path2workspace> -pycode <pythoncode> \n");
     return 0;
   }
   /*************MPI initialization*******************/
@@ -45,6 +45,7 @@ int main(int argc, char** argv) {
   string pycode    = "";
   string design    = "";
   int fake_argc    = 0;
+  int tune_cst     = 0;
   char** fake_argv = NULL;
   vector<string> tmp_fake_argv;
   for(int i = 0; i < argc; i++) {
@@ -66,6 +67,13 @@ int main(int argc, char** argv) {
       i++;
       continue;
     }
+    if(strcmp(argv[i],"-tune_cst") == 0) {
+      assert(i < argc-1);
+      tune_cst = atoi(argv[i+1]);
+      i++;
+      continue;
+    }
+
     tmp_fake_argv.push_back(string(argv[i])); //set static parameters like --parallism=1
   }
 
@@ -125,7 +133,7 @@ int main(int argc, char** argv) {
 
 
     vector<Result*> results;
-    AutoTuner* tuner = new AutoTuner(task->subspace->id, design, tune_type); //start from 1
+    AutoTuner* tuner = new AutoTuner(task->subspace->id, design, tune_type, tune_cst); //start from 1
     assert(tuner != NULL);
     tuner->callOpenTuner(task,results,myrank,spacepath,pycode);
 #ifdef DEBUG_MSG
