@@ -46,7 +46,7 @@ if argument['WORKSPACE'] == '':
   sys.exit(1)
 
 if os.path.exists(argument['DATuner_PATH']+"/../bin") == False:
-  print "DATuner path is not correct. Please check. The path should point to  $HOME/releases/Linux_x86_64/scripts/"
+  print "Please call DATuner under $HOME/releases/Linux_x86_64/scripts/"
   sys.exit(1)
 
 if argument['TOOL_NAME'] == "vtr":

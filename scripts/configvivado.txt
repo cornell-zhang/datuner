@@ -1,11 +1,11 @@
 TOOL_NAME vivado
 TOOL_INSTALL_PATH
-DESIGN_NAME diffeq1
-DESIGN_SAVE_PATH /home/xuchang/datuner/releases/Linux_x86_64/scripts/eda_flows/vivado/design/
-TOP_MODULE diffeq_paj_convert
+DESIGN_NAME mul
+DESIGN_SAVE_PATH /home/xuchang/datuner/releases/Linux_x86_64/scripts/eda_flows/vivado/design/mul/
+TOP_MODULE IntMulFixedLatRTL
 SPACE_DEFINITION 
 PYTHON_CODE
-WORKSPACE /home/xuchang/nas/tmpworkspace/
+WORKSPACE /home/xuchang/nas/tmpworkspace2/
 PROC_NUM 2
 TEST_LIMIT
 STOP_AFTER
