@@ -1,7 +1,7 @@
 TOOL_NAME quartus
 TOOL_INSTALL_PATH
 DESIGN_NAME proc
-DESIGN_SAVE_PATH /work/zhang/users/eu49/datuner/releases/Linux_x86_64/scripts/eda_flows/quartus/design/proc/
+DESIGN_SAVE_PATH /work/zhang/users/eu49/datuner/scripts/eda_flows/quartus/design/proc/
 TOP_MODULE lab5_top
 SPACE_DEFINITION
 PYTHON_CODE

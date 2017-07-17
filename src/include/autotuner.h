@@ -11,6 +11,7 @@ class AutoTuner{
     bool callOpenTuner(Task*, std::vector<Result*>&, int rank, std::string path, std::string pycode="");
   protected:
     void param_parse(Task*,int rank);
+    void parse_Quartus_result(std::vector<Result*>&, int);
     void parse_Vivado_result(std::vector<Result*>&, int);
     void parse_VPR_result(std::vector<Result*>&, int);
     void parse_ISE_result(std::vector<Result*>&, int);

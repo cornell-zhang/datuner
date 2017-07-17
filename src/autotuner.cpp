@@ -250,6 +250,100 @@ void AutoTuner::parse_Vivado_result(vector<Result*>& results,int rank) {
   ftr.close();
   
 }
+
+void AutoTuner::parse_Quartus_result(vector<Result*>& results,int rank) {
+  results.resize(0);
+  char tmp_buf[50];
+  sprintf(tmp_buf,"localresult%d.txt",rank);
+  string filename = _path+"/"+string(tmp_buf);
+  fstream ftr;
+  ftr.open(filename.c_str(),fstream::in);
+  assert(ftr.is_open());
+  string buf;
+  while(ftr>>buf) {
+    string name1;
+    ftr>>name1;
+    string val1;
+    ftr>>buf>>val1;
+    string name2;
+    ftr>>name2;
+    string val2;
+    ftr>>buf>>val2;
+    string name3;
+    ftr>>name3;
+    string val3;
+    ftr>>buf>>val3;
+    string name4;
+    ftr>>name4;
+    string val4;
+    ftr>>buf>>val4;
+    string name5;
+    ftr>>name5;
+    string val5;
+    ftr>>buf>>val5;
+    string name6;
+    ftr>>name6;
+    string val6;
+    ftr>>buf>>val6;
+    string name7;
+    ftr>>name7;
+    string val7;
+    ftr>>buf>>val7;
+    string name8;
+    ftr>>name8;
+    string val8;
+    ftr>>buf>>val8;
+
+    string metric;
+    ftr>>metric;
+    string score;
+    ftr>>score;    
+
+    Result* result = new Result();
+    result->score = atof(score.c_str()); //maximize WNS
+    result->id = _task;
+    
+    if(name1 == "quartus_map --effort") {
+      pair<string,string> tmp = make_pair("map_effort",val1);
+      result->name2choice.push_back(tmp)
+    }
+    if(name2 == "quartus_map --incremental_compilation") {
+      pair<string,string> tmp = make_pair("map_incremental_compilation",val2);
+      result->name2choice.push_back(tmp)
+    }
+    if(name3 == "quartus_map --optimize") {
+      pair<string,string> tmp = make_pair("map_optimize",val3);
+      result->name2choice.push_back(tmp)
+    }
+    if(name4 == "quartus_map --parallel") {
+      pair<string,string> tmp = make_pair("map_parallel",val4);
+      result->name2choice.push_back(tmp)
+    }
+    if(name5 == "quartus_fit --effort") {
+      pair<string,string> tmp = make_pair("fit_effort",val5);
+      result->name2choice.push_back(tmp)
+    }
+    if(name6 == "quartus_fit --optimize_io_register_for_timing") {
+      pair<string,string> tmp = make_pair("fit_optimize_io_register_for_timing",val6);
+      result->name2choice.push_back(tmp)
+    }
+    if(name7 == "quartus_fit --pack_register") {
+      pair<string,string> tmp = make_pair("fit_pack_register",val7);
+      result->name2choice.push_back(tmp)
+    }
+    if(name8 == "quartus_fit --tdc") {
+      pair<string,string> tmp = make_pair("fit_tdc",val5);
+      result->name2choice.push_back(tmp)
+    }
+    
+    results.push_back(result);
+  
+  }
+
+  ftr.close();
+
+}
+
 int AutoTuner::c2py(vector<Result*>& results,int rank, string pycode) {
   FILE* file = NULL;
   if(_tune_type == 1) {
@@ -261,10 +355,13 @@ int AutoTuner::c2py(vector<Result*>& results,int rank, string pycode) {
     PyRun_SimpleFile(file,"tunevivado.py");
   }
   if(_tune_type == 3) {
+    file=fopen("tunequartus.py","r");
+    PyRun_SimpleFile(file,"tunequartus.py");
+  }
+  if(_tune_type == 4) {
     file=fopen("tuneProgram.py","r");
     PyRun_SimpleFile(file,"tuneProgram.py");
   }
-
   if(PyErr_Occurred()) {
     PyErr_Print();
     abort();
@@ -272,6 +369,7 @@ int AutoTuner::c2py(vector<Result*>& results,int rank, string pycode) {
 
   if(_tune_type == 1) parse_VPR_result(results,rank);
   if(_tune_type == 2) parse_Vivado_result(results,rank);
-  if(_tune_type == 3) parse_program_result(results,rank);
+  if(_tune_type == 3) parse_Quartus_result(results,rank);
+  if(_tune_type == 4) parse_program_result(results,rank);
   return 0;
 }

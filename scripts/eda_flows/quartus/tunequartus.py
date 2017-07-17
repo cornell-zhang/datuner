@@ -21,7 +21,7 @@ argparser.add_argument('--myrank',type=int, default=0,
     help='the rank of process')
 
 #----------------------------------------
-# Vivado parameter space
+# Quartus parameter space
 #----------------------------------------
 map_flags = [
   'map_effort',
@@ -100,8 +100,8 @@ class QUARTUSFlagsTuner(MeasurementInterface):
     f = open(workdir+'/options.tcl','w')
 
     #for tcl
-    mapstr = 'execute_module -tool map -args'
-    fitstr = 'execute_module -tool fit -args'
+    mapstr = ''
+    fitstr = ''
     stastr = 'execute_module -tool sta'
 
     #for result analysis
@@ -110,11 +110,11 @@ class QUARTUSFlagsTuner(MeasurementInterface):
     
     for flag in map_flags:
       tcl_flag = flag[4:]
-      mapstr += ' --'+tcl_flag+'='+cfg[flag]
+      mapstr += 'execute_module -tool map -args --'+tcl_flag+'='+cfg[flag]+'\n'
       mapres += ' '+tcl_flag+' '+cfg[flag]
     for flag in fit_flags:
       tcl_flag = flag[4:]
-      fitstr += ' --'+tcl_flag+'='+cfg[flag]
+      fitstr += 'execute_module -tool fit -args --'+tcl_flag+'='+cfg[flag]
       fitres += ' '+tcl_flag+' '+cfg[flag]
 
     f.write(mapstr+'\n')
@@ -132,7 +132,7 @@ class QUARTUSFlagsTuner(MeasurementInterface):
 
     #-----------pass result---------#
    
-    report_path = "/work/zhang/users/eu49/datuner/releases/Linux_x86_64/scripts/eda_flows/quartus/design/proc"
+    report_path = "/work/zhang/users/eu49/datuner/scripts/eda_flows/quartus/design/proc"
 
     def get_timing():
 
