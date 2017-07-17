@@ -57,6 +57,10 @@ elif argument['TOOL_NAME'] == 'vivado':
   if argument['TOP_MODULE'] == '':
     print "vivado is used. Please specify the top module."
     sys.exit(1)
+elif argument['TOOL_NAME'] == 'quartus':
+  if argument['TOP_MODULE'] == '':
+    print "quartus is used. Please specify the top module."
+    sys.exit(1)
 else:
   if argument['PYTHON_CODE'] == '':
     print "please specify the python code to excute OpenTuner."
@@ -99,6 +103,9 @@ elif argument['TOOL_NAME'] == "vivado":
     srcFile = srcFile + "/tunevivado_cst.py"
   else:
     srcFile = srcFile + "/tunevivado.py"
+elif argument['TOOL_NAME'] == "quartus":
+  srcFile = argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']+"/tune"+argument['TOOL_NAME']+".py"
+
 
   print "debug use "+srcFile
   sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:TOPMODULE_HOLDER:"+argument['TOP_MODULE']+":g\" -e \"s:SCRIPTPATH_HOLDER:"+argument['DATuner_PATH']+":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+":g\" "+srcFile+" > "+workspace+"/tune"+argument['TOOL_NAME']+".py"
@@ -134,7 +141,7 @@ except:
 #mpi_path="/home/xuchang/nas/project/daTuner/myrelease/build/pkgs/install/bin/mpirun"
 mpi_path="mpirun"
 
-if argument['TOOL_NAME'] == "vtr" or argument['TOOL_NAME'] == "vivado":
+if argument['TOOL_NAME'] == "vtr" or argument['TOOL_NAME'] == "vivado" or argument['TOOL_NAME'] == "quartus":
   runcmd = mpi_path+" -np 1 "+\
     "./DATuner_master -"+argument['TOOL_NAME']+" --test-limit "+argument['TEST_LIMIT']+" --stop-after "+\
     argument['STOP_AFTER']+" --path "+workspace+" : -np "+argument['PROC_NUM']+" --hostfile "+\
@@ -148,10 +155,3 @@ else:
       argument['DATuner_PATH']+"/my_hosts "+"./DATuner_worker -design "+design+" -path "+workspace+\
       " --parallelism=1 > log"
   os.system(runcmd)
-
-
-
-
-
-
-
