@@ -268,7 +268,7 @@ class QUARTUSFlagsTuner(MeasurementInterface):
     f.write(" RT: "+rt)
     f.write(" Period: "+clock+"  WNS: "+timing)
     f.write(" LUT: "+lut+"  Reg: "+register+"  Ram: "+ram+"  DSP:  "+dsp)
-    f.write(" QoR: "str(myscore))
+    f.write(" QoR: "+str(myscore))
     f.write(" \n")
     f.close()
 
