@@ -6,7 +6,7 @@ TOP_MODULE lab5_top
 SPACE_DEFINITION
 PYTHON_CODE
 WORKSPACE /work/zhang/users/eu49/datuner/build-test-quartus/
-PROC_NUM
+PROC_NUM 1
 TEST_LIMIT
 STOP_AFTER
 DATuner_PATH
