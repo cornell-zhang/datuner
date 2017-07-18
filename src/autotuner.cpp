@@ -6,7 +6,7 @@
 #include <fstream>
 #include "structure.h"
 
-//#define DEBUG_MSG
+#define DEBUG_MSG
 using namespace std;
 
 bool AutoTuner::callOpenTuner(Task* task, vector<Result*>& results, int rank, string path, string pycode) {
@@ -305,35 +305,35 @@ void AutoTuner::parse_Quartus_result(vector<Result*>& results,int rank) {
     
     if(name1 == "quartus_map --effort") {
       pair<string,string> tmp = make_pair("map_effort",val1);
-      result->name2choice.push_back(tmp)
+      result->name2choice.push_back(tmp);
     }
     if(name2 == "quartus_map --incremental_compilation") {
       pair<string,string> tmp = make_pair("map_incremental_compilation",val2);
-      result->name2choice.push_back(tmp)
+      result->name2choice.push_back(tmp);
     }
     if(name3 == "quartus_map --optimize") {
       pair<string,string> tmp = make_pair("map_optimize",val3);
-      result->name2choice.push_back(tmp)
+      result->name2choice.push_back(tmp);
     }
     if(name4 == "quartus_map --parallel") {
       pair<string,string> tmp = make_pair("map_parallel",val4);
-      result->name2choice.push_back(tmp)
+      result->name2choice.push_back(tmp);
     }
     if(name5 == "quartus_fit --effort") {
       pair<string,string> tmp = make_pair("fit_effort",val5);
-      result->name2choice.push_back(tmp)
+      result->name2choice.push_back(tmp);
     }
     if(name6 == "quartus_fit --optimize_io_register_for_timing") {
       pair<string,string> tmp = make_pair("fit_optimize_io_register_for_timing",val6);
-      result->name2choice.push_back(tmp)
+      result->name2choice.push_back(tmp);
     }
     if(name7 == "quartus_fit --pack_register") {
       pair<string,string> tmp = make_pair("fit_pack_register",val7);
-      result->name2choice.push_back(tmp)
+      result->name2choice.push_back(tmp);
     }
     if(name8 == "quartus_fit --tdc") {
       pair<string,string> tmp = make_pair("fit_tdc",val5);
-      result->name2choice.push_back(tmp)
+      result->name2choice.push_back(tmp);
     }
     
     results.push_back(result);
