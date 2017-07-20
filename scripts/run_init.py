@@ -2,9 +2,9 @@ import os
 import sys
 
 pwd =os.getcwd()
-tpath = pwd + "/build/pkgs/vtr/vtr_release/vtr_flow"
+tpath = vtr_flow_holder
 design = "diffeq1"
-wrksp = pwd + "/test"
+wrksp = workspace_holder
 proc_num = 1
 
 datpath = sys.path[0]
