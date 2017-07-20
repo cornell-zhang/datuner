@@ -1,8 +1,13 @@
+set design BENCH
+set topmodule TOPMODULE
+set srcdir DESIGN_PATH
+set workdir WORKDIR_HOLDER
+set outputDir $workdir/output
+file delete -force $outputDir
+file mkdir $outputDir
+
 load_package flow
-project_new ./design/proc/lab5_top -overwrite
-#set_global_assignment -name FAMILY Stratix
-##set_global_assignment -name DEVICE "EP2C20F484C7"
-##set_global_assignment -name BDF_FILE "lab5.bdf"
-##set_location_assignment -to clock PIN_L1
+project_new /work/zhang/users/eu49/datuner/releases/Linux_x86_64/scripts/eda_flows/quartus/design/processor/lab5_top -overwrite
+
 source $workdir/options.tcl
 project_close

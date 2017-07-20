@@ -26,8 +26,7 @@ argparser.add_argument('--myrank',type=int, default=0,
 map_flags = [
   'map_effort',
   'map_incremental_compilation',
-  'map_optimize',
-  'map_parallel'
+  'map_optimize'
   ]
 
 fit_flags = [
@@ -100,8 +99,8 @@ class QUARTUSFlagsTuner(MeasurementInterface):
     f = open(workdir+'/options.tcl','w')
 
     #for tcl
-    mapstr = ''
-    fitstr = ''
+    mapstr = 'execute_module -tool map -args "'
+    fitstr = 'execute_module -tool fit -args "'
     stastr = 'execute_module -tool sta'
 
     #for result analysis
@@ -110,19 +109,24 @@ class QUARTUSFlagsTuner(MeasurementInterface):
     
     for flag in map_flags:
       tcl_flag = flag[4:]
-      mapstr += 'execute_module -tool map -args --'+tcl_flag+'='+cfg[flag]+'\n'
-      mapres += ' '+tcl_flag+' '+cfg[flag]
+      mapstr += '--'+tcl_flag+'='+cfg[flag]+' '
+      mapres += ' '+ tcl_flag+' '+cfg[flag]
+    mapstr = mapstr.rstrip()+'"'
+
     for flag in fit_flags:
       tcl_flag = flag[4:]
-      fitstr += 'execute_module -tool fit -args --'+tcl_flag+'='+cfg[flag]
+      fitstr += '--'+tcl_flag+'='+cfg[flag]+' '
       fitres += ' '+tcl_flag+' '+cfg[flag]
+    fitstr = fitstr.rstrip()+'"'
 
     f.write(mapstr+'\n')
     f.write(fitstr+'\n')
     f.write(stastr+'\n')
     f.close()
 
-    cmd = 'sed -e \'s:BENCH:'+self.design+':g\' -e \'s:TOPMODULE:'+self.topmodule+':g\' -e \'s:DESIGN_PATH:'+self.designpath+':g\' -e \'s:WORKDIR_HOLDER:'+workdir+':g\' '+self.scriptpath+'/eda_flows/quartus/run_quartus.tcl > '+workdir+'run_quartus.tcl'
+    cmd = 'sed -e \'s:BENCH:'+self.design+':g\' -e \'s:TOPMODULE:'+self.topmodule+\
+          ':g\' -e \'s:DESIGN_PATH:'+self.designpath+':g\' -e \'s:WORKDIR_HOLDER:'+workdir+\
+          ':g\' '+self.scriptpath+'/eda_flows/quartus/run_quartus.tcl > '+workdir+'run_quartus.tcl'
     subprocess.Popen(cmd,shell=True).wait()
     os.chdir(workdir)
 
@@ -132,11 +136,11 @@ class QUARTUSFlagsTuner(MeasurementInterface):
 
     #-----------pass result---------#
    
-    report_path = "/work/zhang/users/eu49/datuner/scripts/eda_flows/quartus/design/proc"
+    report_path = "/work/zhang/users/eu49/datuner/releases/Linux_x86_64/scripts/eda_flows/quartus/design/processor/"
 
     def get_timing():
 
-      with open(report_path+"/lab5_top.sta.rpt", 'r') as f:
+      with open(report_path+"lab5_top.sta.rpt", 'r') as f:
 
         lines = f.readlines()
 
@@ -173,9 +177,11 @@ class QUARTUSFlagsTuner(MeasurementInterface):
         timing = timing[timing.find('; ')+2:]
         timing = timing[:timing.find(';')].rstrip()
 
+      return clock, timing
+      
     def get_utilization():
 
-      with open(report_path+"/lab5_top.fit.rpt", 'r') as f:
+      with open(report_path+"lab5_top.fit.rpt", 'r') as f:
 
         lines = f.readlines()
 
@@ -247,18 +253,14 @@ class QUARTUSFlagsTuner(MeasurementInterface):
         dsp = dsp[dsp.find('; ')+2:]
         dsp = dsp[:dsp.find('/')].rstrip()
 
-        
-    def main():
+      return lut, register, ram, dsp
 
-      get_timing()
-      get_utilization()
+    my_clock, my_timing = get_timing()
+    my_lut, my_register, my_ram, my_dsp = get_utilization() 
 
-    if __name__=='__main__':
-      main()
+    end = time.time()
 
-
-
-    myscore = timing*-1 
+    myscore = float(my_timing)*-1 
 
     os.chdir(self.workspace)
     writename='./result_'+str(self.args.myrank)+'.txt'
@@ -266,17 +268,16 @@ class QUARTUSFlagsTuner(MeasurementInterface):
     f.write('Configuration: '+mapres+' '+fitres)
     rt = str(end - start)
     f.write(" RT: "+rt)
-    f.write(" Period: "+clock+"  WNS: "+timing)
-    f.write(" LUT: "+lut+"  Reg: "+register+"  Ram: "+ram+"  DSP:  "+dsp)
-    f.write(" QoR: "+str(myscore))
+    #f.write(" Period: "+my_clock+"  WNS: "+my_timing)
+    f.write(" LUT: "+my_lut+"  Reg: "+my_register+"  Ram: "+my_ram+"  DSP:  "+my_dsp)
+    f.write(" WNS: -"+my_timing)
     f.write(" \n")
     f.close()
-
 
     writename='./localresult'+str(self.args.myrank)+'.txt'
     f = open(writename,'a')
     f.write('Configuration: '+mapres+' '+fitres)
-    f.write(' WNS '+str(myscore))
+    f.write(' WNS: -'+my_timing)
     f.write("\n")
     f.close()
 

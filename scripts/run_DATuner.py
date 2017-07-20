@@ -93,34 +93,54 @@ os.system(cpcmd)
 
 if argument['TOOL_NAME'] == "vtr":
   srcFile = argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']+"/tune"+argument['TOOL_NAME']+".py"
-  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:VTRFLOWPATH_HOLDER:"+argument['TOOL_INSTALL_PATH']+":g\" -e \"s:SCRIPTPATH_HOLDER:"+argument['DATuner_PATH']+":g\" "+srcFile+" > "+workspace+"/tune"+argument['TOOL_NAME']+".py"
+  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:VTRFLOWPATH_HOLDER:"\
+           +argument['TOOL_INSTALL_PATH']+":g\" -e \"s:SCRIPTPATH_HOLDER:"+argument['DATuner_PATH']+":g\" "+srcFile+\
+           " > "+workspace+"/tune"+argument['TOOL_NAME']+".py"
   os.system(sedcmd)
   cpcmd = "cp "+argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']+"/"+argument['TOOL_NAME']+"_space.txt "+workspace
   os.system(cpcmd)
+
 elif argument['TOOL_NAME'] == "vivado":
   srcFile = argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']
   if tune_cst ==1:
     srcFile = srcFile + "/tunevivado_cst.py"
   else:
     srcFile = srcFile + "/tunevivado.py"
-elif argument['TOOL_NAME'] == "quartus":
-  srcFile = argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']+"/tune"+argument['TOOL_NAME']+".py"
-
-
+    
   print "debug use "+srcFile
-  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:TOPMODULE_HOLDER:"+argument['TOP_MODULE']+":g\" -e \"s:SCRIPTPATH_HOLDER:"+argument['DATuner_PATH']+":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+":g\" "+srcFile+" > "+workspace+"/tune"+argument['TOOL_NAME']+".py"
-  os.system(sedcmd)
+  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+\
+           ":g\" -e \"s:TOPMODULE_HOLDER:"+argument['TOP_MODULE']+":g\" -e \"s:SCRIPTPATH_HOLDER:"\
+           +argument['DATuner_PATH']+":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+":g\" "\
+           +srcFile+" > "+workspace+"/tune"+argument['TOOL_NAME']+".py"
+  os.system(sedcmd)      
 
-  space_file_cmd ="cp "+argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']+"/"+argument['TOOL_NAME']+"_space.txt "+workspace
+  space_file_cmd = "cp "+argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']+"/"+argument['TOOL_NAME']+"_space.txt "+workspace
   if tune_cst == 1:
     print "debug tune cst"
     lower_cst = float(argument['DEFAULT_CST']) * 0.8
-    upper_cst = float(argument['DEFAULT_CST']) * 1.5
-    space_file_cmd="sed -e \"s:LOWER_BOUND_HOLDER:"+str(lower_cst)+":g\" -e \"s:UPPER_BOUND_HOLDER:"+str(upper_cst)+":g\" "+argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']+"/"+argument['TOOL_NAME']+"_space_cst.txt > "+workspace+"/"+argument['TOOL_NAME']+"_space.txt"
+    upper_cst = float(argument['DEFAULT_CST']) * 1
+    space_file_cmd = "sed -e \"s:LOWER_BOUND_HOLDER:"+str(lower_cst)+":g\" -e \"s:UPPER_BOUND_HOLDER:"\
+                     +str(upper_cst)+":g\" "+argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']\
+                     +"/"+argument['TOOL_NAME']+"_space_cst.txt > "+workspace+"/"+argument['TOOL_NAME']+"_space.txt"
   os.system(space_file_cmd)
+
+elif argument['TOOL_NAME'] == "quartus":
+  srcFile = argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']+"/tune"+argument['TOOL_NAME']+".py"
+  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+\
+           ":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+\
+           ":g\" -e \"s:TOPMODULE_HOLDER:"+argument['TOP_MODULE']+\
+           ":g\" -e \"s:SCRIPTPATH_HOLDER:"+argument['DATuner_PATH']+\
+           ":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+\
+           ":g\" "+srcFile+" > "+workspace+"/tune"+argument['TOOL_NAME']+".py"
+  os.system(sedcmd)
+  cpcmd = "cp "+argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']+"/"+argument['TOOL_NAME']+"_space.txt "+workspace
+  os.system(cpcmd) 
+
 else:
   srcFile = argument['PYTHON_CODE']
-  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:SCRIPTPATH_HOLDER:"+argument['DATuner_PATH']+":g\" "+srcFile+" > "+workspace+"/tuneProgram.py"
+  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"\
+           +workspace+":g\" -e \"s:SCRIPTPATH_HOLDER:"+argument['DATuner_PATH']\
+           +":g\" "+srcFile+" > "+workspace+"/tuneProgram.py"
   os.system(sedcmd)
   cpcmd = "cp "+argument['DATuner_PATH']+"/eda_flows/user_program_example/programWrapper.py "+workspace
   os.system(cpcmd)
@@ -138,7 +158,6 @@ try:
 except:
   pass
 
-#mpi_path="/home/xuchang/nas/project/daTuner/myrelease/build/pkgs/install/bin/mpirun"
 mpi_path="mpirun"
 
 if argument['TOOL_NAME'] == "vtr" or argument['TOOL_NAME'] == "vivado" or argument['TOOL_NAME'] == "quartus":

@@ -1,7 +1,6 @@
 map_effort EnumParameter {auto, fast}
 map_incremental_compilation EnumParameter {off, full_incremental_compilation}
 map_optimize EnumParameter {area, speed, balanced}
-map_parallel EnumParameter {on, off}
 fit_effort EnumParameter {standard, fast, auto}
 fit_optimize_io_register_for_timing EnumParameter {on, off}
 fit_pack_register EnumParameter {off, normal, minimize_are, minimize_area_with_chains, auto}

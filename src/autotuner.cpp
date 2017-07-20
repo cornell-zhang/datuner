@@ -47,7 +47,7 @@ void AutoTuner::param_parse(Task* task, int rank) {
 }
 
 void AutoTuner::parse_ISE_result(vector<Result*>& results,int rank) {
-   results.resize(0);
+  results.resize(0);
   char tmp_buf[50];
   sprintf(tmp_buf,"localresult%d.txt",rank);
   string filename = _path+_design+"/"+string(tmp_buf);
@@ -112,7 +112,7 @@ void AutoTuner::parse_program_result(vector<Result*>& results, int rank) {
 }
 
 void AutoTuner::parse_VPR_result(vector<Result*>& results,int rank) {
-   results.resize(0);
+  results.resize(0);
   char tmp_buf[50];
   sprintf(tmp_buf,"localresult%d.txt",rank);
   string filename = _path+"/"+string(tmp_buf);
@@ -142,7 +142,7 @@ void AutoTuner::parse_VPR_result(vector<Result*>& results,int rank) {
 }
 
 void AutoTuner::parse_Vivado_result(vector<Result*>& results,int rank) {
- results.resize(0);
+  results.resize(0);
   char tmp_buf[50];
   sprintf(tmp_buf,"localresult%d.txt",rank);
   string filename = _path+"/"+string(tmp_buf);
@@ -332,7 +332,7 @@ void AutoTuner::parse_Quartus_result(vector<Result*>& results,int rank) {
       result->name2choice.push_back(tmp);
     }
     if(name8 == "quartus_fit --tdc") {
-      pair<string,string> tmp = make_pair("fit_tdc",val5);
+      pair<string,string> tmp = make_pair("fit_tdc",val8);
       result->name2choice.push_back(tmp);
     }
     
