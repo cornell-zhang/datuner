@@ -29,7 +29,7 @@ f1.close()
 f2.close()
 
 # run opentuner
-os.system('python ' + run_script + ' ' + '-f vtr -t 20 1 0 0.01 -p 2 -b 1000 ')
+os.system('python ' + run_script)
 
 # check results
 
