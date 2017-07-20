@@ -2,9 +2,10 @@
 #===================================================
 # run DATuner
 #===================================================
-# @author : Chang Xu
-# @date   : 4/20/2017
-# @brief  : A python script to run DATuner
+# @author   : Chang Xu      
+# @date     : 4/20/2017
+# @brief    : A python script to run DATuner
+# @revision : 7/21/2017 use the command interface (specify tool, runtime, max executions and parallelization)
 
 import re
 import os
@@ -16,10 +17,10 @@ import argparse
 # parse parameters
 #-------------------------
 parser = argparse.ArgumentParser(description='command interface')
-parser.add_argument('--tool',type=str,choices=['vtr','vivado','other'])
-parser.add_argument('--max-run',type=int,default=1000,dest='limit')
-parser.add_argument('--timeout',type=str,default='7200 0 0 0',dest='stop',help='format: sec min hour day',nargs=4)
-parser.add_argument('--para-factor',type=int,dest='para_fac',default=1)
+parser.add_argument('-f','--flow',type=str,choices=['vtr','vivado','quartus','custom'])
+parser.add_argument('-b','--budget',type=int,default=1000,help='the max number of executions')
+parser.add_argument('-t','--timeout',type=str,default='7200 0 0 0',nargs=4,dest='stop',help='format: sec min hour day')
+parser.add_argument('-p','--parallel',type=int,dest='para_fac',default=1,help='parallelization factor')
 args = parser.parse_args()
 
 if len(sys.argv) < 2:
@@ -45,7 +46,7 @@ time_cst = "DEFAULT_CST"                         # timing constraint, default 4.
 
 
 #-------parameters check------
-if args.tool== '':
+if args.flow== '':
   print "please specify the tool name."
   sys.exit(1)
 
@@ -61,11 +62,11 @@ if os.path.exists(datpath+"/../bin") == False:
   print "Please call DATuner under $HOME/releases/Linux_x86_64/scripts/"
   sys.exit(1)
 
-if args.tool == "vtr":
+if args.flow == "vtr":
   if os.path.exists(tpath+"/scripts") == False:
     print "vtr path is not correct. Please check. The path should to point to .../vtr/vtr_release/vtr_flow"
     sys.exit(1)
-elif args.tool == 'vivado':
+elif args.flow == 'vivado':
   if module == '':
     print "vivado is used. Please specify the top module."
     sys.exit(1)
@@ -86,7 +87,7 @@ if modify_cst == 'y' or modify_cst == 'yes':
     
 time_text = args.stop
 if len(time_text) != 4:
-  print "please input time with format: sec|min|hour|day"
+  print "please input time with format: sec min hour day"
   sys.exit(1)
 else:
   stoptime = float(time_text[0])+60.0*float(time_text[1])+3600.0*float(time_text[2])+86400.0*float(time_text[3])
@@ -95,7 +96,7 @@ else:
 # Preparation & Check
 #--------------------------
 
-workspace = wrksp+"/"+args.tool+"/"+design     # real workspace, to store Master, Worker, Python Tuner and space_def file
+workspace = wrksp+"/"+args.flow+"/"+design     # real workspace, to store Master, Worker, Python Tuner and space_def file
 try:
   os.makedirs(workspace)
 except:
@@ -105,29 +106,29 @@ binDir =  datpath+"/../bin"
 cpcmd = "cp "+binDir+"/DATuner_master "+binDir+"/DATuner_worker "+workspace
 os.system(cpcmd)
 
-if args.tool == "vtr":
-  srcFile = datpath+"/eda_flows/"+args.tool+"/tune"+args.tool+".py"
-  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:VTRFLOWPATH_HOLDER:"+tpath+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datpath+":g\" "+srcFile+" > "+workspace+"/tune"+args.tool+".py"
+if args.flow == "vtr":
+  srcFile = datpath+"/eda_flows/"+args.flow+"/tune"+args.flow+".py"
+  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:VTRFLOWPATH_HOLDER:"+tpath+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datpath+":g\" "+srcFile+" > "+workspace+"/tune"+args.flow+".py"
   os.system(sedcmd)
-  cpcmd = "cp "+datpath+"/eda_flows/"+args.tool+"/"+args.tool+"_space.txt "+workspace
+  cpcmd = "cp "+datpath+"/eda_flows/"+args.flow+"/"+args.flow+"_space.txt "+workspace
   os.system(cpcmd)
-elif args.tool == "vivado":
-  srcFile = datpath+"/eda_flows/"+args.tool
+elif args.flow == "vivado":
+  srcFile = datpath+"/eda_flows/"+args.flow
   if tune_cst ==1:
     srcFile = srcFile + "/tunevivado_cst.py"
   else:
     srcFile = srcFile + "/tunevivado.py"
 
   print "debug use "+srcFile
-  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:TOPMODULE_HOLDER:"+module+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datpath+":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+":g\" "+srcFile+" > "+workspace+"/tune"+args.tool+".py"
+  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:TOPMODULE_HOLDER:"+module+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datpath+":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+":g\" "+srcFile+" > "+workspace+"/tune"+args.flow+".py"
   os.system(sedcmd)
 
-  space_file_cmd ="cp "+datpath+"/eda_flows/"+args.tool+"/"+args.tool+"_space.txt "+workspace
+  space_file_cmd ="cp "+datpath+"/eda_flows/"+args.flow+"/"+args.flow+"_space.txt "+workspace
   if tune_cst == 1:
     print "debug tune cst"
     lower_cst = float(time_cst) * 0.8
     upper_cst = float(time_cst) * 1.5
-    space_file_cmd="sed -e \"s:LOWER_BOUND_HOLDER:"+str(lower_cst)+":g\" -e \"s:UPPER_BOUND_HOLDER:"+str(upper_cst)+":g\" "+datpath+"/eda_flows/"+args.tool+"/"+args.tool+"_space_cst.txt > "+workspace+"/"+args.tool+"_space.txt"
+    space_file_cmd="sed -e \"s:LOWER_BOUND_HOLDER:"+str(lower_cst)+":g\" -e \"s:UPPER_BOUND_HOLDER:"+str(upper_cst)+":g\" "+datpath+"/eda_flows/"+args.flow+"/"+args.flow+"_space_cst.txt > "+workspace+"/"+args.flow+"_space.txt"
   os.system(space_file_cmd)
 else:
   srcFile = pycode
@@ -152,16 +153,16 @@ except:
 #mpi_path="/home/xuchang/nas/project/daTuner/myrelease/build/pkgs/install/bin/mpirun"
 mpi_path="mpirun"
 
-if args.tool == "vtr" or args.tool == "vivado":
+if args.flow == "vtr" or args.flow == "vivado":
   runcmd = mpi_path+" -np 1 "+\
-    "./DATuner_master -"+args.tool+" --test-limit "+str(args.limit)+" --stop-after "+\
+    "./DATuner_master -"+args.flow+" --test-limit "+str(args.budget)+" --stop-after "+\
     str(stoptime)+" --path "+workspace+" : -np "+str(procnum)+" --hostfile "+\
     datpath+"/my_hosts "+"./DATuner_worker -design "+design+" -path "+workspace+\
     " -tune_cst "+str(tune_cst)+" --parallelism=1 > log"
   os.system(runcmd)
 else:
   runcmd = mpi_path+" -np 1 "+\
-      "./DATuner_master --space "+space_def+" --path "+workspace+" --test-limit "+str(args.limit)+\
+      "./DATuner_master --space "+space_def+" --path "+workspace+" --test-limit "+str(args.budget)+\
       " --stop-after "+str(stoptime)+" : -np "+str(procnum)+" --hostfile "+\
       datpath+"/my_hosts "+"./DATuner_worker -design "+design+" -path "+workspace+\
       " --parallelism=1 > log"
