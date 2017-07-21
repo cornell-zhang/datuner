@@ -2,9 +2,9 @@ import os
 import sys
 
 pwd =os.getcwd()
-tpath = vtr_flow_holder
-design = diffeq1
-wrksp = workspace_holder
+tpath = "vtr_flow_holder"
+design = "diffeq1"
+wrksp = "workspace_holder"
 proc_num = 1
 
 datpath = sys.path[0]
