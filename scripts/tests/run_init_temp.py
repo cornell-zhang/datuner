@@ -8,7 +8,7 @@ wrksp = 'workspace_holder'
 proc_num = 1
 
 datpath = sys.path[0]
-srcFile = datpath+"/run_DATuner_arg.py"
+srcFile = datpath+"/run_DATuner.py"
 
 rep_cmd = "sed -e \"s:TOOL_PATH_HOLD:"+tpath+":g\" -e \"s:DESIGN_NAME_HOLD:"+design+":g\" -e \"s:WORK_SPACE_HOLD:"+wrksp+":g\" -e \"s:DATUNER_PATH_HOLD:"+datpath+":g\" -e \"s:PROC_NUM_HOLD:"+str(proc_num)+":g\" "+srcFile+" > "+datpath+"/run_DATuner"+"_new.py"
 os.system(rep_cmd)
