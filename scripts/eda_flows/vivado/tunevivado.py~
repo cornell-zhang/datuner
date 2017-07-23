@@ -37,6 +37,7 @@ class VIVADOFlagsTuner(MeasurementInterface):
   topmodule='TOPMODULE_HOLDER'
   workspace='WORKSPACE_HOLDER'
   designpath='DESIGNPATH_HOLDER'
+  scriptpath='SCRIPTPATH_HOLDER'
 
   def __init__(self, *pargs, **kwargs):
     super(VIVADOFlagsTuner, self).__init__(program_name="hello", *pargs, **kwargs)
@@ -85,7 +86,8 @@ class VIVADOFlagsTuner(MeasurementInterface):
     subprocess.Popen(cmd,shell=True).wait()
 
     workdir = self.workspace+'/'+str(self.args.myrank)+'/'+str(result_id)+'/'
-    srcdir = self.designpath+'/'+self.design+'/'
+    #srcdir = self.designpath+'/'+self.design+'/'
+    srcdir = self.designpath+'/'
 
     cfg = desired_result.configuration.data
 
@@ -136,7 +138,7 @@ class VIVADOFlagsTuner(MeasurementInterface):
     cmd = 'cp '+srcdir+'/design.xdc '+workdir
     subprocess.Popen(cmd, shell=True).wait()
 
-    cmd = 'sed -e \'s:BENCH:'+self.design+':g\' -e \'s:TOPMODULE:'+self.topmodule+':g\' -e \'s:DESIGN_PATH:'+self.designpath+':g\' -e \'s:WORKDIR_HOLDER:'+workdir+':g\' '+self.designpath+'/../run_vivado.tcl > '+workdir+'run_vivado.tcl'
+    cmd = 'sed -e \'s:BENCH:'+self.design+':g\' -e \'s:TOPMODULE:'+self.topmodule+':g\' -e \'s:DESIGN_PATH:'+self.designpath+':g\' -e \'s:WORKDIR_HOLDER:'+workdir+':g\' '+self.scriptpath+'/eda_flows/vivado/run_vivado.tcl > '+workdir+'run_vivado.tcl'
     subprocess.Popen(cmd,shell=True).wait()
     os.chdir(workdir)
 

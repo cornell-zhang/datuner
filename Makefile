@@ -21,18 +21,17 @@ RELEASE_XLNX := 1
 #RELEASE_ASIC := 1
 
 # Specify a target release path
-#PREFIX := /home/xuchang/  
+PREFIX := /home/xuchang/
 
 #-------------------------------------------------------------------------------
 
 #=== Directory settings ===#
 ifdef PREFIX
-  ReleaseDirPrefix = $(PREFIX)
+  ReleaseDirPrefix = $(PREFIX)/daTuner_release
 else
   ReleaseDirPrefix = $(CurrDir)/releases
 endif
 
-$(warning $(ReleaseDirPrefix))
 
 # Rlease name settings
 # RELEASE_NAME := 
@@ -50,8 +49,7 @@ else
   ReleaseName := release-dev
 endif
 
-ReleaseDir = $(ReleaseDirPrefix)/
-
+ReleaseDir = $(ReleaseDirPrefix)
 ReleaseDocDir = $(ReleaseDir)/docs
 ReleaseExampleDir = $(ReleaseDir)/examples
 
@@ -88,7 +86,6 @@ build-pkgs:
 build-src:
 	$(MAKE) -C src
 
-$(warning $(ReleaseDir))
 release:: $(ReleaseDir)/.dir release-DATuner release-scripts release-docs release-install
 	#release-examples
 	$(Echo) "$(Prompt) DATuner v$(RELEASE_VERSION) installed under $(ReleaseDir)"
@@ -141,6 +138,7 @@ release-scripts:: $(ReleaseTargetScriptDir)/.dir
 
 release-install:: $(ReleaseTargetPkgDir)/.dir
 	cp -rf $(DATuner_PKG_INSTALL)/* $(ReleaseTargetPkgDir)/ 
+	cp -rf $(DATuner_PKG_PYTHON_INSTALL)/* $(ReleaseTargetPkgDir)/ 
 
 # Release docs
 release-docs: 

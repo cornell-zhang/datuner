@@ -75,11 +75,18 @@ if argument['MODIFY_CST'] == 'y' or argument['MODIFY_CST'] == 'yes':
 #--------------------------
 # Preparation & Check
 #--------------------------
+multi_hosts = []
+f = open("./my_hosts","r")
+for host in f.readlines():
+  multi_hosts.append(host.strip('\n'))
 design = argument['DESIGN_NAME']
 designdir = argument['DESIGN_SAVE_PATH']
 workspace = argument['WORKSPACE']+"/"+argument['TOOL_NAME']+"/"+design
 try:
   os.makedirs(workspace)
+  for i in range(len(multi_hosts)-1):
+    scpcmd = "scp -r "+argument['WORKSPACE']+" "+multi_hosts[i+1]+":"
+    os.system(scpcmd)
 except:
   pass
 
@@ -99,18 +106,15 @@ elif argument['TOOL_NAME'] == "vivado":
     srcFile = srcFile + "/tunevivado_cst.py"
   else:
     srcFile = srcFile + "/tunevivado.py"
-
-  print "debug use "+srcFile
   sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:TOPMODULE_HOLDER:"+argument['TOP_MODULE']+":g\" -e \"s:SCRIPTPATH_HOLDER:"+argument['DATuner_PATH']+":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+":g\" "+srcFile+" > "+workspace+"/tune"+argument['TOOL_NAME']+".py"
   os.system(sedcmd)
-
   space_file_cmd ="cp "+argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']+"/"+argument['TOOL_NAME']+"_space.txt "+workspace
   if tune_cst == 1:
-    print "debug tune cst"
     lower_cst = float(argument['DEFAULT_CST']) * 0.8
     upper_cst = float(argument['DEFAULT_CST']) * 1.5
     space_file_cmd="sed -e \"s:LOWER_BOUND_HOLDER:"+str(lower_cst)+":g\" -e \"s:UPPER_BOUND_HOLDER:"+str(upper_cst)+":g\" "+argument['DATuner_PATH']+"/eda_flows/"+argument['TOOL_NAME']+"/"+argument['TOOL_NAME']+"_space_cst.txt > "+workspace+"/"+argument['TOOL_NAME']+"_space.txt"
   os.system(space_file_cmd)
+
 else:
   srcFile = argument['PYTHON_CODE']
   sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:SCRIPTPATH_HOLDER:"+argument['DATuner_PATH']+":g\" "+srcFile+" > "+workspace+"/tuneProgram.py"
@@ -120,6 +124,9 @@ else:
   cpcmd = "cp "+argument['DATuner_PATH']+"/adddeps.py "+workspace
   os.system(cpcmd)
 
+for i in range(len(multi_hosts)-1):
+  scpcmd = "scp -r "+workspace+" "+multi_hosts[i+1]+":"+workspace+"/../"
+  os.system(scpcmd)
 
 #---------------------------
 # Run DATuner

@@ -7,9 +7,9 @@ file delete -force $outputDir
 file mkdir $outputDir
 
 read_xdc $workdir/design.xdc
-read_verilog $srcdir/$design.v
+read_verilog [ glob $srcdir/*.v ]
 
-synth_design -top $topmodule -part xc7z020clg484-2
+synth_design -top $topmodule
 source $workdir/options.tcl
 
 write_checkpoint -force $outputDir/post_route
