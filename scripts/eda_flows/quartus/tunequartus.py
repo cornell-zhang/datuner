@@ -104,20 +104,22 @@ class QUARTUSFlagsTuner(MeasurementInterface):
     stastr = 'execute_module -tool sta'
 
     #for result analysis
-    mapres = 'quartus_map'
-    fitres = 'quartus_fit'
+    mapres = ''
+    fitres = ''
     
     for flag in map_flags:
       tcl_flag = flag[4:]
       mapstr += '--'+tcl_flag+'='+cfg[flag]+' '
-      mapres += ' '+ tcl_flag+' '+cfg[flag]
+      mapres += flag+' '+cfg[flag]+' '
     mapstr = mapstr.rstrip()+'"'
+    mapres = mapres.rstrip()
 
     for flag in fit_flags:
       tcl_flag = flag[4:]
       fitstr += '--'+tcl_flag+'='+cfg[flag]+' '
-      fitres += ' '+tcl_flag+' '+cfg[flag]
+      fitres += flag+' '+cfg[flag]+' '
     fitstr = fitstr.rstrip()+'"'
+    fitres = fitres.rstrip()
 
     f.write(mapstr+'\n')
     f.write(fitstr+'\n')
@@ -270,14 +272,14 @@ class QUARTUSFlagsTuner(MeasurementInterface):
     f.write(" RT: "+rt)
     #f.write(" Period: "+my_clock+"  WNS: "+my_timing)
     f.write(" LUT: "+my_lut+"  Reg: "+my_register+"  Ram: "+my_ram+"  DSP:  "+my_dsp)
-    f.write(" WNS: -"+my_timing)
+    f.write(" WNS: "+my_timing)
     f.write(" \n")
     f.close()
 
     writename='./localresult'+str(self.args.myrank)+'.txt'
     f = open(writename,'a')
     f.write('Configuration: '+mapres+' '+fitres)
-    f.write(' WNS: -'+my_timing)
+    f.write(' WNS: '+my_timing)
     f.write("\n")
     f.close()
 
