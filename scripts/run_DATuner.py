@@ -117,7 +117,7 @@ elif args.tool == "vivado":
     srcFile = srcFile + "/tunevivado.py"
 
   print "debug use "+srcFile
-  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:TOPMODULE_HOLDER:"+args.tool+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datuner_path+":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+":g\" "+srcFile+" > "+workspace+"/tune"+args.tool+".py"
+  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:TOPMODULE_HOLDER:"+top_module+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datuner_path+":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+":g\" "+srcFile+" > "+workspace+"/tune"+args.tool+".py"
   os.system(sedcmd)
 
   space_file_cmd ="cp "+datuner_path+"/eda_flows/"+args.tool+"/"+args.tool+"_space.txt "+workspace
