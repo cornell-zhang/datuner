@@ -21,7 +21,7 @@ RELEASE_XLNX := 1
 #RELEASE_ASIC := 1
 
 # Specify a target release path
-PREFIX := /home/xuchang/
+#PREFIX := /home/xuchang/
 
 #-------------------------------------------------------------------------------
 

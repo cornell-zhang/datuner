@@ -79,7 +79,6 @@ class VIVADOFlagsTuner(MeasurementInterface):
     start = time.time()
     cfg = desired_result.configuration.data
     result_id = desired_result.id
-    print "debug "+str(result_id)+"\n"
     cmd='mkdir -p '+self.workspace+'/'+str(self.args.myrank)+'/'
     subprocess.Popen(cmd,shell=True).wait()
     cmd='mkdir -p '+self.workspace+'/'+str(self.args.myrank)+'/'+str(result_id)+'/'
