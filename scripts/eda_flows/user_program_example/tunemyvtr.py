@@ -49,7 +49,7 @@ class ProgramTuner(Wrapper):
 
   def __init__(self, *pargs, **kwargs):
     super(ProgramTuner, self).__init__(program_name="hello", *pargs, **kwargs)
-    self.vtrpath = '/home/xuchang/nas/project/daTuner/myrelease/build/pkgs/vtr/vtr_release/vtr_flow/'
+    self.vtrpath = '/home/xuchang/datuner/build/pkgs/vtr/vtr_release/vtr_flow/'
 
   def manipulator(self):
     """
@@ -98,9 +98,8 @@ class ProgramTuner(Wrapper):
     requestor = desired_result.requestor
     self.runvtr(run_abc_cmd,run_vtr_cmd, abc_config, vtr_config, result_id, res, requestor)
     end = time.time()
-
     super(ProgramTuner,self).dumpresult(self.args.myrank,cfg,res)
-    return Result(time=-float(res[0]))
+    return Result(time=res[0])
 
   def runvtr(self,run_abc_cmd, run_vtr_cmd, abc_config, vtr_config, reqid, res, requestor):
     start = time.time()
@@ -161,7 +160,7 @@ class ProgramTuner(Wrapper):
           bram = float(bufs[15])
           mult = float(bufs[16])
       f.close()
-    res.append(fmax)
+    res.append(-1*float(fmax))
     res.append(rt)
     res.append(blocks)
 
@@ -177,7 +176,7 @@ class ProgramTuner(Wrapper):
     f.write(str(min_chan_width)+' '+str(chipSize)+' '+str(logicarea)+' '+str(routearea)+' '
       +str(rt)+' '+str(nets)+' '
       +str(blocks)+' '+str(clb)+' '+str(io)+' '+str(bram)+' '+str(mult)+' '
-      +str(end-start)+' '+str(requestor)+' '+str(fmax)+'\n')
+      +str(end-start)+' '+str(requestor)+' '+str(float(fmax)*-1)+'\n')
     f.close()
 
 
