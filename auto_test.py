@@ -31,6 +31,9 @@ for line in f1:
 f1.close()
 f2.close()
 
+# make datuner.py excutable
+os.system('chmod 775 ./releases/Linux_x86_64/scripts/datuner.py')
+
 # run opentuner
 os.chdir(workspace_path)
 os.system('datuner.py -f vtr -p 1 -b 1 -t 20 0 0 0')
