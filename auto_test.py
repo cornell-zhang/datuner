@@ -3,7 +3,11 @@ import platform
 
 pwd = os.getcwd()
 vtr_path = pwd + '/build/pkgs/vtr/vtr_release/vtr_flow'
-workspace_path = pwd + '/build_test/'
+workspace_path = pwd + '/build_test'
+try:
+  os.makedirs(workspace_path)
+except:
+  pass
 
 s = platform.system()
 a = platform.machine()
