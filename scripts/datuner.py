@@ -61,7 +61,7 @@ top_module = eval(args.tool+'.top_module')
 proc_num = args.para
 space_def = 'SPACE_DEF_HOLD'
 py_code = 'PYTHON_CODE_HOLD'
-datuner_path = '/home/sx233/datuner/releases/Linux_x86_64/scripts'
+datuner_path = pwd+'/../releases/Linux_x86_64/scripts'
 objective = 'OBJECTIVE_HOLD'
 cst_value = 'CST_VALUE_HOLD'
 
