@@ -264,31 +264,27 @@ void AutoTuner::parse_Quartus_result(vector<Result*>& results,int rank) {
     string name1;
     ftr>>name1;
     string val1;
-    ftr>>buf>>val1;
+    ftr>>val1;
     string name2;
     ftr>>name2;
     string val2;
-    ftr>>buf>>val2;
+    ftr>>val2;
     string name3;
     ftr>>name3;
     string val3;
-    ftr>>buf>>val3;
+    ftr>>val3;
     string name4;
     ftr>>name4;
     string val4;
-    ftr>>buf>>val4;
+    ftr>>val4;
     string name5;
     ftr>>name5;
     string val5;
-    ftr>>buf>>val5;
+    ftr>>val5;
     string name6;
     ftr>>name6;
     string val6;
-    ftr>>buf>>val6;
-    string name7;
-    ftr>>name7;
-    string val7;
-    ftr>>buf>>val7;
+    ftr>>val6;
 
     string metric;
     ftr>>metric;
@@ -323,11 +319,7 @@ void AutoTuner::parse_Quartus_result(vector<Result*>& results,int rank) {
       pair<string,string> tmp = make_pair(name6,val6);
       result->name2choice.push_back(tmp);
     }
-    {
-      pair<string,string> tmp = make_pair(name7,val7);
-      result->name2choice.push_back(tmp);
-    }
-    
+        
     results.push_back(result);
   
   }

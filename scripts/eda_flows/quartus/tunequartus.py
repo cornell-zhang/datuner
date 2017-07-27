@@ -25,7 +25,6 @@ argparser.add_argument('--myrank',type=int, default=0,
 #----------------------------------------
 map_flags = [
   'map_effort',
-  'map_incremental_compilation',
   'map_optimize'
   ]
 
@@ -279,7 +278,7 @@ class QUARTUSFlagsTuner(MeasurementInterface):
     writename='./localresult'+str(self.args.myrank)+'.txt'
     f = open(writename,'a')
     f.write('Configuration: '+mapres+' '+fitres)
-    f.write(' WNS: '+my_timing)
+    f.write(' WNS '+my_timing)
     f.write("\n")
     f.close()
 
