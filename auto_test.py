@@ -9,8 +9,8 @@ s = platform.system()
 a = platform.machine()
 
 script_folder = pwd + '/releases/' + platform.system() + '_' + platform.machine() + '/scripts'
-test_config_file = script_folder + '/tests/run_init_temp.py'
-config_out = script_folder + '/run_init.py'
+test_config_file = script_folder + '/tests/vtr.py'
+config_out = workspace_path + '/vtr.py'
 
 # update hostname
 f = open(script_folder + '/my_hosts', 'w')
@@ -28,7 +28,7 @@ f1.close()
 f2.close()
 
 # run opentuner
-os.system('python ' + config_out)
+os.system('datuner.py -f vtr -p 1 -b 1 -t 20 0 0 0')
 
 # check results
 
