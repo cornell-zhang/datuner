@@ -28,6 +28,7 @@ f1.close()
 f2.close()
 
 # run opentuner
+os.chdir(workspace_path)
 os.system('datuner.py -f vtr -p 1 -b 1 -t 20 0 0 0')
 
 # check results
