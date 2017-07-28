@@ -18,7 +18,7 @@ import argparse
 parser = argparse.ArgumentParser(description='command interface')
 parser.add_argument('-f','--flow',type=str,dest='tool',choices=['vtr','vivado','quartus','custom'])
 parser.add_argument('-b','--budget',type=int,default=1,dest='limit')
-parser.add_argument('-t','--timeout',type=float,default=[7200.0,0.0,0.0,0.0],dest='stop',nargs=4,help='format: sec min hour day')
+parser.add_argument('-t','--timeout',type=str,default=['0.0d','0.0h','0.0m','7200.0s'],dest='stop',nargs='+',help='format: 4d 2h 5m 9s')
 parser.add_argument('-p','--parallel',type=int,dest='para')
 args = parser.parse_args()
 
@@ -118,12 +118,28 @@ if args.tool == 'vivado':
       print "please support the default timing constraint."
       sys.exit(1)
     
-if len(args.stop) < 4:
+# parser the input time
+if len(args.stop) > 4:
   print "please use the format: sec min hour day"
   sys.exit(1)
 else:
-  stoptime = float(args.stop[0])+float(args.stop[1])*60.0+float(args.stop[2])*3600.0+float(args.stop[3])*86400.0
-
+  timelist = args.stop
+  minute =0
+  day = 0
+  sec = 0
+  hour = 0
+  for timer in range(len(args.stop)):
+    if timelist[timer].endswith('s'):
+      sec = float(timelist[timer][0:-1])
+    if timelist[timer].endswith('d'):
+      day = float(timelist[timer][0:-1])
+    if timelist[timer].endswith('m'):
+      minute = float(timelist[timer][0:-1])
+    if timelist[timer].endswith('h'):
+      hour = float(timelist[timer][0:-1])
+  stoptime = int(sec + 60.0*minute + 3600.0*hour + 86400.0*day)
+  print 'the tuning time will be '+str(stoptime)+' second'
+  
 #--------------------------
 # Preparation & Check
 #--------------------------
@@ -157,7 +173,9 @@ design = design_name
 designdir = design_path
 workspace = work_space+"/"+args.tool+"/"+design
 try:
-  os.makedirs(workspace)
+  if os.path.exists(workspace):                        
+    os.system('rm -rf ' + workspace)                   
+  os.makedirs(workspace)   
 except:
   pass
 
@@ -166,8 +184,14 @@ except:
 if args.tool == 'vtr':
   f = open(workspace+'/vtr_space.txt','a')                       
   for flag in vtr_flags:
-    if isinstance(eval(args.tool+'.'+flag), str) or isinstance(eval(args.tool+'.'+flag), float) or isinstance(eval(args.tool+'.'+flag), int):
-      pass
+    if isinstance(eval(args.tool+'.'+flag), str):
+      word = '{'+ str(eval(args.tool+'.'+flag)) +'}'
+      f = open(workspace+'/vtr_space.txt','a')
+      f.write(flag+' EnumParameter '+word+'\n')
+    elif isinstance(eval(args.tool+'.'+flag), float) or isinstance(eval(args.tool+'.'+flag), int):
+      word = '['+ str(eval(args.tool+'.'+flag)) + ', ' + str(eval(args.tool+'.'+flag)) +']'
+      f = open(workspace+'/vtr_space.txt','a')
+      f.write(flag+' EnumParameter '+word+'\n')
     elif (len(eval(args.tool+'.'+flag)) > 2 or isinstance(eval(args.tool+'.'+flag)[0], str)):
       word = '{'
       length = len(eval(args.tool+'.'+flag))
@@ -190,8 +214,14 @@ if args.tool == 'vivado':
     flags = vivado_cst_flags
   f = open(workspace+'/vivado_space.txt','a')                       
   for flag in flags:
-    if isinstance(eval(args.tool+'.'+flag), str) or isinstance(eval(args.tool+'.'+flag), float) or isinstance(eval(args.tool+'.'+flag), int):
-      pass
+    if isinstance(eval(args.tool+'.'+flag), str):
+      word = '{'+ str(eval(args.tool+'.'+flag)) +'}'
+      f = open(workspace+'/vivado_space.txt','a')
+      f.write(flag+' EnumParameter '+word+'\n')
+    elif isinstance(eval(args.tool+'.'+flag), float) or isinstance(eval(args.tool+'.'+flag), int):
+      word = '['+ str(eval(args.tool+'.'+flag)) + ', ' + str(eval(args.tool+'.'+flag)) +']'
+      f = open(workspace+'/vivado_space.txt','a')
+      f.write(flag+' EnumParameter '+word+'\n')
     elif (len(eval(args.tool+'.'+flag)) > 2 or isinstance(eval(args.tool+'.'+flag)[0], str)):
       word = '{'
       length = len(eval(args.tool+'.'+flag))
@@ -210,8 +240,14 @@ if args.tool == 'vivado':
 if args.tool == 'quartus':
   f = open(workspace+'/quartus_space.txt','a')                       
   for flag in quartus_flags:
-    if isinstance(eval(args.tool+'.'+flag), str) or isinstance(eval(args.tool+'.'+flag), float) or isinstance(eval(args.tool+'.'+flag), int):
-      pass
+    if isinstance(eval(args.tool+'.'+flag), str):
+      word = '{'+ str(eval(args.tool+'.'+flag)) +'}'
+      f = open(workspace+'/quartus_space.txt','a')
+      f.write(flag+' EnumParameter '+word+'\n')
+    elif isinstance(eval(args.tool+'.'+flag), float) or isinstance(eval(args.tool+'.'+flag), int):
+      word = '['+ str(eval(args.tool+'.'+flag)) + ', ' + str(eval(args.tool+'.'+flag)) +']'
+      f = open(workspace+'/quartus_space.txt','a')
+      f.write(flag+' EnumParameter '+word+'\n')
     elif (len(eval(args.tool+'.'+flag)) > 2 or isinstance(eval(args.tool+'.'+flag)[0], str)):
       word = '{'
       length = len(eval(args.tool+'.'+flag))
