@@ -55,18 +55,17 @@ One way to enable password-less SSH:
 
       |Name                 |Usage                                    |Values                 |Note|
       |----|----|----|----|
-      |TOOL_NAME            |The name of tool to tune                 |vtr|vivado|other       |required for all tools|
-      |TOOL_INSTALL_PATH    |Path of tools                            |absoluate path         |required only for vtr.(the path to vtr_flow directory)|
+      |TOOL_NAME            |The name of tool to tune                 |vtr, vivado, other     |required for all tools|
       |DESIGN_NAME          |The name of design to tune               |string                 |required for all tools|
+      |WORKSPACE            |The directory to save intermediate data  |absoluate path         |required for all tools|
+      |TOOL_INSTALL_PATH    |Path of tools                            |absoluate path         |required only for vtr.(the path to vtr_flow directory)|
       |DESIGN_SAVE_PATH     |Path to find design                      |absoluate path         |required only for vivado|
       |TOP_MODULE           |The top module of RTL design             |string                 |required only for vivado|
       |SPACE_DEFINITION     |The search space definition file         |absoluate path         |required only for user program|
       |PYTHON_CODE          |The python code to use OpenTuner         |absoluate path         |required only for user program|
-      |WORKSPACE            |The directory to save intermediate data  |absoluate path         |required for all tools|
       |PROC_NUM             |The number of machines used for tuning   |integer                |optional default value: 3|
       |TEST_LIMIT           |The max number of searches to try        |interger               |optional default value: 100|
       |STOP_AFTER           |Stop DATuner when time out(s)            |integer                |optional default value: 7200(s)|
-      |DATuner_PATH         |The path to DATuner scripts directory    |absoluate path         |optional default value: current path|
   
   * get results
   
@@ -104,12 +103,28 @@ One way to enable password-less SSH:
 ###  Applications
 
    * Autotest 
+      
+      Use auto_test flow to test whether DATuner has been successfully build 
 
-        % cd $HOME
-        % python auto_test.py
+              % cd $HOME
+              % python auto_test.py
 
    * Tune VTR
+      
+      We choose to use "k6_frac_N10_mem32K_40nm.xml" (under vtr_flow/arch/timing) VTR FPGA architecture by default. If users want to use other architecture, users can modify tunevtr.py (under scripts/eda_flows/vtr). The VTR designs are saved under vtr_flow/benchmarks/verilog.
+
+      To tune VTR, please make sure "TOOL_INSTALL_PATH" is point to vtr_flow folder in the configuration file.
+
+              % cd $HOME/releases/Linux_x86_64/scripts
+              % python run_DATuner.py configvtr.txt
    
    * Tune Vivado
+
+      Please specify the path to design you want to run with vivado in the configuration file (DESIGN_SAVE_PATH). Inside the design folder, please support both verilog file(.v) and timing constraint(.xdc).
+
+              % cd $HOME/releases/Linux_x86_64/scripts
+              % python run_DATuner.py configvivado.txt
    
    * Tuner other programs
+
+      
