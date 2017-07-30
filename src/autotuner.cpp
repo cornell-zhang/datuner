@@ -331,16 +331,16 @@ void AutoTuner::parse_Quartus_result(vector<Result*>& results,int rank) {
 int AutoTuner::c2py(vector<Result*>& results,int rank, string pycode) {
   FILE* file = NULL;
   if(_tune_type == 1) {
-    file=fopen("tunevtr.py","r");
-    PyRun_SimpleFile(file,"tunevtr.py");
+    file=fopen("tune_vtr.py","r");
+    PyRun_SimpleFile(file,"tune_vtr.py");
   }
   if(_tune_type == 2) {
-    file=fopen("tunevivado.py","r");
-    PyRun_SimpleFile(file,"tunevivado.py");
+    file=fopen("tune_vivado.py","r");
+    PyRun_SimpleFile(file,"tune_vivado.py");
   }
   if(_tune_type == 3) {
-    file=fopen("tunequartus.py","r");
-    PyRun_SimpleFile(file,"tunequartus.py");
+    file=fopen("tune_quartus.py","r");
+    PyRun_SimpleFile(file,"tune_quartus.py");
   }
   if(_tune_type == 4) {
     file=fopen("tuneProgram.py","r");

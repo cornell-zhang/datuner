@@ -7,7 +7,6 @@ file delete -force $outputDir
 file mkdir $outputDir
 
 load_package flow
-project_new /work/zhang/users/eu49/datuner/releases/Linux_x86_64/scripts/eda_flows/quartus/design/processor/lab5_top -overwrite
-
+project_new $srcdir/$topmodule -overwrite
 source $workdir/options.tcl
 project_close

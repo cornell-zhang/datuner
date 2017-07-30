@@ -23,17 +23,34 @@ argparser.add_argument('--myrank',type=int, default=0,
 #----------------------------------------
 # Quartus parameter space
 #----------------------------------------
-map_flags = [
-  'map_effort',
-  'map_optimize'
-  ]
 
-fit_flags = [
-  'fit_effort',
-  'fit_optimize_io_register_for_timing',
-  'fit_pack_register',
-  'fit_tdc'
-  ]
+options = {'map_effort':'effort',
+           'map_optimize':'optimize',
+           'fit_effort':'effort',
+           'fit_optimize_io_register_for_timing':'optimize_io_register_for_timing',
+           'fit_pack_register':'pack_register',
+           'fit_tdc':'tdc'
+           }
+
+map_flags = []
+fit_flags = []
+
+with open("quartus_space.txt", 'r') as f:
+
+  lines = f.readlines()
+  i=0
+  j=0
+  for line in lines:
+    is_map = line.find("map_")
+    if not is_map==-1:
+      map_flag = line[:line.find(' ')].rstrip()
+      map_flags.append(map_flag) 
+      i+=1
+    is_fit = line.find("fit_")
+    if not is_fit==-1:
+      fit_flag = line[:line.find(' ')].rstrip()
+      fit_flags.append(fit_flag)
+      j+=1
 
 class QUARTUSFlagsTuner(MeasurementInterface):
   design='BENCH_HOLDER'
@@ -107,16 +124,18 @@ class QUARTUSFlagsTuner(MeasurementInterface):
     fitres = ''
     
     for flag in map_flags:
-      tcl_flag = flag[4:]
+      tcl_flag = options[flag]
       mapstr += '--'+tcl_flag+'='+cfg[flag]+' '
       mapres += flag+' '+cfg[flag]+' '
+
     mapstr = mapstr.rstrip()+'"'
     mapres = mapres.rstrip()
 
     for flag in fit_flags:
-      tcl_flag = flag[4:]
+      tcl_flag = options[flag]
       fitstr += '--'+tcl_flag+'='+cfg[flag]+' '
       fitres += flag+' '+cfg[flag]+' '
+    
     fitstr = fitstr.rstrip()+'"'
     fitres = fitres.rstrip()
 
@@ -137,11 +156,11 @@ class QUARTUSFlagsTuner(MeasurementInterface):
 
     #-----------pass result---------#
    
-    report_path = "/work/zhang/users/eu49/datuner/releases/Linux_x86_64/scripts/eda_flows/quartus/design/processor/"
+    report_path = self.designpath
 
     def get_timing():
 
-      with open(report_path+"lab5_top.sta.rpt", 'r') as f:
+      with open(report_path+self.topmodule+".sta.rpt", 'r') as f:
 
         lines = f.readlines()
 
@@ -182,7 +201,7 @@ class QUARTUSFlagsTuner(MeasurementInterface):
       
     def get_utilization():
 
-      with open(report_path+"lab5_top.fit.rpt", 'r') as f:
+      with open(report_path+self.topmodule+".fit.rpt", 'r') as f:
 
         lines = f.readlines()
 
