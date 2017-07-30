@@ -36,9 +36,11 @@ if os.path.exists(pwd+'/vtr.py') and args.tool == 'vtr':
 elif os.path.exists(pwd+'/vivado.py') and args.tool == 'vivado':
   sys.path.append(pwd)
   import vivado
+  top_module = eval(args.tool+'.top_module')
 elif os.path.exists(pwd+'/quartus.py') and args.tool == 'quartus':
   sys.path.append(pwd)
   import quartus
+  top_module = eval(args.tool+'.top_module')
 else:
   print "nothing found under current folder"
 
@@ -55,9 +57,7 @@ else:
     work_space = eval(args.tool+'.work_space')
 
 
-
 design_path = eval(args.tool+'.design_path')
-top_module = eval(args.tool+'.top_module')
 proc_num = args.para
 space_def = 'SPACE_DEF_HOLD'
 py_code = 'PYTHON_CODE_HOLD'
@@ -65,12 +65,38 @@ datuner_path = pwd+'/../releases/Linux_x86_64/scripts'
 objective = 'OBJECTIVE_HOLD'
 cst_value = 'CST_VALUE_HOLD'
 
-
-# extract design name from design path
-if eval(args.tool+'.design_path')[-1] == '/' :
-  design_name = eval(args.tool+'.design_path').split('/')[-2]
+# check design path
+if args.tool == 'vivado' or args.tool == 'quartus':
+  dir_list=[]
+  if eval(args.tool+'.design_path') == '':
+    for count in os.listdir(pwd): 
+      if os.path.isdir(count):
+        dir_list.append(count)
+    print "design path not assigned."
+    word = ''
+    for index in dir_list:
+      word += "  " + index
+    design_input = raw_input("please enter other path or design name if in current folder: " + word +"\n")
+    if design_input in dir_list:
+      design_path = pwd + "/" +design_input
+    elif not os.path.isdir(design_input):
+      print "error: invalid design path"
+    else:
+      design_path = design_input
+    print 'design_path is: '+design_path
+  elif os.path.isdir(eval(args.tool+'.design_path')):
+    design_path = eval(args.tool+'.design_path')
+  else:
+    print "error: the design path is invalid"
+    sys.exit(1)
 else:
-  design_name = eval(args.tool+'.design_path').split('/')[-1]
+  design_path = eval(args.tool+'.design_path')
+  
+# extract design name from design path
+if design_path[-1] == '/' :
+  design_name = design_path.split('/')[-2]
+else:
+  design_name = design_path.split('/')[-1]
 
 #-------parameters check------
 if args.tool== '':
@@ -240,28 +266,31 @@ if args.tool == 'vivado':
 if args.tool == 'quartus':
   f = open(workspace+'/quartus_space.txt','a')                       
   for flag in quartus_flags:
-    if isinstance(eval(args.tool+'.'+flag), str):
-      word = '{'+ str(eval(args.tool+'.'+flag)) +'}'
-      f = open(workspace+'/quartus_space.txt','a')
-      f.write(flag+' EnumParameter '+word+'\n')
-    elif isinstance(eval(args.tool+'.'+flag), float) or isinstance(eval(args.tool+'.'+flag), int):
-      word = '['+ str(eval(args.tool+'.'+flag)) + ', ' + str(eval(args.tool+'.'+flag)) +']'
-      f = open(workspace+'/quartus_space.txt','a')
-      f.write(flag+' EnumParameter '+word+'\n')
-    elif (len(eval(args.tool+'.'+flag)) > 2 or isinstance(eval(args.tool+'.'+flag)[0], str)):
-      word = '{'
-      length = len(eval(args.tool+'.'+flag))
-      for index in range(length):
-        word += str(eval(args.tool+'.'+flag)[index]) + ', '
-      word = word[0:-2]
-      word += '}'
-      f = open(workspace+'/quartus_space.txt','a')
-      f.write(flag+' EnumParameter '+word+'\n')
-    else:
-      f = open(workspace+'/quartus_space.txt','a')
-      word = '[' + str(eval(args.tool+'.'+flag)[0]) + ' ,' + str(eval(args.tool+'.'+flag)[1]) + ']'
-      f.write(flag+' FloatParameter '+word+'\n')
-    f.close()
+    try:
+      if isinstance(eval(args.tool+'.'+flag), str):
+        word = '{'+ str(eval(args.tool+'.'+flag)) +'}'
+        f = open(workspace+'/quartus_space.txt','a')
+        f.write(flag+' EnumParameter '+word+'\n')
+      elif isinstance(eval(args.tool+'.'+flag), float) or isinstance(eval(args.tool+'.'+flag), int):
+        word = '['+ str(eval(args.tool+'.'+flag)) + ', ' + str(eval(args.tool+'.'+flag)) +']'
+        f = open(workspace+'/quartus_space.txt','a')
+        f.write(flag+' EnumParameter '+word+'\n')
+      elif (len(eval(args.tool+'.'+flag)) > 2 or isinstance(eval(args.tool+'.'+flag)[0], str)):
+        word = '{'
+        length = len(eval(args.tool+'.'+flag))
+        for index in range(length):
+          word += str(eval(args.tool+'.'+flag)[index]) + ', '
+        word = word[0:-2]
+        word += '}'
+        f = open(workspace+'/quartus_space.txt','a')
+        f.write(flag+' EnumParameter '+word+'\n')
+      else:
+        f = open(workspace+'/quartus_space.txt','a')
+        word = '[' + str(eval(args.tool+'.'+flag)[0]) + ' ,' + str(eval(args.tool+'.'+flag)[1]) + ']'
+        f.write(flag+' FloatParameter '+word+'\n')
+      f.close()
+    except:
+      pass
 
 # copy necessary file to workspace
 binDir =  datuner_path+"/../bin"
