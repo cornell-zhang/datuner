@@ -10,8 +10,7 @@ import sys
 
 pwd = os.getcwd()                                                    # debug use
 work_space = 'workspace_holder'                                      # set workspace to store intermediate files
-top_module = 'please assign the name of top module'                  # settings for vivado and quartus
-design_path = '/home/sx233/datuner/diffeq1'                          # cp files in design path to wrkspace                                         
+design_path = '/home/sx233/datuner/diffeq1'                          # cp files in design path to wrkspace                                      
 tool_path = 'vtr_flow_holder'
 
 #------user defined tuning paramter-------------------
