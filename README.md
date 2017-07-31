@@ -4,7 +4,7 @@
 
 ### Prerequisites
 
-EDA tools (VTR and Vivado).
+EDA tools (VTR, Vivado, and Quartus).
 Make sure the tool is on your PATH.
 
 ### Compilation
@@ -21,7 +21,7 @@ Build time: ~18 minitues on zhang-05.
     
 ### Environment setup
 
-            % cd $HOME
+            % cd $HOME/datuner
             % source setup.sh
        
 ### Enable password-less SSH between machines
@@ -36,44 +36,23 @@ One way to enable password-less SSH:
             % ssh-keygen -t rsa
             % ./envset.sh
 
-###  Tune with DATuner
+###  Tuning with DATuner
 
-  * run DATuner
+  * Run DATuner
   
-    DATuner is an autotuner to tune EDA tool's parameters. We already support vivado and vtr. If you want to tune other EDA tools, please support the required documents. Please refer to the application part.
+    DATuner is an autotuner to tune EDA tools' parameters. We currently support VTR, Vivado, and Quartus. If you want to tune other EDA tools, please include the required documents. Please refer to the application part.
     
-    To run DATuner:
+    To run DATuner, first copy the relevant python script (i.e. vtr.py, vivado.py, or quartus.py) from $HOME/releases/Linux_x86_64/scripts/tests into your current directory to set the workspace, the topmodule (for Vivado and Quartus), the design path, and the parameters (EDA options) to be tuned. Options (i.e. flags) can be removed/commented out from the script, but should not be renamed. Then run the following command:
   
-            % cd $HOME/releases/Linux_x86_64/scripts/
-            % ./run_DATuner.py <configuration file>
+            % datuner.py -f <vtr|vivado|quartus|custom> -b <budget> -t <timeout> -p <parallelization factor> (example usage: datuner.py -f quartus -b 10 -t 1d 1h 20m 10s -p 1)
 
-  * configuration file
-    
-    Under $HOME/releases/Linux_x86_64/scripts/,  we support three examples of configuration files for vivado, vtr, and user_program.
-
-    Explaination of configuration file:
-
-      |Name                 |Usage                                    |Values                 |Note|
-      |----|----|----|----|
-      |TOOL_NAME            |The name of tool to tune                 |vtr, vivado, other     |required for all tools|
-      |DESIGN_NAME          |The name of design to tune               |string                 |required for all tools|
-      |WORKSPACE            |The directory to save intermediate data  |absoluate path         |required for all tools|
-      |TOOL_INSTALL_PATH    |Path of tools                            |absoluate path         |required only for vtr.(the path to vtr_flow directory)|
-      |DESIGN_SAVE_PATH     |Path to find design                      |absoluate path         |required only for vivado|
-      |TOP_MODULE           |The top module of RTL design             |string                 |required only for vivado|
-      |SPACE_DEFINITION     |The search space definition file         |absoluate path         |required only for user program|
-      |PYTHON_CODE          |The python code to use OpenTuner         |absoluate path         |required only for user program|
-      |PROC_NUM             |The number of machines used for tuning   |integer                |optional default value: 3|
-      |TEST_LIMIT           |The max number of searches to try        |interger               |optional default value: 100|
-      |STOP_AFTER           |Stop DATuner when time out(s)            |integer                |optional default value: 7200(s)|
+  * Get results
   
-  * get results
-  
-      1) Under the $workspace/$tool/$design, we dump database and log file
+      1) Under $workspace/$tool/$design, we dump database and log file.
       
          database: $workspace/$tool/$design/results/result.db 
       
-         There is one table named "result" in the database. Inside table, it contains the following columns: id, parameters, and QoR. id is the index of configuration, which is unique and works as primary key. parameters are tool options, which are stings. QoR is the metric users want to tune, which is float type.
+         There is one table named "result" in the database. The table contains the following columns: id, parameters, and QoR. id is the index of the configuration, which is unique and works as primary key. parameters are tool options, which are strings. QoR is the metric users want to tune, which is of float type.
       
          The schema of table:
       
@@ -88,43 +67,40 @@ One way to enable password-less SSH:
       
          log file: tune.log. 
       
-         We calculate the best found configuration and QoR in each iteration
+         We calculate the best found configuration and QoR in each iteration.
       
       2) Visualization
   
          Under $HOME/releases/Linux_x86_64/scripts/visualization folder contains python script to plot the trace of DATuner tuning. We support plot multiple designs in one graph for comparison. Please define the series of designs you want to plot in the design list file. e.g, vivado_design.txt
      
-                        % cd $HOME/releases/Linux_x86_64/scripts/visualization
-                        % ./plot_design_performance.py <workspace> <design_list> <proc_num> <search_num> 
-                        % <workspace>: where to find the tunning results; <design_list>: text file; <proc_num>: the number of machines used; <search_num>: the number of iterations to plot.
+                     % cd $HOME/releases/Linux_x86_64/scripts/visualization
+                     % ./plot_design_performance.py <workspace> <design_list> <proc_num> <search_num> 
+                     % <workspace>: where to find the tunning results; <design_list>: text file; <proc_num>: the number of machines used; <search_num>: the number of iterations to plot.
             
             
-            
+
 ###  Applications
 
-   * Autotest 
-      
-      Use auto_test flow to test whether DATuner has been successfully build 
+   * Autotest
 
-              % cd $HOME
-              % python auto_test.py
+     Use auto_test flow to test whether DATuner has been successfully built. 
+
+                 % cd $HOME
+                 % python auto_test.py
 
    * Tune VTR
-      
-      We choose to use "k6_frac_N10_mem32K_40nm.xml" (under vtr_flow/arch/timing) VTR FPGA architecture by default. If users want to use other architecture, users can modify tunevtr.py (under scripts/eda_flows/vtr). The VTR designs are saved under vtr_flow/benchmarks/verilog.
 
-      To tune VTR, please make sure "TOOL_INSTALL_PATH" is point to vtr_flow folder in the configuration file.
+     We chose to use "k6_frac_N10_mem32K_40nm.xml" VTR FPGA architecture by default. If users want to use another architecture, tune_vtr.py (under scripts/eda_flows/vtr) can be modified accordingly.
 
-              % cd $HOME/releases/Linux_x86_64/scripts
-              % python run_DATuner.py configvtr.txt
+     To tune VTR, please make sure that "TOOL_PATH" points to vtr_flow_holder in vtr.py.
    
    * Tune Vivado
 
-      Please specify the path to design you want to run with vivado in the configuration file (DESIGN_SAVE_PATH). Inside the design folder, please support both verilog file(.v) and timing constraint(.xdc).
+     Inside the design folder, please support both Verilog file (.v) and the timing constraint (.xdc).
 
-              % cd $HOME/releases/Linux_x86_64/scripts
-              % python run_DATuner.py configvivado.txt
+   * Tune Quartus
    
-   * Tuner other programs
+     Since the report files will be saved in the folder that includes the corresponding design files, please make sure to delete all the created Quartus files each time before running DATuner.
 
-      
+   * Tune other programs
+

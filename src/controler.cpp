@@ -30,11 +30,11 @@ bool stop_tuning(int limits, int steps_per_iter, int iter, double tune_time, dou
 int main(int argc, char** argv){
 
   if(argc < 2) {
-    cerr<<"Usage: ./master <vtr|vivado|other> <--path WORKSPACE_PATH> [--space <space_definition_file>] [--test-limit TEST-LIMIT] \
+    cerr<<"Usage: ./master <vtr|vivado|quartus|other> <--path WORKSPACE_PATH> [--space <space_definition_file>] [--test-limit TEST-LIMIT] \
       [--stop-after STOP-AFTER]";
     exit(EXIT_FAILURE);
   }
-  enum app{vtr,vivado,other};
+  enum app{vtr,vivado,quartus,other};
   app myApp = other;
   
   fstream output_ftr;
@@ -57,6 +57,10 @@ int main(int argc, char** argv){
     if(string(argv[i]).find("vivado") != string::npos) {
       myApp = vivado;
       space_definition_file = "./vivado_space.txt";
+    }
+    if(string(argv[i]).find("quartus") != string::npos) {
+      myApp = quartus;
+      space_definition_file = "./quartus_space.txt";
     }
     if(string(argv[i]) == "--space") {
       assert(i < argc-1);
@@ -113,8 +117,9 @@ int main(int argc, char** argv){
 
   int tune_type;
   if(myApp == vtr) tune_type = 1;
-  else if(myApp ==vivado) tune_type = 2;
-  else tune_type = 3;
+  else if(myApp == vivado) tune_type = 2;
+  else if(myApp == quartus) tune_type = 3;
+  else tune_type = 4;
   for(int i = 1; i < pnum; i++) MPI_Send(&tune_type, 1,MPI_INT,i,0,MPI_COMM_WORLD);
   int use_best_prev_cfg = 0;
   if(share_best) use_best_prev_cfg = 1;

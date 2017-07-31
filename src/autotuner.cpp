@@ -6,7 +6,7 @@
 #include <fstream>
 #include "structure.h"
 
-//#define DEBUG_MSG
+#define DEBUG_MSG
 using namespace std;
 
 bool AutoTuner::callOpenTuner(Task* task, vector<Result*>& results, int rank, string path, string pycode) {
@@ -47,7 +47,7 @@ void AutoTuner::param_parse(Task* task, int rank) {
 }
 
 void AutoTuner::parse_ISE_result(vector<Result*>& results,int rank) {
-   results.resize(0);
+  results.resize(0);
   char tmp_buf[50];
   sprintf(tmp_buf,"localresult%d.txt",rank);
   string filename = _path+_design+"/"+string(tmp_buf);
@@ -114,7 +114,7 @@ void AutoTuner::parse_program_result(vector<Result*>& results, int rank) {
 }
 
 void AutoTuner::parse_VPR_result(vector<Result*>& results,int rank) {
-   results.resize(0);
+  results.resize(0);
   char tmp_buf[50];
   sprintf(tmp_buf,"localresult%d.txt",rank);
   string filename = _path+"/"+string(tmp_buf);
@@ -144,7 +144,7 @@ void AutoTuner::parse_VPR_result(vector<Result*>& results,int rank) {
 }
 
 void AutoTuner::parse_Vivado_result(vector<Result*>& results,int rank) {
- results.resize(0);
+  results.resize(0);
   char tmp_buf[50];
   sprintf(tmp_buf,"localresult%d.txt",rank);
   string filename = _path+"/"+string(tmp_buf);
@@ -252,21 +252,102 @@ void AutoTuner::parse_Vivado_result(vector<Result*>& results,int rank) {
   ftr.close();
   
 }
+
+void AutoTuner::parse_Quartus_result(vector<Result*>& results,int rank) {
+  results.resize(0);
+  char tmp_buf[50];
+  sprintf(tmp_buf,"localresult%d.txt",rank);
+  string filename = _path+"/"+string(tmp_buf);
+  fstream ftr;
+  ftr.open(filename.c_str(),fstream::in);
+  assert(ftr.is_open());
+  string buf;
+  while(ftr>>buf) {
+    string name1;
+    ftr>>name1;
+    string val1;
+    ftr>>val1;
+    string name2;
+    ftr>>name2;
+    string val2;
+    ftr>>val2;
+    string name3;
+    ftr>>name3;
+    string val3;
+    ftr>>val3;
+    string name4;
+    ftr>>name4;
+    string val4;
+    ftr>>val4;
+    string name5;
+    ftr>>name5;
+    string val5;
+    ftr>>val5;
+    string name6;
+    ftr>>name6;
+    string val6;
+    ftr>>val6;
+
+    string metric;
+    ftr>>metric;
+    string score;
+    ftr>>score;    
+
+    Result* result = new Result();
+    result->score = atof(score.c_str()); //maximize WNS
+    result->id = _task;
+    
+    {
+      pair<string,string> tmp = make_pair(name1,val1);
+      result->name2choice.push_back(tmp);
+    }
+    {
+      pair<string,string> tmp = make_pair(name2,val2);
+      result->name2choice.push_back(tmp);
+    }
+    {
+      pair<string,string> tmp = make_pair(name3,val3);
+      result->name2choice.push_back(tmp);
+    }
+    {
+      pair<string,string> tmp = make_pair(name4,val4);
+      result->name2choice.push_back(tmp);
+    }
+    {
+      pair<string,string> tmp = make_pair(name5,val5);
+      result->name2choice.push_back(tmp);
+    }
+    {
+      pair<string,string> tmp = make_pair(name6,val6);
+      result->name2choice.push_back(tmp);
+    }
+        
+    results.push_back(result);
+  
+  }
+
+  ftr.close();
+
+}
+
 int AutoTuner::c2py(vector<Result*>& results,int rank, string pycode) {
   FILE* file = NULL;
   if(_tune_type == 1) {
-    file=fopen("tunevtr.py","r");
-    PyRun_SimpleFile(file,"tunevtr.py");
+    file=fopen("tune_vtr.py","r");
+    PyRun_SimpleFile(file,"tune_vtr.py");
   }
   if(_tune_type == 2) {
-    file=fopen("tunevivado.py","r");
-    PyRun_SimpleFile(file,"tunevivado.py");
+    file=fopen("tune_vivado.py","r");
+    PyRun_SimpleFile(file,"tune_vivado.py");
   }
   if(_tune_type == 3) {
-    file=fopen("tuneProgram.py","r");
-    PyRun_SimpleFile(file,"tuneProgram.py");
+    file=fopen("tune_quartus.py","r");
+    PyRun_SimpleFile(file,"tune_quartus.py");
   }
-
+  if(_tune_type == 4) {
+    file=fopen("tune_program.py","r");
+    PyRun_SimpleFile(file,"tune_program.py");
+  }
   if(PyErr_Occurred()) {
     PyErr_Print();
     abort();
@@ -274,6 +355,7 @@ int AutoTuner::c2py(vector<Result*>& results,int rank, string pycode) {
 
   if(_tune_type == 1) parse_VPR_result(results,rank);
   if(_tune_type == 2) parse_Vivado_result(results,rank);
-  if(_tune_type == 3) parse_program_result(results,rank);
+  if(_tune_type == 3) parse_Quartus_result(results,rank);
+  if(_tune_type == 4) parse_program_result(results,rank);
   return 0;
 }

@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
   MPI_Get_processor_name(hostname,&len);
   
   printf("wake machine %s...\n",hostname);
-  int tune_type = 0; //1: vtr 2: vivado 3: other
+  int tune_type = 0; //1: vtr 2: vivado 3: quartus 4: other
   MPI_Recv(&tune_type,1,MPI_INT,0,0,MPI_COMM_WORLD,&status);
   int share_best = 1; //0:false 1:true
   MPI_Recv(&share_best,1,MPI_INT,0,0,MPI_COMM_WORLD,&status);

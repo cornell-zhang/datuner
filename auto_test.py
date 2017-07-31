@@ -3,15 +3,18 @@ import platform
 
 pwd = os.getcwd()
 vtr_path = pwd + '/build/pkgs/vtr/vtr_release/vtr_flow'
-workspace_path = pwd + '/build_test/'
+workspace_path = pwd + '/build_test'
+try:
+  os.makedirs(workspace_path)
+except:
+  pass
 
 s = platform.system()
 a = platform.machine()
 
 script_folder = pwd + '/releases/' + platform.system() + '_' + platform.machine() + '/scripts'
-test_config_file = script_folder + '/tests/configvtr_template.txt'
-config_out = script_folder + '/tests/configvtr.txt'
-run_script = script_folder + '/run_DATuner.py'
+test_config_file = script_folder + '/tests/vtr.py'
+config_out = workspace_path + '/vtr.py'
 
 # update hostname
 f = open(script_folder + '/my_hosts', 'w')
@@ -28,8 +31,12 @@ for line in f1:
 f1.close()
 f2.close()
 
+# make datuner.py excutable
+os.system('chmod 775 ./releases/Linux_x86_64/scripts/datuner.py')
+
 # run opentuner
-os.system('python ' + run_script + ' ' + config_out)
+os.chdir(workspace_path)
+os.system('datuner.py -f vtr -p 1 -b 1 -t 20s')
 
 # check results
 
