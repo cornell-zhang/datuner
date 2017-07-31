@@ -337,7 +337,7 @@ elif args.tool == "quartus":
 
 else:
   srcFile = py_code
-  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datuner_path+":g\" "+srcFile+" > "+workspace+"/tuneProgram.py"
+  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datuner_path+":g\" "+srcFile+" > "+workspace+"/tune_program.py"
   os.system(sedcmd)
   cpcmd = "cp "+datuner_path+"/eda_flows/user_program_example/programWrapper.py "+workspace
   os.system(cpcmd)

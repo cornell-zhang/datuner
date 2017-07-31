@@ -343,8 +343,8 @@ int AutoTuner::c2py(vector<Result*>& results,int rank, string pycode) {
     PyRun_SimpleFile(file,"tune_quartus.py");
   }
   if(_tune_type == 4) {
-    file=fopen("tuneProgram.py","r");
-    PyRun_SimpleFile(file,"tuneProgram.py");
+    file=fopen("tune_program.py","r");
+    PyRun_SimpleFile(file,"tune_program.py");
   }
   if(PyErr_Occurred()) {
     PyErr_Print();
