@@ -299,7 +299,7 @@ os.system(cpcmd)
 
 if args.tool == "vtr":
   srcFile = datuner_path+"/eda_flows/"+args.tool+"/tune_"+args.tool+".py"
-  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:VTRFLOWPATH_HOLDER:"+tool_path+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datuner_path+":g\" "+srcFile+" > "+workspace+"/tune"+args.tool+".py"
+  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:VTRFLOWPATH_HOLDER:"+tool_path+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datuner_path+":g\" "+srcFile+" > "+workspace+"/tune_"+args.tool+".py"
   os.system(sedcmd)
 #  cpcmd = "cp "+datuner_path+"/eda_flows/"+args.tool+"/"+args.tool+"_space.txt "+workspace
 #  os.system(cpcmd)
@@ -312,7 +312,7 @@ elif args.tool == "vivado":
     srcFile = srcFile + "/tune_vivado.py"
     
   print "debug use "+srcFile
-  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:TOPMODULE_HOLDER:"+top_module+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datuner_path+":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+":g\" "+srcFile+" > "+workspace+"/tune"+args.tool+".py"
+  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:TOPMODULE_HOLDER:"+top_module+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datuner_path+":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+":g\" "+srcFile+" > "+workspace+"/tune_"+args.tool+".py"
   os.system(sedcmd)
 
 #  space_file_cmd ="cp "+datuner_path+"/eda_flows/"+args.tool+"/"+args.tool+"_space.txt "+workspace
@@ -330,7 +330,7 @@ elif args.tool == "quartus":
            ":g\" -e \"s:TOPMODULE_HOLDER:"+top_module+\
            ":g\" -e \"s:SCRIPTPATH_HOLDER:"+datuner_path+\
            ":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+\
-           ":g\" "+srcFile+" > "+workspace+"/tune"+args.tool+".py"
+           ":g\" "+srcFile+" > "+workspace+"/tune_"+args.tool+".py"
   os.system(sedcmd)
 #  cpcmd = "cp "+datuner_path+"/eda_flows/"+args.tool+"/"+args.tool+"_space.txt "+workspace
 #  os.system(cpcmd) 
