@@ -78,7 +78,7 @@ One way to enable password-less SSH:
                      % <workspace>: where to find the tunning results; <design_list>: text file; <proc_num>: the number of machines used; <search_num>: the number of iterations to plot.
             
             
-            
+
 ###  Applications
 
    * Autotest
@@ -103,3 +103,4 @@ One way to enable password-less SSH:
      Since the report files will be saved in the folder that includes the corresponding design files, please make sure to delete all the created Quartus files each time before running DATuner.
 
    * Tune other programs
+

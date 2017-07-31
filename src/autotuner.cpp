@@ -88,6 +88,7 @@ void AutoTuner::parse_program_result(vector<Result*>& results, int rank) {
   char buf[3000];
   while(!ftr.eof()) {
     ftr.getline(buf,3000);
+    printf("debug %s\n",buf);
     if(ftr.eof()) break;
     Result* result = new Result();
     result->id = _task;
@@ -106,9 +107,10 @@ void AutoTuner::parse_program_result(vector<Result*>& results, int rank) {
         result->score = atof(name.c_str());
       }
     }
+    printf("%d->%f\n",result->id,result->score);
     results.push_back(result);
   }
-  ftr.close();  
+  ftr.close();
 }
 
 void AutoTuner::parse_VPR_result(vector<Result*>& results,int rank) {

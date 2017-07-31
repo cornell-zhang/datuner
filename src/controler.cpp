@@ -168,6 +168,7 @@ int main(int argc, char** argv){
       if(result_buf.size() != 0) {
         db->SaveResults(result_buf,num_samples);
         num_samples += result_buf.size();
+        printf("debug save result db OK\n");
       }
       for(int j = 0; j < result_buf.size(); j++) {
         Result* result = result_buf[j];
