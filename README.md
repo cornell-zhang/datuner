@@ -42,9 +42,11 @@ One way to enable password-less SSH:
   
     DATuner is an autotuner to tune EDA tools' parameters. We currently support VTR, Vivado, and Quartus. If you want to tune other EDA tools, please include the required documents. Please refer to the application part.
     
-    To run DATuner, first copy the relevant python script (i.e. vtr.py, vivado.py, or quartus.py) from $HOME/releases/Linux_x86_64/scripts/tests into your current directory to set the workspace, the topmodule (for Vivado and Quartus), the design path, and the parameters (EDA options) to be tuned. Options (i.e. flags) can be removed/commented out from the script, but should not be renamed. Then run the following command:
+    To run DATuner, first copy the relevant python script (i.e. vtr.py, vivado.py, or quartus.py) from $HOME/releases/Linux_x86_64/scripts/tests into your current directory, and set the workspace, the topmodule (for Vivado and Quartus), the design path, and the parameters (EDA options) to be tuned. Options (i.e. flags) can be removed/commented out from the script, but should not be renamed. if the workspace is blank, the program will automatically create a "project" folder under the current directory.
+    Then run the following command:
   
             % datuner.py -f <vtr|vivado|quartus|custom> -b <budget> -t <timeout> -p <parallelization factor> (example usage: datuner.py -f quartus -b 10 -t 1d 1h 20m 10s -p 1)
+  only the -f option is required. and -t option supports time with any commbination of day, hour, minute and second.
 
   * Get results
   
@@ -103,4 +105,6 @@ One way to enable password-less SSH:
      Since the report files will be saved in the folder that includes the corresponding design files, please make sure to delete all the created Quartus files each time before running DATuner.
 
    * Tune other programs
+     
+     Please modify your python code according to the tuneProgramTemplate.py under user_programe_example folder. make sure your python code import the programWrapper.py, and custom.py under you current directory includes the path of space definition textfile
 
