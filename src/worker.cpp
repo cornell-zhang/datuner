@@ -81,7 +81,7 @@ int main(int argc, char** argv) {
   tmp_fake_argv.push_back(string(rankname));
   sprintf(rankname,"r%d.db",myrank);
   string db_path = "--database="+spacepath+"/"+rankname;
-  tmp_fake_argv.push_back(db_path)
+  tmp_fake_argv.push_back(db_path);
 
   if(share_best) {
     tmp_fake_argv.push_back("--seed-configuration");
