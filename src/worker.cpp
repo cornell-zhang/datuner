@@ -14,13 +14,12 @@
 #include "msg_passing.h"
 #include "autotuner.h"
 #include "space_partition.h"
-//#include "database.h"
 
 using namespace std;
 
 int main(int argc, char** argv) {
-  if(argc < 5) {
-    printf("./worker -design <design name> -path <path2workspace> -pycode <pythoncode> \n");
+  if(argc < 6) {
+    printf("./worker <--design DESIGN-NAME> <--path WORKSPACE-PATH> <--pycode PYTHON-CODE> \n");
     return 0;
   }
   /*************MPI initialization*******************/
@@ -34,7 +33,6 @@ int main(int argc, char** argv) {
   MPI_Comm_size(MPI_COMM_WORLD,&pnum);
   MPI_Get_processor_name(hostname,&len);
   
-  printf("wake machine %s...\n",hostname);
   int tune_type = 0; //1: vtr 2: vivado 3: quartus 4: other
   MPI_Recv(&tune_type,1,MPI_INT,0,0,MPI_COMM_WORLD,&status);
   int share_best = 1; //0:false 1:true
@@ -44,10 +42,11 @@ int main(int argc, char** argv) {
   string spacepath = "";
   string pycode    = "";
   string design    = "";
-  int fake_argc    = 0;
   int tune_cst     = 0;
+  int fake_argc    = 0;
   char** fake_argv = NULL;
   vector<string> tmp_fake_argv;
+  
   for(int i = 0; i < argc; i++) {
     if(strcmp(argv[i],"-path") == 0) {
       assert(i < argc-1);
@@ -130,7 +129,6 @@ int main(int argc, char** argv) {
     Task* task = NULL;
     Recv_Task(task, 0);
     assert(task != NULL);
-
 
     vector<Result*> results;
     AutoTuner* tuner = new AutoTuner(task->subspace->id, design, tune_type, tune_cst); //start from 1

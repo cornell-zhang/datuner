@@ -21,6 +21,7 @@ bool AutoTuner::callOpenTuner(Task* task, vector<Result*>& results, int rank, st
 #endif
   return true;
 }
+
 void AutoTuner::param_parse(Task* task, int rank) {
   _step = task->step;
   Space* space = task->subspace;
@@ -46,36 +47,6 @@ void AutoTuner::param_parse(Task* task, int rank) {
   ftr.close();
 }
 
-void AutoTuner::parse_ISE_result(vector<Result*>& results,int rank) {
-  results.resize(0);
-  char tmp_buf[50];
-  sprintf(tmp_buf,"localresult%d.txt",rank);
-  string filename = _path+_design+"/"+string(tmp_buf);
-  fstream ftr;
-  ftr.open(filename.c_str(),fstream::in);
-  assert(ftr.is_open());
-  string buf;
-  while(ftr>>buf) {
-    string name = buf;
-    string value;
-    ftr>>value;
-    Result* result = new Result();
-    result->id = _task;
-    pair<string,string> tmp_pair = make_pair(name,value);
-    result->name2choice.push_back(tmp_pair);
-    for(int i = 0; i < 13; i++) {
-      ftr>>name;
-      ftr>>value;
-      pair<string,string> tmp = make_pair(name,value);
-      result->name2choice.push_back(tmp);
-    }
-    ftr>>buf;
-    result->score = atof(buf.c_str()); //original optuner result is minimization
-    results.push_back(result); 
-    ftr>>buf;//runtime
-  }
-  ftr.close();
-}
 
 void AutoTuner::parse_program_result(vector<Result*>& results, int rank) {
   results.resize(0);
@@ -84,11 +55,15 @@ void AutoTuner::parse_program_result(vector<Result*>& results, int rank) {
   string filename = _path+"/"+string(tmp_buf);
   fstream ftr;
   ftr.open(filename.c_str(),fstream::in);
+  if(!ftr.is_open()) {
+    printf("Can't measure the searching result... Exit and please check\n");
+  }
   assert(ftr.is_open());
+  // dump result format: configuration-name : value ; ... ; QoR
+  // make sure your result follow this format
   char buf[3000];
   while(!ftr.eof()) {
     ftr.getline(buf,3000);
-    printf("debug %s\n",buf);
     if(ftr.eof()) break;
     Result* result = new Result();
     result->id = _task;
@@ -240,7 +215,6 @@ void AutoTuner::parse_Vivado_result(vector<Result*>& results,int rank) {
       result->name2choice.push_back(tmp);
     }
    
-    //check name10!!
     if(_tune_cst) {
       pair<string,string> tmp = make_pair(name10,val10);
       result->name2choice.push_back(tmp);
@@ -266,27 +240,35 @@ void AutoTuner::parse_Quartus_result(vector<Result*>& results,int rank) {
     string name1;
     ftr>>name1;
     string val1;
-    ftr>>val1;
+    ftr>>buf>>val1;
     string name2;
     ftr>>name2;
     string val2;
-    ftr>>val2;
+    ftr>>buf>>val2;
     string name3;
     ftr>>name3;
     string val3;
-    ftr>>val3;
+    ftr>>buf>>val3;
     string name4;
     ftr>>name4;
     string val4;
-    ftr>>val4;
+    ftr>>buf>>val4;
     string name5;
     ftr>>name5;
     string val5;
-    ftr>>val5;
+    ftr>>buf>>val5;
     string name6;
     ftr>>name6;
     string val6;
-    ftr>>val6;
+    ftr>>buf>>val6;
+    string name7;
+    ftr>>name7;
+    string val7;
+    ftr>>buf>>val7;
+    string name8;
+    ftr>>name8;
+    string val8;
+    ftr>>buf>>val8;
 
     string metric;
     ftr>>metric;
@@ -297,31 +279,39 @@ void AutoTuner::parse_Quartus_result(vector<Result*>& results,int rank) {
     result->score = atof(score.c_str()); //maximize WNS
     result->id = _task;
     
-    {
-      pair<string,string> tmp = make_pair(name1,val1);
+    if(name1 == "quartus_map --effort") {
+      pair<string,string> tmp = make_pair("map_effort",val1);
       result->name2choice.push_back(tmp);
     }
-    {
-      pair<string,string> tmp = make_pair(name2,val2);
+    if(name2 == "quartus_map --incremental_compilation") {
+      pair<string,string> tmp = make_pair("map_incremental_compilation",val2);
       result->name2choice.push_back(tmp);
     }
-    {
-      pair<string,string> tmp = make_pair(name3,val3);
+    if(name3 == "quartus_map --optimize") {
+      pair<string,string> tmp = make_pair("map_optimize",val3);
       result->name2choice.push_back(tmp);
     }
-    {
-      pair<string,string> tmp = make_pair(name4,val4);
+    if(name4 == "quartus_map --parallel") {
+      pair<string,string> tmp = make_pair("map_parallel",val4);
       result->name2choice.push_back(tmp);
     }
-    {
-      pair<string,string> tmp = make_pair(name5,val5);
+    if(name5 == "quartus_fit --effort") {
+      pair<string,string> tmp = make_pair("fit_effort",val5);
       result->name2choice.push_back(tmp);
     }
-    {
-      pair<string,string> tmp = make_pair(name6,val6);
+    if(name6 == "quartus_fit --optimize_io_register_for_timing") {
+      pair<string,string> tmp = make_pair("fit_optimize_io_register_for_timing",val6);
       result->name2choice.push_back(tmp);
     }
-        
+    if(name7 == "quartus_fit --pack_register") {
+      pair<string,string> tmp = make_pair("fit_pack_register",val7);
+      result->name2choice.push_back(tmp);
+    }
+    if(name8 == "quartus_fit --tdc") {
+      pair<string,string> tmp = make_pair("fit_tdc",val8);
+      result->name2choice.push_back(tmp);
+    }
+    
     results.push_back(result);
   
   }

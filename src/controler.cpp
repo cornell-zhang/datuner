@@ -21,21 +21,18 @@
 using namespace std;
 
 bool sortfunction(pair<int,float> p1, pair<int,float> p2) {return p1.second > p2.second;}
-bool stop_partition(int iter,int,int);
+bool stop_partition(int iter,int size, int proc_num);
 void gen_ref_starting_point(char* name, Result* result, map<string, string> name2type);
-void taskAssign(map<string,string> name2type, map<int,Result*> space2best, bool share_best, map<int,Space*> space_buffer, vector<pair<int,float> >reward, map<int,vector<Result*> > points, int pnum, int iter);
-bool stop_tuning(int limits, int steps_per_iter, int iter, double tune_time, double runtime, int num_samples, int space_size);
+void taskAssign(map<string,string> name2type, map<int,Result*> space2best, bool share_best, map<int,Space*> space_buffer, vector<pair<int,float> >reward, map<int,vector<Result*> > points, int proc_num, int iter);
 
 
 int main(int argc, char** argv){
 
-  if(argc < 2) {
-    cerr<<"Usage: ./master <vtr|vivado|quartus|other> <--path WORKSPACE_PATH> [--space <space_definition_file>] [--test-limit TEST-LIMIT] \
-      [--stop-after STOP-AFTER]";
+  if(argc < 3) {
+    cerr<<"Usage: ./master <vtr|vivado|quartus|other> <--path WORKSPACE-PATH>  [--space SPACE-DEFINITION-FILE] [--test-limit TEST-LIMIT] \
+      [--stop-after STOP-AFTER] [--search-per-iter SEARCH-PER-ITERATION]";
     exit(EXIT_FAILURE);
   }
-  enum app{vtr,vivado,quartus,other};
-  app myApp = other;
   
   fstream output_ftr;
   output_ftr.open("tune.log",fstream::out);
@@ -44,11 +41,15 @@ int main(int argc, char** argv){
   output_ftr<<"--------------------------------------"<<endl;
 
   /******** parse parameters ***********/
-  bool share_best = true;
+  enum app{vtr,vivado,quartus,other};
+  app myApp = other; 
+  string workspace_path = "";
   string space_definition_file = "";
-  int limits = 100;
-  double tune_time = 7200; //tune 2 hours
-  string spacepath = "";
+  int limits = 100; //default: run 100 times of searches
+  double tune_time = 7200; //default: tune 2 hours
+  int search_per_iter = 5; //default: run 5 searches in each iteration
+  bool share_best = true;
+
   for(int i = 0; i < argc; i++) {
     if(string(argv[i]).find("vtr") != string::npos) {
       myApp = vtr;
@@ -76,12 +77,17 @@ int main(int argc, char** argv){
     }
     if(string(argv[i]) == "--path") {
       assert(i < argc-1);
-      spacepath = string(argv[i+1]);
+      workspace_path = string(argv[i+1]);
+    }
+    if(string(argv[i]) == "--search-per-iter") {
+      assert(i < argc-1);
+      search_per_iter = atoi(argv[i+1]);
     }
   }
 
   output_ftr<<"configuration: test-limit: "<<limits<<" stop-after: "<<tune_time<<"(s)"<<endl;
-  /********generate solution space************/
+  
+  /******** generate solution space from space_definition_file ************/
   int space_size;
   Space* orgSpace = NULL;
   genOrgSpace(orgSpace,space_definition_file, space_size);
@@ -95,6 +101,7 @@ int main(int argc, char** argv){
     }
   }
 
+  /******** initial space buffer **************************************/
   map<int,Space*> space_buffer;
   initDivision(orgSpace,space_buffer);
   assert(space_buffer.size() != 0);
@@ -104,7 +111,7 @@ int main(int argc, char** argv){
   auc_bandit->check_arms(space_buffer);
   int last_space_id = space_buffer.size();//index startting from one;
 
-  /*********MPI initialization*********/
+  /********* MPI initialization *********/
   int myrank;
   int pnum;
   int len;
@@ -127,29 +134,29 @@ int main(int argc, char** argv){
 
   /********database to save results**********/
   map<int,vector<Result*> > points; //space2results 
-  map<int,Result*> space2best; //the best points in each subspace
+  map<int,Result*> space2best; //the best point in each subspace
   
-  DataBase* db = new DataBase(spacepath);
+  DataBase* db = new DataBase(workspace_path);
   if(!db->OpenDB()) return -1;
   if(!db->CreateTable(orgSpace)) return -1;
+  
   /********searching**************/
-  int steps_per_iter = 2; //#steps per iteration
-  int num_samples = 0;
   Stopwatch timer;
   init(&timer, CLOCK_REALTIME);
+  int num_samples = 0;
   int iter = 0; //iteration counter
   int cond = 0; //condition flag: indicates whether stop or not 
-  Result* gbest_result = NULL;
-  int total_round = ceil(limits/steps_per_iter);
+  Result* gbest_result = NULL; //global best result
+  int total_round = ceil(limits/search_per_iter); //#round of iterations
 
   while(1) {
     tick(&timer);
-    cond = 1;
+    cond = 1;//go! tuning
     for(int i = 1; i < pnum; i++) {
       MPI_Send(&cond,1,MPI_INT,i,0,MPI_COMM_WORLD);
     }
     for(int i = 1; i < pnum; i++) {
-      MPI_Send(&steps_per_iter,1,MPI_INT,i,0,MPI_COMM_WORLD);
+      MPI_Send(&search_per_iter,1,MPI_INT,i,0,MPI_COMM_WORLD);
     }
 
     //calculate bandit score
@@ -177,7 +184,7 @@ int main(int argc, char** argv){
         else {
           if(result->score < gbest_result->score) gbest_result = result;
         }
-        if(points.count(result->id) > 0) {
+        if(points.count(result->id) > 0) { //save samples by different subspace id
           points.find(result->id)->second.push_back(result);
           assert(space2best.count(result->id) > 0);
           if(space2best.find(result->id)->second->score > result->score) space2best[result->id] = result;
@@ -189,6 +196,7 @@ int main(int argc, char** argv){
           assert(space2best.count(result->id) <= 0);
           space2best.insert(pair<int,Result*>(result->id,result));
         }
+
         if(spaceid2result.count(result->id) > 0) {
           spaceid2result.find(result->id)->second = spaceid2result.find(result->id)->second > result->score ? result->score : spaceid2result.find(result->id)->second;
         }
@@ -203,7 +211,7 @@ int main(int argc, char** argv){
 
     //dynamic solution space partitioning
     if(!stop_partition(iter,space_buffer.size(),pnum-1)) {
-      int remove_id;
+      int remove_id; //leave becomes intermediate node & grow children
       int add_num;
       divide_space(last_space_id, orgSpace, points, space2best, space_buffer,remove_id,add_num);
       if(add_num > 0) auc_bandit->update_bandit(remove_id,add_num);
@@ -228,13 +236,14 @@ int main(int argc, char** argv){
     output_ftr<<endl;
 
     if(iter >= total_round || runtime > tune_time || num_samples > space_size) {
+      //stop tuning conditions: 1) #searches exceeds search limits 2) run out of tuning time 3) the whole space has been searched  
       output_ftr<<"finish tuning"<<endl;
       break;
     }
   }
 
   //finish sample
-  cond = 0;
+  cond = 0; //stop tuning
   for(int i = 1; i < pnum; i++)
     MPI_Send(&cond,1,MPI_INT,i,0,MPI_COMM_WORLD);
   MPI_Finalize();
@@ -243,16 +252,9 @@ int main(int argc, char** argv){
   return 0;
 }
 
-bool stop_tuning(int limits, int steps_per_iter, int iter, double tune_time, double runtime, int num_samples, int space_size){
-  int total_round = ceil(limits/steps_per_iter);
-  printf("debug iter %d, total_round %d, runtime %f, tune_time %f\n",iter, total_round, runtime, tune_time); 
-  if(-1) return true;
-  else false; 
-}
-
 bool stop_partition(int iter, int size, int processNum) {
-  if(iter < 15 || size < 3*processNum) return false;
-  else return true;
+  if(iter > 15 || size > 4*processNum) return true;
+  else return false;
 }
 
 void taskAssign(map<string, string> name2type, map<int, Result*> space2best, bool share_best,map<int, Space*> spaceBuf, vector<pair<int,float> >reward, map<int, vector<Result*> >points, int pnum, int iter) {
@@ -260,7 +262,6 @@ void taskAssign(map<string, string> name2type, map<int, Result*> space2best, boo
   float sum = 0;
   for(int i = 0; i < reward.size(); i++) {
     sum += reward[i].second;
-    //printf("space_id %d, score %f\n",reward[i].first, reward[i].second);
   }
   for(int i = 0; i < reward.size(); i++) {
     float normalized_score = reward[i].second/sum;
@@ -272,7 +273,6 @@ void taskAssign(map<string, string> name2type, map<int, Result*> space2best, boo
   for(int i = 0; i < reward.size(); i++) {
     int tmp_num = ceil(normalization[i]*float(pnum-1));
     int alloc_res_num = (pnum-1 - used_proc) < tmp_num ? (pnum-1 - used_proc) : tmp_num;
-    //generate starting point & assign task
     int space_id = reward[i].first;
     Space* space = spaceBuf.find(space_id)->second;
     assert(space != NULL);
@@ -289,12 +289,12 @@ void taskAssign(map<string, string> name2type, map<int, Result*> space2best, boo
       Task* task = new Task(space);
       assert(task != NULL);
       Send_Task(task,used_proc+j+1);
-#ifdef DEBUG_MSG
+//ifdef DEBUG_MSG
       printf("Iter: %d, Send task: Space %d => Pnum %d\n", iter, space_id, used_proc+j+1);
-#endif
+//endif
     }
 
-    //fnish task assignment
+    //finish task assignment
     used_proc += alloc_res_num;
     if(used_proc >= pnum-1) break;
   }
