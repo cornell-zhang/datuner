@@ -45,4 +45,4 @@ assert os.path.isfile(workspace_path + '/datuner.db/vtr/diffeq1/tune.log')
 assert os.path.isfile(workspace_path + '/datuner.db/vtr/diffeq1/results/result.db')
 
 # make sure DATuner terminates normally
-assert 'finish tuning' in open(workspace_path + '/vtr/diffeq1/tune.log').read()
+assert 'finish tuning' in open(workspace_path + '/datuner.db/vtr/diffeq1/tune.log').read()
