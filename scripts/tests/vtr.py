@@ -5,11 +5,6 @@
 # Date:   7/26/2017
 # brief:  simplifed user interface for vtr
 
-import os
-import sys
-
-pwd = os.getcwd()                                                    # debug use
-work_space = 'workspace_holder'                                      # set workspace to store intermediate files
 design_path = '/home/sx233/datuner/diffeq1'                          # cp files in design path to wrkspace                                      
 tool_path = 'vtr_flow_holder'
 

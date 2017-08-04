@@ -44,24 +44,24 @@ elif os.path.exists(pwd+'/quartus.py') and args.tool == 'quartus':
 else:
   print "nothing found under current folder"
 
-# set up the workspace path
-if eval(args.tool+'.work_space') == '':
-  work_space = pwd + '/project'
-  print 'work_space:'+work_space
-else:
-  if not os.path.exists(eval(args.tool+'.work_space')):
-    work_space = eval(args.tool+'.work_space')
-    print 'work_space:'+work_space
-    os.makedirs(work_space)
-  else:
-    work_space = eval(args.tool+'.work_space')
+# set up the workspace path automatically
+#if eval(args.tool+'.work_space') == '':
+work_space = pwd + '/datuner.db'
+print 'work_space:'+work_space
+#else:
+#  if not os.path.exists(eval(args.tool+'.work_space')):
+#    work_space = eval(args.tool+'.work_space')
+#    print 'work_space:'+work_space
+#    os.makedirs(work_space)
+#  else:
+#    work_space = eval(args.tool+'.work_space')
 
 
 design_path = eval(args.tool+'.design_path')
 proc_num = args.para
 space_def = 'SPACE_DEF_HOLD'
 py_code = 'PYTHON_CODE_HOLD'
-datuner_path = pwd+'/../releases/Linux_x86_64/scripts'
+datuner_path = 'datuner_path_holder'
 objective = 'OBJECTIVE_HOLD'
 cst_value = 'CST_VALUE_HOLD'
 

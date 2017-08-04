@@ -5,11 +5,6 @@
 # Date:   7/26/2017
 # brief:  simplifed user interface for vivado
 
-import os
-import sys
-
-pwd = os.getcwd()                                                    # debug use 
-work_space = ''                                                      # set workspace to store intermediate files
 top_module = 'IntMulFixedLatRTL'                                     # settings for vivado and quartus
 design_path = '/work/zhang/users/eu49/datuner/releases/Linux_x86_64/scripts/eda_flows/vivado/design/mul/'      
 modify_cst = 'no'                                                    # whether to modify the time constraint  

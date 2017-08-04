@@ -31,8 +31,9 @@ for line in f1:
 f1.close()
 f2.close()
 
-# make datuner.py excutable
+# make datuner.py excutable and assign datuner_path
 os.system('chmod 775 ./releases/Linux_x86_64/scripts/datuner.py')
+os.system('sed -i \'s#datuner_path_holder#'+pwd+'/releases/Linux_x86_64/scripts#\' '+pwd+'/releases/Linux_x86_64/scripts/datuner.py')
 
 # run opentuner
 os.chdir(workspace_path)

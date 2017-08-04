@@ -6,14 +6,8 @@
 # brief:   simplifed user interface for quartus
 # example: run "datuner.py -f quartus -b 6 -p 1 -t 20 0 0 0"
 
-import os
-import sys
-
-pwd = os.getcwd()                                                                                               # debug use 
-work_space = ''                                                                                                 # set workspace to store intermediate files
 top_module = 'lab5_top'                                                                                         # settings for vivado and quartus
 design_path = '/home/sx233/datuner/releases/Linux_x86_64/scripts/eda_flows/quartus/design/processor'            # cp in design path to wrkspace          
-
 #------user defined tuning paramter-------------------
 # set the parameter you do not want to tune as:
 # "param_name property" like: param1 = 'on' or 0.8
