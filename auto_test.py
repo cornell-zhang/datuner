@@ -26,7 +26,6 @@ f1 = open(test_config_file, 'r')
 f2 = open(config_out, 'w')
 for line in f1:
     line = line.replace('vtr_flow_holder', vtr_path)
-    line = line.replace('workspace_holder', workspace_path)
     f2.write(line)
 f1.close()
 f2.close()
@@ -42,8 +41,8 @@ os.system('datuner.py -f vtr -p 1 -b 1 -t 0.0d:20s')
 # check results
 
 # make sure tune.log and results/result.db exist
-assert os.path.isfile(workspace_path + '/vtr/diffeq1/tune.log')
-assert os.path.isfile(workspace_path + '/vtr/diffeq1/results/result.db')
+assert os.path.isfile(workspace_path + '/datuner.db/vtr/diffeq1/tune.log')
+assert os.path.isfile(workspace_path + '/datuner.db/vtr/diffeq1/results/result.db')
 
 # make sure DATuner terminates normally
 assert 'finish tuning' in open(workspace_path + '/vtr/diffeq1/tune.log').read()
