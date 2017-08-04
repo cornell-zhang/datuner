@@ -36,7 +36,7 @@ os.system('chmod 775 ./releases/Linux_x86_64/scripts/datuner.py')
 
 # run opentuner
 os.chdir(workspace_path)
-os.system('datuner.py -f vtr -p 1 -b 1 -t 20s')
+os.system('datuner.py -f vtr -p 1 -b 1 -t 0.0d:20s')
 
 # check results
 

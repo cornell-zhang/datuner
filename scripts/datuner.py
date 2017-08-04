@@ -18,8 +18,8 @@ import argparse
 parser = argparse.ArgumentParser(description='command interface')
 parser.add_argument('-f','--flow',type=str,dest='tool',choices=['vtr','vivado','quartus','custom'])
 parser.add_argument('-b','--budget',type=int,default=1,dest='limit')
-parser.add_argument('-t','--timeout',type=str,default=['0.0d','0.0h','0.0m','7200.0s'],dest='stop',nargs='+',help='format: 4d 2h 5m 9s')
-parser.add_argument('-p','--parallel',type=int,dest='para')
+parser.add_argument('-t','--timeout',type=str,default='0.0d:0.0h:0.0m:7200.0s',dest='stop',help='format: 4d:2h:5m:9s')
+parser.add_argument('-p','--parallel',type=int,default=1,dest='para')
 args = parser.parse_args()
 
 
@@ -145,26 +145,22 @@ if args.tool == 'vivado':
       sys.exit(1)
     
 # parser the input time
-if len(args.stop) > 4:
-  print "please use the format: sec min hour day"
-  sys.exit(1)
-else:
-  timelist = args.stop
-  minute =0
-  day = 0
-  sec = 0
-  hour = 0
-  for timer in range(len(args.stop)):
-    if timelist[timer].endswith('s'):
-      sec = float(timelist[timer][0:-1])
-    if timelist[timer].endswith('d'):
-      day = float(timelist[timer][0:-1])
-    if timelist[timer].endswith('m'):
-      minute = float(timelist[timer][0:-1])
-    if timelist[timer].endswith('h'):
-      hour = float(timelist[timer][0:-1])
-  stoptime = int(sec + 60.0*minute + 3600.0*hour + 86400.0*day)
-  print 'the tuning time will be '+str(stoptime)+' second'
+timelist = args.stop.split(':')
+minute =0
+day = 0
+sec = 0
+hour = 0
+for timer in range(len(timelist)):
+  if timelist[timer].endswith('s'):
+    sec = float(timelist[timer][0:-1])
+  if timelist[timer].endswith('d'):
+    day = float(timelist[timer][0:-1])
+  if timelist[timer].endswith('m'):
+    minute = float(timelist[timer][0:-1])
+  if timelist[timer].endswith('h'):
+    hour = float(timelist[timer][0:-1])
+stoptime = int(sec + 60.0*minute + 3600.0*hour + 86400.0*day)
+print 'the tuning time will be '+str(stoptime)+' second'
   
 #--------------------------
 # Preparation & Check
