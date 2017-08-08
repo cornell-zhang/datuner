@@ -38,17 +38,19 @@ elif os.path.exists(pwd+'/vivado.py') and args.tool == 'vivado':
 elif os.path.exists(pwd+'/quartus.py') and args.tool == 'quartus':
   import quartus
   top_module = eval(args.tool + '.top_module')
+elif os.path.exists(pwd+'/custom.py') and args.tool == 'custom':
+  import custom
+  space_def = eval(args.tool + '.space_def')
+  py_code = eval(args.tool + '.py_code')
 else:
   print "missing [tool_name].py under current folder"
 
 # set up the workspace path automatically
 work_space = pwd + '/datuner.db'
-print 'the current work space is: ' + work_space
+print '[     0s]    INFO the current work space is: ' + work_space
 
 design_path = eval(args.tool+'.design_path')
 proc_num = args.pf
-space_def = 'SPACE_DEF_HOLD'
-py_code = 'PYTHON_CODE_HOLD'
 datuner_path = 'datuner_path_holder'
 objective = 'OBJECTIVE_HOLD'
 cst_value = 'CST_VALUE_HOLD'
@@ -149,27 +151,27 @@ for timer in range(len(timelist)):
   if timelist[timer].endswith('h'):
     hour = float(timelist[timer][0:-1])
 stoptime = int(sec + 60.0 * minute + 3600.0 * hour + 86400.0 * day)
-print 'DATuner time limit: ' + str(stoptime) + ' seconds'
+print '[     0s]    INFO DATuner time limit: ' + str(stoptime) + ' seconds'
 
 #--------------------------
 # Preparation & Check
 #--------------------------
 
 vtr_flags = [
-    'resyn','resyn2','resyn3',
-    'alpha_clustering','beta_clustering',
-    'allow_unrelated_clustering','connection_driven_clustering',
-    'alpha_t','seed','inner_num','timing_tradeoff',
-    'inner_loop_recompute_divider','td_place_exp_first','td_place_exp_last',
-    'max_router_iterations','initial_pres_fac','pres_fac_mult','acc_fac',
-    'bb_factor','base_cost_type','astar_fac','max_criticality',
+    'resyn', 'resyn2', 'resyn3',
+    'alpha_clustering', 'beta_clustering',
+    'allow_unrelated_clustering', 'connection_driven_clustering',
+    'alpha_t', 'seed', 'inner_num', 'timing_tradeoff',
+    'inner_loop_recompute_divider', 'td_place_exp_first', 'td_place_exp_last',
+    'max_router_iterations', 'initial_pres_fac', 'pres_fac_mult', 'acc_fac',
+    'bb_factor', 'base_cost_type', 'astar_fac', 'max_criticality',
     'criticality_exp'
     ]
 
 vivado_cst_flags = [
-    'Optdirective','Placedirective','fanout_opt',
-    'placement_opt','critical_cell_opt','critical_pin_opt',
-    'retime','rewire','Routedirective',
+    'Optdirective', 'Placedirective', 'fanout_opt',
+    'placement_opt', 'critical_cell_opt', 'critical_pin_opt',
+    'retime', 'rewire', 'Routedirective',
     'tune_cst'
     ]
 
@@ -178,6 +180,11 @@ vivado_flags = vivado_cst_flags[0:-1]
 quartus_flags = [
   'map_effort',  'map_optimize',  'fit_effort',
   'fit_optimize_io_register_for_timing',  'fit_pack_register', 'fit_tdc'
+  ]
+
+custom_flags = [
+  'fixtypex_0', 'fixtypex_1', 'fixtypey_0', 
+  'fixtypey_1', 'fixtypez_0', 'fixtypez_1'
   ]
 
 design = design_name
@@ -203,6 +210,9 @@ elif args.tool == 'vivado':
 elif args.tool == 'quartus':
   space_file_name = 'quartus_space.txt'
   flags = quartus_flags
+elif args.tool == 'custom':
+  space_file_name = eval(args.tool + '.space_def').split('/')[-1]
+  flags = custom_flags
 
 f = open(workspace + '/' + space_file_name, 'a')
 for flag in flags:
@@ -263,6 +273,14 @@ else:
   os.system(cpcmd)
   cpcmd = 'cp ' + datuner_path + '/adddeps.py ' + workspace
   os.system(cpcmd)
+  cpcmd = 'cp ' + datuner_path + '/eda_flows/cordic/Cordic_fixed_err_three.py ' + workspace
+  os.system(cpcmd)
+  cpcmd = 'cp ' + datuner_path + '/eda_flows/cordic/fpfunctions.py ' + workspace
+  os.system(cpcmd)
+  cpcmd = 'cp ' + datuner_path + '/eda_flows/cordic/tunefp.py ' + workspace
+  os.system(cpcmd)
+  cpcmd = 'cp ' + datuner_path + '/eda_flows/cordic/fp_space.txt ' + workspace
+  os.system(cpcmd)
 
 
 #---------------------------
@@ -286,8 +304,8 @@ if args.tool == "vtr" or args.tool == "vivado" or args.tool == "quartus":
   os.system(runcmd)
 else:
   runcmd = mpi_path + " -np 1 " + \
-      "./DATuner_master --space " + space_def + " --path " + workspace + " --test-limit " + args.limit + \
-      " --stop-after " + stoptime + " : -np " + proc_num + " --hostfile " + \
+      "./DATuner_master --space " + space_def + " --path " + workspace + " --test-limit " + str(args.limit) + \
+      " --stop-after " + str(stoptime) + " : -np " + str(proc_num) + " --hostfile " + \
       datuner_path + "/my_hosts " + "./DATuner_worker -design " + design + " -path " + workspace + \
       " --parallelism=1 > log"
   os.system(runcmd)

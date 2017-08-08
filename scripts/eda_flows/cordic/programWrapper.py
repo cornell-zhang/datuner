@@ -25,7 +25,7 @@ class Wrapper(MeasurementInterface):
     manipulator = ConfigurationManipulator()
 
     import os.path
-    if os.path.isfile(filename):
+    if os.path.isfile(filename):    #read the space file and manipulate
       f = open(filename,'r')
       while(1):
         line = f.readline()
@@ -48,7 +48,7 @@ class Wrapper(MeasurementInterface):
 
 
 
-  def dumpresult(self, rank, cfg, res):
+  def dumpresult(self, rank, cfg, result):
     """
     Compile and run a given configuration then
     return performance
@@ -56,7 +56,7 @@ class Wrapper(MeasurementInterface):
     f = open('./localresult'+str(rank)+'.txt','a')
     for key in cfg:
       f.write(str(key)+" "+str(cfg[key])+" ")
-    f.write(str(res))
+    f.write("-"+str(result))
     f.write('\n')
     f.close()
 
