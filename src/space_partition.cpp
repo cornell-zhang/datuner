@@ -285,7 +285,7 @@ void divide_space(int old_max_id, Space* orgspace, map<int,vector<Result*> >& po
     assert(spaceBuf.count(space_id) > 0);
     Space* space = spaceBuf.find(space_id)->second;
     assert(space != NULL);
-    if(!spaceSize(space, orgspace, size_threshold)) continue;;
+    if(!spaceSize(space, orgspace, size_threshold)) continue;
    
     //calculate information entropy gain
     vector<string> params;
@@ -323,7 +323,9 @@ void divide_space(int old_max_id, Space* orgspace, map<int,vector<Result*> >& po
               break;
             }
           }
-          assert(newvalue2id.count(value) <= 0);
+          if(newvalue2id.count(value) > 0) printf("debug newvalue2id %s\n", value.c_str());
+
+          //assert(newvalue2id.count(value) <= 0);
           newvalue2id.insert(pair<string,int>(value,tmp_space->id));
         }
 
