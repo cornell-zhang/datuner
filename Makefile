@@ -135,6 +135,8 @@ CommonBinDir = $(ReleaseDir)/bin
 
 release-scripts:: $(ReleaseTargetScriptDir)/.dir
 	cp -rf $(DATuner_SCRIPT)/* $(ReleaseTargetScriptDir)/
+	chmod u+x $(ReleaseTargetScriptDir)/datuner.py
+	sed -i 's#datuner_path_holder#'$(ReleaseTargetScriptDir)'#' $(ReleaseTargetScriptDir)/datuner.py
 
 release-install:: $(ReleaseTargetPkgDir)/.dir
 	cp -rf $(DATuner_PKG_INSTALL)/* $(ReleaseTargetPkgDir)/ 

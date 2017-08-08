@@ -3,9 +3,9 @@
 # run DATuner
 #===================================================
 # @author : Chang Xu
-# @date   : 4/20/2017
-# @brief  : A python script to run DATuner
-#
+# @date   : 8/7/2017
+# @brief  : Top-level python script to run DATuner
+
 import re
 import os
 import sys
@@ -16,46 +16,34 @@ import argparse
 # parse parameters and read information from py
 #-------------------------------------------------
 parser = argparse.ArgumentParser(description='command interface')
-parser.add_argument('-f','--flow',type=str,dest='tool',choices=['vtr','vivado','quartus','custom'])
-parser.add_argument('-b','--budget',type=int,default=1,dest='limit')
-parser.add_argument('-t','--timeout',type=str,default='0.0d:0.0h:0.0m:7200.0s',dest='stop',help='format: 4d:2h:5m:9s')
-parser.add_argument('-p','--parallel',type=int,default=1,dest='para')
+parser.add_argument('-f', '--flow', type=str, dest='tool', choices=['vtr','vivado','quartus','custom'])
+parser.add_argument('-b', '--budget', type=int, default=1, dest='limit')
+parser.add_argument('-t', '--timeout', type=str, default='0.0d:0.0h:0.0m:7200.0s', dest='stop', help='format: 4d:2h:5m:9s')
+parser.add_argument('-p', '--parallel', type=int, default=1, dest='para')
 args = parser.parse_args()
 
-
 if len(sys.argv) < 2:
-  print "Please input parameter command line "
   parser.print_help()
   sys.exit(1)
   
-pwd = os.getcwd()                                           # will return the path where the program is being called
+pwd = os.getcwd()
+sys.path.append(pwd)
+
 if os.path.exists(pwd+'/vtr.py') and args.tool == 'vtr':
-  sys.path.append(pwd)
   import vtr
-  tool_path = eval(args.tool+'.tool_path')
+  tool_path = eval(args.tool + '.tool_path')
 elif os.path.exists(pwd+'/vivado.py') and args.tool == 'vivado':
-  sys.path.append(pwd)
   import vivado
-  top_module = eval(args.tool+'.top_module')
+  top_module = eval(args.tool + '.top_module')
 elif os.path.exists(pwd+'/quartus.py') and args.tool == 'quartus':
-  sys.path.append(pwd)
   import quartus
-  top_module = eval(args.tool+'.top_module')
+  top_module = eval(args.tool + '.top_module')
 else:
-  print "nothing found under current folder"
+  print "missing [tool_name].py under current folder"
 
 # set up the workspace path automatically
-#if eval(args.tool+'.work_space') == '':
 work_space = pwd + '/datuner.db'
-print 'work_space:'+work_space
-#else:
-#  if not os.path.exists(eval(args.tool+'.work_space')):
-#    work_space = eval(args.tool+'.work_space')
-#    print 'work_space:'+work_space
-#    os.makedirs(work_space)
-#  else:
-#    work_space = eval(args.tool+'.work_space')
-
+print 'the current work space is: ' + work_space
 
 design_path = eval(args.tool+'.design_path')
 proc_num = args.para
@@ -67,8 +55,8 @@ cst_value = 'CST_VALUE_HOLD'
 
 # check design path
 if args.tool == 'vivado' or args.tool == 'quartus':
-  dir_list=[]
-  if eval(args.tool+'.design_path') == '':
+  dir_list = []
+  if eval(args.tool + '.design_path') == '':
     for count in os.listdir(pwd): 
       if os.path.isdir(count):
         dir_list.append(count)
@@ -77,13 +65,14 @@ if args.tool == 'vivado' or args.tool == 'quartus':
     for index in dir_list:
       word += "  " + index
     design_input = raw_input("please enter other path or design name if in current folder: " + word +"\n")
+
     if design_input in dir_list:
-      design_path = pwd + "/" +design_input
+      design_path = pwd + "/" + design_input
     elif not os.path.isdir(design_input):
       print "error: invalid design path"
     else:
       design_path = design_input
-    print 'design_path is: '+design_path
+    print 'design_path is: ' + design_path
   elif os.path.isdir(eval(args.tool+'.design_path')):
     design_path = eval(args.tool+'.design_path')
   else:
@@ -138,15 +127,15 @@ else:
 
 tune_cst = 0
 if args.tool == 'vivado':
-  if eval(args.tool+'.modify_cst') == 'y' or eval(args.tool+'.modify_cst') == 'yes':
+  if eval(args.tool + '.modify_cst') == 'y' or eval(args.tool+'.modify_cst') == 'yes':
     tune_cst = 1
-    if eval(args.tool+'.cst_value') == '':
-      print "please support the default timing constraint."
+    if eval(args.tool + '.cst_value') == '':
+      print "please specify the default timing constraint."
       sys.exit(1)
     
-# parser the input time
+# parser the time limit
 timelist = args.stop.split(':')
-minute =0
+minute = 0
 day = 0
 sec = 0
 hour = 0
@@ -159,8 +148,8 @@ for timer in range(len(timelist)):
     minute = float(timelist[timer][0:-1])
   if timelist[timer].endswith('h'):
     hour = float(timelist[timer][0:-1])
-stoptime = int(sec + 60.0*minute + 3600.0*hour + 86400.0*day)
-print 'the tuning time will be '+str(stoptime)+' second'
+stoptime = int(sec + 60.0 * minute + 3600.0 * hour + 86400.0 * day)
+print 'DATuner time limit: ' + str(stoptime) + ' seconds'
   
 #--------------------------
 # Preparation & Check
@@ -193,7 +182,7 @@ quartus_flags = [
     
 design = design_name
 designdir = design_path
-workspace = work_space+"/"+args.tool+"/"+design
+workspace = work_space + "/" + args.tool + "/" + design
 try:
   if os.path.exists(workspace):                        
     os.system('rm -rf ' + workspace)                   
@@ -201,143 +190,86 @@ try:
 except:
   pass
 
-# set up the user defined search space  
-
+# set up the user defined search space
 if args.tool == 'vtr':
-  f = open(workspace+'/vtr_space.txt','a')                       
-  for flag in vtr_flags:
-    if isinstance(eval(args.tool+'.'+flag), str):
-      word = '{'+ str(eval(args.tool+'.'+flag)) +'}'
-      f = open(workspace+'/vtr_space.txt','a')
-      f.write(flag+' EnumParameter '+word+'\n')
-    elif isinstance(eval(args.tool+'.'+flag), float) or isinstance(eval(args.tool+'.'+flag), int):
-      word = '['+ str(eval(args.tool+'.'+flag)) + ', ' + str(eval(args.tool+'.'+flag)) +']'
-      f = open(workspace+'/vtr_space.txt','a')
-      f.write(flag+' EnumParameter '+word+'\n')
-    elif (len(eval(args.tool+'.'+flag)) > 2 or isinstance(eval(args.tool+'.'+flag)[0], str)):
-      word = '{'
-      length = len(eval(args.tool+'.'+flag))
-      for index in range(length):
-        word += str(eval(args.tool+'.'+flag)[index]) + ', '
-      word = word[0:-2]
-      word += '}'
-      f = open(workspace+'/vtr_space.txt','a')
-      f.write(flag+' EnumParameter '+word+'\n')
-    else:
-      f = open(workspace+'/vtr_space.txt','a')
-      word = '[' + str(eval(args.tool+'.'+flag)[0]) + ' ,' + str(eval(args.tool+'.'+flag)[1]) + ']'
-      f.write(flag+' FloatParameter '+word+'\n')
-    f.close()
-
-if args.tool == 'vivado':
+  space_file_name = 'vtr_space.txt'
+  flags = vtr_flags
+elif args.tool == 'vivado':
+  space_file_name = 'vivado_space.txt'
   if tune_cst == 0:
     flags = vivado_flags
   else:
     flags = vivado_cst_flags
-  f = open(workspace+'/vivado_space.txt','a')                       
-  for flag in flags:
-    if isinstance(eval(args.tool+'.'+flag), str):
-      word = '{'+ str(eval(args.tool+'.'+flag)) +'}'
-      f = open(workspace+'/vivado_space.txt','a')
-      f.write(flag+' EnumParameter '+word+'\n')
-    elif isinstance(eval(args.tool+'.'+flag), float) or isinstance(eval(args.tool+'.'+flag), int):
-      word = '['+ str(eval(args.tool+'.'+flag)) + ', ' + str(eval(args.tool+'.'+flag)) +']'
-      f = open(workspace+'/vivado_space.txt','a')
-      f.write(flag+' EnumParameter '+word+'\n')
-    elif (len(eval(args.tool+'.'+flag)) > 2 or isinstance(eval(args.tool+'.'+flag)[0], str)):
-      word = '{'
-      length = len(eval(args.tool+'.'+flag))
-      for index in range(length):
-        word += str(eval(args.tool+'.'+flag)[index]) + ', '
-      word = word[0:-2]
-      word += '}'
-      f = open(workspace+'/vivado_space.txt','a')
-      f.write(flag+' EnumParameter '+word+'\n')
-    else:
-      f = open(workspace+'/vivado_space.txt','a')
-      word = '[' + str(eval(args.tool+'.'+flag)[0]) + ' ,' + str(eval(args.tool+'.'+flag)[1]) + ']'
-      f.write(flag+' FloatParameter '+word+'\n')
-    f.close()
+elif args.tool == 'quartus':
+  space_file_name = 'quartus_space.txt'
+  flags = quartus_flags
 
-if args.tool == 'quartus':
-  f = open(workspace+'/quartus_space.txt','a')                       
-  for flag in quartus_flags:
-    try:
-      if isinstance(eval(args.tool+'.'+flag), str):
-        word = '{'+ str(eval(args.tool+'.'+flag)) +'}'
-        f = open(workspace+'/quartus_space.txt','a')
-        f.write(flag+' EnumParameter '+word+'\n')
-      elif isinstance(eval(args.tool+'.'+flag), float) or isinstance(eval(args.tool+'.'+flag), int):
-        word = '['+ str(eval(args.tool+'.'+flag)) + ', ' + str(eval(args.tool+'.'+flag)) +']'
-        f = open(workspace+'/quartus_space.txt','a')
-        f.write(flag+' EnumParameter '+word+'\n')
-      elif (len(eval(args.tool+'.'+flag)) > 2 or isinstance(eval(args.tool+'.'+flag)[0], str)):
-        word = '{'
-        length = len(eval(args.tool+'.'+flag))
-        for index in range(length):
-          word += str(eval(args.tool+'.'+flag)[index]) + ', '
-        word = word[0:-2]
-        word += '}'
-        f = open(workspace+'/quartus_space.txt','a')
-        f.write(flag+' EnumParameter '+word+'\n')
-      else:
-        f = open(workspace+'/quartus_space.txt','a')
-        word = '[' + str(eval(args.tool+'.'+flag)[0]) + ' ,' + str(eval(args.tool+'.'+flag)[1]) + ']'
-        f.write(flag+' FloatParameter '+word+'\n')
-      f.close()
-    except:
-      pass
+f = open(workspace + '/' + space_file_name, 'a')
+for flag in flags:
+  flag_type = eval(args.tool + '.' + flag)
+  if isinstance(flag_type, str):
+    word = '{'+ str(flag_type) +'}'
+    f.write(flag + ' EnumParameter ' + word + '\n')
+  elif isinstance(flag_type, float) or isinstance(flag_type, int):
+    word = '[' + str(flag_type) + ', ' + str(flag_type) +']'
+    f.write(flag + ' EnumParameter ' + word + '\n')
+  elif (len(flag_type) > 2 or isinstance(flag_type[0], str)):
+    word = '{'
+    length = len(flag_type)
+    for index in range(length):
+      word += str(flag_type) + ', '
+    word = word[0:-2]
+    word += '}'
+    f.write(flag + ' EnumParameter ' + word + '\n')
+  else:
+    word = '[' + str(flag_type[0]) + ' ,' + str(flag_type[1]) + ']'
+    f.write(flag + ' FloatParameter ' + word + '\n')
+f.close()
 
 # copy necessary file to workspace
-binDir =  datuner_path+"/../bin"
-cpcmd = "cp "+binDir+"/DATuner_master "+binDir+"/DATuner_worker "+workspace
+binDir = datuner_path + '/../bin'
+cpcmd = 'cp ' + binDir + '/DATuner_master ' + binDir + '/DATuner_worker ' + workspace
 os.system(cpcmd)
 
-if args.tool == "vtr":
-  srcFile = datuner_path+"/eda_flows/"+args.tool+"/tune_"+args.tool+".py"
-  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:VTRFLOWPATH_HOLDER:"+tool_path+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datuner_path+":g\" "+srcFile+" > "+workspace+"/tune_"+args.tool+".py"
+if args.tool == 'vtr':
+  srcFile = datuner_path + '/eda_flows/' + args.tool + '/tune_' + args.tool + '.py'
+  sedcmd = 'sed -e \"s:BENCH_HOLDER:' + design + ':g\" -e \"s:WORKSPACE_HOLDER:' \
+            + workspace + ':g\" -e \"s:VTRFLOWPATH_HOLDER:' + tool_path + ':g\" -e \"s:SCRIPTPATH_HOLDER:' \
+            + datuner_path + ':g\" ' + srcFile + ' > ' + workspace + '/tune_' + args.tool + '.py'
   os.system(sedcmd)
-#  cpcmd = "cp "+datuner_path+"/eda_flows/"+args.tool+"/"+args.tool+"_space.txt "+workspace
-#  os.system(cpcmd)
 
-elif args.tool == "vivado":
-  srcFile = datuner_path+"/eda_flows/"+args.tool
-  if tune_cst ==1:
-    srcFile = srcFile + "/tune_vivado_cst.py"
+elif args.tool == 'vivado':
+  srcFile = datuner_path + '/eda_flows/' + args.tool
+  if tune_cst == 1:
+    srcFile = srcFile + '/tune_vivado_cst.py'
   else:
-    srcFile = srcFile + "/tune_vivado.py"
-    
-  print "debug use "+srcFile
-  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:TOPMODULE_HOLDER:"+top_module+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datuner_path+":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+":g\" "+srcFile+" > "+workspace+"/tune_"+args.tool+".py"
-  os.system(sedcmd)
+    srcFile = srcFile + '/tune_vivado.py'
+  sedcmd = 'sed -e \"s:BENCH_HOLDER:' + design + ":g\" -e \"s:WORKSPACE_HOLDER:" \
+            + workspace + ':g\" -e \"s:TOPMODULE_HOLDER:' + top_module + ':g\" -e \"s:SCRIPTPATH_HOLDER:' \
+            + datuner_path + ':g\" -e \"s:DESIGNPATH_HOLDER:' + designdir + ':g\" ' + srcFile + ' > ' \
+            + workspace + '/tune_' + args.tool + '.py'
 
-#  space_file_cmd ="cp "+datuner_path+"/eda_flows/"+args.tool+"/"+args.tool+"_space.txt "+workspace
-#  if tune_cst == 1:
-#    print "debug tune cst"
-#    lower_cst = float(cst_value) * 0.8
-#    upper_cst = float(cst_value) * 1.5
-#    space_file_cmd="sed -e \"s:LOWER_BOUND_HOLDER:"+str(lower_cst)+":g\" -e \"s:UPPER_BOUND_HOLDER:"+str(upper_cst)+":g\" "+datuner_path+"/eda_flows/"+args.tool+"/"+args.tool+"_space_cst.txt > "+workspace+"/"+args.tool+"_space.txt"
-#  os.system(space_file_cmd)
+  os.system(sedcmd)
 
 elif args.tool == "quartus":
-  srcFile = datuner_path+"/eda_flows/"+args.tool+"/tune_"+args.tool+".py"
-  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+\
-           ":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+\
-           ":g\" -e \"s:TOPMODULE_HOLDER:"+top_module+\
-           ":g\" -e \"s:SCRIPTPATH_HOLDER:"+datuner_path+\
-           ":g\" -e \"s:DESIGNPATH_HOLDER:"+designdir+\
-           ":g\" "+srcFile+" > "+workspace+"/tune_"+args.tool+".py"
+  srcFile = datuner_path + '/eda_flows/' + args.tool + '/tune_' + args.tool + '.py'
+  sedcmd = 'sed -e \"s:BENCH_HOLDER:' + design + \
+           ':g\" -e \"s:WORKSPACE_HOLDER:' + workspace + \
+           ':g\" -e \"s:TOPMODULE_HOLDER:' + top_module + \
+           ':g\" -e \"s:SCRIPTPATH_HOLDER:' + datuner_path + \
+           ':g\" -e \"s:DESIGNPATH_HOLDER:' + designdir + \
+           ':g\" ' + srcFile + " > " + workspace + '/tune_' + args.tool + '.py'
   os.system(sedcmd)
-#  cpcmd = "cp "+datuner_path+"/eda_flows/"+args.tool+"/"+args.tool+"_space.txt "+workspace
-#  os.system(cpcmd) 
 
 else:
   srcFile = py_code
-  sedcmd = "sed -e \"s:BENCH_HOLDER:"+design+":g\" -e \"s:WORKSPACE_HOLDER:"+workspace+":g\" -e \"s:SCRIPTPATH_HOLDER:"+datuner_path+":g\" "+srcFile+" > "+workspace+"/tune_program.py"
+  sedcmd = 'sed -e \"s:BENCH_HOLDER:' + design + ':g\" -e \"s:WORKSPACE_HOLDER:' + workspace \
+            + ':g\" -e \"s:SCRIPTPATH_HOLDER:' + datuner_path + ':g\" ' + srcFile + ' > ' \
+            +workspace + '/tune_program.py'
   os.system(sedcmd)
-  cpcmd = "cp "+datuner_path+"/eda_flows/user_program_example/programWrapper.py "+workspace
+  cpcmd = 'cp ' + datuner_path + '/eda_flows/user_program_example/programWrapper.py ' + workspace
   os.system(cpcmd)
-  cpcmd = "cp "+datuner_path+"/adddeps.py "+workspace
+  cpcmd = 'cp ' + datuner_path + '/adddeps.py ' + workspace
   os.system(cpcmd)
 
 
@@ -351,19 +283,19 @@ try:
 except:
   pass
 
-mpi_path="mpirun"
+mpi_path = "mpirun"
 
 if args.tool == "vtr" or args.tool == "vivado" or args.tool == "quartus":
-  runcmd = mpi_path+" -np 1 "+\
-    "./DATuner_master -"+args.tool+" --test-limit "+str(args.limit)+" --stop-after "+\
-    str(stoptime)+" --path "+workspace+" : -np "+str(proc_num)+" --hostfile "+\
-    datuner_path+"/my_hosts "+"./DATuner_worker -design "+design+" -path "+workspace+\
-    " -tune_cst "+str(tune_cst)+" --parallelism=1 > log"
+  runcmd = mpi_path + " -np 1 " + \
+    "./DATuner_master -" + args.tool + " --test-limit " + str(args.limit) + " --stop-after " + \
+    str(stoptime) + " --path " + workspace + " : -np " + str(proc_num) + " --hostfile " + \
+    datuner_path + "/my_hosts " + "./DATuner_worker -design " + design + " -path " + workspace + \
+    " -tune_cst " + str(tune_cst) + " --parallelism=1 > log"
   os.system(runcmd)
 else:
-  runcmd = mpi_path+" -np 1 "+\
-      "./DATuner_master --space "+space_def+" --path "+workspace+" --test-limit "+args.limit+\
-      " --stop-after "+stoptime+" : -np "+proc_num+" --hostfile "+\
-      datuner_path+"/my_hosts "+"./DATuner_worker -design "+design+" -path "+workspace+\
+  runcmd = mpi_path + " -np 1 " + \
+      "./DATuner_master --space " + space_def + " --path " + workspace + " --test-limit " + args.limit + \
+      " --stop-after " + stoptime + " : -np " + proc_num + " --hostfile " + \
+      datuner_path + "/my_hosts " + "./DATuner_worker -design " + design + " -path " + workspace + \
       " --parallelism=1 > log"
   os.system(runcmd)
