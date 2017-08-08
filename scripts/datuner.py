@@ -15,11 +15,11 @@ import argparse
 #-------------------------------------------------
 # parse parameters and read information from py
 #-------------------------------------------------
-parser = argparse.ArgumentParser(description='command interface')
+parser = argparse.ArgumentParser(description='main script for DATuner')
 parser.add_argument('-f', '--flow', type=str, dest='tool', choices=['vtr','vivado','quartus','custom'])
 parser.add_argument('-b', '--budget', type=int, default=1, dest='limit')
 parser.add_argument('-t', '--timeout', type=str, default='0.0d:0.0h:0.0m:7200.0s', dest='stop', help='format: 4d:2h:5m:9s')
-parser.add_argument('-p', '--parallel', type=int, default=1, dest='para')
+parser.add_argument('-p', '--parallel', type=int, default=1, dest='pf')
 args = parser.parse_args()
 
 if len(sys.argv) < 2:
@@ -46,7 +46,7 @@ work_space = pwd + '/datuner.db'
 print 'the current work space is: ' + work_space
 
 design_path = eval(args.tool+'.design_path')
-proc_num = args.para
+proc_num = args.pf
 space_def = 'SPACE_DEF_HOLD'
 py_code = 'PYTHON_CODE_HOLD'
 datuner_path = 'datuner_path_holder'

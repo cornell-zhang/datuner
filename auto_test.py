@@ -32,7 +32,7 @@ f2.close()
 
 # run datuner
 os.chdir(workspace_path)
-os.system('datuner.py -f vtr -p 1 -b 1 -t 0.0d:20s')
+os.system('datuner.py -f vtr -p 2 -b 4 -t 0.0d:120s')
 
 # check results
 

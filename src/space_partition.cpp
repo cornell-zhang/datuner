@@ -323,7 +323,7 @@ void divide_space(int old_max_id, Space* orgspace, map<int,vector<Result*> >& po
               break;
             }
           }
-          assert(newvalue2id.count(value) <= 0);
+          //assert(newvalue2id.count(value) <= 0);
           newvalue2id.insert(pair<string,int>(value,tmp_space->id));
         }
 

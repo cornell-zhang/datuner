@@ -47,7 +47,7 @@ int main(int argc, char** argv){
   string space_definition_file = "";
   int limits = 100; //default: run 100 times of searches
   double tune_time = 7200; //default: tune 2 hours
-  int search_per_iter = 5; //default: run 5 searches in each iteration
+  int search_per_iter = 1; //default: run 5 searches in each iteration
   bool share_best = true;
 
   for(int i = 0; i < argc; i++) {
@@ -235,7 +235,7 @@ int main(int argc, char** argv){
     }
     output_ftr<<endl;
 
-    if(iter >= total_round || runtime > tune_time || num_samples > space_size) {
+    if((iter >= total_round) || (runtime > tune_time) || (num_samples > space_size)) {
       //stop tuning conditions: 1) #searches exceeds search limits 2) run out of tuning time 3) the whole space has been searched  
       output_ftr<<"finish tuning"<<endl;
       break;

@@ -1,6 +1,6 @@
 EXE_OUT = DATuner_master
 
-Master_SRC = controler.cpp bandit.cpp space_generator.cpp msg_passing.cpp space_partition.cpp stopwatch.cpp
+Master_SRC = controller.cpp bandit.cpp space_generator.cpp msg_passing.cpp space_partition.cpp stopwatch.cpp
 
 
 Master_OBJ = $(Master_SRC:%.cpp=$(MY_TOOL_BUILD)/%.o)
