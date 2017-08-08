@@ -1,6 +1,3 @@
-export PATH=$(pwd)/build/pkgs/python/install/bin:$PATH
-export LD_LIBRARY_PATH=$(pwd)/build/pkgs/python/install/lib:$LD_LIBRARY_PATH
-export PATH=$(pwd)/build/pkgs/install/bin:$PATH
-export PATH=$(pwd)/releases/Linux_x86_64/scripts:$PATH
-chmod 775 ./releases/Linux_x86_64/scripts/datuner.py
-sed -i 's#datuner_path_holder#'$(pwd)'/releases/Linux_x86_64/scripts#' $(pwd)/releases/Linux_x86_64/scripts/datuner.py
+PREFIX="$(./DATuner_uname -s)_$(./DATuner_uname -a)"
+export PATH=$(pwd)/releases/$PREFIX/install/bin:$(pwd)/releases/$PREFIX/scripts:$PATH
+export LD_LIBRARY_PATH=$(pwd)/releases/$PREFIX/install/lib:$LD_LIBRARY_PATH

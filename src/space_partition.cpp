@@ -323,9 +323,9 @@ void divide_space(int old_max_id, Space* orgspace, map<int,vector<Result*> >& po
               break;
             }
           }
-          if(newvalue2id.count(value) > 0) printf("debug newvalue2id %s\n", value.c_str());
+          //if(newvalue2id.count(value) > 0) printf("debug param_name %s, newvalue2id %s\n", param_name.c_str(), value.c_str());
 
-          //assert(newvalue2id.count(value) <= 0);
+          assert(newvalue2id.count(value) <= 0);
           newvalue2id.insert(pair<string,int>(value,tmp_space->id));
         }
 

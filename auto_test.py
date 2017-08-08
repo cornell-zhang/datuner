@@ -30,13 +30,12 @@ for line in f1:
 f1.close()
 f2.close()
 
-# make datuner.py excutable and assign datuner_path
-os.system('chmod 775 ./releases/Linux_x86_64/scripts/datuner.py')
-os.system('sed -i \'s#datuner_path_holder#'+pwd+'/releases/Linux_x86_64/scripts#\' '+pwd+'/releases/Linux_x86_64/scripts/datuner.py')
+cpcmd = 'cp '+script_folder+'/datuner.py '+workspace_path+'/datuner.py'
+os.system(cpcmd)
 
-# run opentuner
+# run datuner
 os.chdir(workspace_path)
-os.system('datuner.py -f vtr -p 1 -b 1 -t 0.0d:20s')
+os.system('python datuner.py -f vtr -p 2 -b 4 -t 0.0d:120s')
 
 # check results
 
