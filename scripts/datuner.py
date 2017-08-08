@@ -210,16 +210,7 @@ for flag in flags:
   if isinstance(flag_type, str):
     word = '{'+ str(flag_type).replace('\'','') +'}'
     f.write(flag + ' EnumParameter ' + word + '\n')
-  #elif isinstance(flag_type, float) or isinstance(flag_type, int):
-  #  word = '[' + str(flag_type) + ', ' + str(flag_type) +']'
-  #  f.write(flag + ' EnumParameter ' + word + '\n')
   elif (len(flag_type) > 2 or isinstance(flag_type[0], str)):
-    #word = '{'
-    #length = len(flag_type)
-    #for index in range(length):
-    #word += str(flag_type) + ', '
-    #word = word[1:-3]
-    #word += '}'
     word = '{'+str(flag_type).replace('\'','')[1:-1]+'}'
     f.write(flag + ' EnumParameter ' + word + '\n')
   else:
