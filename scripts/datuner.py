@@ -29,18 +29,18 @@ if len(sys.argv) < 2:
 pwd = os.getcwd()
 sys.path.append(pwd)
 
-if os.path.exists(pwd+'/vtr.py') and args.tool == 'vtr':
+if os.path.exists(pwd + '/vtr.py') and args.tool == 'vtr':
   import vtr
   tool_path = eval(args.tool + '.tool_path')
-elif os.path.exists(pwd+'/vivado.py') and args.tool == 'vivado':
+elif os.path.exists(pwd + '/vivado.py') and args.tool == 'vivado':
   import vivado
   top_module = eval(args.tool + '.top_module')
-elif os.path.exists(pwd+'/quartus.py') and args.tool == 'quartus':
+elif os.path.exists(pwd + '/quartus.py') and args.tool == 'quartus':
   import quartus
   top_module = eval(args.tool + '.top_module')
-elif os.path.exists(pwd+'/custom.py') and args.tool == 'custom':
+elif os.path.exists(pwd + '/custom.py') and args.tool == 'custom':
   import custom
-  space_def = eval(args.tool + '.space_def')
+  custom_flags = eval(args.tool + '.custom_flags')
   py_code = eval(args.tool + '.py_code')
 else:
   print "missing [tool_name].py under current folder"
@@ -49,7 +49,7 @@ else:
 work_space = pwd + '/datuner.db'
 print '[     0s]    INFO the current work space is: ' + work_space
 
-design_path = eval(args.tool+'.design_path')
+design_path = eval(args.tool + '.design_path')
 proc_num = args.pf
 datuner_path = 'datuner_path_holder'
 objective = 'OBJECTIVE_HOLD'
@@ -123,9 +123,6 @@ else:
   if py_code== '':
     print "please specify the python code to excute OpenTuner."
     sys.exit(1)
-  if space_def == '':
-    print "please specify the space definition file."
-    sys.exit(1)
 
 tune_cst = 0
 if args.tool == 'vivado':
@@ -182,11 +179,6 @@ quartus_flags = [
   'fit_optimize_io_register_for_timing',  'fit_pack_register', 'fit_tdc'
   ]
 
-custom_flags = [
-  'fixtypex_0', 'fixtypex_1', 'fixtypey_0', 
-  'fixtypey_1', 'fixtypez_0', 'fixtypez_1'
-  ]
-
 design = design_name
 designdir = design_path
 workspace = work_space + "/" + args.tool + "/" + design
@@ -211,17 +203,17 @@ elif args.tool == 'quartus':
   space_file_name = 'quartus_space.txt'
   flags = quartus_flags
 elif args.tool == 'custom':
-  space_file_name = eval(args.tool + '.space_def').split('/')[-1]
+  space_file_name = 'custom_space.txt'
   flags = custom_flags
 
 f = open(workspace + '/' + space_file_name, 'a')
 for flag in flags:
   flag_type = eval(args.tool + '.' + flag)
   if isinstance(flag_type, str):
-    word = '{'+ str(flag_type).replace('\'','') +'}'
+    word = '{' + str(flag_type).replace('\'', '') +'}'
     f.write(flag + ' EnumParameter ' + word + '\n')
   elif (len(flag_type) > 2 or isinstance(flag_type[0], str)):
-    word = '{'+str(flag_type).replace('\'','')[1:-1]+'}'
+    word = '{' + str(flag_type).replace('\'', '')[1: -1] + '}'
     f.write(flag + ' EnumParameter ' + word + '\n')
   else:
     word = '[' + str(flag_type[0]) + ' ,' + str(flag_type[1]) + ']'
@@ -229,58 +221,55 @@ for flag in flags:
 f.close()
 
 # copy necessary file to workspace
-binDir = datuner_path + '/../bin'
-cpcmd = 'cp ' + binDir + '/DATuner_master ' + binDir + '/DATuner_worker ' + workspace
+bin_dir = datuner_path + '/../bin'
+cpcmd = 'cp ' + bin_dir + '/DATuner_master ' + bin_dir + '/DATuner_worker ' + workspace
 os.system(cpcmd)
 
 if args.tool == 'vtr':
-  srcFile = datuner_path + '/eda_flows/' + args.tool + '/tune_' + args.tool + '.py'
-  sedcmd = 'sed -e \"s:BENCH_HOLDER:' + design + ':g\" -e \"s:WORKSPACE_HOLDER:' \
-            + workspace + ':g\" -e \"s:VTRFLOWPATH_HOLDER:' + tool_path + ':g\" -e \"s:SCRIPTPATH_HOLDER:' \
-            + datuner_path + ':g\" ' + srcFile + ' > ' + workspace + '/tune_' + args.tool + '.py'
+  src_file = datuner_path + '/eda_flows/' + args.tool + '/tune_' + args.tool + '.py'
+  sedcmd = 'sed -e \"s:BENCH_HOLDER:' + design \
+            + ':g\" -e \"s:WORKSPACE_HOLDER:' + workspace \
+            + ':g\" -e \"s:VTRFLOWPATH_HOLDER:' + tool_path \
+            + ':g\" -e \"s:SCRIPTPATH_HOLDER:' + datuner_path \
+            + ':g\" ' + src_file + ' > ' + workspace + '/tune_' + args.tool + '.py'
   os.system(sedcmd)
 
 elif args.tool == 'vivado':
-  srcFile = datuner_path + '/eda_flows/' + args.tool
+  src_file = datuner_path + '/eda_flows/' + args.tool
   if tune_cst == 1:
-    srcFile = srcFile + '/tune_vivado_cst.py'
+    src_file = src_file + '/tune_vivado_cst.py'
   else:
-    srcFile = srcFile + '/tune_vivado.py'
-  sedcmd = 'sed -e \"s:BENCH_HOLDER:' + design + ":g\" -e \"s:WORKSPACE_HOLDER:" \
-            + workspace + ':g\" -e \"s:TOPMODULE_HOLDER:' + top_module + ':g\" -e \"s:SCRIPTPATH_HOLDER:' \
-            + datuner_path + ':g\" -e \"s:DESIGNPATH_HOLDER:' + designdir + ':g\" ' + srcFile + ' > ' \
-            + workspace + '/tune_' + args.tool + '.py'
-
+    src_file = src_file + '/tune_vivado.py'
+  sedcmd = 'sed -e \"s:BENCH_HOLDER:' + design \
+          + ":g\" -e \"s:WORKSPACE_HOLDER:" + workspace \
+          + ':g\" -e \"s:TOPMODULE_HOLDER:' + top_module \
+          + ':g\" -e \"s:SCRIPTPATH_HOLDER:' + datuner_path \
+          + ':g\" -e \"s:DESIGNPATH_HOLDER:' + designdir \
+          + ':g\" ' + src_file + ' > ' + workspace + '/tune_' + args.tool + '.py'
   os.system(sedcmd)
 
 elif args.tool == "quartus":
-  srcFile = datuner_path + '/eda_flows/' + args.tool + '/tune_' + args.tool + '.py'
+  src_file = datuner_path + '/eda_flows/' + args.tool + '/tune_' + args.tool + '.py'
   sedcmd = 'sed -e \"s:BENCH_HOLDER:' + design + \
            ':g\" -e \"s:WORKSPACE_HOLDER:' + workspace + \
            ':g\" -e \"s:TOPMODULE_HOLDER:' + top_module + \
            ':g\" -e \"s:SCRIPTPATH_HOLDER:' + datuner_path + \
            ':g\" -e \"s:DESIGNPATH_HOLDER:' + designdir + \
-           ':g\" ' + srcFile + " > " + workspace + '/tune_' + args.tool + '.py'
+           ':g\" ' + src_file + " > " + workspace + '/tune_' + args.tool + '.py'
   os.system(sedcmd)
 
 else:
-  srcFile = py_code
-  sedcmd = 'sed -e \"s:BENCH_HOLDER:' + design + ':g\" -e \"s:WORKSPACE_HOLDER:' + workspace \
-            + ':g\" -e \"s:SCRIPTPATH_HOLDER:' + datuner_path + ':g\" ' + srcFile + ' > ' \
-            +workspace + '/tune_program.py'
+  src_file = py_code
+  sedcmd = 'sed -e \"s:BENCH_HOLDER:' + design + \
+            ':g\" -e \"s:WORKSPACE_HOLDER:' + workspace + \
+            ':g\" -e \"s:SCRIPTPATH_HOLDER:' + datuner_path + \
+            ':g\" ' + src_file + ' > ' + workspace + '/tune_program.py'
   os.system(sedcmd)
   cpcmd = 'cp ' + datuner_path + '/eda_flows/user_program_example/programWrapper.py ' + workspace
+  cpcmd += '; cp ' + datuner_path + '/adddeps.py ' + workspace
+  cpcmd += '; cp -r ' + datuner_path + '/eda_flows/custom/* ' + workspace
   os.system(cpcmd)
-  cpcmd = 'cp ' + datuner_path + '/adddeps.py ' + workspace
-  os.system(cpcmd)
-  cpcmd = 'cp ' + datuner_path + '/eda_flows/cordic/Cordic_fixed_err_three.py ' + workspace
-  os.system(cpcmd)
-  cpcmd = 'cp ' + datuner_path + '/eda_flows/cordic/fpfunctions.py ' + workspace
-  os.system(cpcmd)
-  cpcmd = 'cp ' + datuner_path + '/eda_flows/cordic/tunefp.py ' + workspace
-  os.system(cpcmd)
-  cpcmd = 'cp ' + datuner_path + '/eda_flows/cordic/fp_space.txt ' + workspace
-  os.system(cpcmd)
+  os.system('echo \"vsrc = ' + design + '.v\" >> ' + workspace + '/flow/Makefrag')
 
 
 #---------------------------
@@ -304,7 +293,8 @@ if args.tool == "vtr" or args.tool == "vivado" or args.tool == "quartus":
   os.system(runcmd)
 else:
   runcmd = mpi_path + " -np 1 " + \
-      "./DATuner_master --space " + space_def + " --path " + workspace + " --test-limit " + str(args.limit) + \
+      "./DATuner_master --space " + workspace + '/' + space_file_name + " --path " + workspace + \
+      " --test-limit " + str(args.limit) + \
       " --stop-after " + str(stoptime) + " : -np " + str(proc_num) + " --hostfile " + \
       datuner_path + "/my_hosts " + "./DATuner_worker -design " + design + " -path " + workspace + \
       " --parallelism=1 > log"

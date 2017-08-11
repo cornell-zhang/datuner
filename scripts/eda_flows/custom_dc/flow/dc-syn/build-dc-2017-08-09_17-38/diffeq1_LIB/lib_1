@@ -1,0 +1,27 @@
+/*
+#########################################################################################
+# SAED 90NM 1p9m milkyway technology file						#
+# Author:         David Avagyan								#
+# drawing grid:   0.005 microns								#
+#											#
+# Revision History:									#
+# Rev.		date		who		what					#
+# -------------------------------------------------------------------------------------	#	
+# 1.0		18/Feb/2007	David A.	(First draft)				#
+# 1.1		02/March/2007	Tigran S.	Removed unneeded layers and parametres.	#
+# 1.2		14/March/2007	Tigran S.	Changed metal resistor marking and dummy#
+#						metal exclude layer numbers.		#
+# 1.3		25/May/2007	Artak Y.	Changes for Astro.			#
+#						Added unit tile for SAED_EDK90_CORE	#
+#						digital library.			#
+#                                               Added VIA12A, VIA12B contact codes.     #
+#						Added TLU capacitance tables.   	#	
+#						Modified Metal pitches.		        #
+# 1.4 		09/Sep/2008	Tigran S.	Added minArea to metal layers.		#
+#						Changed pitch according ICC warnings.	#
+#						Changed unitCurrentName from mA to uA.	#	
+# 1.5 		10/Jul/2009	Tigran S.	Changed metal enclosure for VIAs.	#
+#						Changed pitch for metals.	 	#
+#						Density rules added.			#
+#########################################################################################
+*/

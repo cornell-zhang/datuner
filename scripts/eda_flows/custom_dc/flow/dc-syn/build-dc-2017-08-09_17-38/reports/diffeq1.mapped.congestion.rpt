@@ -1,0 +1,3 @@
+Error: Design was not created using DC Topographical technology.
+  Command 'report_congestion' can not be run without DC Topographical data. (OPT-1436)
+0
