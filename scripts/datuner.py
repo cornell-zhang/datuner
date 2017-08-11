@@ -11,6 +11,7 @@ import os
 import sys
 import optparse
 import argparse
+import getpass
 
 #-------------------------------------------------
 # parse parameters and read information from py
@@ -282,6 +283,22 @@ try:
 except:
   pass
 
+# copy the files to remote nodes
+host_file = open(datuner_path + "/my_hosts")
+if len(host_file.readlines()) == 1:
+  pass
+else:
+  host_file = open(datuner_path + "/my_hosts")
+  next(host_file)
+  for host_item in host_file:
+    host_item = host_item.strip('\n')
+    username = getpass.getuser()
+    check_cmd = "ssh " + username + "@" + host_item + " \"[ -d " +workspace + " ] || "
+    check_cmd += "mkdir -p " + workspace + "\""
+    os.system(check_cmd + " > /dev/null")    
+    copy_cmd = "scp " + workspace + "/* " + username + "@" + host_item + ":" + workspace
+    os.system(copy_cmd + " > /dev/null")
+    
 mpi_path = "mpirun"
 
 if args.tool == "vtr" or args.tool == "vivado" or args.tool == "quartus":

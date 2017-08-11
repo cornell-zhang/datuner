@@ -96,7 +96,7 @@ class ProgramTuner(Wrapper):
 
 # calculate mean accuracy
     for ang in range(10):
-      fp_run = "python ./Cordic_fixed_err_three.py "
+      fp_run = "python ./Cordic_fixed.py "
       fp_run += str(angles[ang])
 
       for index in range(len(param_list)):
