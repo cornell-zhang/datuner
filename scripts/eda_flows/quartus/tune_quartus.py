@@ -30,7 +30,6 @@ options = {
     'map_ignore_cascade_buffers' : 'ignore_cascade_buffers',
     'map_optimize' : 'optimize',
     'map_state_machine_encoding' : 'state_machine_encoding',
-    'fit_early_timing_estimate' : 'early_timing_estimate',
     'fit_effort' : 'effort',
     'fit_one_fit_attempt' : 'one_fit_attempt',
     'fit_optimize_io_register_for_timing' : 'optimize_io_register_for_timing',

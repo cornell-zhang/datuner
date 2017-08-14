@@ -177,8 +177,8 @@ vivado_flags = vivado_cst_flags[0:-1]
 
 quartus_flags = [
   'map_effort', 'map_ignore_carry_buffers', 'map_ignore_cascade_buffers',
-  'map_optimize', 'map_state_machine_encoding', 'fit_early_timing_estimate',
-  'fit_effort', 'fit_one_fit_attempt', 'fit_optimize_io_register_for_timing',
+  'map_optimize', 'map_state_machine_encoding', 'fit_effort',
+  'fit_one_fit_attempt', 'fit_optimize_io_register_for_timing',
   'fit_pack_register', 'fit_tdc'
 ]
 
