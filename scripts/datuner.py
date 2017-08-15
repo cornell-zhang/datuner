@@ -45,6 +45,7 @@ elif os.path.exists(pwd + '/custom.py') and args.tool == 'custom':
   py_code = eval(args.tool + '.py_code')
 else:
   print "missing [tool_name].py under current folder"
+  sys.exit(1)  
 
 # set up the workspace path automatically
 work_space = pwd + '/datuner.db'
@@ -177,8 +178,8 @@ vivado_flags = vivado_cst_flags[0:-1]
 
 quartus_flags = [
   'map_effort', 'map_ignore_carry_buffers', 'map_ignore_cascade_buffers',
-  'map_optimize', 'map_state_machine_encoding', 'fit_early_timing_estimate',
-  'fit_effort', 'fit_one_fit_attempt', 'fit_optimize_io_register_for_timing',
+  'map_optimize', 'map_state_machine_encoding', 'fit_effort',
+  'fit_one_fit_attempt', 'fit_optimize_io_register_for_timing',
   'fit_pack_register', 'fit_tdc'
 ]
 
@@ -308,7 +309,7 @@ if args.tool == "vtr" or args.tool == "vivado" or args.tool == "quartus":
     "./DATuner_master -" + args.tool + " --test-limit " + str(args.limit) + " --stop-after " + \
     str(stoptime) + " --path " + workspace + " : -np " + str(proc_num) + " --hostfile " + \
     datuner_path + "/my_hosts " + "./DATuner_worker -design " + design + " -path " + workspace + \
-    " -tune_cst " + str(tune_cst) + " --parallelism=1 > log"
+    " -tune_cst " + str(tune_cst) + " --parallelism=1 "
   os.system(runcmd)
 else:
   runcmd = mpi_path + " -np 1 " + \
@@ -316,5 +317,5 @@ else:
       " --test-limit " + str(args.limit) + \
       " --stop-after " + str(stoptime) + " : -np " + str(proc_num) + " --hostfile " + \
       datuner_path + "/my_hosts " + "./DATuner_worker -design " + design + " -path " + workspace + \
-      " --parallelism=1 > log"
+      " --parallelism=1 >log"
   os.system(runcmd)

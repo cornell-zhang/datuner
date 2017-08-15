@@ -257,7 +257,7 @@ my $architecture_file_name = $1;
 
 $architecture_file_name =~ m/(.*).xml$/;
 my $architecture_name = $1;
-print "$architecture_name/$benchmark_name...";
+#print "$architecture_name/$benchmark_name...";
 
 # Get Memory Size
 my $mem_size = -1;
@@ -610,9 +610,9 @@ close(RESULTS);
 
 if ( !$error_code ) {
 	system "rm -f *.echo";
-	print "OK";
+#	print "OK";
 }
-print "\n";
+#print "\n";
 
 ################################################################################
 # Subroutine to execute a system call with a timeout

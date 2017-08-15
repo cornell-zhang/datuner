@@ -30,7 +30,6 @@ options = {
     'map_ignore_cascade_buffers' : 'ignore_cascade_buffers',
     'map_optimize' : 'optimize',
     'map_state_machine_encoding' : 'state_machine_encoding',
-    'fit_early_timing_estimate' : 'early_timing_estimate',
     'fit_effort' : 'effort',
     'fit_one_fit_attempt' : 'one_fit_attempt',
     'fit_optimize_io_register_for_timing' : 'optimize_io_register_for_timing',
@@ -165,8 +164,8 @@ class QUARTUSFlagsTuner(MeasurementInterface):
 
     #------------run quartus---------#
     run_cmd = 'quartus_sh -t ' + workdir + '/run_quartus.tcl'
-    subprocess.call(run_cmd, shell=True)
-
+    #subprocess.call(run_cmd, shell=True)
+    os.system(run_cmd + " > /dev/null")
     #-----------pass result---------#
     report_path = self.designpath
 

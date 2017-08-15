@@ -154,8 +154,8 @@ class VIVADOFlagsTuner(MeasurementInterface):
 
     #------------run vivado---------#
     run_cmd = 'vivado -mode batch -source ' + workdir + '/run_vivado.tcl'
-    subprocess.call(run_cmd, shell=True)
-
+    #subprocess.call(run_cmd, shell=True)
+    os.system(run_cmd + " > /dev/null")
     #-----------pass result---------#
     timingFile = workdir + '/output/post_route_timing.rpt'
     if os.path.isfile(timingFile):

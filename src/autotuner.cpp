@@ -4,6 +4,8 @@
 #include <iostream>
 #include <Python.h>
 #include <fstream>
+#include <signal.h>
+#include <pthread.h>
 #include "structure.h"
 
 #define DEBUG_MSG
@@ -17,7 +19,7 @@ bool AutoTuner::callOpenTuner(Task* task, vector<Result*>& results, int rank, st
     return false;
   }
 #ifdef DEBUG_MSG
-  cout<<"rank "<<rank<<" results size: "<<results.size()<<endl;
+  //cout<<"rank "<<rank<<" results size: "<<results.size()<<endl;
 #endif
   return true;
 }
@@ -336,18 +338,56 @@ void AutoTuner::parse_Quartus_result(vector<Result*>& results,int rank) {
 
 }
 
+void *ProgressIndict(void *t)
+{    
+   long tid;
+   tid = (long)t;
+   if (tid == 0) {
+     FILE* file = NULL;
+     file=fopen("tune_vtr.py","r");
+     PyRun_SimpleFile(file,"tune_vtr.py");
+   }
+   else if (tid == 1) printf("[  INFO] calling VTR");
+   else {
+     float progress = 0.0;
+     while (progress < 0.7) {
+       int barWidth = 70;
+       std::cout << "[";
+       int pos = barWidth * progress;
+       for (int i = 0; i < barWidth; ++i) {
+         if (i < pos) std::cout << "=";
+         else if (i == pos) std::cout << ">";
+         else std::cout << " ";
+       }  
+       std::cout << "] " << int(progress * 100.0) << " %\r";
+       std::cout.flush();
+       progress += 0.0001;
+       if (progress > 1) progress = 0;
+     }
+     std::cout << std::endl;
+   } 
+   pthread_exit(NULL); 
+}
+   
 int AutoTuner::c2py(vector<Result*>& results,int rank, string pycode) {
   FILE* file = NULL;
+  FILE* sto = fopen("out.txt", "w+");
+  FILE* ste = fopen("opentuner_data.txt", "w+");
+  PySys_SetObject("stdout", PyFile_FromFile(sto, "out.txt","wb", fclose));
+  PySys_SetObject("stderr", PyFile_FromFile(ste, "opentuner_data.txt","wb", fclose));
   if(_tune_type == 1) {
     file=fopen("tune_vtr.py","r");
+//    printf("[   INFO]    Calling VTR...\n");
     PyRun_SimpleFile(file,"tune_vtr.py");
   }
   if(_tune_type == 2) {
     file=fopen("tune_vivado.py","r");
+//    printf("[    INFO]    Calling Vivado...\n");
     PyRun_SimpleFile(file,"tune_vivado.py");
   }
   if(_tune_type == 3) {
     file=fopen("tune_quartus.py","r");
+//    printf("[    INFO]    Calling Quartus...\n");
     PyRun_SimpleFile(file,"tune_quartus.py");
   }
   if(_tune_type == 4) {
@@ -365,3 +405,4 @@ int AutoTuner::c2py(vector<Result*>& results,int rank, string pycode) {
   if(_tune_type == 4) parse_program_result(results,rank);
   return 0;
 }
+
