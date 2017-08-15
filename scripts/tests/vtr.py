@@ -6,7 +6,7 @@
 # brief:  simplifed user interface for vtr
 
 # Specify the design path, either absolute or relative
-design_path = '$HOME/datuner/design/diffeq1'
+design_path = '$HOME/datuner/diffeq1'
 
 tool_path = 'vtr_flow_holder'
 
