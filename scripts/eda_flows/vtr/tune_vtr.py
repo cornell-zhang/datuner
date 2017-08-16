@@ -169,7 +169,7 @@ class VTRTuner(MeasurementInterface):
           chipSize = bufs[2]
           logicarea = bufs[3]
           routearea = bufs[4]
-          fmax = bufs[6]
+          fmax = -float(bufs[6])
           rt = float(bufs[7])+float(bufs[8])+float(bufs[9])
           nets = bufs[10]
           blocks = bufs[11]

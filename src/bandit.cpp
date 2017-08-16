@@ -160,7 +160,6 @@ void Bandit::cal_rewards(std::map<int,std::vector<Result*> >& points, vector<pai
 }
 
 int Bandit::update_bandit(int remove, int add_num) {
-  printf("the space id to be removed is %d\n",remove);
   assert(use_counts.count(remove) > 0);
   assert(auc_sum.count(remove) > 0);
   assert(auc_decay.count(remove) > 0);

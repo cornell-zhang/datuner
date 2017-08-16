@@ -84,13 +84,12 @@ void AutoTuner::parse_program_result(vector<Result*>& results, int rank) {
         result->score = atof(name.c_str());
       }
     }
-    printf("%d->%f\n",result->id,result->score);
     results.push_back(result);
   }
   ftr.close();
 }
 
-void AutoTuner::parse_VPR_result(vector<Result*>& results,int rank) {
+void AutoTuner::parse_VTR_result(vector<Result*>& results,int rank) {
   parse_program_result(results, rank);
 //  results.resize(0);
 //  char tmp_buf[50];

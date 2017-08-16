@@ -86,10 +86,7 @@ else:
   design_path = eval(args.tool+'.design_path')
 
 # extract design name from design path
-if design_path[-1] == '/' :
-  design_name = design_path.split('/')[-2]
-else:
-  design_name = design_path.split('/')[-1]
+design_name = design_path.split('/')[-1]
 
 #-------parameters check------
 if args.tool== '':
@@ -98,10 +95,6 @@ if args.tool== '':
 
 if design_name == '':
   print "please specify the design name."
-  sys.exit(1)
-
-if work_space == '':
-  print "please specify the directory to save intermediate data."
   sys.exit(1)
 
 if os.path.exists(datuner_path+"/../bin") == False:
@@ -150,7 +143,7 @@ for timer in range(len(timelist)):
   if timelist[timer].endswith('h'):
     hour = float(timelist[timer][0:-1])
 stoptime = int(sec + 60.0 * minute + 3600.0 * hour + 86400.0 * day)
-print '[     0s]    INFO DATuner time limit: ' + str(stoptime) + ' seconds'
+print '[     0s]    INFO time limit: ' + str(stoptime) + ' seconds'
 
 #--------------------------
 # Preparation & Check
@@ -158,13 +151,7 @@ print '[     0s]    INFO DATuner time limit: ' + str(stoptime) + ' seconds'
 
 vtr_flags = [
     'resyn', 'resyn2', 'resyn3',
-    'alpha_clustering', 'beta_clustering',
     'allow_unrelated_clustering', 'connection_driven_clustering',
-    'alpha_t', 'seed', 'inner_num', 'timing_tradeoff',
-    'inner_loop_recompute_divider', 'td_place_exp_first', 'td_place_exp_last',
-    'max_router_iterations', 'initial_pres_fac', 'pres_fac_mult', 'acc_fac',
-    'bb_factor', 'base_cost_type', 'astar_fac', 'max_criticality',
-    'criticality_exp'
     ]
 
 vivado_cst_flags = [
