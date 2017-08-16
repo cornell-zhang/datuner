@@ -28,9 +28,9 @@ $(mpichBuildDir)/config.status: $(PkgBuildDir)/.unpacked $(mpichBuildDir)/.dir $
 	cd $(mpichBuildDir); \
 	$(mpichSrcDir)/configure --prefix=$(DATuner_PKG_INSTALL) --disable-fortran; 
 
-make-mpich:: $(mpichBuildDir)/mpich
+make-mpich:: $(DATuner_PKG_BUILD)/install/bin/mpiexec.hydra
 
-$(mpichBuildDir)/mpich:
+$(DATuner_PKG_BUILD)/install/bin/mpiexec.hydra:
 	cd $(mpichBuildDir); \
 	make; \
 	make install;

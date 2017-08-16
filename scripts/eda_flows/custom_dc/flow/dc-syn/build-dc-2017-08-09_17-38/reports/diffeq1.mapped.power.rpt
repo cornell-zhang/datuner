@@ -1,0 +1,58 @@
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -hier
+        -analysis_effort low
+Design : diffeq1
+Version: M-2016.12
+Date   : Wed Aug  9 17:39:09 2017
+****************************************
+
+
+Library(s) Used:
+
+    gtech (File: /opt/synopsys/M-2016.12/synopsys-dc-M-2016.12/libraries/syn/gtech.db)
+
+
+Operating Conditions: TYPICAL   Library: saed90nm_typ
+Wire Load Model Mode: enclosed
+
+Design        Wire Load Model            Library
+------------------------------------------------
+diffeq1                ForQA             saed90nm_typ
+
+
+Global Operating Voltage = 1.2  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000ff
+    Time Units = 1ns
+    Dynamic Power Units = 1uW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+--------------------------------------------------------------------------------
+                                       Switch   Int      Leak     Total
+Hierarchy                              Power    Power    Power    Power    %
+--------------------------------------------------------------------------------
+diffeq1                                 845.303    0.000    0.000  845.303 100.0
+  C419 (*SELECT_OP_4.1_4.1_1)            16.836    0.000    0.000   16.836   2.0
+  C418 (*SELECT_OP_3.32_3.1_32)           1.696    0.000    0.000    1.696   0.2
+  C417 (*SELECT_OP_3.32_3.1_32)           1.703    0.000    0.000    1.703   0.2
+  C416 (*SELECT_OP_3.32_3.1_32)           1.594    0.000    0.000    1.594   0.2
+  C415 (*SELECT_OP_4.1_4.1_1)            16.836    0.000    0.000   16.836   2.0
+  C414 (*SELECT_OP_3.1_3.1_1)          6.07e-02    0.000    0.000 6.07e-02   0.0
+  sub_42_2 (*SUB_UNS_OP_32_32_32)         5.440    0.000    0.000    5.440   0.6
+  sub_42 (*SUB_UNS_OP_32_32_32)           4.988    0.000    0.000    4.988   0.6
+  mult_42_4 (*MULT_UNS_OP_32_32_32)     251.497    0.000    0.000  251.497  29.8
+  mult_42_2 (*MULT_UNS_OP_32_32_32)     299.114    0.000    0.000  299.114  35.4
+  add_44 (*ADD_UNS_OP_32_32_32)           2.426    0.000    0.000    2.426   0.3
+  add_43 (*ADD_UNS_OP_32_32_32)           3.401    0.000    0.000    3.401   0.4
+  mult_42_3 (*MULT_UNS_OP_32_2_32)        6.409    0.000    0.000    6.409   0.8
+  mult_42 (*MULT_UNS_OP_32_2_32)         16.786    0.000    0.000   16.786   2.0
+  mult_22 (*MULT_UNS_OP_32_32_32)       198.199    0.000    0.000  198.199  23.4
+  lt_40 (*LT_UNS_OP_32_32_1)              4.134    0.000    0.000    4.134   0.5
+1

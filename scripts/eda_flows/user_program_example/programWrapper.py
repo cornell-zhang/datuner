@@ -56,7 +56,7 @@ class Wrapper(MeasurementInterface):
     f = open('./localresult'+str(rank)+'.txt','a')
     for key in cfg:
       f.write(str(key)+" "+str(cfg[key])+" ")
-    f.write(str(res[0]))
+    f.write(str(res))
     f.write('\n')
     f.close()
 

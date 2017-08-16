@@ -1,6 +1,6 @@
-module lab5_top(CLK50, SW, KEY, RESET_N, LEDR, HEX5, HEX4, HEX3, HEX2, HEX1, HEX0);
+module lab5_top(CLK, SW, KEY, RESET_N, LEDR, HEX5, HEX4, HEX3, HEX2, HEX1, HEX0);
 
-  input         CLK50;
+  input         CLK;
   input  [9:0]  SW;
   input  [3:0]  KEY;
   input         RESET_N;
@@ -13,8 +13,6 @@ module lab5_top(CLK50, SW, KEY, RESET_N, LEDR, HEX5, HEX4, HEX3, HEX2, HEX1, HEX
   output [6:0]  HEX1;
   output [6:0]  HEX0;
   
-  wire		CLK;
-  wire 		CLK_SEL;
   wire 		RESET;
   wire		EN_L;
   wire  [7:0]   IOA;
@@ -27,7 +25,6 @@ module lab5_top(CLK50, SW, KEY, RESET_N, LEDR, HEX5, HEX4, HEX3, HEX2, HEX1, HEX
 
 
   assign RESET   = ~RESET_N;
-  assign CLK_SEL = SW[9];
   assign EN_L    = KEY[2];
 
 
@@ -43,15 +40,6 @@ module lab5_top(CLK50, SW, KEY, RESET_N, LEDR, HEX5, HEX4, HEX3, HEX2, HEX1, HEX
     .IOE(IOE),
     .IOF(IOF),
     .IOG(IOG)
-
-  );
-
-
-  var_clk clockGenerator(
-
-    .clock_50MHz(CLK50),
-    .clock_sel({CLK_SEL, CLK_SEL, CLK_SEL}),
-    .var_clock(CLK)
 
   );
 
@@ -76,7 +64,7 @@ module lab5_top(CLK50, SW, KEY, RESET_N, LEDR, HEX5, HEX4, HEX3, HEX2, HEX1, HEX
   
   // LED ARRAY LOGIC
   assign LEDR[9]     = CLK;
-  assign LEDR[8]		= 1'b0;
+  assign LEDR[8]     = 1'b0;
   assign LEDR[7:0]   = IOD;
 
   

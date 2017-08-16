@@ -11,7 +11,7 @@ PythonSrcDir = $(PkgBuildDir)/Python-$(PyVersion)
 PythonInstallDir = $(PkgBuildDir)/install
 
 ## Rules
-all:: download-python config-python make-python install-OpenTuner install-matplotlib
+all:: download-python config-python make-python make-pip install-OpenTuner install-matplotlib
 
 #=== Build Python ===#
 
@@ -37,11 +37,17 @@ $(PythonBuildDir)/python:
 
 #=== Install OpenTuner ===#
 
-install-OpenTuner:
+make-pip: $(PythonInstallDir)/bin/pip
+
+$(PythonInstallDir)/bin/pip:
 	cd $(PythonInstallDir)/bin; \
 	export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
 	wget https://bootstrap.pypa.io/get-pip.py; \
 	./python get-pip.py; \
+
+install-OpenTuner:
+	cd $(PythonInstallDir)/bin; \
+	export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
 	./pip install opentuner;
 
 install-matplotlib:

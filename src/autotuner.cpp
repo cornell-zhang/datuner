@@ -4,6 +4,8 @@
 #include <iostream>
 #include <Python.h>
 #include <fstream>
+#include <signal.h>
+#include <pthread.h>
 #include "structure.h"
 
 #define DEBUG_MSG
@@ -17,7 +19,7 @@ bool AutoTuner::callOpenTuner(Task* task, vector<Result*>& results, int rank, st
     return false;
   }
 #ifdef DEBUG_MSG
-  cout<<"rank "<<rank<<" results size: "<<results.size()<<endl;
+  //cout<<"rank "<<rank<<" results size: "<<results.size()<<endl;
 #endif
   return true;
 }
@@ -241,36 +243,44 @@ void AutoTuner::parse_Quartus_result(vector<Result*>& results,int rank) {
     string name1;
     ftr>>name1;
     string val1;
-    ftr>>buf>>val1;
+    ftr>>val1;
     string name2;
     ftr>>name2;
     string val2;
-    ftr>>buf>>val2;
+    ftr>>val2;
     string name3;
     ftr>>name3;
     string val3;
-    ftr>>buf>>val3;
+    ftr>>val3;
     string name4;
     ftr>>name4;
     string val4;
-    ftr>>buf>>val4;
+    ftr>>val4;
     string name5;
     ftr>>name5;
     string val5;
-    ftr>>buf>>val5;
+    ftr>>val5;
     string name6;
     ftr>>name6;
     string val6;
-    ftr>>buf>>val6;
+    ftr>>val6;
     string name7;
     ftr>>name7;
     string val7;
-    ftr>>buf>>val7;
+    ftr>>val7;
     string name8;
     ftr>>name8;
     string val8;
-    ftr>>buf>>val8;
-
+    ftr>>val8;
+    string name9;
+    ftr>>name9;
+    string val9;
+    ftr>>val9;
+    string name10;
+    ftr>>name10;
+    string val10;
+    ftr>>val10;
+ 
     string metric;
     ftr>>metric;
     string score;
@@ -280,39 +290,47 @@ void AutoTuner::parse_Quartus_result(vector<Result*>& results,int rank) {
     result->score = atof(score.c_str()); //maximize WNS
     result->id = _task;
     
-    if(name1 == "quartus_map --effort") {
-      pair<string,string> tmp = make_pair("map_effort",val1);
+    {
+      pair<string,string> tmp = make_pair(name1,val1);
       result->name2choice.push_back(tmp);
     }
-    if(name2 == "quartus_map --incremental_compilation") {
-      pair<string,string> tmp = make_pair("map_incremental_compilation",val2);
+    {
+      pair<string,string> tmp = make_pair(name2,val2);
       result->name2choice.push_back(tmp);
     }
-    if(name3 == "quartus_map --optimize") {
-      pair<string,string> tmp = make_pair("map_optimize",val3);
+    {
+      pair<string,string> tmp = make_pair(name3,val3);
       result->name2choice.push_back(tmp);
     }
-    if(name4 == "quartus_map --parallel") {
-      pair<string,string> tmp = make_pair("map_parallel",val4);
+    {
+      pair<string,string> tmp = make_pair(name4,val4);
       result->name2choice.push_back(tmp);
     }
-    if(name5 == "quartus_fit --effort") {
-      pair<string,string> tmp = make_pair("fit_effort",val5);
+    {
+      pair<string,string> tmp = make_pair(name5,val5);
       result->name2choice.push_back(tmp);
     }
-    if(name6 == "quartus_fit --optimize_io_register_for_timing") {
-      pair<string,string> tmp = make_pair("fit_optimize_io_register_for_timing",val6);
+    {
+      pair<string,string> tmp = make_pair(name6,val6);
       result->name2choice.push_back(tmp);
     }
-    if(name7 == "quartus_fit --pack_register") {
-      pair<string,string> tmp = make_pair("fit_pack_register",val7);
+    {
+      pair<string,string> tmp = make_pair(name7,val7);
       result->name2choice.push_back(tmp);
     }
-    if(name8 == "quartus_fit --tdc") {
-      pair<string,string> tmp = make_pair("fit_tdc",val8);
+    {
+      pair<string,string> tmp = make_pair(name8,val8);
       result->name2choice.push_back(tmp);
     }
-    
+    {
+      pair<string,string> tmp = make_pair(name9,val9);
+      result->name2choice.push_back(tmp);
+    }
+    {
+      pair<string,string> tmp = make_pair(name10,val10);
+      result->name2choice.push_back(tmp);
+    }
+        
     results.push_back(result);
   
   }
@@ -321,18 +339,56 @@ void AutoTuner::parse_Quartus_result(vector<Result*>& results,int rank) {
 
 }
 
+void *ProgressIndict(void *t)
+{    
+   long tid;
+   tid = (long)t;
+   if (tid == 0) {
+     FILE* file = NULL;
+     file=fopen("tune_vtr.py","r");
+     PyRun_SimpleFile(file,"tune_vtr.py");
+   }
+   else if (tid == 1) printf("[  INFO] calling VTR");
+   else {
+     float progress = 0.0;
+     while (progress < 0.7) {
+       int barWidth = 70;
+       std::cout << "[";
+       int pos = barWidth * progress;
+       for (int i = 0; i < barWidth; ++i) {
+         if (i < pos) std::cout << "=";
+         else if (i == pos) std::cout << ">";
+         else std::cout << " ";
+       }  
+       std::cout << "] " << int(progress * 100.0) << " %\r";
+       std::cout.flush();
+       progress += 0.0001;
+       if (progress > 1) progress = 0;
+     }
+     std::cout << std::endl;
+   } 
+   pthread_exit(NULL); 
+}
+   
 int AutoTuner::c2py(vector<Result*>& results,int rank, string pycode) {
   FILE* file = NULL;
+  FILE* sto = fopen("out.txt", "w+");
+  FILE* ste = fopen("opentuner_data.txt", "w+");
+  PySys_SetObject("stdout", PyFile_FromFile(sto, "out.txt","wb", fclose));
+  PySys_SetObject("stderr", PyFile_FromFile(ste, "opentuner_data.txt","wb", fclose));
   if(_tune_type == 1) {
     file=fopen("tune_vtr.py","r");
+//    printf("[   INFO]    Calling VTR...\n");
     PyRun_SimpleFile(file,"tune_vtr.py");
   }
   if(_tune_type == 2) {
     file=fopen("tune_vivado.py","r");
+//    printf("[    INFO]    Calling Vivado...\n");
     PyRun_SimpleFile(file,"tune_vivado.py");
   }
   if(_tune_type == 3) {
     file=fopen("tune_quartus.py","r");
+//    printf("[    INFO]    Calling Quartus...\n");
     PyRun_SimpleFile(file,"tune_quartus.py");
   }
   if(_tune_type == 4) {
@@ -344,9 +400,10 @@ int AutoTuner::c2py(vector<Result*>& results,int rank, string pycode) {
     abort();
   }
 
-  if(_tune_type == 1) parse_VPR_result(results,rank);
+  if(_tune_type == 1) parse_VTR_result(results,rank);
   if(_tune_type == 2) parse_Vivado_result(results,rank);
   if(_tune_type == 3) parse_Quartus_result(results,rank);
   if(_tune_type == 4) parse_program_result(results,rank);
   return 0;
 }
+

@@ -30,12 +30,9 @@ for line in f1:
 f1.close()
 f2.close()
 
-cpcmd = 'cp '+script_folder+'/datuner.py '+workspace_path+'/datuner.py'
-os.system(cpcmd)
-
 # run datuner
 os.chdir(workspace_path)
-os.system('python datuner.py -f vtr -p 2 -b 4 -t 0.0d:120s')
+os.system('datuner.py -f vtr -p 2 -b 4 -t 0.0d:120s')
 
 # check results
 

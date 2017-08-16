@@ -13,7 +13,7 @@ class AutoTuner{
     void param_parse(Task*,int rank);
     void parse_Quartus_result(std::vector<Result*>&, int);
     void parse_Vivado_result(std::vector<Result*>&, int);
-    void parse_VPR_result(std::vector<Result*>&, int);
+    void parse_VTR_result(std::vector<Result*>&, int);
     void parse_program_result(std::vector<Result*>&, int);
     int c2py(std::vector<Result*>&, int rank, std::string pycode="");
     int _step;

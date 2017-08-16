@@ -1,14 +1,16 @@
 #-----------------------------------------------------
 # user interface for vtr tuning (settings options)
-#----------------------------------------------------
+#-----------------------------------------------------
 # Author: Shaojie Xiang 
 # Date:   7/26/2017
 # brief:  simplifed user interface for vtr
 
-design_path = '/home/sx233/datuner/diffeq1'                          # cp files in design path to wrkspace                                      
+# Specify the design path, either absolute or relative
+design_path = '$HOME/datuner/diffeq1'
+
 tool_path = 'vtr_flow_holder'
 
-#------user defined tuning paramter-------------------
+#------user defined tuning parameters-----------------
 # set the parameter you do not want to tune as:
 # "param_name property" like: param1 = 'on' or 0.8
 #-----------------------------------------------------
@@ -43,4 +45,5 @@ base_cost_type = ['demand_only', 'delay_normalized']
 astar_fac = (1, 2)
 max_criticality = (0.8, 1)
 criticality_exp = (0.8, 1)
-#---------------------------------------------------------
+
+#-----------------------------------------------------

@@ -237,7 +237,7 @@ int main(int argc, char** argv){
       output_ftr<<gbest_result->name2choice[ti].first.c_str()<<" : "<<gbest_result->name2choice[ti].second.c_str()<<" ";
     }
     output_ftr<<endl;
-
+    printf("[%6ds]    INFO Iter %3d,  num of subspace = %2d, QoR = %5f \n", int(runtime), iter, space_buffer.size(), gbest_result->score);
     if((iter >= total_round) || (runtime > tune_time) || (num_samples > space_size)) {
       //stop tuning conditions: 1) #searches exceeds search limits 2) run out of tuning time 3) the whole space has been searched  
       output_ftr<<"finish tuning"<<endl;
@@ -322,7 +322,7 @@ void taskAssign(map<string, string> name2type, map<int, Result*> space2best, boo
       assert(task != NULL);        
       Send_Task(task,used_proc+j+1);
 #ifdef DEBUG_MSG
-      printf("Iter: %d, Send task: Space %d => Pnum %d\n", iter, space_id, used_proc+j+1);
+      //printf("Iter: %d, Send task: Space %d => Pnum %d\n", iter, space_id, used_proc+j+1);
 #endif 
     }
   }
