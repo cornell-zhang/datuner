@@ -151,7 +151,13 @@ print '[     0s]    INFO time limit: ' + str(stoptime) + ' seconds'
 
 vtr_flags = [
     'resyn', 'resyn2', 'resyn3',
+    'alpha_clustering', 'beta_clustering',
     'allow_unrelated_clustering', 'connection_driven_clustering',
+    'alpha_t', 'seed', 'inner_num', 'timing_tradeoff',
+    'inner_loop_recompute_divider', 'td_place_exp_first', 'td_place_exp_last',
+    'max_router_iterations', 'initial_pres_fac', 'pres_fac_mult', 'acc_fac',
+    'bb_factor', 'base_cost_type', 'astar_fac', 'max_criticality',
+    'criticality_exp'
     ]
 
 vivado_cst_flags = [
