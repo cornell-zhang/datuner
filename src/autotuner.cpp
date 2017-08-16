@@ -89,33 +89,34 @@ void AutoTuner::parse_program_result(vector<Result*>& results, int rank) {
 }
 
 void AutoTuner::parse_VPR_result(vector<Result*>& results,int rank) {
-  results.resize(0);
-  char tmp_buf[50];
-  sprintf(tmp_buf,"localresult%d.txt",rank);
-  string filename = _path+"/"+string(tmp_buf);
-  fstream ftr;
-  ftr.open(filename.c_str(),fstream::in);
-  assert(ftr.is_open());
-  string buf;
-  while(ftr>>buf) {
-    string name = buf;
-    string value;
-    ftr>>value;
-    Result* result = new Result();
-    result->id = _task;
-    pair<string,string> tmp_pair = make_pair(name,value);
-    result->name2choice.push_back(tmp_pair);
-    for(int i = 0; i < 22; i++) {
-      ftr>>name;
-      ftr>>value;
-      pair<string,string> tmp = make_pair(name,value);
-      result->name2choice.push_back(tmp);
-    }
-    ftr>>buf;
-    result->score = atof(buf.c_str());
-    results.push_back(result); 
-  }
-  ftr.close();
+  parse_program_result(results, rank);
+//  results.resize(0);
+//  char tmp_buf[50];
+//  sprintf(tmp_buf,"localresult%d.txt",rank);
+//  string filename = _path+"/"+string(tmp_buf);
+//  fstream ftr;
+//  ftr.open(filename.c_str(),fstream::in);
+//  assert(ftr.is_open());
+//  string buf;
+//  while(ftr>>buf) {
+//    string name = buf;
+//    string value;
+//    ftr>>value;
+//    Result* result = new Result();
+//    result->id = _task;
+//    pair<string,string> tmp_pair = make_pair(name,value);
+//    result->name2choice.push_back(tmp_pair);
+//    for(int i = 0; i < 22; i++) {
+//      ftr>>name;
+//      ftr>>value;
+//      pair<string,string> tmp = make_pair(name,value);
+//      result->name2choice.push_back(tmp);
+//    }
+//    ftr>>buf;
+//    result->score = atof(buf.c_str());
+//    results.push_back(result); 
+//  }
+//  ftr.close();
 }
 
 void AutoTuner::parse_Vivado_result(vector<Result*>& results,int rank) {

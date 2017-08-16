@@ -255,6 +255,7 @@ void gennewSpace(Space* orgspace, Param* param, int old_space_num, vector<Space*
 }
 
 void divide_space(int old_max_id, Space* orgspace, map<int,vector<Result*> >& points, map<int,Result*>& space2best, map<int, Space*>& spaceBuf, int& remove_space, int &add_num) {
+  add_num = 0;
   int size_threshold = 30;
   //find space to partition
   //TODO: combine both average score and best score

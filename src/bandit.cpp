@@ -122,7 +122,7 @@ void Bandit::on_result(int index, float score) {
 }
 
 float Bandit::normalized_score(float min, float max, float score) {
-  assert(max != min);
+  if(max == min) {assert(score == min); return 1;}
   return 1-(max-score)/(max-min);
 }
 
@@ -148,8 +148,7 @@ void Bandit::cal_rewards(std::map<int,std::vector<Result*> >& points, vector<pai
     float score;
     float my_explot = 0.0;
     float my_explor = exploration_term(index);
-
-    if(fabs(max-min) != 0) my_explot = normalized_score(min,max,exploitation_ucb(it->first, points)); 
+    my_explot = normalized_score(min,max,exploitation_ucb(it->first, points)); 
     score = my_explot+c*my_explor;
 #ifdef DEBUG_MSG
     printf("debug score exploit_score %f, normalized_score %f, exploration %f\n",exploitation_ucb(it->first,points),my_explot,my_explor);
@@ -161,6 +160,7 @@ void Bandit::cal_rewards(std::map<int,std::vector<Result*> >& points, vector<pai
 }
 
 int Bandit::update_bandit(int remove, int add_num) {
+  printf("the space id to be removed is %d\n",remove);
   assert(use_counts.count(remove) > 0);
   assert(auc_sum.count(remove) > 0);
   assert(auc_decay.count(remove) > 0);

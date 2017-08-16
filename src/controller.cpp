@@ -173,9 +173,10 @@ int main(int argc, char** argv){
       vector<Result*> result_buf;
       Recv_MultiResult(result_buf,i);
       if(result_buf.size() != 0) {
+        //printf("debug result_size %d, num_samples %d\n", result_buf.size(), num_samples);
         db->SaveResults(result_buf,num_samples);
         num_samples += result_buf.size();
-        printf("debug save result db OK\n");
+        //printf("debug save result db OK\n");
       }
       for(int j = 0; j < result_buf.size(); j++) {
         Result* result = result_buf[j];
@@ -214,9 +215,11 @@ int main(int argc, char** argv){
       int remove_id; //leave becomes intermediate node & grow children
       int add_num;
       divide_space(last_space_id, orgSpace, points, space2best, space_buffer,remove_id,add_num);
-      if(add_num > 0) auc_bandit->update_bandit(remove_id,add_num);
-      auc_bandit->check_arms(space_buffer);
-      last_space_id += add_num;
+      if(add_num > 0) {
+        auc_bandit->update_bandit(remove_id,add_num);
+        auc_bandit->check_arms(space_buffer);
+        last_space_id += add_num;
+      }
     }
 
     //checkpoint 
@@ -261,8 +264,10 @@ void taskAssign(map<string, string> name2type, map<int, Result*> space2best, boo
   vector<float> normalization;
   float sum = 0;
   for(int i = 0; i < reward.size(); i++) {
+    printf("%f, ",reward[i].second);
     sum += reward[i].second;
   }
+  printf("\n");
   for(int i = 0; i < reward.size(); i++) {
     float normalized_score = reward[i].second/sum;
     assert(normalized_score >= 0);
@@ -289,9 +294,9 @@ void taskAssign(map<string, string> name2type, map<int, Result*> space2best, boo
       Task* task = new Task(space);
       assert(task != NULL);
       Send_Task(task,used_proc+j+1);
-//ifdef DEBUG_MSG
+#ifdef DEBUG_MSG
       printf("Iter: %d, Send task: Space %d => Pnum %d\n", iter, space_id, used_proc+j+1);
-//endif
+#endif
     }
 
     //finish task assignment
