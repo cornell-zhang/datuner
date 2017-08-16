@@ -20,9 +20,6 @@ RELEASE_XLNX := 1
 # Release target: ASIC
 #RELEASE_ASIC := 1
 
-# Specify a target release path
-#PREFIX := /home/xuchang/
-
 #-------------------------------------------------------------------------------
 
 #=== Directory settings ===#
