@@ -266,7 +266,6 @@ else:
   cpcmd += '; cp ' + datuner_path + '/adddeps.py ' + workspace
   cpcmd += '; cp -r ' + datuner_path + '/eda_flows/custom/* ' + workspace
   os.system(cpcmd)
-  os.system('echo \"vsrc = ' + design + '.v\" >> ' + workspace + '/flow/Makefrag')
 
 
 #---------------------------
@@ -292,7 +291,7 @@ else:
     check_cmd = "ssh " + username + "@" + host_item + " \"[ -d " +workspace + " ] || "
     check_cmd += "mkdir -p " + workspace + "\""
     os.system(check_cmd + " > /dev/null")    
-    copy_cmd = "scp " + workspace + "/* " + username + "@" + host_item + ":" + workspace
+    copy_cmd = "scp -r " + workspace + "/* " + username + "@" + host_item + ":" + workspace
     os.system(copy_cmd + " > /dev/null")
     
 mpi_path = "mpirun"
@@ -310,5 +309,5 @@ else:
       " --test-limit " + str(args.limit) + \
       " --stop-after " + str(stoptime) + " : -np " + str(proc_num) + " --hostfile " + \
       datuner_path + "/my_hosts " + "./DATuner_worker -design " + design + " -path " + workspace + \
-      " --parallelism=1 >log"
+      " --parallelism=1"
   os.system(runcmd)
