@@ -4,7 +4,7 @@
 
 # This is the target cycle time in nanoseconds
 
-clock_period = 1
+clock_period = 2
 
 # PyMTL build directory, relative to the root of the project
 
@@ -12,4 +12,4 @@ pymtl_build_dir = designs/
 
 # Verilog source directory
 
-vsrc = diffeq1.v
+vsrc = mBnnXcelHLS_v.v

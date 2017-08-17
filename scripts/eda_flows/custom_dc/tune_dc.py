@@ -74,16 +74,15 @@ class ProgramTuner(Wrapper):
         run_dc_cmd += '-{0} '.format(flag)
 
     # run design compiler
-    res = []
     requestor = desired_result.requestor
-    self.rundc(run_dc_cmd, dc_config, result_id, res, requestor)
+    res = self.rundc(run_dc_cmd, dc_config, result_id, requestor)
     end = time.time()
 
     super(ProgramTuner,self).dumpresult(self.args.myrank, cfg, res)
-    return Result(time = float(res[0]))
+    return Result(time = float(res))
 
 
-  def rundc(self, run_dc_cmd, dc_config, reqid, res, requestor):
+  def rundc(self, run_dc_cmd, dc_config, reqid, requestor):
     start = time.time()
     sdir = self.scriptpath + '/'
     workdir = self.workspace + '/'
@@ -103,7 +102,7 @@ class ProgramTuner(Wrapper):
 
     pwd = os.getcwd()
     os.chdir(workdir + str(self.args.myrank) + '/' + str(reqid) + '/flow/dc-syn')
-    cmd = 'make'
+    cmd = 'make > dc_log.txt'
     subprocess.Popen(cmd, shell = True).wait()
     os.chdir(pwd)
 
@@ -122,8 +121,6 @@ class ProgramTuner(Wrapper):
         wns = float(line.split()[2])
         break
     f.close()
-    res.append(wns)
-    res.append(area)
 
     cmd = 'rm -r ' + workdir + str(self.args.myrank) + '/' + str(reqid)
     os.system(cmd)
@@ -133,6 +130,8 @@ class ProgramTuner(Wrapper):
     f.write('dcConfig: ' + run_dc_cmd + '\n')
     f.write(str(wns) + ',' + str(area) + '\n')
     f.close()
+
+    return wns
 
 
   def save_final_config(self, configuration):
