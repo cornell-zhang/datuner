@@ -60,6 +60,7 @@ cst_value = 'CST_VALUE_HOLD'
 # check design path
 if args.tool == 'vivado' or args.tool == 'quartus':
   dir_list = []
+
   if eval(args.tool + '.design_path') == '':
     for count in os.listdir(pwd):
       if os.path.isdir(count):
@@ -69,7 +70,6 @@ if args.tool == 'vivado' or args.tool == 'quartus':
     for index in dir_list:
       word += "  " + index
     design_input = raw_input("please enter other path or design name if in current folder: " + word +"\n")
-
     if design_input in dir_list:
       design_path = pwd + "/" + design_input
     elif not os.path.isdir(design_input):
@@ -77,11 +77,13 @@ if args.tool == 'vivado' or args.tool == 'quartus':
     else:
       design_path = design_input
     print 'design_path is: ' + design_path
-  elif os.path.isdir(eval(args.tool+'.design_path')):
-    design_path = eval(args.tool+'.design_path')
+  
   else:
-    print "error: the design path is invalid"
-    sys.exit(1)
+    design_path = os.path.abspath(eval(args.tool + '.design_path'))
+    if not os.path.isdir(design_path):
+      print "error: the design path is invalid"
+      sys.exit(1)
+  
 else:
   design_path = eval(args.tool+'.design_path')
 
