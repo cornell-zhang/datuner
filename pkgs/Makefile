@@ -4,7 +4,6 @@ PKG_LEVEL = .
 
 include $(PKG_LEVEL)/Makefile.pkg.common
 
-DIRS = python
+DIRS = python-opentuner
 DIRS += mpich
 DIRS += sqlite
-DIRS += vtr
