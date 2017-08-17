@@ -110,13 +110,16 @@ class QUARTUSFlagsTuner(MeasurementInterface):
 
     cmd = 'mkdir -p ' + self.workspace + '/' + str(self.args.myrank) + '/'
     subprocess.Popen(cmd, shell=True).wait()
+    cmd = ('cp -r ' + self.designpath + ' ' + self.workspace + '/' +
+           str(self.args.myrank) + '/')
+    subprocess.Popen(cmd, shell=True).wait()
     cmd = ('mkdir -p ' + self.workspace + '/' + str(self.args.myrank) + '/' +
            str(result_id) + '/')
     subprocess.Popen(cmd, shell=True).wait()
 
     workdir = (self.workspace + '/' + str(self.args.myrank) + '/' + 
                str(result_id) + '/')
-    srcdir = self.designpath + '/'
+    srcdir = self.workspace + '/' + str(self.args.myrank) + '/' + self.design
 
     cfg = desired_result.configuration.data
 
@@ -155,7 +158,7 @@ class QUARTUSFlagsTuner(MeasurementInterface):
 
     cmd = 'sed -e \'s:BENCH:' + self.design + \
           ':g\' -e \'s:TOPMODULE:' + self.topmodule + \
-          ':g\' -e \'s:DESIGN_PATH:' + self.designpath + \
+          ':g\' -e \'s:DESIGN_PATH:' + srcdir + \
           ':g\' -e \'s:WORKDIR_HOLDER:' + workdir + \
           ':g\' ' + self.scriptpath + '/eda_flows/quartus/run_quartus.tcl > ' \
           + workdir + 'run_quartus.tcl'
@@ -167,7 +170,7 @@ class QUARTUSFlagsTuner(MeasurementInterface):
     #subprocess.call(run_cmd, shell=True)
     os.system(run_cmd + " > /dev/null")
     #-----------pass result---------#
-    report_path = self.designpath
+    report_path = srcdir
 
     def get_timing():
 
