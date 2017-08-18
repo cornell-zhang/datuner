@@ -6,15 +6,15 @@
 
 If you use this code in your research, please cite our FPGA'17 paper:
 
-  @article{xu-datuner-fpga2017,
-    title   = "{A Parallel Bandit-Based Approach for Autotuning 
-                FPGA Compilation}",
-    author  = {Chang Xu and Gai Liu and Ritchie Zhao and Stephen Yang 
-               and Guojie Luo and Zhiru Zhang}
-    journal = {Int'l Symp. on Field-Programmable Gate Arrays (FPGA)},
-    month   = {Feb},
-    year    = {2017},
-  }
+            @article{xu-datuner-fpga2017,
+              title   = "{A Parallel Bandit-Based Approach for Autotuning 
+                          FPGA Compilation}",
+              author  = {Chang Xu and Gai Liu and Ritchie Zhao and Stephen Yang 
+                         and Guojie Luo and Zhiru Zhang}
+              journal = {Int'l Symp. on Field-Programmable Gate Arrays (FPGA)},
+              month   = {Feb},
+              year    = {2017},
+            } 
 
 ### Prerequisites
 
