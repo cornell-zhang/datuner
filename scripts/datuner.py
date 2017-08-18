@@ -79,7 +79,7 @@ if args.tool == 'vivado' or args.tool == 'quartus':
     print 'design_path is: ' + design_path
   
   else:
-    design_path = os.path.abspath(eval(args.tool + '.design_path'))
+    design_path = os.path.abspath(os.path.expanduser(eval(args.tool + '.design_path')))
     if not os.path.isdir(design_path):
       print "error: the design path is invalid"
       sys.exit(1)
