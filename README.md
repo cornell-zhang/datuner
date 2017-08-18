@@ -117,3 +117,8 @@ One way to enable password-less SSH:
      
      Please modify your python code according to the tuneProgramTemplate.py under user_programe_example folder. make sure your python code import the programWrapper.py, and custom.py under you current directory includes the path of space definition textfile.
 
+
+### License
+DATuner is offered under the terms of the Open Source Initiative BSD 3-Clause License. More information about this license can be found here:
+ - http://choosealicense.com/licenses/bsd-3-clause
+ - http://opensource.org/licenses/BSD-3-Clause
