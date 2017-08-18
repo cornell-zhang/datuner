@@ -11,7 +11,7 @@ PythonSrcDir = $(PkgBuildDir)/Python-$(PyVersion)
 PythonInstallDir = $(PkgBuildDir)/install
 
 ## Rules
-all:: download-python config-python make-python make-pip install-OpenTuner install-matplotlib
+all:: download-python config-python make-python make-pip install-OpenTuner install-matplotlib install-scipy
 
 #=== Build Python ===#
 
@@ -54,4 +54,9 @@ install-matplotlib:
 	cd $(PythonInstallDir)/bin; \
 	export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
 	./pip install matplotlib;
+
+install-scipy:
+	cd $(PythonInstallDir)/bin; \
+        export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
+        ./pip install matplotlib;
 
