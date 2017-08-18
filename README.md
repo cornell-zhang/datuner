@@ -82,13 +82,6 @@ One way to enable password-less SSH:
 
 ###  Applications
 
-   * Autotest
-
-     Use auto_test flow to test whether DATuner has been successfully built. 
-
-                 % cd $HOME
-                 % python auto_test.py
-
    * Tune VTR
 
      We chose to use "k6_frac_N10_mem32K_40nm.xml" VTR FPGA architecture by default. If users want to use another architecture, tune_vtr.py (under scripts/eda_flows/vtr) can be modified accordingly.
