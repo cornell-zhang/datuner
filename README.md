@@ -2,7 +2,7 @@
 
 # DATuner User Guide
 
-### Publications
+### Publication
 
 If you use this code in your research, please cite our FPGA'17 paper:
 
@@ -14,10 +14,10 @@ If you use this code in your research, please cite our FPGA'17 paper:
         year    = {2017},
       } 
 
-### Prerequisites
+### Supported platfroms and EDA tools
 
-EDA tools (VTR, Vivado, and Quartus).
-Make sure the tool is on your PATH.
+DATuner has been tested on CentOS and Ubuntu.
+Supported EDA tools: VTR, Vivado, and Quartus. Make sure the tool is on your PATH.
 
 ### Compilation
 (tested on zhang-05)
