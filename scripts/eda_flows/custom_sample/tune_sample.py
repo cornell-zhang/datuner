@@ -15,7 +15,15 @@ from opentuner import EnumParameter
 from opentuner import FloatParameter
 from opentuner import MeasurementInterface
 from opentuner import Result
+import socket
 
+# Create a TCP/IP socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Connect the socket to the port where the server is listening
+server_address = ('128.84.48.152', 10000)
+print >>sys.stderr, 'connecting to %s port %s' % server_address
+sock.connect(server_address)
 
 class ProgramTuner(MeasurementInterface):
   myrank = 1
@@ -26,6 +34,18 @@ class ProgramTuner(MeasurementInterface):
     """
     scope = range(1000)
     manipulator = ConfigurationManipulator()
+    try:
+      count=0
+      while count<1:
+        data = sock.recv(100)
+        if count==0:
+          index = data
+        elif count==1:
+          rank = data
+        count+=1
+    finally:
+      sock.close()
+    print data
     manipulator.add_parameter(
       EnumParameter('index', scope))
     return manipulator
