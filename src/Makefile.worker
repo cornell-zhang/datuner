@@ -1,0 +1,26 @@
+EXE_OUT = DATuner_worker
+
+Worker_SRC = worker.cpp autotuner.cpp msg_passing.cpp
+Worker_OBJ = $(Worker_SRC:%.cpp=$(MY_TOOL_BUILD)/%.o)
+Worker_DEP = $(patsubst %,%.d,$(basename $(Worker_OBJ)))
+
+$(warning $(MY_TOOL_BUILD) )
+$(warning $(Worker_OBJ) )
+
+
+all :: $(MY_TOOL_BIN)/$(EXE_OUT)
+	echo $(MY_TOOL_BUILD)
+	echo $(MY_TOOL_CC)
+
+$(EXE_OUT) :: $(Worker_OBJ)
+	$(MY_TOOL_CC) -o $(MY_TOOL_BIN)/$(EXE_OUT) $^ $(LDFLAGS)
+
+$(MY_TOOL_BIN)/$(EXE_OUT) :: $(Worker_OBJ)
+	$(MY_TOOL_CC) -o $@ $^ $(LDFLAGS)
+
+clean ::
+	rm -f $(Worker_DEP)
+	rm -f $(Worker_OBJ)
+	rm -f $(MY_TOOL_BIN)/$(EXE_OUT)
+
+-include $(Worker_DEP)
