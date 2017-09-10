@@ -9,25 +9,32 @@ from opentuner import Result
 import socket
 import pickle
 
-# Create a TCP/IP socket
-conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-# Connect the socket to the port where the server is listening
 server_address = ('128.253.128.53', 10000)
-print >> sys.stderr, 'connecting to %s port %s' % server_address
-conn.connect(server_address)
 
 class ProgramTuner(MeasurementInterface):
+  # Create a TCP/IP socket
+  conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ 
+  # Connect the socket to the port where the server is listening
+  print >> sys.stderr, 'connecting to %s port %s' % server_address
+  conn.connect(server_address)
+
+  conn.send(pickle.dumps(['init']))
+
+  param = []
   try:
-    data = pickle.loads(conn.recv(8096))
-    param_type, param_name, param_range = data
+    for i in range(int(conn.recv(32))):
+      data = pickle.loads(conn.recv(8096))
+      param.append(data)
   finally:
     conn.close()
 
   def manipulator(self):
     manipulator = ConfigurationManipulator()
-    if self.param_type == 'EnumParameter':
-      manipulator.add_parameter(EnumParameter(self.param_name, self.param_range))
+    for item in self.param:
+      param_type, param_name, param_range = item
+      if param_type == 'EnumParameter':
+        manipulator.add_parameter(EnumParameter(param_name, param_range))
     return manipulator
 
   def get_qor(self):
@@ -43,7 +50,7 @@ class ProgramTuner(MeasurementInterface):
     result_id = desired_result.id
 
     # acquire configuration
-    index = cfg[self.param_name]
+    index = cfg['index']
     sample_run = "python ./sample.py " + str(index)
     run_result = self.call_program(sample_run)
     assert run_result['returncode'] == 0
@@ -68,6 +75,13 @@ class ProgramTuner(MeasurementInterface):
     f.write(str(res))
     f.write('\n')
     f.close()
+    try:
+      conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      conn.connect(server_address)
+      conn.send(pickle.dumps(['respond', cfg[key], res]))
+      conn.close() 
+    except:
+      print "connection error!\n"
 
 if __name__ == '__main__':
   argparser = opentuner.default_argparser()
