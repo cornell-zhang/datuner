@@ -23,9 +23,8 @@ class ProgramTuner(MeasurementInterface):
 
   param = []
   try:
-    for i in range(int(conn.recv(32))):
-      data = pickle.loads(conn.recv(8096))
-      param.append(data)
+    space = pickle.loads(conn.recv(8096))
+    param = space
   finally:
     conn.close()
 

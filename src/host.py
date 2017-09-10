@@ -24,10 +24,7 @@ while True:
     data = pickle.loads(connection.recv(2048))
     if data[0] == 'init':
       print >>sys.stderr, 'waiting for a connection'
-      connection.send(str(len(space)))
-      for param in space:
-        data_string = pickle.dumps(param)
-        connection.send(data_string)
+      connection.send(pickle.dumps(space))
     elif data[0] == 'respond':
       data = data[1:]
       with open("global_result.txt", "a") as f:
