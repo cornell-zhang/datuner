@@ -23,8 +23,8 @@ class ProgramTuner(MeasurementInterface):
 
   param = []
   try:
-    space = pickle.loads(conn.recv(8096))
-    param = space
+    # param is a list that specifies the search space
+    param = pickle.loads(conn.recv(8096))
   finally:
     conn.close()
 
