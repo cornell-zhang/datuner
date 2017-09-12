@@ -2,25 +2,9 @@ import sys
 import socket
 import pickle
 import subprocess
+import os
 from threading import Thread
-
-space = [
-  ['EnumParameter', 'index', range(1000)]
-]
-
-budget = 4
-workspace = '/work/zhang/users/liu/datuner/workspace'
-server_address = ('128.253.128.53', 10000)
-
-machines = [
-  'gl387@zhang-01.ece.cornell.edu',
-#  'gl387@zhang-06.ece.cornell.edu'
-]
-
-source_files = [
-  'sample.py',
-  'tune_sample.py'
-]
+from config import *
 
 global_result = []
 
@@ -29,7 +13,6 @@ def start_host():
   conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   
   # Bind the socket to the port
-  print >>sys.stderr, 'starting up on %s port %s' % server_address
   conn.bind(server_address)
   
   # Listen for incoming connections
@@ -46,8 +29,7 @@ def start_host():
     elif data[0] == 'respond':
       data = data[1:]
       res = data[-1]
-      if res < best_res:
-        best_res = res
+      if res < best_res:  best_res = res
       global_result.append(data)
       with open("global_result.txt", "a") as f:
         f.write(','.join(str(i) for i in data) + ',' + str(best_res) + '\n')
@@ -63,18 +45,14 @@ host_thread.start()
 
 p = []
 for i in range(budget):
-  # launch the tuning program on the worker machines
-  machine_id = i % len(machines)
-  machine_addr = machines[machine_id]
-  # make a directory under workspace for instance i
+  machine_addr = machines[i % len(machines)]
   subprocess.call(['ssh', machine_addr, 'mkdir -p ' + workspace + '/' + str(i)]);
-  # copy files to the directory
-  for item in source_files:
-    subprocess.call(['scp', item, machine_addr + ':' + workspace + '/' + str(i)]);
-  # run the tunning program 
-  p.append(subprocess.Popen(['ssh', machine_addr, 'cd ' + workspace + '/' + str(i) + '; python tune_sample.py --test-limit=10']))
+  os.system('scp -r ./' + flow + ' ' + machine_addr + ':' + workspace + '/' + str(i))
+  subprocess.call(['scp', 'tune.py', machine_addr + ':' + workspace + '/' + str(i) + '/' + flow]);
+  subprocess.call(['scp', 'config.py', machine_addr + ':' + workspace + '/' + str(i) + '/' + flow]);
+  p.append(subprocess.Popen(['ssh', machine_addr, 'cd ' + workspace + '/' + 
+            str(i) + '/' + flow + '; python tune.py --test-limit=10']))
 
-# wait for all workers to finish
 [process.wait() for process in p]
 
 # terminate the host

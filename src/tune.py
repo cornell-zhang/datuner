@@ -8,15 +8,15 @@ from opentuner import MeasurementInterface
 from opentuner import Result
 import socket
 import pickle
+from sample_setup import *
+from config import *
 
-server_address = ('128.253.128.53', 10000)
+#server_address = ('zhang-05.ece.cornell.edu', 10000)
 
-class ProgramTuner(MeasurementInterface):
+class ProgramTuner(ProgramTunerWrapper):
   # Create a TCP/IP socket
   conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
- 
   # Connect the socket to the port where the server is listening
-  print >> sys.stderr, 'connecting to %s port %s' % server_address
   conn.connect(server_address)
 
   conn.send(pickle.dumps(['init']))
@@ -35,28 +35,6 @@ class ProgramTuner(MeasurementInterface):
       if param_type == 'EnumParameter':
         manipulator.add_parameter(EnumParameter(param_name, param_range))
     return manipulator
-
-  def get_qor(self):
-    f = open('qor.txt', 'r')   
-    return float(f.readlines()[0])
-
-  def run(self, desired_result, input, limit):
-    """
-    Compile and run a given configuration then
-    return performance
-    """
-    cfg = desired_result.configuration.data
-    result_id = desired_result.id
-
-    # acquire configuration
-    index = cfg['index']
-    sample_run = "python ./sample.py " + str(index)
-    run_result = self.call_program(sample_run)
-    assert run_result['returncode'] == 0
-
-    result = self.get_qor()
-    self.dumpresult(cfg, result)
-    return Result(time = result)
 
   def save_final_config(self, configuration):
     """called at the end of tuning"""
