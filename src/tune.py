@@ -8,10 +8,8 @@ from opentuner import MeasurementInterface
 from opentuner import Result
 import socket
 import pickle
-from sample_setup import *
 from config import *
-
-#server_address = ('zhang-05.ece.cornell.edu', 10000)
+from setup import *
 
 class ProgramTuner(ProgramTunerWrapper):
   # Create a TCP/IP socket
@@ -48,14 +46,17 @@ class ProgramTuner(ProgramTunerWrapper):
     """
     f = open('./localresult.txt', 'a')
     for key in cfg:
-      f.write(str(key) + " " + str(cfg[key]) + " ")
+      f.write(str(key) + "," + str(cfg[key]) + ",")
     f.write(str(res))
     f.write('\n')
     f.close()
     try:
       conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
       conn.connect(server_address)
-      conn.send(pickle.dumps(['respond', cfg[key], res]))
+      msg = []
+      for key in cfg:
+        msg.append([key, cfg[key]])
+      conn.send(pickle.dumps(['respond', msg, res]))
       conn.close() 
     except:
       print "connection error!\n"
