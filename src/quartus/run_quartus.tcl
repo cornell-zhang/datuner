@@ -1,5 +1,5 @@
-set topmodule "badprog"
-set srcdir "./design/badprog"
+set topmodule "cpu"
+set srcdir "./design/processor"
 
 load_package flow
 
