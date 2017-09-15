@@ -24,7 +24,7 @@ class ProgramTunerWrapper(MeasurementInterface):
     result_id = desired_result.id
 
     # acquire configuration
-    cmd = 'abc -c \"read priority.blif;strash;'
+    cmd = 'abc -c \"read dut.blif;strash;'
     for param_id in range(5):
       cmd += cfg['param_' + str(param_id)] + ';'
     cmd += 'if -a -K 6;print_stats \" > qor.txt'

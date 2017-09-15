@@ -1,0 +1,203 @@
+# Benchmark "top" written by ABC on Fri Sep 15 11:16:45 2017
+.model top
+.inputs dest_x[0] dest_x[1] dest_x[2] dest_x[3] dest_x[4] dest_x[5] \
+ dest_x[6] dest_x[7] dest_x[8] dest_x[9] dest_x[10] dest_x[11] dest_x[12] \
+ dest_x[13] dest_x[14] dest_x[15] dest_x[16] dest_x[17] dest_x[18] \
+ dest_x[19] dest_x[20] dest_x[21] dest_x[22] dest_x[23] dest_x[24] \
+ dest_x[25] dest_x[26] dest_x[27] dest_x[28] dest_x[29] dest_y[0] dest_y[1] \
+ dest_y[2] dest_y[3] dest_y[4] dest_y[5] dest_y[6] dest_y[7] dest_y[8] \
+ dest_y[9] dest_y[10] dest_y[11] dest_y[12] dest_y[13] dest_y[14] \
+ dest_y[15] dest_y[16] dest_y[17] dest_y[18] dest_y[19] dest_y[20] \
+ dest_y[21] dest_y[22] dest_y[23] dest_y[24] dest_y[25] dest_y[26] \
+ dest_y[27] dest_y[28] dest_y[29]
+.outputs outport[0] outport[1] outport[2] outport[3] outport[4] outport[5] \
+ outport[6] outport[7] outport[8] outport[9] outport[10] outport[11] \
+ outport[12] outport[13] outport[14] outport[15] outport[16] outport[17] \
+ outport[18] outport[19] outport[20] outport[21] outport[22] outport[23] \
+ outport[24] outport[25] outport[26] outport[27] outport[28] outport[29]
+.names n93 n108 outport[0]
+00 0
+.names n100 n94 n93
+01 1
+.names n95 dest_x[27] dest_x[28] dest_x[29] n94
+0111 1
+.names dest_x[22] n96 dest_x[26] dest_x[24] dest_x[25] dest_x[23] n95
+--1--- 0
+-0-111 0
+1--111 0
+.names n97 dest_x[18] dest_x[20] dest_x[19] dest_x[21] n96
+---00 1
+--0-0 1
+00--0 1
+.names dest_x[15] n98 dest_x[16] dest_x[17] n97
+--11 1
+11-1 1
+.names n99 dest_x[14] n98
+01 1
+.names dest_x[10] dest_x[9] dest_x[11] dest_x[12] dest_x[13] n99
+--000 1
+00-00 1
+.names dest_x[18] dest_x[19] dest_x[20] dest_x[21] n101 n97 n100
+-00111 1
+-11011 1
+.names dest_x[16] n98 dest_x[15] n102 n101
+-001 1
+0111 1
+.names dest_x[26] n105 n107 dest_x[24] dest_x[25] n103 n102
+011111 1
+.names dest_x[10] dest_x[13] n104 dest_x[9] dest_x[14] n103
+00111 1
+.names dest_x[5] dest_x[6] dest_x[7] dest_x[8] n104
+0000 1
+.names dest_x[9] dest_x[10] dest_x[11] dest_x[12] n106 n105
+-1101 1
+00011 1
+1-101 1
+.names dest_x[1] dest_x[2] dest_x[3] dest_x[4] n106
+0000 1
+.names dest_x[18] dest_x[22] dest_x[19] dest_x[23] n107
+0011 1
+.names n94 n97 dest_x[18] dest_x[19] n109 n108
+-0011 0
+-1101 0
+1---- 0
+.names dest_x[15] n99 dest_x[14] dest_x[16] dest_x[17] n110 n109
+-00011 1
+-00101 1
+-11011 1
+-11101 1
+.names dest_x[22] dest_x[26] n111 dest_x[25] n113 dest_x[27] n110
+001111 1
+.names dest_x[16] dest_x[21] n112 dest_x[20] dest_x[15] n111
+00111 1
+.names dest_x[12] dest_x[13] dest_x[8] dest_x[11] n112
+0011 1
+.names n114 n115 dest_x[4] dest_x[5] dest_x[6] dest_x[7] n113
+111111 1
+.names dest_x[9] dest_x[10] dest_x[23] dest_x[24] dest_x[28] dest_x[29] \
+ n114
+001111 1
+.names dest_x[0] dest_x[1] dest_x[2] dest_x[3] n115
+1111 1
+.names n93 n117 n108 outport[1]
+--1 1
+00- 1
+.names dest_y[0] n133 n132 n118 dest_x[0] n117
+--0-1 0
+--00- 0
+01-00 0
+.names n119 dest_y[23] n121 dest_y[18] dest_y[19] n124 n118
+000011 1
+001101 1
+110011 1
+111101 1
+.names dest_y[20] n120 dest_y[21] dest_y[22] n119
+-000 1
+0-00 1
+.names dest_y[18] n121 dest_y[19] n120
+-11 1
+1-1 1
+.names dest_y[15] n122 dest_y[16] dest_y[17] n121
+--11 1
+11-1 1
+.names dest_y[13] n123 dest_y[14] n122
+-01 1
+1-1 1
+.names dest_y[10] dest_y[9] dest_y[11] dest_y[12] n123
+--00 1
+00-0 1
+.names n122 dest_y[16] dest_y[17] n125 n124
+0011 1
+1101 1
+.names n126 n129 n130 n131 n125
+1111 1
+.names dest_y[12] dest_y[13] dest_y[8] dest_y[11] n127 n128 n126
+001111 1
+.names dest_y[9] dest_y[10] dest_y[2] dest_y[3] dest_y[0] dest_y[1] n127
+001111 1
+.names dest_y[4] dest_y[5] dest_y[6] dest_y[7] n128
+1111 1
+.names dest_y[27] dest_y[28] dest_y[29] n129
+111 1
+.names dest_y[22] dest_y[26] dest_y[25] dest_y[24] n130
+0011 1
+.names dest_y[21] dest_y[15] dest_y[20] dest_y[14] n131
+0111 1
+.names n119 dest_y[23] dest_y[24] dest_y[25] dest_y[26] n129 n132
+----11 1
+0111-1 1
+.names n119 dest_y[26] dest_y[23] dest_y[24] dest_y[25] n134 n133
+001111 1
+110001 1
+.names n120 dest_y[20] dest_y[21] dest_y[15] n135 n122 n134
+001111 1
+110111 1
+.names dest_y[13] n123 dest_y[18] n136 n135
+-101 1
+0-01 1
+.names dest_y[3] dest_y[4] dest_y[5] dest_y[6] n137 n139 n136
+000011 1
+.names dest_y[12] dest_y[22] n138 dest_y[19] dest_y[11] n137
+00111 1
+.names dest_y[7] dest_y[8] dest_y[10] dest_y[9] n138
+0001 1
+.names dest_y[1] dest_y[2] dest_y[16] dest_y[17] n139
+0001 1
+.names dest_x[0] dest_y[0] n133 outport[0] n132 outport[2]
+--001 1
+11-01 1
+.names outport[3]
+ 0
+.names outport[4]
+ 0
+.names outport[5]
+ 0
+.names outport[6]
+ 0
+.names outport[7]
+ 0
+.names outport[8]
+ 0
+.names outport[9]
+ 0
+.names outport[10]
+ 0
+.names outport[11]
+ 0
+.names outport[12]
+ 0
+.names outport[13]
+ 0
+.names outport[14]
+ 0
+.names outport[15]
+ 0
+.names outport[16]
+ 0
+.names outport[17]
+ 0
+.names outport[18]
+ 0
+.names outport[19]
+ 0
+.names outport[20]
+ 0
+.names outport[21]
+ 0
+.names outport[22]
+ 0
+.names outport[23]
+ 0
+.names outport[24]
+ 0
+.names outport[25]
+ 0
+.names outport[26]
+ 0
+.names outport[27]
+ 0
+.names outport[28]
+ 0
+.names outport[29]
+ 0
+.end

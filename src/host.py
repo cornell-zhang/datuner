@@ -1,8 +1,4 @@
-import sys
-import socket
-import pickle
-import subprocess
-import os
+import sys, os, socket, pickle, subprocess
 from threading import Thread
 from config import *
 from space_partition import *
@@ -22,22 +18,21 @@ def start_host():
 
   conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   conn.bind(server_address)
-  conn.listen(8)
-  
-  best_res = 1e9
-  total_search_count = 0
+  conn.listen(128)
+
+  best_res, total_search_count = 1e9, 0
   while True:
     # Wait for a connection
     connection, client_address = conn.accept()
     data = pickle.loads(connection.recv(2048))
     if data[0] == 'init':
       total_search_count += 1
-      connection.send(pickle.dumps(select_space(total_search_count, subspaces, global_result)))
-      print subspaces
+      connection.send(pickle.dumps(select_space(total_search_count, subspaces, \
+                                                  global_result)))
     elif data[0] == 'respond':
-      data = data[1:]
-      res = data[-1]
-      if res < best_res:  best_res = res
+      data, res = data[1:], data[-1]
+      if res < best_res:  
+        best_res = res
       global_result.append(data)
       with open("global_result.txt", "a") as f:
         f.write(','.join(str(i) for i in data) + ',' + str(best_res) + '\n')
@@ -45,6 +40,7 @@ def start_host():
       partition_space(subspaces, global_result)
     elif data[0] == 'terminate':
       connection.close()
+      conn.close()
       break
     else:
       print "Unknown protocol message: " + mode + '\n'
@@ -59,19 +55,20 @@ def send_simple_msg_to_host(msg):
 host_thread = Thread(target=start_host)
 host_thread.start()
 
-runs_per_epoch = 2
+runs_per_epoch = 1
 epoch = budget / runs_per_epoch
 
 for e in range(epoch):
   p = []
   for i in range(budget/epoch):
     machine_addr = machines[i % len(machines)]
-    subprocess.call(['ssh', machine_addr, 'mkdir -p ' + workspace + '/' + str(i)]);
-    os.system('scp -r ./' + flow + ' ' + machine_addr + ':' + workspace + '/' + str(i))
-    subprocess.call(['scp', 'tune.py', machine_addr + ':' + workspace + '/' + str(i) + '/' + flow]);
-    subprocess.call(['scp', 'config.py', machine_addr + ':' + workspace + '/' + str(i) + '/' + flow]);
-    p.append(subprocess.Popen(['ssh', machine_addr, 'cd ' + workspace + '/' + 
-              str(i) + '/' + flow + '; python tune.py --test-limit=10']))
+    ws_id = workspace + '/' + str(i)
+    subprocess.call(['ssh', machine_addr, 'mkdir -p ' + ws_id]);
+    os.system('scp -r ./' + flow + ' ' + machine_addr + ':' + ws_id)
+    subprocess.call(['scp', 'tune.py', machine_addr + ':' +ws_id +'/'+flow]);
+    subprocess.call(['scp', 'config.py', machine_addr + ':' +ws_id +'/'+flow]);
+    p.append(subprocess.Popen(['ssh', machine_addr, 'cd ' + ws_id + \
+                          '/' + flow + '; python tune.py --test-limit=5']))
   [process.wait() for process in p]
 
   # send request to host to partition the space
