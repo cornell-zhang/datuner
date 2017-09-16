@@ -68,7 +68,7 @@ for e in range(epoch):
     subprocess.call(['scp', 'tune.py', machine_addr + ':' +ws_id +'/'+flow]);
     subprocess.call(['scp', 'config.py', machine_addr + ':' +ws_id +'/'+flow]);
     p.append(subprocess.Popen(['ssh', machine_addr, 'cd ' + ws_id + \
-                          '/' + flow + '; python tune.py --test-limit=5']))
+                          '/' + flow + '; python tune.py --test-limit=3']))
   [process.wait() for process in p]
 
   # send request to host to partition the space
