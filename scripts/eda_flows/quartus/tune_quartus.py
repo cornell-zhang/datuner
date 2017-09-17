@@ -153,13 +153,14 @@ class QUARTUSFlagsTuner(MeasurementInterface):
 
     f.write(mapstr + '\n')
     f.write(fitstr + '\n')
-    f.write(stastr + ' -args "--sdc=lab5_top.sdc"' + '\n')
+    f.write(stastr + '\n')
     f.close()
 
     cmd = 'sed -e \'s:BENCH:' + self.design + \
           ':g\' -e \'s:TOPMODULE:' + self.topmodule + \
           ':g\' -e \'s:DESIGN_PATH:' + srcdir + \
           ':g\' -e \'s:WORKDIR_HOLDER:' + workdir + \
+          ':g\' -e \'s:REVISION:' + str(result_id) + \
           ':g\' ' + self.scriptpath + '/eda_flows/quartus/run_quartus.tcl > ' \
           + workdir + 'run_quartus.tcl'
     subprocess.Popen(cmd, shell=True).wait()
@@ -174,7 +175,7 @@ class QUARTUSFlagsTuner(MeasurementInterface):
 
     def get_timing():
 
-      with open(report_path + '/' + self.topmodule + '.sta.rpt', 'r') as f:
+      with open(report_path + '/' + str(result_id) + '.sta.rpt', 'r') as f:
 
         lines = f.readlines()
 
@@ -194,9 +195,9 @@ class QUARTUSFlagsTuner(MeasurementInterface):
         timing_found = False
 
         for i, line in enumerate(lines[timing_line:]):
-          clk = re.match(r'\s*;\s*CLK\s*;.*', line)
+          clk = re.match(r'\s*;\s*Worst-case Slack\s*;.*', line)
           if clk:
-            timing       = re.sub(r'\s*;\s*CLK\s*;\s*(\S*)\s*;.*', r'\1', line)
+            timing       = re.sub(r'\s*;\s*Worst-case Slack\s*;\s*(\S*)\s*;.*', r'\1', line)
             timing_found = True
             break
 
@@ -208,7 +209,7 @@ class QUARTUSFlagsTuner(MeasurementInterface):
       
     def get_utilization():
 
-      with open(report_path + '/' + self.topmodule + '.fit.rpt', 'r') as f:
+      with open(report_path + '/' + str(result_id) + '.fit.rpt', 'r') as f:
 
         lines = f.readlines()
 
