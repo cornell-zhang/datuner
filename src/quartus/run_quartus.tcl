@@ -1,4 +1,4 @@
-set topmodule "bgm"
+set topmodule "badprog"
 set srcdir "./design"
 
 load_package flow
@@ -11,4 +11,5 @@ project_new $srcdir/$topmodule -overwrite
 source ../options.tcl
 execute_module -tool sta -args "--sdc=timing.sdc"
 exec cp $topmodule.sta.summary ../sta.summary
+exec cp $topmodule.fit.summary ../fit.summary
 project_close

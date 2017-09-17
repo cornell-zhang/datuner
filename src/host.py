@@ -30,12 +30,12 @@ def start_host():
       connection.send(pickle.dumps(select_space(total_search_count, subspaces, \
                                                   global_result)))
     elif data[0] == 'respond':
-      data, res = data[1:], data[-1]
+      cfg, metadata, res = data[1:-2], data[-2], data[-1]
       if res < best_res:  
         best_res = res
-      global_result.append(data)
+      global_result.append([cfg, res])
       with open("global_result.txt", "a") as f:
-        f.write(','.join(str(i) for i in data) + ',' + str(best_res) + '\n')
+        f.write(','.join(str(i) for i in (cfg + metadata)) + ',' + str(best_res) + '\n')
     elif data[0] == 'partition':
       partition_space(subspaces, global_result)
     elif data[0] == 'terminate':
@@ -68,7 +68,7 @@ for e in range(epoch):
     subprocess.call(['scp', 'tune.py', machine_addr + ':' +ws_id +'/'+flow]);
     subprocess.call(['scp', 'config.py', machine_addr + ':' +ws_id +'/'+flow]);
     p.append(subprocess.Popen(['ssh', machine_addr, 'cd ' + ws_id + \
-                          '/' + flow + '; python tune.py --test-limit=3']))
+                          '/' + flow + '; python tune.py --test-limit=1']))
   [process.wait() for process in p]
 
   # send request to host to partition the space

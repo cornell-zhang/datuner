@@ -39,7 +39,7 @@ class ProgramTuner(ProgramTunerWrapper):
     print "Optimal options written to bench_config.json:", configuration.data
     self.manipulator().save_to_file(configuration.data, 'inline_config.json')
 
-  def dumpresult(self, cfg, res):
+  def dumpresult(self, cfg, res, metadata = []):
     """
     Compile and run a given configuration then
     return performance
@@ -56,7 +56,7 @@ class ProgramTuner(ProgramTunerWrapper):
       msg = []
       for key in cfg:
         msg.append([key, cfg[key]])
-      conn.send(pickle.dumps(['respond', msg, res]))
+      conn.send(pickle.dumps(['respond', msg, metadata, res]))
       conn.close() 
     except:
       print "connection error!\n"
