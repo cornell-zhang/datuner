@@ -1,0 +1,12 @@
+#!/bin/bash
+#===================================================
+# setup
+#===================================================
+# @brief: A bash script to set up Vivado HLS 2014.2
+# @desc: To run the script, enter ". ./setup"
+
+# Set up license server
+unset LM_LICENSE_FILE
+export XILINXD_LICENSE_FILE=2100@flex.ece.cornell.edu
+# Source Vivado 2014.2 setup script
+source /opt/xilinx/Vivado/2014.2/settings64.sh
