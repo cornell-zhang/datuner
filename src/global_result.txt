@@ -1,0 +1,8 @@
+[['fit_effort', 'fast'], ['fit_one_fit_attempt', 'on'], ['fit_optimize_io_register_for_timing', 'off'], ['map_effort', 'auto'], ['map_state_machine_encoding', 'auto'], ['map_ignore_cascade_buffers', 'off'], ['fit_pack_register', 'auto'], ['map_optimize', 'balanced'], ['sweepparam', '8'], ['fit_tdc', 'off'], ['map_ignore_carry_buffers', 'off']],8,0,24,0,0,
+Slack: 0.693, Comb Alut: 8, Mem Alut: 0, Reg: 24, BRAM: 0, DSP: 0, 
+[['fit_effort', 'fast'], ['fit_one_fit_attempt', 'on'], ['fit_optimize_io_register_for_timing', 'off'], ['map_effort', 'auto'], ['map_state_machine_encoding', 'auto'], ['map_ignore_cascade_buffers', 'off'], ['fit_pack_register', 'auto'], ['map_optimize', 'balanced'], ['sweepparam', '64'], ['fit_tdc', 'off'], ['map_ignore_carry_buffers', 'off']],64,0,192,0,0,
+Slack: 2.288, Comb Alut: 64, Mem Alut: 0, Reg: 192, BRAM: 0, DSP: 0, 
+[['fit_effort', 'fast'], ['fit_one_fit_attempt', 'on'], ['fit_optimize_io_register_for_timing', 'off'], ['map_effort', 'auto'], ['map_state_machine_encoding', 'auto'], ['map_ignore_cascade_buffers', 'off'], ['fit_pack_register', 'auto'], ['map_optimize', 'balanced'], ['sweepparam', '32'], ['fit_tdc', 'off'], ['map_ignore_carry_buffers', 'off']],32,0,96,0,0,
+Slack: 1.985, Comb Alut: 32, Mem Alut: 0, Reg: 96, BRAM: 0, DSP: 0, 
+[['fit_effort', 'fast'], ['fit_one_fit_attempt', 'on'], ['fit_optimize_io_register_for_timing', 'off'], ['map_effort', 'auto'], ['map_state_machine_encoding', 'auto'], ['map_ignore_cascade_buffers', 'off'], ['fit_pack_register', 'auto'], ['map_optimize', 'balanced'], ['sweepparam', '16'], ['fit_tdc', 'off'], ['map_ignore_carry_buffers', 'off']],16,0,48,0,0,
+Slack: 1.137, Comb Alut: 16, Mem Alut: 0, Reg: 48, BRAM: 0, DSP: 0, 

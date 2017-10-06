@@ -9,23 +9,34 @@ from opentuner import Result
 import socket
 import pickle
 from config import *
+from space_partition import *
 from setup import *
 
 class ProgramTuner(ProgramTunerWrapper):
+  
   # Create a TCP/IP socket
   conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   # Connect the socket to the port where the server is listening
   conn.connect(server_address)
 
-  conn.send(pickle.dumps(['init']))
+  print "Connected to host"
 
+  conn.send(pickle.dumps(['init']))
+  
   param = []
   try:
     # param is a list that specifies the search space
     param = pickle.loads(conn.recv(8096))
+    print "Data loaded from host: " + str(param)
   finally:
     conn.close()
-
+  '''
+  total_search_count = 1
+  subspaces = []
+  subspaces.append([space, 0, 1])
+  global_result = []
+  param = select_space(total_search_count, subspaces, global_result)
+  '''
   def manipulator(self):
     manipulator = ConfigurationManipulator()
     for item in self.param:
@@ -46,10 +57,11 @@ class ProgramTuner(ProgramTunerWrapper):
     """
     f = open('./localresult.txt', 'a')
     for key in cfg:
-      f.write(str(key) + "," + str(cfg[key]) + ",")
-    f.write(str(res))
+      f.write(str(key) + "," + str(cfg[key]) + ", ")
+    f.write(str(res) + ", ")
     f.write('\n')
     f.close()
+    
     try:
       conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
       conn.connect(server_address)
@@ -60,6 +72,8 @@ class ProgramTuner(ProgramTunerWrapper):
       conn.close() 
     except:
       print "connection error!\n"
+    
+    
 
 if __name__ == '__main__':
   argparser = opentuner.default_argparser()

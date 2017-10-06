@@ -128,3 +128,10 @@ def select_space(t, subspaces, global_result):
       best_space_tuple = space_tuple
   best_space_tuple[2] += 1
   return best_space
+
+def select_space_for_sweep(t, space):
+  selected_space = copy.deepcopy(space)
+  print(t)
+  print str(space)
+  selected_space[len(space) - 1][2] = [space[len(space) - 1][2][t-1]]
+  return selected_space

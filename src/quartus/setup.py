@@ -1,5 +1,7 @@
 from opentuner import MeasurementInterface
 from opentuner import Result
+import subprocess
+import time
 
 class ProgramTunerWrapper(MeasurementInterface):
 
@@ -35,6 +37,7 @@ class ProgramTunerWrapper(MeasurementInterface):
 
     metadata = [comb_alut, mem_alut, reg, bram, dsp]
     return -float(slack), metadata
+    #return 0.123, ['1', '2', '3', '4', '5']
 
   def run(self, desired_result, input, limit):
     """
@@ -59,6 +62,7 @@ class ProgramTunerWrapper(MeasurementInterface):
     #]
 
     cfg = desired_result.configuration.data
+    print str(cfg)
     result_id = desired_result.id
 
     f = open('./options.tcl', 'w')
@@ -72,10 +76,24 @@ class ProgramTunerWrapper(MeasurementInterface):
     f.write('"\n')
     f.close()
 
-    cmd = 'quartus_sh -t ./run_quartus.tcl'
+    # delete previous results
+    cleanupcmd = 'rm localresult.txt'
+    subprocess.Popen(cleanupcmd, shell=True).wait()
+
+    print "Starting " + cfg['sweepparam']
+    print "Changing param"
+    tclmodcmd = 'sed \'s/SWEEPPARAM/BITS ' + cfg['sweepparam'] + '/g\' run_quartus.tcl > run_quartus_sweep.tcl'
+    subprocess.Popen(tclmodcmd, shell=True).wait()
+    print "Starting compilation"
+    cmd = 'quartus_sh -t ./run_quartus_sweep.tcl'
     run_result = self.call_program(cmd)
     assert run_result['returncode'] == 0
-
+    print "Finished compilation"
     result, metadata = self.get_qor()
     self.dumpresult(cfg, result, metadata)
+    print "Finished " + cfg['sweepparam']
+    cleanupcmd = 'rm run_quartus_sweep.tcl'
+    subprocess.Popen(cleanupcmd, shell=True).wait()
+    print "Clean up done"
+
     return Result(time = result)
