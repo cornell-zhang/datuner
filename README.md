@@ -1,3 +1,12 @@
+Quick guide to run the revamp branch:
+
+1. Install OpenTuner to your Python, and make sure this specific Python is the default one in your enviroment (even when you start a new session, this Python needs to be on the PATH -- DATuner launches slave threads using new enviroments)
+2. modify config.py to the preferred settings.
+3. Make sure the EDA tool is on the PATH even when starting the new enviroment.
+4. Do "python host.py" to start DATuner. There're parameters in host.py that can be modified as well.
+
+---------------------
+
 [![Build Status](https://travis-ci.com/cornell-zhang/datuner.svg?token=KrcYXzoSR4bbR5JiDUuz&branch=master)](https://travis-ci.com/cornell-zhang/datuner)
 
 # DATuner User Guide
