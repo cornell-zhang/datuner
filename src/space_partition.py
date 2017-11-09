@@ -131,7 +131,7 @@ def select_space(t, subspaces, global_result):
 
 def select_space_for_sweep(t, space):
   selected_space = copy.deepcopy(space)
-  print(t)
-  print str(space)
+  #print(t)
+  #print str(space)
   selected_space[len(space) - 1][2] = [space[len(space) - 1][2][t-1]]
   return selected_space

@@ -9,23 +9,31 @@ space = [
   ['EnumParameter', 'fit_optimize_io_register_for_timing', ['off']],
   ['EnumParameter', 'fit_pack_register', ['auto']],
   ['EnumParameter', 'fit_tdc', ['off']],
-  ['EnumParameter', 'sweepparam', ['8', '16', '32', '64']],
+  ['EnumParameter', 'sweepparam', ['2', '4', '8', '16', '32', '48', '64', '96', '128']],
 ]
 
 # whether we are optimizing or sweeping
-sweep = 1
+sweep = True
 
 budget = 4
 
 workspace = '/home/ty252/datuner/workspace'
 
+user = 'ty252'
+
 machines = [
-  'ty252@zhang-05.ece.cornell.edu',
-  'ty252@zhang-06.ece.cornell.edu',
-  'ty252@zhang-07.ece.cornell.edu',
-  'ty252@zhang-08.ece.cornell.edu'
+  'zhang-05.ece.cornell.edu',
+  'zhang-06.ece.cornell.edu',
+  'zhang-07.ece.cornell.edu',
+  'zhang-08.ece.cornell.edu'
 ]
 
 flow = 'quartus'
 
-server_address = ('zhang-05.ece.cornell.edu', 9999)
+genfile = 'genVerilogMultiplier.py'
+
+dbtablename = 'multiplier'
+
+overwrite = False
+
+server_address = ('zhang-05.ece.cornell.edu', 10000)

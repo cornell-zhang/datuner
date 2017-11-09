@@ -13,23 +13,9 @@ from space_partition import *
 from setup import *
 
 class ProgramTuner(ProgramTunerWrapper):
-  
-  # Create a TCP/IP socket
-  conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  # Connect the socket to the port where the server is listening
-  conn.connect(server_address)
+  # param is a list that specifies the search space
+  param = pickle.load(open('space.p', 'rb'))
 
-  print "Connected to host"
-
-  conn.send(pickle.dumps(['init']))
-  
-  param = []
-  try:
-    # param is a list that specifies the search space
-    param = pickle.loads(conn.recv(8096))
-    print "Data loaded from host: " + str(param)
-  finally:
-    conn.close()
   '''
   total_search_count = 1
   subspaces = []
@@ -37,6 +23,7 @@ class ProgramTuner(ProgramTunerWrapper):
   global_result = []
   param = select_space(total_search_count, subspaces, global_result)
   '''
+
   def manipulator(self):
     manipulator = ConfigurationManipulator()
     for item in self.param:
@@ -50,7 +37,7 @@ class ProgramTuner(ProgramTunerWrapper):
     print "Optimal options written to bench_config.json:", configuration.data
     self.manipulator().save_to_file(configuration.data, 'inline_config.json')
 
-  def dumpresult(self, cfg, res, metadata = []):
+  def dumpresult(self, cfg, sweepparam, res, metadata = []):
     """
     Compile and run a given configuration then
     return performance
@@ -68,12 +55,10 @@ class ProgramTuner(ProgramTunerWrapper):
       msg = []
       for key in cfg:
         msg.append([key, cfg[key]])
-      conn.send(pickle.dumps(['respond', msg, metadata, res]))
+      conn.send(pickle.dumps(['respond', msg, sweepparam, metadata, res]))
       conn.close() 
     except:
       print "connection error!\n"
-    
-    
 
 if __name__ == '__main__':
   argparser = opentuner.default_argparser()

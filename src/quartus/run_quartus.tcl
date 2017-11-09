@@ -1,4 +1,4 @@
-set topmodule "adder"
+set topmodule "multiplier"
 set srcdir "./design"
 
 load_package flow
