@@ -48,17 +48,19 @@ class ProgramTuner(ProgramTunerWrapper):
     f.write(str(res) + ", ")
     f.write('\n')
     f.close()
+
+    pickle.dump([sweepparam, res, metadata], open('result.p', 'wb'))
     
-    try:
-      conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-      conn.connect(server_address)
-      msg = []
-      for key in cfg:
-        msg.append([key, cfg[key]])
-      conn.send(pickle.dumps(['respond', msg, sweepparam, metadata, res]))
-      conn.close() 
-    except:
-      print "connection error!\n"
+    # try:
+    #   conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #   conn.connect(server_address)
+    #   msg = []
+    #   for key in cfg:
+    #     msg.append([key, cfg[key]])
+    #   conn.send(pickle.dumps(['respond', msg, sweepparam, metadata, res]))
+    #   conn.close() 
+    # except:
+    #   print "connection error!\n"
 
 if __name__ == '__main__':
   argparser = opentuner.default_argparser()

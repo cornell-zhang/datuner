@@ -25,7 +25,7 @@ def start_host():
   start_time_str = str(start_time.date()) + ' ' + str(start_time.time())
 
   # connect to database and create table is results table doesn't exist
-  dbconn = sqlite3.connect('results' + '.db')
+  dbconn = sqlite3.connect('results_test' + '.db')
   c = dbconn.cursor()
 
   best_res, total_search_count = 1e9, 0
@@ -35,10 +35,7 @@ def start_host():
     data = pickle.loads(connection.recv(2048))
     if data[0] == 'init':
       total_search_count += 1
-      if sweep:
-        client_space = select_space_for_sweep(total_search_count, space)
-      else:
-        client_space = select_space(total_search_count, subspaces, global_result)
+      client_space = select_space(total_search_count, subspaces, global_result)
       connection.send(pickle.dumps(client_space))
     elif data[0] == 'respond':
       if sweep:
@@ -48,8 +45,6 @@ def start_host():
         reg = metadata[2]
         bram = metadata[3]
         dsp = metadata[4]
-        if res < best_res:  
-          best_res = res
         global_result.append([cfg, res])
         c.execute('INSERT INTO ' + dbtablename +''' VALUES 
           (''' + str(sweepparam) + ''', ''' + str(res) + ''',
@@ -95,11 +90,12 @@ def worker_function(workspace, run_id, flow, space):
   os.chdir(os.getcwd() + '/' + flow)
   pickle.dump(space, open('space.p', 'wb'))
   os.system('python tune.py --test-limit=1')
-  return 1
+  sweepparam, res, metadata = param = pickle.load(open('result.p', 'rb'))
+  return [sweepparam, res, metadata]
 
 # Setup the results database and sweep points
 # connect to database and create table is results table doesn't exist
-dbconn = sqlite3.connect('results' + '.db')
+dbconn = sqlite3.connect('results_test' + '.db')
 c = dbconn.cursor()
 c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=\'" + dbtablename + "\'")
 table_exists = c.fetchone()
@@ -116,11 +112,18 @@ if not overwrite:
 dbconn.close()
 
 if len(space[-1][2]) > 0:
-  # launch the host program on local machine
-  host_thread = Thread(target=start_host)
-  host_thread.start()
+  # # launch the host program on local machine
+  # host_thread = Thread(target=start_host)
+  # host_thread.start()
 
   if sweep: 
+    start_time = datetime.now()
+    start_time_str = str(start_time.date()) + ' ' + str(start_time.time())
+
+    # connect to database and create table is results table doesn't exist
+    dbconn = sqlite3.connect('results_test' + '.db')
+    c = dbconn.cursor()
+
     print 'Number of sweeps: ' + str()
     numsweeps = len(space[-1][2])
     sweeps_completed = 0
@@ -164,11 +167,29 @@ if len(space[-1][2]) > 0:
 
 
     cluster.wait() # waits for all scheduled jobs to finish
-    # for job in jobs:
-    #   n = job() # waits for job to finish and returns results
-    #   print('%s executed job %s at %s with %s' % (job.ip_addr, job.id, job.start_time, n))
-    #   # other fields of 'job' that may be useful:
-    #   # print(job.stdout, job.stderr, job.exception, job.ip_addr, job.start_time, job.end_time)
+    
+    # Save results
+    for job in jobs:
+      sweepparam, res, metadata = job.result
+      comb_alut = metadata[0]
+      mem_alut = metadata[1]
+      reg = metadata[2]
+      bram = metadata[3]
+      dsp = metadata[4]
+      c.execute('INSERT INTO ' + dbtablename +''' VALUES 
+        (''' + str(sweepparam) + ''', ''' + str(res) + ''',
+        ''' + str(comb_alut) + ''',''' + str(mem_alut) + ''',
+        ''' + str(reg) + ''',''' + str(mem_alut) + ''',
+        ''' + str(dsp) + ''',''' + "'" + start_time_str + "'" + ''')''')
+      print("Sweepparam complete: " + sweepparam + '\n')
+      dbconn.commit()
+
+    # Print results
+    t = (start_time_str,)
+    for result in c.execute('SELECT * FROM ' + dbtablename + ' WHERE start_time=? ORDER BY sweepparam', t):
+      print result
+
+    dbconn.close()
     cluster.print_status()
     cluster.close()
   else:
@@ -192,9 +213,9 @@ if len(space[-1][2]) > 0:
       # send request to host to partition the space
       send_simple_msg_to_host('partition')
 
-  # terminate the host
-  send_simple_msg_to_host('terminate')
+  # # terminate the host
+  # send_simple_msg_to_host('terminate')
 
-  host_thread.join()
+  # host_thread.join()
 else:
   print "No sweeps to run"

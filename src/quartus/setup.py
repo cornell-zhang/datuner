@@ -6,38 +6,38 @@ import time
 class ProgramTunerWrapper(MeasurementInterface):
 
   def get_qor(self, sweepparam):
-    f = open('sta.summary', 'r')
-    while True:
-      line = f.readline()
-      if "Slack" in line.split():
-        slack = line.split(':')[1]
-        break
-    f.close()
+    # f = open('sta.summary', 'r')
+    # while True:
+    #   line = f.readline()
+    #   if "Slack" in line.split():
+    #     slack = line.split(':')[1]
+    #     break
+    # f.close()
 
-    f = open('fit.summary', 'r')
-    while True:
-      line = f.readline()
-      if not line: break
-      if 'Combinational ALUTs' in line:
-        comb_alut = line.split(':')[1].split('/')[0].rstrip().lstrip()
-        continue
-      if 'Memory ALUTs' in line:
-        mem_alut = line.split(':')[1].split('/')[0].rstrip().lstrip()
-        continue
-      if 'Total registers' in line:
-        reg = line.split(':')[1].split('/')[0].rstrip().lstrip()
-        continue
-      if 'block memory bits' in line:
-        bram = line.split(':')[1].split('/')[0].rstrip().lstrip()
-        continue
-      if 'DSP block' in line:
-        dsp = line.split(':')[1].split('/')[0].rstrip().lstrip()
-        continue
-    f.close()
+    # f = open('fit.summary', 'r')
+    # while True:
+    #   line = f.readline()
+    #   if not line: break
+    #   if 'Combinational ALUTs' in line:
+    #     comb_alut = line.split(':')[1].split('/')[0].rstrip().lstrip()
+    #     continue
+    #   if 'Memory ALUTs' in line:
+    #     mem_alut = line.split(':')[1].split('/')[0].rstrip().lstrip()
+    #     continue
+    #   if 'Total registers' in line:
+    #     reg = line.split(':')[1].split('/')[0].rstrip().lstrip()
+    #     continue
+    #   if 'block memory bits' in line:
+    #     bram = line.split(':')[1].split('/')[0].rstrip().lstrip()
+    #     continue
+    #   if 'DSP block' in line:
+    #     dsp = line.split(':')[1].split('/')[0].rstrip().lstrip()
+    #     continue
+    # f.close()
 
-    metadata = [comb_alut, mem_alut, reg, bram, dsp]
-    return -float(slack), metadata
-    #return 0.123, [sweepparam, '2', '3', '4', '5']
+    # metadata = [comb_alut, mem_alut, reg, bram, dsp]
+    # return -float(slack), metadata
+    return 0.123, [sweepparam, '2', '3', '4', '5']
 
   def run(self, desired_result, input, limit):
     """
@@ -88,8 +88,8 @@ class ProgramTunerWrapper(MeasurementInterface):
         print "Starting " + cfg['sweepparam']
         tclmodcmd = 'sed \'s/SWEEPPARAM/BITS ' + cfg['sweepparam'] + '/g\' run_quartus.tcl > run_quartus_sweep.tcl'
         subprocess.Popen(tclmodcmd, shell=True).wait()
-        cmd = 'quartus_sh -t ./run_quartus_sweep.tcl'
-        #cmd = 'ls'
+        #cmd = 'quartus_sh -t ./run_quartus_sweep.tcl'
+        cmd = 'ls'
         run_result = self.call_program(cmd)
         assert run_result['returncode'] == 0
         result, metadata = self.get_qor(cfg['sweepparam'])
