@@ -25,7 +25,7 @@ def start_host():
   start_time_str = str(start_time.date()) + ' ' + str(start_time.time())
 
   # connect to database and create table is results table doesn't exist
-  dbconn = sqlite3.connect('results_test' + '.db')
+  dbconn = sqlite3.connect('results' + '.db')
   c = dbconn.cursor()
 
   best_res, total_search_count = 1e9, 0
@@ -49,7 +49,7 @@ def start_host():
         c.execute('INSERT INTO ' + dbtablename +''' VALUES 
           (''' + str(sweepparam) + ''', ''' + str(res) + ''',
           ''' + str(comb_alut) + ''',''' + str(mem_alut) + ''',
-          ''' + str(reg) + ''',''' + str(mem_alut) + ''',
+          ''' + str(reg) + ''',''' + str(bram) + ''',
           ''' + str(dsp) + ''',''' + "'" + start_time_str + "'" + ''')''')
         print("Sweepparam complete: " + sweepparam + '\n')
         dbconn.commit()
@@ -95,7 +95,7 @@ def worker_function(workspace, run_id, flow, space):
 
 # Setup the results database and sweep points
 # connect to database and create table is results table doesn't exist
-dbconn = sqlite3.connect('results_test' + '.db')
+dbconn = sqlite3.connect('results' + '.db')
 c = dbconn.cursor()
 c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=\'" + dbtablename + "\'")
 table_exists = c.fetchone()
@@ -120,8 +120,8 @@ if len(space[-1][2]) > 0:
     start_time = datetime.now()
     start_time_str = str(start_time.date()) + ' ' + str(start_time.time())
 
-    # connect to database and create table is results table doesn't exist
-    dbconn = sqlite3.connect('results_test' + '.db')
+    # connect to database
+    dbconn = sqlite3.connect('results' + '.db')
     c = dbconn.cursor()
 
     print 'Number of sweeps: ' + str()
@@ -179,7 +179,7 @@ if len(space[-1][2]) > 0:
       c.execute('INSERT INTO ' + dbtablename +''' VALUES 
         (''' + str(sweepparam) + ''', ''' + str(res) + ''',
         ''' + str(comb_alut) + ''',''' + str(mem_alut) + ''',
-        ''' + str(reg) + ''',''' + str(mem_alut) + ''',
+        ''' + str(reg) + ''',''' + str(bram) + ''',
         ''' + str(dsp) + ''',''' + "'" + start_time_str + "'" + ''')''')
       print("Sweepparam complete: " + sweepparam + '\n')
       dbconn.commit()
