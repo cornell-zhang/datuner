@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:sdsproject="http://www.xilinx.com/sdsproject" name="oflow_image" platform="zc706" os="Linux" ConfigType="SDEstimate">
+  <options insertapm="false" genbitstream="true" gensdcard="true" dmclkid="1">
+    <accelerator name="optical_flow" filepath="src/optical_flow.cpp" clkid="1"/>
+  </options>
+</sdsproject:Project>

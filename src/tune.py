@@ -8,6 +8,7 @@ from opentuner import MeasurementInterface
 from opentuner import Result
 import socket
 import pickle
+import os
 from config import *
 from setup import *
 

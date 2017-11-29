@@ -1,9 +1,0 @@
-# C generated files
-*.o
-*.a
-
-# Built files
-optical_flow
-
-# Editor files
-*.swp

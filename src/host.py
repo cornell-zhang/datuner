@@ -1,7 +1,14 @@
-import sys, os, socket, pickle, subprocess
+import sys, os, socket, pickle, subprocess, sqlite3, dispy
 from threading import Thread
+
+DATUNER_HOME = os.environ['DATUNER_HOME']
+
+sys.path.append(DATUNER_HOME + '/src')
+sys.path.append(os.getcwd())
+
 from config import *
 from space_partition import *
+
 
 # a list of all design points explored so far. Format of a design point:
 # [[['param1', value1], ['param2', value2], ...], qor]
@@ -17,6 +24,7 @@ def start_host():
   subspaces.append([space, 0, 1])
 
   conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  conn.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
   conn.bind(server_address)
   conn.listen(128)
 
@@ -51,25 +59,34 @@ def send_simple_msg_to_host(msg):
   conn.send(pickle.dumps([msg]))
   conn.close()
 
+def slave_function(i):
+  import os
+  os.system('mkdir -p ' + str(i))
+  os.system('cp *.py ./' + str(i))
+  os.chdir('./' + str(i))
+  os.system('python tune.py --test-limit=1')
+  return
+
 # launch the host program on local machine
 host_thread = Thread(target=start_host)
 host_thread.start()
 
-runs_per_epoch = 1
+os.system('cp ' + DATUNER_HOME + '/src/tune.py .')
+os.system('cp ' + DATUNER_HOME + '/flows/' + flow + '/* .')
+cluster = dispy.JobCluster(slave_function, depends = ['tune.py', 'config.py'] + \
+          [f for f in os.listdir(DATUNER_HOME + '/flows/' + flow)])
+
+runs_per_epoch = 4
 epoch = budget / runs_per_epoch
 
 for e in range(epoch):
-  p = []
+  jobs = []
   for i in range(budget/epoch):
-    machine_addr = machines[i % len(machines)]
-    ws_id = workspace + '/' + str(i)
-    subprocess.call(['ssh', machine_addr, 'mkdir -p ' + ws_id]);
-    os.system('scp -r ./' + flow + ' ' + machine_addr + ':' + ws_id)
-    subprocess.call(['scp', 'tune.py', machine_addr + ':' +ws_id +'/'+flow]);
-    subprocess.call(['scp', 'config.py', machine_addr + ':' +ws_id +'/'+flow]);
-    p.append(subprocess.Popen(['ssh', machine_addr, 'cd ' + ws_id + \
-                          '/' + flow + '; python tune.py --test-limit=1']))
-  [process.wait() for process in p]
+    job = cluster.submit(i)
+    job.id = i
+    jobs.append(job)
+  
+  cluster.wait()
 
   # send request to host to partition the space
   send_simple_msg_to_host('partition')
