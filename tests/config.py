@@ -6,13 +6,6 @@ space = [
 
 budget = 8
 
-workspace = '/work/zhang/users/liu/work/datuner_workspace'
-
-machines = [
-  'gl387@zhang-05.ece.cornell.edu',
-  'gl387@zhang-06.ece.cornell.edu'
-]
-
 flow = 'sample-3d'
 
 server_address = ('zhang-05.ece.cornell.edu', 10015)
