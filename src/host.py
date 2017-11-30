@@ -25,7 +25,10 @@ def start_host():
   dbcursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=\'res\'")
   table_exists = dbcursor.fetchone()
   if table_exists is None:
-    dbcursor.execute('CREATE TABLE res (cfg text, QoR real)')
+    cfg_list = []
+    for i in space:
+      cfg_list.append(i[1] + ' text')
+    dbcursor.execute('CREATE TABLE res (' + ','.join(cfg_list) + ', QoR real)')
 
   # add the initial space and a score of 0 and a frequency of 1
   subspaces.append([space, 0, 1])
@@ -49,8 +52,14 @@ def start_host():
       if res < best_res:  
         best_res = res
       global_result.append([cfg, res])
-      
-      dbcursor.execute('INSERT INTO res VALUES (\"' + str(cfg) + '\",' + str(res) + ')')
+      cfg_val = []
+      for space_iter in space:
+        cfg_name = space_iter[1]
+        for i in cfg[0]:
+          if cfg_name == i[0]:
+            cfg_val.append(str(i[1]))
+            break
+      dbcursor.execute('INSERT INTO res VALUES (' + ','.join(cfg_val) + ',' + str(res) + ')')
       dbconn.commit()
       with open("global_result.txt", "a") as f:
         f.write(','.join(str(i) for i in (cfg + metadata)) + ',' + str(best_res) + '\n')
