@@ -20,6 +20,13 @@ global_result = []
 subspaces = []
 
 def start_host():
+  dbconn = sqlite3.connect('results' + '.db')
+  dbcursor = dbconn.cursor()
+  dbcursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=\'res\'")
+  table_exists = dbcursor.fetchone()
+  if table_exists is None:
+    dbcursor.execute('CREATE TABLE res (cfg text, QoR real)')
+
   # add the initial space and a score of 0 and a frequency of 1
   subspaces.append([space, 0, 1])
 
@@ -42,6 +49,9 @@ def start_host():
       if res < best_res:  
         best_res = res
       global_result.append([cfg, res])
+      
+      dbcursor.execute('INSERT INTO res VALUES (\"' + str(cfg) + '\",' + str(res) + ')')
+      dbconn.commit()
       with open("global_result.txt", "a") as f:
         f.write(','.join(str(i) for i in (cfg + metadata)) + ',' + str(best_res) + '\n')
     elif data[0] == 'partition':
@@ -49,6 +59,7 @@ def start_host():
     elif data[0] == 'terminate':
       connection.close()
       conn.close()
+      dbconn.close()
       break
     else:
       print "Unknown protocol message: " + mode + '\n'
