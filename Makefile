@@ -52,8 +52,6 @@ ReleaseExampleDir = $(ReleaseDir)/examples
 
 
 ReleaseTargetDir := $(ReleaseDir)/$(OS)_$(ARCH)
-ReleaseTargetBinDir = $(ReleaseTargetDir)/bin
-ReleaseTargetScriptDir = $(ReleaseTargetDir)/scripts
 ReleaseTargetPkgDir = $(ReleaseTargetDir)/install
 
 # Copy or link
@@ -75,15 +73,12 @@ Prompt = "[DATuner]"
 
 all: build
 
-build: build-pkgs build-src release
+build: build-pkgs release
 
 build-pkgs:
 	$(MAKE) -C pkgs
 
-build-src:
-	$(MAKE) -C src
-
-release:: $(ReleaseDir)/.dir release-DATuner release-scripts release-docs release-install
+release:: $(ReleaseDir)/.dir release-DATuner release-docs release-install
 	#release-examples
 	$(Echo) "$(Prompt) DATuner v$(RELEASE_VERSION) installed under $(ReleaseDir)"
 
@@ -100,7 +95,7 @@ release:: post-cleanup
 endif
 
 #== Release DATuner ==#
-release-DATuner:: install-DATuner-bin  
+release-DATuner:: install-DATuner  
 
 #ifdef EXTERN_RELEASE
 #release-DATuner:: install-DATuner-copyright
@@ -110,30 +105,13 @@ release-DATuner:: install-DATuner-bin
 #release-DATuner:: install-DATuner-version
 #endif
 
-DATuner_BASE_NAME = DATuner_master DATuner_worker
+DATuner_BASE_NAME = host.py
 
-ifneq "$(OS)" "Linux"
-  DATuner_BIN_NAME = $(DATuner_BASE_NAME)_bin.exe
-else
-  DATuner_BIN_NAME = $(DATuner_BASE_NAME)_bin
-endif
-
-install-DATuner-bin:: $(ReleaseTargetBinDir)/.dir
-		for cmd in $(DATuner_BASE_NAME); do \
-	  	$(INSTALL) $(DATuner_OBJ)/bin/$$cmd $(ReleaseTargetBinDir)/$$cmd ; \
-	done 
-
-ifndef EXTERN_RELEASE
-ReleaseExe = $(DATuner_OBJ)/Release/bin/$(DATuner_BIN_NAME)
-DebugExe = $(DATuner_OBJ)/Debug/bin/$(DATuner_BIN_NAME)
-endif
+# Make the host program globally executable
+install-DATuner::
+	chmod u+x $(DATuner_SRC)/host.py
 
 CommonBinDir = $(ReleaseDir)/bin
-
-release-scripts:: $(ReleaseTargetScriptDir)/.dir
-	cp -rf $(DATuner_SCRIPT)/* $(ReleaseTargetScriptDir)/
-	chmod u+x $(ReleaseTargetScriptDir)/datuner.py
-	sed -i 's#datuner_path_holder#'$(ReleaseTargetScriptDir)'#' $(ReleaseTargetScriptDir)/datuner.py
 
 release-install:: $(ReleaseTargetPkgDir)/.dir
 	cp -rf $(DATuner_PKG_INSTALL)/* $(ReleaseTargetPkgDir)/ 
