@@ -1,5 +1,6 @@
 from opentuner import MeasurementInterface
 from opentuner import Result
+import time
 
 class ProgramTunerWrapper(MeasurementInterface):
 

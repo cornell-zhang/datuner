@@ -30,23 +30,12 @@ else:
   sys.exit(1)
 
 class ProgramTuner(ProgramTunerWrapper):
-  # Create a TCP/IP socket
-  conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  # Connect the socket to the port where the server is listening
-  print (server_address)
-  conn.connect(server_address)
-  conn.send(pickle.dumps(['init']))
-
-  param = []
-  try:
-    # param is a list that specifies the search space
-    param = pickle.loads(conn.recv(8096))
-  finally:
-    conn.close()
+  param = pickle.load(open('space.p', 'rb'))
 
   def manipulator(self):
     manipulator = ConfigurationManipulator()
     for item in self.param:
+      print item
       param_type, param_name, param_range = item
       if param_type == 'EnumParameter':
         manipulator.add_parameter(EnumParameter(param_name, param_range))
@@ -68,16 +57,10 @@ class ProgramTuner(ProgramTunerWrapper):
     f.write(str(res))
     f.write('\n')
     f.close()
-    try:
-      conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-      conn.connect(server_address)
-      msg = []
-      for key in cfg:
-        msg.append([key, cfg[key]])
-      conn.send(pickle.dumps(['respond', msg, metadata, res]))
-      conn.close() 
-    except:
-      print "connection error!\n"
+    msg = []
+    for key in cfg:
+      msg.append([key, cfg[key]])
+    pickle.dump([msg, metadata, res], open('result.p', 'wb'))
 
 if __name__ == '__main__':
   argparser = opentuner.default_argparser()

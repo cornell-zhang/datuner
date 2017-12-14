@@ -1,5 +1,5 @@
 set topmodule "badprog"
-set srcdir "./design"
+set srcdir "./badprog"
 
 load_package flow
 
