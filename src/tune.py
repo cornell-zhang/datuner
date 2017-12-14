@@ -8,13 +8,11 @@ from opentuner import MeasurementInterface
 from opentuner import Result
 import socket
 import pickle
-from config import *
 from space_partition import *
 from setup import *
 
 class ProgramTuner(ProgramTunerWrapper):
-  # param is a list that specifies the search space
-  param = pickle.load(open('space.p', 'rb'))
+  sweep, enums, genfile = pickle.load(open('space.p', 'rb'))
 
   '''
   total_search_count = 1
@@ -26,7 +24,7 @@ class ProgramTuner(ProgramTunerWrapper):
 
   def manipulator(self):
     manipulator = ConfigurationManipulator()
-    for item in self.param:
+    for item in self.enums:
       param_type, param_name, param_range = item
       if param_type == 'EnumParameter':
         manipulator.add_parameter(EnumParameter(param_name, param_range))
@@ -37,7 +35,7 @@ class ProgramTuner(ProgramTunerWrapper):
     print "Optimal options written to bench_config.json:", configuration.data
     self.manipulator().save_to_file(configuration.data, 'inline_config.json')
 
-  def dumpresult(self, cfg, sweepparam, res, metadata = []):
+  def dumpresult(self, cfg, res, metadata = []):
     """
     Compile and run a given configuration then
     return performance
@@ -49,7 +47,7 @@ class ProgramTuner(ProgramTunerWrapper):
     f.write('\n')
     f.close()
 
-    pickle.dump([sweepparam, res, metadata], open('result.p', 'wb'))
+    pickle.dump([res, metadata], open('result.p', 'wb'))
     
     # try:
     #   conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

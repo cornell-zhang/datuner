@@ -9,7 +9,9 @@ space = [
   ['EnumParameter', 'fit_optimize_io_register_for_timing', ['off']],
   ['EnumParameter', 'fit_pack_register', ['auto']],
   ['EnumParameter', 'fit_tdc', ['off']],
-  ['EnumParameter', 'sweepparam', ['2', '4', '8', '16', '32', '48', '64', '96', '128']],
+  #['SweepParameter', 'bitwidth', ['2', '4', '8', '16', '32', '48', '64', '92', '128']],
+  ['SweepParameter', 'bitwidth', ['16', '32']],
+  ['SweepParameter', 'inputs', ['1', '2', '4', '8']]
 ]
 
 # whether we are optimizing or sweeping
@@ -30,9 +32,9 @@ machines = [
 
 flow = 'quartus'
 
-genfile = 'genVerilogMultiplier.py'
+genfile = 'genVerilogMux.py'
 
-dbtablename = 'multiplier'
+dbtablename = 'mux'
 
 overwrite = False
 

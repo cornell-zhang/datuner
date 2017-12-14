@@ -1,4 +1,4 @@
-set topmodule "multiplier"
+set topmodule "mux"
 set srcdir "./design"
 
 load_package flow

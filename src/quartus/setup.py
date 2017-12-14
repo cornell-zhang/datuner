@@ -5,7 +5,7 @@ import time
 
 class ProgramTunerWrapper(MeasurementInterface):
 
-  def get_qor(self, sweepparam):
+  def get_qor(self):
     f = open('sta.summary', 'r')
     while True:
       line = f.readline()
@@ -37,7 +37,7 @@ class ProgramTunerWrapper(MeasurementInterface):
 
     metadata = [comb_alut, mem_alut, reg, bram, dsp]
     return -float(slack), metadata
-    #return 0.123, [sweepparam, '2', '3', '4', '5']
+    #return 0.123, ['1', '2', '3', '4', '5']
 
   def run(self, desired_result, input, limit):
     """
@@ -64,6 +64,9 @@ class ProgramTunerWrapper(MeasurementInterface):
     cfg = desired_result.configuration.data
     result_id = desired_result.id
 
+    sweep = self.sweep
+    genfile = self.genfile
+
     f = open('./options.tcl', 'w')
     f.write('execute_module -tool map -args "--family=stratixiv --part=EP4SGX530NF45I3 ')
     for param in map_param:
@@ -75,28 +78,30 @@ class ProgramTunerWrapper(MeasurementInterface):
     f.write('"\n')
     f.close()
 
-    if 'sweepparam' in cfg:
+    if len(sweep) != 0:
         # delete previous results
         cleanupcmd = 'rm localresult.txt'
         subprocess.Popen(cleanupcmd, shell=True).wait()
 
         # generate verilog design file; this is to integrate the libcharm genverilog scripts
-        sweepparam = int(cfg['sweepparam'])
-        genveri = 'cd design; python genVerilogMultiplier.py ' + str(sweepparam) + ' ' + str(sweepparam + 1) + ' 1; cd ..'
+        sweepparam = int(sweep[0][1])
+        genveri = 'cd design; python ' + genfile + ' ' + sweep[0][1] + ' ' + sweep[1][1] + '; cd ..'
         subprocess.Popen(genveri, shell=True).wait()
 
-        print "Starting " + cfg['sweepparam']
-        tclmodcmd = 'sed \'s/SWEEPPARAM/BITS ' + cfg['sweepparam'] + '/g\' run_quartus.tcl > run_quartus_sweep.tcl'
+        # Old generation code using tcl files TODO: Remove SWEEPPARAM in the tcl files and remove these 2 lines of code
+        tclmodcmd = 'sed \'s/SWEEPPARAM/BITS ' + str(sweepparam) + '/g\' run_quartus.tcl > run_quartus_sweep.tcl'
         subprocess.Popen(tclmodcmd, shell=True).wait()
+
+        print "Starting " + str(sweepparam)
         cmd = 'quartus_sh -t ./run_quartus_sweep.tcl'
         #cmd = 'ls'
         run_result = self.call_program(cmd)
         assert run_result['returncode'] == 0
-        result, metadata = self.get_qor(cfg['sweepparam'])
-        self.dumpresult(cfg, cfg['sweepparam'], result, metadata)
+        result, metadata = self.get_qor()
+        self.dumpresult(cfg, result, metadata)
         cleanupcmd = 'rm run_quartus_sweep.tcl'
         subprocess.Popen(cleanupcmd, shell=True).wait()
-        print "Finished " + cfg['sweepparam']
+        print "Finished " + str(sweepparam)
     else:
         cmd = 'quartus_sh -t ./run_quartus.tcl'
         run_result = self.call_program(cmd)
