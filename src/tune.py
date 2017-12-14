@@ -9,15 +9,32 @@ from opentuner import Result
 import socket
 import pickle
 import os
-from config import *
 from setup import *
+
+if os.path.exists(os.getcwd() + '/vtr.py'):
+  import vtr
+  tool_path = eval(flow + '.tool_path')
+elif os.path.exists(os.getcwd() + '/vivado.py'):
+  import vivado
+  top_module = eval(flow + '.top_module')
+elif os.path.exists(os.getcwd() + '/quartus.py'):
+  from quartus import server_address as server_address
+  from quartus import space as space
+  from quartus import designdir as designdir
+  from quartus import top_module as top_module
+elif os.path.exists(os.getcwd() + '/custom.py'):
+  from custom import server_address as server_address
+  from custom import space as space
+else:
+  print "missing [tool_name].py under current folder"
+  sys.exit(1)
 
 class ProgramTuner(ProgramTunerWrapper):
   # Create a TCP/IP socket
   conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   # Connect the socket to the port where the server is listening
+  print (server_address)
   conn.connect(server_address)
-
   conn.send(pickle.dumps(['init']))
 
   param = []

@@ -1,14 +1,105 @@
-import sys, os, socket, pickle, subprocess, sqlite3, dispy
+#!/usr/bin/python
+
+#===================================================
+# run DATuner
+#===================================================
+
+import sys, os, argparse, socket, pickle, subprocess, sqlite3, dispy
 from threading import Thread
 
 DATUNER_HOME = os.environ['DATUNER_HOME']
 
 sys.path.append(DATUNER_HOME + '/src')
-sys.path.append(os.getcwd())
+pwd = os.getcwd()
+sys.path.append(pwd)
 
-from config import *
 from space_partition import *
 
+#-------------------------------------------------
+# parse parameters and read information from py
+#-------------------------------------------------
+parser = argparse.ArgumentParser(description='main script for DATuner')
+parser.add_argument('-f', '--flow', type=str, dest='tool', choices=['vtr','vivado','quartus','custom'])
+parser.add_argument('-b', '--budget', type=int, default=1, dest='limit')
+parser.add_argument('-t', '--timeout', type=str, default='0.0d:0.0h:0.0m:7200.0s', dest='stop', help='format: 4d:2h:5m:9s')
+parser.add_argument('-p', '--parallel', type=int, default=1, dest='pf')
+args = parser.parse_args()
+
+flow = args.tool
+budget = args.limit
+proc_num = args.pf
+
+if len(sys.argv) < 2:
+  parser.print_help()
+  sys.exit(1)
+
+if os.path.exists(pwd + '/vtr.py') and flow == 'vtr':
+  import vtr
+  tool_path = eval(flow + '.tool_path')
+elif os.path.exists(pwd + '/vivado.py') and flow == 'vivado':
+  import vivado
+  top_module = eval(flow + '.top_module')
+elif os.path.exists(pwd + '/quartus.py') and flow == 'quartus':
+  from quartus import server_address as server_address
+  from quartus import space as space
+  from quartus import designdir as designdir
+  from quartus import top_module as top_module
+elif os.path.exists(pwd + '/custom.py') and flow == 'custom':
+  from custom import server_address as server_address
+  from custom import space as space
+else:
+  print "missing [tool_name].py under current folder"
+  sys.exit(1)
+
+print '[     0s]    INFO the current work space is: ' + pwd
+
+#-------parameters check------
+if flow == '':
+  print "Please specify the tool name."
+  sys.exit(1)
+
+if flow == "vtr":
+  if os.path.exists(tool_path+"/scripts") == False:
+    print "vtr path is not correct. Please check. The path should to point to .../vtr/vtr_release/vtr_flow"
+    sys.exit(1)
+elif flow == 'vivado':
+  if top_module == '':
+    print "Vivado is used. Please specify the top module."
+    sys.exit(1)
+elif flow == 'quartus':
+  if top_module == '':
+    print "Quartus is used. Please specify the top module."
+    sys.exit(1)
+
+tune_cst = 0
+if flow == 'vivado':
+  if eval(flow + '.modify_cst') == 'y' or eval(flow + '.modify_cst') == 'yes':
+    tune_cst = 1
+    if eval(flow + '.tune_cst') == '':
+      print "Please specify the default timing constraint."
+      sys.exit(1)
+
+# parser the time limit
+timelist = args.stop.split(':')
+minute = 0
+day = 0
+sec = 0
+hour = 0
+for timer in range(len(timelist)):
+  if timelist[timer].endswith('s'):
+    sec = float(timelist[timer][0:-1])
+  if timelist[timer].endswith('d'):
+    day = float(timelist[timer][0:-1])
+  if timelist[timer].endswith('m'):
+    minute = float(timelist[timer][0:-1])
+  if timelist[timer].endswith('h'):
+    hour = float(timelist[timer][0:-1])
+stoptime = int(sec + 60.0 * minute + 3600.0 * hour + 86400.0 * day)
+print '[     0s]    INFO time limit: ' + str(stoptime) + ' seconds'
+
+#---------------------------
+# Run DATuner
+#---------------------------
 
 # a list of all design points explored so far. Format of a design point:
 # [[['param1', value1], ['param2', value2], ...], qor]
@@ -93,7 +184,7 @@ host_thread.start()
 
 os.system('cp ' + DATUNER_HOME + '/src/tune.py .')
 os.system('cp ' + DATUNER_HOME + '/flows/' + flow + '/* .')
-cluster = dispy.JobCluster(slave_function, depends = ['tune.py', 'config.py'] + \
+cluster = dispy.JobCluster(slave_function, depends = ['tune.py', flow + '.py'] + \
           [f for f in os.listdir(DATUNER_HOME + '/flows/' + flow)])
 
 runs_per_epoch = 4
