@@ -1,6 +1,6 @@
 from opentuner import MeasurementInterface
 from opentuner import Result
-import time
+import subprocess
 
 class ProgramTunerWrapper(MeasurementInterface):
 
@@ -73,10 +73,40 @@ class ProgramTunerWrapper(MeasurementInterface):
     f.write('"\n')
     f.close()
 
-    cmd = 'quartus_sh -t ./run_quartus.tcl'
-    run_result = self.call_program(cmd)
-    assert run_result['returncode'] == 0
+    if hasattr(self,'sweep'):
+        sweep = self.sweep
+        genfile = self.genfile
+        top_module = self.top_module
 
-    result, metadata = self.get_qor()
-    self.dumpresult(cfg, result, metadata)
+    if len(sweep) != 0:
+        # generate verilog design file; this is to integrate the libcharm genverilog scripts
+        sweepparam = int(sweep[0][1])
+        sweeparg_str = ""
+        for arg in sweep:
+            sweeparg_str = sweeparg_str + arg[1] + ' '
+        genveri = 'cd design; python ' + genfile + ' ' + sweeparg_str + '; cd ..'
+        subprocess.Popen(genveri, shell=True).wait()
+
+        # Replace the top module name in tcl file
+        tclmodcmd = 'sed \'s/TOPMODULE/' + top_module + '/g\' run_quartus.tcl > run_quartus_sweep.tcl'
+        subprocess.Popen(tclmodcmd, shell=True).wait()
+
+        print "Starting " + str(sweepparam)
+        cmd = 'quartus_sh -t ./run_quartus_sweep.tcl'
+        #cmd = 'ls'
+        run_result = self.call_program(cmd)
+        assert run_result['returncode'] == 0
+        result, metadata = self.get_qor()
+        self.dumpresult(cfg, result, metadata)
+        cleanupcmd = 'rm run_quartus_sweep.tcl'
+        subprocess.Popen(cleanupcmd, shell=True).wait()
+        print "Finished " + str(sweepparam)
+    else:
+        cmd = 'quartus_sh -t ./run_quartus.tcl'
+        run_result = self.call_program(cmd)
+        assert run_result['returncode'] == 0
+
+        result, metadata = self.get_qor()
+        self.dumpresult(cfg, result, metadata)
+
     return Result(time = result)

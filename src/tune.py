@@ -18,10 +18,7 @@ elif os.path.exists(os.getcwd() + '/vivado.py'):
   import vivado
   top_module = eval(flow + '.top_module')
 elif os.path.exists(os.getcwd() + '/quartus.py'):
-  from quartus import server_address as server_address
-  from quartus import space as space
-  from quartus import designdir as designdir
-  from quartus import top_module as top_module
+  from quartus import *
 elif os.path.exists(os.getcwd() + '/custom.py'):
   from custom import server_address as server_address
   from custom import space as space
@@ -30,7 +27,9 @@ else:
   sys.exit(1)
 
 class ProgramTuner(ProgramTunerWrapper):
-  param = pickle.load(open('space.p', 'rb'))
+  param, top_module = pickle.load(open('space.p', 'rb'))
+  if os.path.isfile('sweep.p'):
+    sweep, genfile = pickle.load(open('sweep.p', 'rb'))
 
   def manipulator(self):
     manipulator = ConfigurationManipulator()
