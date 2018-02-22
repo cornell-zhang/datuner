@@ -20,7 +20,6 @@ DATuner has been tested on CentOS and Ubuntu.
 Supported EDA tools: VTR, Vivado, and Quartus. Make sure the tool is on your PATH.
 
 ### Compilation
-(tested on zhang-05)
 
 To build DATuner (including python, mpich and opentuner):
 
@@ -29,7 +28,7 @@ To build DATuner (including python, mpich and opentuner):
       % cd datuner
       % make -j8
             
-Build time: ~18 minitues on zhang-05.
+Build time: ~18 minutes
     
 ### Environment setup
 
@@ -38,7 +37,7 @@ Build time: ~18 minitues on zhang-05.
        
 ### Enable password-less SSH between machines
 
- * Specify the list of machines in `$HOME/releases/Linux_x86_64/scripts/my_hosts`. The default is using zhang-05 to zhang-08.
+ * Specify the list of machines in `$HOME/releases/Linux_x86_64/scripts/my_hosts`.
  * Make sure you can ssh without password from the host to each other machine. *You actually need to ssh to each of the machines at least once, because the first time you ssh into a new machine, a confirmation to the command line prompt is needed. Without this, mpich will actually error out.*
   
 One way to enable password-less SSH:
@@ -52,9 +51,9 @@ One way to enable password-less SSH:
 
   * Run DATuner
   
-    DATuner is an autotuner to tune EDA tools' parameters. We currently support VTR, Vivado, and Quartus. If you want to tune other EDA tools, please include the required documents. Please refer to the application part.
+    DATuner is an autotuner to tune EDA tools' parameters. We currently support VTR, Vivado, and Quartus. If you want to tune other EDA tools, please include the required documents. Please refer to the Applications section below.
     
-    To run DATuner, first copy the relevant Python template (i.e. [flow].py) from $HOME/datuner/releases/Linux_x86_64/scripts/tests to the directory where DATuner will be called. This Python template includes information such as the design path, the top module (for Vivado and Quartus), and the parameters (EDA tool options) to be tuned, and can be modified according to the user preferences. Options (i.e. flags) can be removed/commented out from the script, but should not be renamed. Then, DATuner can be run by the following command:
+    To run DATuner, first copy the relevant Python template (i.e. [flow].py) from $HOME/datuner/releases/Linux_x86_64/scripts/tests to the directory where DATuner will be called. This Python template includes information such as the design path, the top module (for Vivado and Quartus), and the parameters (EDA tool options) to be tuned, and can be modified according to the user preferences. Options (i.e. flags) that the user does not want to tune can be set to a specific value as described in the template. Flags should not be renamed. Then, DATuner can be run by the following command:
   
           % datuner.py -f [vtr|vivado|quartus|custom] -b [budget] -t [timeout] -p [parallelization_factor]
 
@@ -101,7 +100,7 @@ One way to enable password-less SSH:
 
    * Tune VTR
 
-     We chose to use "k6_frac_N10_mem32K_40nm.xml" VTR FPGA architecture by default. If users want to use another architecture, tune_vtr.py (under scripts/eda_flows/vtr) can be modified accordingly.
+     The default VTR FPGA architecture is "k6_frac_N10_mem32K_40nm.xml". If users want to use another architecture, tune_vtr.py (under datuner/scripts/eda_flows/vtr) can be modified accordingly.
 
      To tune VTR, please make sure that "TOOL_PATH" points to vtr_flow_holder in vtr.py.
    
@@ -113,9 +112,11 @@ One way to enable password-less SSH:
 
      Inside the design folder, please provide both Verilog file (.v) and the timing constraint (.sdc).
 
+     The default device is Cyclone V 5CGTFD9E5F35C7. If users want to use another family or device, run_quartus.tcl (under datuner/scripts/eda_flows/quartus) can be modified accordingly.
+
    * Tune other programs
      
-     Please modify your python code according to the tuneProgramTemplate.py under user_programe_example folder. make sure your python code import the programWrapper.py, and custom.py under you current directory includes the path of space definition textfile.
+     Please modify your python code according to tuneProgramTemplate.py (under datuner/scripts/eda_flows/user_program_example). Make sure your python code imports programWrapper.py.
 
 
 ### License
