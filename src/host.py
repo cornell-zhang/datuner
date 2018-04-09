@@ -141,7 +141,7 @@ def sweep_function(run_id, flow, sweep, enums, genfile, top_module):
   return [sweep, res, metadata]
 
 def tune_function(i, space, top_module):
-  import os
+  import subprocess, sys, os, time, pickle
   os.system('mkdir -p ' + str(i))
   os.system('cp package.zip ' + str(i))
   os.chdir('./' + str(i))
@@ -307,7 +307,20 @@ else:
   os.system('mkdir files/design')
   os.system('cp -R ' + designdir + '/* files/design')
   os.system('cd files; zip -r ../package.zip *')
+
   cluster = dispy.JobCluster(tune_function, depends = ['package.zip'])
+  
+  # copy files to and start up dispynode.py on worker machines
+  # this can be removed from release code if we assume users manually start dispy
+  for i in range(len(machines)):
+    machine_addr = machines[i % len(machines)]
+
+    subprocess.call(['scp', os.environ['DATUNER_HOME'] + '/build/pkgs/python/install/bin/dispynode.py', machine_addr + ':' +workspace]);
+    subprocess.Popen(['ssh', machine_addr, 'cd ' + workspace + \
+      '; python dispynode.py --serve 1 --clean --dest_path_prefix dispytmp_' + str(i)])
+
+  # Wait for the last node to be ready
+  time.sleep(3)
 
   runs_per_epoch = 4
   epoch = budget / runs_per_epoch
@@ -323,8 +336,8 @@ else:
       total_search_count += 1
       job = cluster.submit(i, select_space(total_search_count, subspaces, global_result), top_module)
       job.id = i
-      jobs.append(job)
-    
+      jobs.append(job) 
+
     cluster.wait()
 
     # Save results
