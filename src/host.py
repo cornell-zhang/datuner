@@ -41,14 +41,9 @@ elif os.path.exists(pwd + '/vivado.py') and flow == 'vivado':
   import vivado
   top_module = eval(flow + '.top_module')
 elif os.path.exists(pwd + '/quartus.py') and flow == 'quartus':
-  # from quartus import server_address as server_address
-  # from quartus import space as space
-  # from quartus import designdir as designdir
-  # from quartus import top_module as top_module
   from quartus import *
 elif os.path.exists(pwd + '/custom.py') and flow == 'custom':
-  from custom import server_address as server_address
-  from custom import space as space
+  from custom import *
 else:
   print "missing [tool_name].py under current folder"
   sys.exit(1)
@@ -211,10 +206,15 @@ if sweepcnt > 1:
   os.system('rm -rf files')
   os.system('mkdir files')
   os.system('cp ' + DATUNER_HOME + '/src/tune.py files')
+  os.system('cp ' + DATUNER_HOME + '/build/pkgs/python/install/lib/python2.7/site-packages/opentuner/utils/adddeps.py files')
+  os.system('cp ' + DATUNER_HOME + '/flows/programWrapper.py files')
   os.system('cp ' + DATUNER_HOME + '/flows/' + flow + '/* files')
   os.system('cp ' + flow + '.py files')
   os.system('mkdir files/design')
-  os.system('cp -R ' + designdir + '/* files/design')
+  if (flow == "custom"):
+    os.system('cp -R ' + designdir + '/* files')
+  else:
+    os.system('cp -R ' + designdir + '/* files/design')
   os.system('cd files; zip -r ../package.zip *')
 
   # Initialize the job scheduler
@@ -302,10 +302,15 @@ else:
   os.system('rm -rf files')
   os.system('mkdir files')
   os.system('cp ' + DATUNER_HOME + '/src/tune.py files')
+  os.system('cp ' + DATUNER_HOME + '/build/pkgs/python/install/lib/python2.7/site-packages/opentuner/utils/adddeps.py files')
+  os.system('cp ' + DATUNER_HOME + '/flows/programWrapper.py files')
   os.system('cp ' + DATUNER_HOME + '/flows/' + flow + '/* files')
   os.system('cp ' + flow + '.py files')
   os.system('mkdir files/design')
-  os.system('cp -R ' + designdir + '/* files/design')
+  if (flow == "custom"):
+    os.system('cp -R ' + designdir + '/* files')
+  else:
+    os.system('cp -R ' + designdir + '/* files/design')
   os.system('cd files; zip -r ../package.zip *')
 
   cluster = dispy.JobCluster(tune_function, depends = ['package.zip'])

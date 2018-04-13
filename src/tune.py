@@ -20,8 +20,7 @@ elif os.path.exists(os.getcwd() + '/vivado.py'):
 elif os.path.exists(os.getcwd() + '/quartus.py'):
   from quartus import *
 elif os.path.exists(os.getcwd() + '/custom.py'):
-  from custom import server_address as server_address
-  from custom import space as space
+  from custom import *
 else:
   print "missing [tool_name].py under current folder"
   sys.exit(1)
