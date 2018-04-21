@@ -48,15 +48,15 @@ $(PythonInstallDir)/bin/pip:
 install-OpenTuner:
 	cd $(PythonInstallDir)/bin; \
 	export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
-	./pip install opentuner;
+	./python -m pip install opentuner;
 
 install-matplotlib:
 	cd $(PythonInstallDir)/bin; \
 	export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
-	./pip install matplotlib;
+	./python -m pip install matplotlib;
 
 install-dispy:
 	cd $(PythonInstallDir)/bin; \
         export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
-        ./pip install dispy;
+        ./python -m pip install dispy;
 
