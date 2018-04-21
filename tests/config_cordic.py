@@ -7,17 +7,10 @@ space = [
   ['EnumParameter', 'FRA_WIDTH_SIN', [1, 2, 3, 4 , 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]],
 ]
 
-budget = 64
+designdir = # PATH_TO_CUSTOM_FOLDER (e.g. '$DATUNER_HOME/flows/vivado_hls')
 
-workspace = '/home/sx233/datuner/build_test'
+workspace = # PATH_TO_WORKSPACE_FOLDER
 
-machines = [
- # 'sx233@zhang-05.ece.cornell.edu',
-  'sx233@zhang-08.ece.cornell.edu'
- # 'sx233@zhang-03.ece.cornell.edu',
- # 'sx233@zhang-11.ece.cornell.edu'
-]
+machines = # [ MACHINE_ADDR1, MACHINE_ADDR2, ... ]
 
-flow = 'vivado_hls'
-
-server_address = ('zhang-08.ece.cornell.edu', 10000)
+server_address = # ( SERVER_ADDR, PORT_NUMBER )

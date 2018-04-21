@@ -8,17 +8,15 @@ space = [
   ['EnumParameter', 'fit_one_fit_attempt', ['on', 'off']],
   ['EnumParameter', 'fit_optimize_io_register_for_timing', ['on', 'off']],
   ['EnumParameter', 'fit_pack_register', ['off', 'normal', 'minimize_area', 'minimize_area_with_chains', 'auto']],
-  ['EnumParameter', 'fit_tdc', ['on', 'off']],
+  ['EnumParameter', 'fit_tdc', ['on', 'off']]
 ]
 
-budget = 4
+designdir = # PATH_TO_DESIGN_FOLDER
 
-workspace = '/work/zhang/users/liu/datuner/workspace'
+top_module = # TOP_MODULE
 
-machines = [
-  'gl387@zhang-08.ece.cornell.edu'
-]
+workspace = # PATH_TO_WORKSPACE_FOLDER
 
-flow = 'quartus'
+machines = # [ MACHINE_ADDR_1, MACHINE_ADDR_2, ... ]
 
-server_address = ('zhang-08.ece.cornell.edu', 10000)
+server_address = # ( SERVER_ADDR, PORT_NUMBER )
