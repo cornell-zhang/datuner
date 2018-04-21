@@ -320,7 +320,7 @@ else:
   for i in range(len(machines)):
     machine_addr = machines[i % len(machines)]
 
-    subprocess.call(['scp', os.environ['DATUNER_HOME'] + '/build/pkgs/python/install/bin/dispynode.py', machine_addr + ':' +workspace]);
+    subprocess.call(['scp', DATUNER_HOME + '/releases/Linux_x86_64/install/bin/dispynode.py', machine_addr + ':' +workspace]);
     subprocess.Popen(['ssh', machine_addr, 'cd ' + workspace + \
       '; python dispynode.py --serve 1 --clean --dest_path_prefix dispytmp_' + str(i)])
 
