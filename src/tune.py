@@ -35,6 +35,10 @@ class ProgramTuner(ProgramTunerWrapper):
       param_type, param_name, param_range = item
       if param_type == 'EnumParameter':
         manipulator.add_parameter(EnumParameter(param_name, param_range))
+      elif param_type == 'IntegerParameter' :
+        manipulator.add_parameter(IntegerParameter(param_name, param_range[0], param_range[1]))
+      elif param_type == 'FloatParameter' :
+        manipulator.add_parameter(FloatParameter(param_name, param_range[0], param_range[1]))
     return manipulator
 
   def save_final_config(self, configuration):
