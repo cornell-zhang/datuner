@@ -11,7 +11,7 @@ PythonSrcDir = $(PkgBuildDir)/Python-$(PyVersion)
 PythonInstallDir = $(PkgBuildDir)/install
 
 ## Rules
-all:: download-python config-python make-python make-pip install-OpenTuner install-matplotlib install-scipy
+all:: download-python config-python make-python make-pip install-OpenTuner install-matplotlib install-dispy
 
 #=== Build Python ===#
 
@@ -48,15 +48,15 @@ $(PythonInstallDir)/bin/pip:
 install-OpenTuner:
 	cd $(PythonInstallDir)/bin; \
 	export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
-	./pip install opentuner;
+	./python -m pip install opentuner;
 
 install-matplotlib:
 	cd $(PythonInstallDir)/bin; \
 	export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
-	./pip install matplotlib;
+	./python -m pip install matplotlib;
 
-install-scipy:
+install-dispy:
 	cd $(PythonInstallDir)/bin; \
         export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
-        ./pip install matplotlib;
+        ./python -m pip install dispy;
 

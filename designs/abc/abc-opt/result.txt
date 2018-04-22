@@ -1,0 +1,60 @@
+ABC command line: "read ../adder.blif; strash; compress2rs; if -a -K 6; print_stats; write adder_opt.blif".
+
+[1;37mtop                           :[0m i/o =  256/  129  lat =    0  nd =   244  edge =    778  aig  =  1456  lev = 116
+ABC command line: "read ../arbiter.blif; strash; compress2rs; if -a -K 6; print_stats; write arbiter_opt.blif".
+
+[1;37mtop                           :[0m i/o =  256/  129  lat =    0  nd =  2599  edge =  14994  aig  = 12395  lev = 19
+ABC command line: "read ../bar.blif; strash; compress2rs; if -a -K 6; print_stats; write bar_opt.blif".
+
+[1;37mtop                           :[0m i/o =  135/  128  lat =    0  nd =   512  edge =   2688  aig  =  4476  lev = 4
+ABC command line: "read ../cavlc.blif; strash; compress2rs; if -a -K 6; print_stats; write cavlc_opt.blif".
+
+[1;37mtop                           :[0m i/o =   10/   11  lat =    0  nd =   122  edge =    636  aig  =  1001  lev = 6
+ABC command line: "read ../ctrl.blif; strash; compress2rs; if -a -K 6; print_stats; write ctrl_opt.blif".
+
+[1;37mtop                           :[0m i/o =    7/   26  lat =    0  nd =    29  edge =    130  aig  =   242  lev = 3
+ABC command line: "read ../dec.blif; strash; compress2rs; if -a -K 6; print_stats; write dec_opt.blif".
+
+[1;37mtop                           :[0m i/o =    8/  256  lat =    0  nd =   287  edge =    684  aig  =   397  lev = 2
+ABC command line: "read ../div.blif; strash; compress2rs; if -a -K 6; print_stats; write div_opt.blif".
+
+[1;37mtop                           :[0m i/o =  128/  128  lat =    0  nd =  8142  edge =  29187  aig  = 57177  lev = 2074
+ABC command line: "read ../hyp.blif; strash; compress2rs; if -a -K 6; print_stats; write hyp_opt.blif".
+
+[1;37mtop                           :[0m i/o =  256/  128  lat =    0  nd = 47571  edge = 189946  aig  =322344  lev = 8488
+ABC command line: "read ../i2c.blif; strash; compress2rs; if -a -K 6; print_stats; write i2c_opt.blif".
+
+[1;37mi2c                           :[0m i/o =  147/  142  lat =    0  nd =   302  edge =   1323  aig  =  1298  lev = 6
+ABC command line: "read ../int2float.blif; strash; compress2rs; if -a -K 6; print_stats; write int2float_opt.blif".
+
+[1;37mtop                           :[0m i/o =   11/    7  lat =    0  nd =    45  edge =    230  aig  =   276  lev = 5
+ABC command line: "read ../log2.blif; strash; compress2rs; if -a -K 6; print_stats; write log2_opt.blif".
+
+[1;37mtop                           :[0m i/o =   32/   32  lat =    0  nd =  7683  edge =  31515  aig  = 40625  lev = 154
+ABC command line: "read ../max.blif; strash; compress2rs; if -a -K 6; print_stats; write max_opt.blif".
+
+[1;37mtop                           :[0m i/o =  512/  130  lat =    0  nd =   716  edge =   2935  aig  =  3139  lev = 81
+ABC command line: "read ../mem_ctrl.blif; strash; compress2rs; if -a -K 6; print_stats; write mem_ctrl_opt.blif".
+
+[1;37mmem_ctrl                      :[0m i/o = 1204/ 1231  lat =    0  nd = 11272  edge =  50493  aig  = 56945  lev = 50
+ABC command line: "read ../multiplier.blif; strash; compress2rs; if -a -K 6; print_stats; write multiplier_opt.blif".
+
+[1;37mtop                           :[0m i/o =  128/  128  lat =    0  nd =  5690  edge =  25641  aig  = 46167  lev = 126
+ABC command line: "read ../priority.blif; strash; compress2rs; if -a -K 6; print_stats; write priority_opt.blif".
+
+[1;37mtop                           :[0m i/o =  128/    8  lat =    0  nd =   172  edge =    747  aig  =   616  lev = 15
+ABC command line: "read ../router.blif; strash; compress2rs; if -a -K 6; print_stats; write router_opt.blif".
+
+[1;37mtop                           :[0m i/o =   60/   30  lat =    0  nd =    76  edge =    223  aig  =   222  lev = 9
+ABC command line: "read ../sin.blif; strash; compress2rs; if -a -K 6; print_stats; write sin_opt.blif".
+
+[1;37mtop                           :[0m i/o =   24/   25  lat =    0  nd =  1455  edge =   5562  aig  =  7354  lev = 74
+ABC command line: "read ../sqrt.blif; strash; compress2rs; if -a -K 6; print_stats; write sqrt_opt.blif".
+
+[1;37mtop                           :[0m i/o =  128/   64  lat =    0  nd =  3854  edge =  14219  aig  = 22826  lev = 1958
+ABC command line: "read ../square.blif; strash; compress2rs; if -a -K 6; print_stats; write square_opt.blif".
+
+[1;37mtop                           :[0m i/o =   64/  128  lat =    0  nd =  3924  edge =  16135  aig  = 28016  lev = 122
+ABC command line: "read ../voter.blif; strash; compress2rs; if -a -K 6; print_stats; write voter_opt.blif".
+
+[1;37mtop                           :[0m i/o = 1001/    1  lat =    0  nd =  1895  edge =   7285  aig  = 16242  lev = 18
