@@ -4,6 +4,7 @@ import opentuner
 from opentuner import ConfigurationManipulator
 from opentuner import EnumParameter
 from opentuner import FloatParameter
+from opentuner import IntegerParameter
 from opentuner import MeasurementInterface
 from opentuner import Result
 import socket
@@ -11,29 +12,26 @@ import pickle
 import os
 from setup import *
 
-if os.path.exists(os.getcwd() + '/vtr.py'):
-  import vtr
-  tool_path = eval(flow + '.tool_path')
-elif os.path.exists(os.getcwd() + '/vivado.py'):
-  import vivado
-  top_module = eval(flow + '.top_module')
-elif os.path.exists(os.getcwd() + '/quartus.py'):
-  from quartus import *
-elif os.path.exists(os.getcwd() + '/custom.py'):
-  from custom import *
-else:
-  print "missing [tool_name].py under current folder"
-  sys.exit(1)
-
 class ProgramTuner(ProgramTunerWrapper):
-  param, top_module = pickle.load(open('space.p', 'rb'))
+  
+  if os.path.exists(os.getcwd() + '/vtr.py'):
+    from vtr import tool_path
+  elif os.path.exists(os.getcwd() + '/vivado.py'):
+    from vivado import top_module
+  elif os.path.exists(os.getcwd() + '/quartus.py'):
+    from quartus import top_module
+    from quartus import target_family
+    from quartus import target_device
+  elif os.path.exists(os.getcwd() + '/custom.py'):
+    import custom
+  
+  param = pickle.load(open('space.p', 'rb'))
   if os.path.isfile('sweep.p'):
     sweep, genfile = pickle.load(open('sweep.p', 'rb'))
 
   def manipulator(self):
     manipulator = ConfigurationManipulator()
     for item in self.param:
-      print item
       param_type, param_name, param_range = item
       if param_type == 'EnumParameter':
         manipulator.add_parameter(EnumParameter(param_name, param_range))

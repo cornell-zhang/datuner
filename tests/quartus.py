@@ -11,9 +11,13 @@ space = [
   ['EnumParameter', 'fit_tdc', ['on', 'off']]
 ]
 
-designdir = # PATH_TO_DESIGN_FOLDER
+designdir = # PATH_TO_DESIGN_FOLDER (e.g. '$DATUNER_HOME/designs/quartus/diffeq1')
 
-top_module = # TOP_MODULE
+top_module = # TOP_MODULE (e.g. 'diffeq1')
+
+target_family = # TARGET_FAMILY (e.g. 'stratixiv') 
+
+target_device = # TARGET_DEVICE (e.g. 'EP4SGX530NF45I3') 
 
 workspace = # PATH_TO_WORKSPACE_FOLDER
 

@@ -38,8 +38,7 @@ if os.path.exists(pwd + '/vtr.py') and flow == 'vtr':
   import vtr
   tool_path = eval(flow + '.tool_path')
 elif os.path.exists(pwd + '/vivado.py') and flow == 'vivado':
-  import vivado
-  top_module = eval(flow + '.top_module')
+  from vivado import *
 elif os.path.exists(pwd + '/quartus.py') and flow == 'quartus':
   from quartus import *
 elif os.path.exists(pwd + '/custom.py') and flow == 'custom':
@@ -48,7 +47,7 @@ else:
   print "missing [tool_name].py under current folder"
   sys.exit(1)
 
-print '[     0s]    INFO the current work space is: ' + pwd
+print '[     0s]    INFO the current workdir is: ' + pwd
 
 #-------parameters check------
 if flow == '':
@@ -135,14 +134,14 @@ def sweep_function(run_id, flow, sweep, enums, genfile, top_module):
   msg, metadata, res = pickle.load(open('result.p', 'rb'))
   return [sweep, res, metadata]
 
-def tune_function(i, space, top_module):
+def tune_function(i, space):
   import subprocess, sys, os, time, pickle
   os.system('mkdir -p ' + str(i))
   os.system('cp package.zip ' + str(i))
   os.chdir('./' + str(i))
   os.system('unzip -o package.zip')
   os.system('rm package.zip')
-  pickle.dump([space, top_module], open('space.p', 'wb'))
+  pickle.dump(space, open('space.p', 'wb'))
   os.system('python tune.py --test-limit=1')
   msg, metadata, res = pickle.load(open('result.p', 'rb'))
   return [msg, metadata, res]
@@ -206,14 +205,12 @@ if sweepcnt > 1:
   os.system('rm -rf files')
   os.system('mkdir files')
   os.system('cp ' + DATUNER_HOME + '/src/tune.py files')
-  os.system('cp ' + DATUNER_HOME + '/build/pkgs/python/install/lib/python2.7/site-packages/opentuner/utils/adddeps.py files')
-  os.system('cp ' + DATUNER_HOME + '/flows/programWrapper.py files')
-  os.system('cp ' + DATUNER_HOME + '/flows/' + flow + '/* files')
   os.system('cp ' + flow + '.py files')
-  os.system('mkdir files/design')
   if (flow == "custom"):
     os.system('cp -R ' + designdir + '/* files')
   else:
+    os.system('cp ' + DATUNER_HOME + '/flows/' + flow + '/* files')
+    os.system('mkdir files/design')
     os.system('cp -R ' + designdir + '/* files/design')
   os.system('cd files; zip -r ../package.zip *')
 
@@ -226,8 +223,8 @@ if sweepcnt > 1:
   for i in range(len(machines)):
     machine_addr = machines[i % len(machines)]
 
-    subprocess.call(['scp', 'dispynode.py', user + '@' + machine_addr + ':' +workspace]);
-    subprocess.Popen(['ssh', user + '@' + machine_addr, 'cd ' + workspace + \
+    subprocess.call(['scp', DATUNER_HOME + '/releases/Linux_x86_64/install/bin/dispynode.py', machine_addr + ':' +workspace]);
+    subprocess.Popen(['ssh', machine_addr, 'cd ' + workspace + \
       '; python dispynode.py --serve 1 --clean --dest_path_prefix dispytmp_' + str(i)])
 
   # Wait for the last node to be ready
@@ -287,6 +284,7 @@ if sweepcnt > 1:
   dbconn.close()
   cluster.print_status()
   cluster.close()
+
 else:
   dbconn = sqlite3.connect('results' + '.db')
   dbcursor = dbconn.cursor()
@@ -302,14 +300,12 @@ else:
   os.system('rm -rf files')
   os.system('mkdir files')
   os.system('cp ' + DATUNER_HOME + '/src/tune.py files')
-  os.system('cp ' + DATUNER_HOME + '/build/pkgs/python/install/lib/python2.7/site-packages/opentuner/utils/adddeps.py files')
-  os.system('cp ' + DATUNER_HOME + '/flows/programWrapper.py files')
-  os.system('cp ' + DATUNER_HOME + '/flows/' + flow + '/* files')
   os.system('cp ' + flow + '.py files')
-  os.system('mkdir files/design')
   if (flow == "custom"):
     os.system('cp -R ' + designdir + '/* files')
   else:
+    os.system('cp ' + DATUNER_HOME + '/flows/' + flow + '/* files')
+    os.system('mkdir files/design')
     os.system('cp -R ' + designdir + '/* files/design')
   os.system('cd files; zip -r ../package.zip *')
 
@@ -339,7 +335,7 @@ else:
     jobs = []
     for i in range(budget/epoch):
       total_search_count += 1
-      job = cluster.submit(i, select_space(total_search_count, subspaces, global_result), top_module)
+      job = cluster.submit(i, select_space(total_search_count, subspaces, global_result))
       job.id = i
       jobs.append(job) 
 

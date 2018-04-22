@@ -35,7 +35,8 @@ class ProgramTunerWrapper(MeasurementInterface):
     f.close()
 
     metadata = [comb_alut, mem_alut, reg, bram, dsp]
-    return -float(slack), metadata
+    timing = -float(slack)
+    return timing, metadata
 
   def run(self, desired_result, input, limit):
     """
@@ -60,12 +61,16 @@ class ProgramTunerWrapper(MeasurementInterface):
     cfg = desired_result.configuration.data
     result_id = desired_result.id
 
+    top_module = self.top_module
+    target_family = self.target_family
+    target_device = self.target_device
+
     f = open('./options.tcl', 'w')
-    f.write('execute_module -tool map -args "--family=stratixiv --part=EP4SGX530NF45I3 ')
+    f.write('execute_module -tool map -args "--family=' + target_family + ' --part=' + target_device + ' ')
     for param in map_param:
       f.write('--' + param + '=' + cfg['map_' + param] + ' ')
     f.write('"\n')
-    f.write('execute_module -tool fit -args "--part=EP4SGX530NF45I3 ')
+    f.write('execute_module -tool fit -args "--part=' + target_device + ' ')
     for param in fit_param:
       f.write('--' + param + '=' + cfg['fit_' + param] + ' ')
     f.write('"\n')
@@ -74,7 +79,6 @@ class ProgramTunerWrapper(MeasurementInterface):
     if hasattr(self,'sweep'):
         sweep = self.sweep
         genfile = self.genfile
-        top_module = self.top_module
 
         if len(sweep) != 0:
             # generate verilog design file; this is to integrate the libcharm genverilog scripts
@@ -100,7 +104,6 @@ class ProgramTunerWrapper(MeasurementInterface):
             subprocess.Popen(cleanupcmd, shell=True).wait()
             print "Finished " + str(sweepparam)
     else:
-        top_module = self.top_module
         tclmodcmd = 'sed -e \'s:TOPMODULE:' + top_module + ':g\' ' + 'run_quartus.tcl > run.tcl'
         subprocess.Popen(tclmodcmd, shell=True).wait()
         cmd = 'quartus_sh -t ./run.tcl'
