@@ -25,9 +25,9 @@ DATuner has been tested on CentOS and Ubuntu; and it supports VTR, Vivado, Quart
 To build DATuner (including python, dispy, and opentuner):
 
 ```
-% git clone git@github.com:cornell-zhang/datuner.git
-% cd datuner
-% make -j4
+$ git clone git@github.com:cornell-zhang/datuner.git
+$ cd datuner
+$ make -j4
 ```
             
 ## Environment Setup
@@ -35,11 +35,11 @@ To build DATuner (including python, dispy, and opentuner):
 Please add the following to your BASH. And please make sure the tool you are tuning (e.g. Quartus, Vivado) is on your PATH.
 
 ```
-% unalias python 2>/dev/null
-% export DATUNER_HOME=*path_to_the_directory_where_datuner_is_installed*/datuner
-% export PATH=$DATUNER_HOME/src:$PATH
-% export PATH=$DATUNER_HOME/releases/Linux_x86_64/install/bin:$PATH
-% export LD_LIBRARY_PATH=$DATUNER_HOME/releases/Linux_x86_64/install/lib:$LD_LIBRARY_PATH
+unalias python 2>/dev/null
+export DATUNER_HOME=*path_to_the_directory_where_datuner_is_installed*/datuner
+export PATH=$DATUNER_HOME/src:$PATH
+export PATH=$DATUNER_HOME/releases/Linux_x86_64/install/bin:$PATH
+export LD_LIBRARY_PATH=$DATUNER_HOME/releases/Linux_x86_64/install/lib:$LD_LIBRARY_PATH
 ```   
     
 ## Running DATuner
@@ -48,11 +48,11 @@ Please add the following to your BASH. And please make sure the tool you are tun
 
 2. Run DATuner with the following command:
   
-   `% datuner.py -f [vtr|vivado|quartus|custom] -b [budget] -t [timeout] -p [parallelization_factor]`
+   `$ datuner.py -f [vtr|vivado|quartus|custom] -b [budget] -t [timeout] -p [parallelization_factor]`
 
    Here, f stands for flow, b for maximum number of executions, t for stop time, and p for the process number. Timeout should be a string with the following format: [#]d:[#]h:[#]m:[#]s. The ordering of the time units can be changed, and any time unit can be omitted if it has zero value. Example usage: 
 
-   `% datuner.py -f quartus -b 100 -t 1d:1h:20m:10s -p 2`
+   `$ datuner.py -f quartus -b 100 -t 1d:1h:20m:10s -p 2`
 
    If the arguments b, t, or p are omitted from the command, their default values will be assumed (i.e. 1 for b, 0.0d:0.0h:0.0m:7200.0s for t, and 1 for p).
 
