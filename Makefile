@@ -105,11 +105,11 @@ release-DATuner:: install-DATuner
 #release-DATuner:: install-DATuner-version
 #endif
 
-DATuner_BASE_NAME = host.py
+DATuner_BASE_NAME = datuner.py
 
 # Make the host program globally executable
 install-DATuner::
-	chmod u+x $(DATuner_SRC)/host.py
+	chmod u+x $(DATuner_SRC)/datuner.py
 
 CommonBinDir = $(ReleaseDir)/bin
 
