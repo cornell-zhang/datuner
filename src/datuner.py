@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-#===================================================
-# run DATuner
+#==================================================
+# run DATUNER
 #===================================================
 
 import sys, os, argparse, socket, pickle, subprocess, sqlite3, dispy, time
@@ -26,9 +26,9 @@ parser.add_argument('-t', '--timeout', type=str, default='0.0d:0.0h:0.0m:7200.0s
 parser.add_argument('-p', '--parallel', type=int, default=1, dest='pf')
 args = parser.parse_args()
 
-flow = args.tool
-budget = args.limit
-proc_num = args.pf
+flow = args.tool  #from -f
+budget = args.limit  #from -b
+proc_num = args.pf  #from -p
 
 if len(sys.argv) < 2:
   parser.print_help()
@@ -92,6 +92,11 @@ for timer in range(len(timelist)):
     hour = float(timelist[timer][0:-1])
 stoptime = int(sec + 60.0 * minute + 3600.0 * hour + 86400.0 * day)
 print '[     0s]    INFO time limit: ' + str(stoptime) + ' seconds'
+
+# a function to update stoptime variable for timeout checks
+def updatetime(stoptime): 
+  delta = time.time()-start_time 
+  return stoptime - delta
 
 #---------------------------
 # Run DATuner
@@ -235,7 +240,7 @@ if sweepcnt > 1:
   for i in range(numsweeps):
     selected_sweep = sweeplist[i]
     job = cluster.submit(i, flow, selected_sweep, space, genfile, top_module)
-    job.id = i # optionally associate an ID to job (if needed later)
+    job.id = i
     jobs.append(job)
 
 
@@ -282,10 +287,12 @@ if sweepcnt > 1:
     print result
 
   dbconn.close()
-  cluster.print_status()
+  cluster.print_statu()
   cluster.close()
 
-else:
+else: #if not sweeping, datuner is tuning
+  start_time = time.time() #set start time
+
   dbconn = sqlite3.connect('results' + '.db')
   dbcursor = dbconn.cursor()
   dbcursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=\'res\'")
@@ -309,37 +316,55 @@ else:
     os.system('cp -R ' + designdir + '/* files/design')
   os.system('cd files; zip -r ../package.zip *')
 
-  cluster = dispy.JobCluster(tune_function, depends = ['package.zip'])
+  cluster = dispy.JobCluster(tune_function, depends = ['package.zip']) 
+  #dispy.jobCluster() creates and returns cluster
+  #sends tune_function to the given nodes (no nodes given). also broadcasts ID request to find nodes if none given.
+  #needs package.zip to run tune_function.
   
   # copy files to and start up dispynode.py on worker machines
   # this can be removed from release code if we assume users manually start dispy
   for i in range(len(machines)):
     machine_addr = machines[i % len(machines)]
-
+  
     subprocess.call(['scp', DATUNER_HOME + '/releases/Linux_x86_64/install/bin/dispynode.py', machine_addr + ':' +workspace]);
     subprocess.Popen(['ssh', machine_addr, 'cd ' + workspace + \
       '; python dispynode.py --serve 1 --clean --dest_path_prefix dispytmp_' + str(i)])
-
-  # Wait for the last node to be ready
+  
+  # Wait for the last node to be ready 
   time.sleep(3)
-
+  
   runs_per_epoch = 4
-  epoch = budget / runs_per_epoch
-
+  epoch = budget / runs_per_epoch 
+  
   # add the initial space and a score of 0 and a frequency of 1
   subspaces.append([space, 0, 1])
-
+  
   best_res, total_search_count = 1e9, 0
 
-  for e in range(epoch):
+  for e in range(epoch): 
+    #Time check before new jobs are submitted
+    stoptime = updatetime(stoptime)
+    if stoptime <= 0:
+      print('Timeout has been reached.')
+      sys.exit(1)
+
     jobs = []
     for i in range(budget/epoch):
       total_search_count += 1
       job = cluster.submit(i, select_space(total_search_count, subspaces, global_result))
       job.id = i
-      jobs.append(job) 
+      jobs.append(job)
 
-    cluster.wait()
+    stoptime = updatetime(stoptime)
+    cluster.wait(timeout=updatetime(stoptime)) #start termination if jobs are in progress when timeout is reached.
+
+    stoptime = updatetime(stoptime)
+    #Start termination if necessary
+    if stoptime <= 0:
+      print('Timeout has been reached. Do not forget to clear port 51348.')
+      for job in jobs:
+        cluster.cancel(job)
+      sys.exit(1)
 
     # Save results
     for job in jobs:
@@ -360,9 +385,9 @@ else:
       # dbconn.commit()
       with open("global_result.txt", "a") as f:
         f.write(','.join(str(i) for i in (cfg + metadata)) + ',' + str(best_res) + '\n')
-
+    
     # send request to host to partition the space
     partition_space(subspaces, global_result)
 
   # terminate the host
-  dbconn.close()
+  dbconn.close() 

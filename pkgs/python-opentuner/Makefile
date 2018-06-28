@@ -60,3 +60,7 @@ install-dispy:
         export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
         ./python -m pip install dispy;
 
+install-psutil:
+	cd $(PythonInstallDir)/bin; \
+        export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
+        ./python -m pip install psutil;
