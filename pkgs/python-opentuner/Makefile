@@ -11,7 +11,7 @@ PythonSrcDir = $(PkgBuildDir)/Python-$(PyVersion)
 PythonInstallDir = $(PkgBuildDir)/install
 
 ## Rules
-all:: download-python config-python make-python make-pip install-OpenTuner install-matplotlib install-dispy
+all:: download-python config-python make-python make-pip install-OpenTuner install-matplotlib install-dispy install-psutil
 
 #=== Build Python ===#
 
