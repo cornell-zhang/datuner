@@ -3,7 +3,7 @@
 PKG_LEVEL = ..
 include $(PKG_LEVEL)/Makefile.pkg.common
 
-PyVersion := 2.7.5
+PyVersion := 2.7.14
 PkgBuildDir = $(DATuner_PKG_BUILD)/python
 PkgTarBall = Python-$(PyVersion).tgz
 PythonBuildDir = $(PkgBuildDir)/build
