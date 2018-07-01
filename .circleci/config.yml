@@ -13,16 +13,16 @@ jobs:
     steps:
       - checkout
 
-      - restore_cache:
-          key: v1-datuner-{{ checksum "Makefile" }}-{{ checksum "Makefile.config" }}
+#      - restore_cache:
+#          key: v1-datuner-{{ checksum "Makefile" }}-{{ checksum "Makefile.config" }}
 
       - run: make
 
       - run: pip install --user pytest
 
-      - save_cache:
-          paths:
-            - ~/datuner/build
-          key: v1-datuner-{{ checksum "Makefile" }}-{{ checksum "Makefile.config" }}
+#      - save_cache:
+#          paths:
+#            - build
+#          key: v1-datuner-{{ checksum "Makefile" }}-{{ checksum "Makefile.config" }}
         
       # run tests
