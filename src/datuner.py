@@ -177,8 +177,8 @@ if sweepcnt > 1:
   # Combos are stored in sweeplist
   sweep(sweepparams, [])
 
-  print 'Number of sweeps: ' + str()
   numsweeps = len(sweeplist)
+  print 'Number of sweeps: ' + str(numsweeps)
   sweeps_completed = 0
 
   # Setup the results database and sweep points
@@ -221,7 +221,7 @@ if sweepcnt > 1:
 
   # Initialize the job scheduler
   # The dependence file is automatically sent to remote servers
-  cluster = dispy.JobCluster(sweep_function, depends = ['package.zip'])
+  cluster = dispy.JobCluster(sweep_function, depends = ['package.zip'],cleanup = False,loglevel=dispy.logger.DEBUG)
 
   # copy files to and start up dispynode.py on worker machines
   # this can be removed from release code if we assume users manually start dispy
@@ -243,7 +243,7 @@ if sweepcnt > 1:
     job.id = i
     jobs.append(job)
 
-
+  cluster.print_status()
   cluster.wait() # waits for all scheduled jobs to finish
 
   # Generate the sweep parameter list name string
@@ -287,21 +287,21 @@ if sweepcnt > 1:
     print result
 
   dbconn.close()
-  cluster.print_statu()
+  cluster.print_status()
   cluster.close()
 
 else: #if not sweeping, datuner is tuning
   start_time = time.time() #set start time
 
   dbconn = sqlite3.connect('results' + '.db')
-  dbcursor = dbconn.cursor()
-  dbcursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=\'res\'")
-  table_exists = dbcursor.fetchone()
+  c = dbconn.cursor()
+  c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=\'res\'")
+  table_exists = c.fetchone()
   if table_exists is None:
     cfg_list = []
     for i in space:
       cfg_list.append(i[1] + ' text')
-    dbcursor.execute('CREATE TABLE res (' + ','.join(cfg_list) + ', QoR real)')
+    c.execute('CREATE TABLE res (' + ','.join(cfg_list) + ', QoR real)')
 
   os.system('rm package.zip')
   os.system('rm -rf files')
@@ -316,7 +316,7 @@ else: #if not sweeping, datuner is tuning
     os.system('cp -R ' + designdir + '/* files/design')
   os.system('cd files; zip -r ../package.zip *')
 
-  cluster = dispy.JobCluster(tune_function, depends = ['package.zip']) 
+  cluster = dispy.JobCluster(tune_function, depends = ['package.zip'],cleanup = False) 
   #dispy.jobCluster() creates and returns cluster
   #sends tune_function to the given nodes (no nodes given). also broadcasts ID request to find nodes if none given.
   #needs package.zip to run tune_function.
@@ -375,14 +375,11 @@ else: #if not sweeping, datuner is tuning
       cfg_val = []
       for space_iter in space:
         cfg_name = space_iter[1]
-        for i in cfg[0]:
+        for i in cfg:
           if cfg_name == i[0]:
             cfg_val.append(str(i[1]))
-            break
-      # TODO: There is a syntax error with the sql command
-      # OperationalError: near "on": syntax error
-      # dbcursor.execute('INSERT INTO res VALUES (' + ','.join(cfg_val) + ',' + str(res) + ')')
-      # dbconn.commit()
+      c.execute("INSERT INTO res VALUES ('" + "','".join(cfg_val) + "'," + str(res) + ")")
+      dbconn.commit()
       with open("global_result.txt", "a") as f:
         f.write(','.join(str(i) for i in (cfg + metadata)) + ',' + str(best_res) + '\n')
     
