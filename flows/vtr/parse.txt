@@ -1,0 +1,5 @@
+min_chan_width;vpr.out;Best routing used a channel width factor of (\d+)
+logic_area;vpr.out;Total used logic block area: (.*)
+routing_area;vpr.out;Total routing area: (.*), per
+crit_path;vpr.out;Final critical path: (.*) ns
+tns;DESIGN_NAME.slack.out;Total negative slack: (.*)

@@ -35,8 +35,7 @@ if len(sys.argv) < 2:
   sys.exit(1)
 
 if os.path.exists(pwd + '/vtr.py') and flow == 'vtr':
-  import vtr
-  tool_path = eval(flow + '.tool_path')
+  from vtr import *
 elif os.path.exists(pwd + '/vivado.py') and flow == 'vivado':
   from vivado import *
 elif os.path.exists(pwd + '/quartus.py') and flow == 'quartus':
@@ -55,7 +54,7 @@ if flow == '':
   sys.exit(1)
 
 if flow == "vtr":
-  if os.path.exists(tool_path+"/scripts") == False:
+  if os.path.exists(vtrpath + "/scripts") == False:
     print "vtr path is not correct. Please check. The path should to point to .../vtr/vtr_release/vtr_flow"
     sys.exit(1)
 elif flow == 'vivado':

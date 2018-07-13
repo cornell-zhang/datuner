@@ -15,7 +15,10 @@ from setup import *
 class ProgramTuner(ProgramTunerWrapper):
   
   if os.path.exists(os.getcwd() + '/vtr.py'):
-    from vtr import tool_path
+    from vtr import designdir
+    from vtr import archdir
+    from vtr import vtrpath
+    from vtr import target_cp
   elif os.path.exists(os.getcwd() + '/vivado.py'):
     from vivado import top_module
   elif os.path.exists(os.getcwd() + '/quartus.py'):
