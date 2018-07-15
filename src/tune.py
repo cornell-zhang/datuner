@@ -46,8 +46,28 @@ class ProgramTuner(ProgramTunerWrapper):
 
   def save_final_config(self, configuration):
     """called at the end of tuning"""
-    print "Optimal options written to bench_config.json:", configuration.data
-    self.manipulator().save_to_file(configuration.data, 'inline_config.json')
+    cfg = configuration.data
+    print "Optimal options written to bench_config.json:", cfg
+    self.manipulator().save_to_file(cfg, 'inline_config.json')
+    f = open('./localresult.txt','rb')
+    res = 0
+    msg = []
+    metadata = []
+    config = ''
+    for key in cfg:
+      msg.append([key, cfg[key]])
+      config = config + str(key) + ',' + str(cfg[key]) + ','
+    config = config[:-1]
+    while True:
+      line = f.readline()
+      if not line: break
+      if config in line:
+        a = line.split(",")
+        a[-1] = float(a[-1][:-1])
+        res = a[-1]
+        metadata = a[len(msg)*2:-1]
+    f.close()
+    pickle.dump([msg, metadata, res], open('result.p', 'wb'))
 
   def dumpresult(self, cfg, res, metadata = []):
     """
@@ -57,13 +77,10 @@ class ProgramTuner(ProgramTunerWrapper):
     f = open('./localresult.txt', 'a')
     for key in cfg:
       f.write(str(key) + "," + str(cfg[key]) + ",")
+    f.write(','.join(str(i) for i in metadata) + ',')
     f.write(str(res))
     f.write('\n')
     f.close()
-    msg = []
-    for key in cfg:
-      msg.append([key, cfg[key]])
-    pickle.dump([msg, metadata, res], open('result.p', 'wb'))
 
 if __name__ == '__main__':
   argparser = opentuner.default_argparser()
