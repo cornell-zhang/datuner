@@ -7,6 +7,10 @@ space = [
   ['EnumParameter', 'max_router_iterations', [ '10', '20', '30', '40', '50', '60', '70', '80', '90', '100' ]]
 ]
 
+dbfilename = # NAME_OF_RESULTS_DATABASE (e.g. 'results')
+
+dbtablename = # NAME_OF_SWEEP_TABLE_IN_DATABASE (e.g. 'shift')
+
 designdir = # PATH_TO_DESIGN_FILE (e.g. '$DATUNER_HOME/designs/vtr/stereovision0.v')
 
 archdir = # PATH_TO_ARCHITECTURE_FILE (e.g. '$DATUNER_HOME/archs/vtr/k6_frac_N10_mem32K_40nm.xml') 

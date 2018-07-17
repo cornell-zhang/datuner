@@ -28,7 +28,7 @@ args = parser.parse_args()
 
 flow = args.tool  #from -f
 budget = args.limit  #from -b
-proc_num = args.pf  #from -p
+proc_num = args.pf  #from -p maximum = # of available cpus
 
 if len(sys.argv) < 2:
   parser.print_help()
@@ -54,7 +54,7 @@ if flow == '':
   sys.exit(1)
 
 if flow == "vtr":
-  if os.path.exists(vtrpath + "/scripts") == False:
+  if os.path.exists(vtrpath +"/scripts") == False:
     print "vtr path is not correct. Please check. The path should to point to .../vtr/vtr_release/vtr_flow"
     sys.exit(1)
 elif flow == 'vivado':
@@ -106,7 +106,7 @@ def updatetime(stoptime):
 global_result = []
 
 # a list of all the subspaces, format of a subspace:
-# [[type, name, ['param1', range], ['param2', range], ...], socre, frequency]
+# [[type, name, ['param1', range], ['param2', range], ...], score, frequency]
 # 'frequency': number of times the subspace has been explored so far
 subspaces = []
 
@@ -146,7 +146,7 @@ def tune_function(i, space):
   os.system('unzip -o package.zip')
   os.system('rm package.zip')
   pickle.dump(space, open('space.p', 'wb'))
-  os.system('python tune.py --test-limit=1')
+  os.system('python tune.py --test-limit=1 --parallelism=1')
   msg, metadata, res = pickle.load(open('result.p', 'rb'))
   return [msg, metadata, res]
 
@@ -182,7 +182,6 @@ if sweepcnt > 1:
 
   # Setup the results database and sweep points
   # connect to database and create table is results table doesn't exist
-  dbfilename = 'results' # temp hard coding
   dbconn = sqlite3.connect(dbfilename + '.db')
   c = dbconn.cursor()
   c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=\'" + dbtablename + "\'")
@@ -292,7 +291,7 @@ if sweepcnt > 1:
 else: #if not sweeping, datuner is tuning
   start_time = time.time() #set start time
 
-  dbconn = sqlite3.connect('results' + '.db')
+  dbconn = sqlite3.connect(dbfilename + '.db')
   c = dbconn.cursor()
   c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=\'res\'")
   table_exists = c.fetchone()
@@ -332,8 +331,16 @@ else: #if not sweeping, datuner is tuning
   # Wait for the last node to be ready 
   time.sleep(3)
   
-  runs_per_epoch = 4
-  epoch = budget / runs_per_epoch 
+  #Set parallelization numbers
+  if budget < proc_num:
+    runs_per_epoch = budget
+    epoch = 1
+  elif budget % proc_num > 0:
+    runs_per_epoch = proc_num
+    epoch = (budget / runs_per_epoch)+1
+  else:
+    runs_per_epoch = proc_num 
+    epoch = budget / runs_per_epoch 
   
   # add the initial space and a score of 0 and a frequency of 1
   subspaces.append([space, 0, 1])
@@ -348,7 +355,7 @@ else: #if not sweeping, datuner is tuning
       sys.exit(1)
 
     jobs = []
-    for i in range(budget/epoch):
+    for i in range(runs_per_epoch):
       total_search_count += 1
       job = cluster.submit(i, select_space(total_search_count, subspaces, global_result))
       job.id = i
@@ -356,6 +363,7 @@ else: #if not sweeping, datuner is tuning
 
     stoptime = updatetime(stoptime)
     cluster.wait(timeout=updatetime(stoptime)) #start termination if jobs are in progress when timeout is reached.
+    runs_per_epoch = budget - runs_per_epoch
 
     stoptime = updatetime(stoptime)
     #Start termination if necessary

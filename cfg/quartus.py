@@ -1,5 +1,5 @@
 space = [
-  ['EnumParameter', 'map_effort', ['auto', 'fast']],
+  #['EnumParameter', 'map_effort', ['auto', 'fast']],
   ['EnumParameter', 'map_ignore_carry_buffers', ['on', 'off']],
   ['EnumParameter', 'map_ignore_cascade_buffers', ['on', 'off']],
   ['EnumParameter', 'map_optimize', ['area', 'speed', 'balanced']],
@@ -10,6 +10,10 @@ space = [
   ['EnumParameter', 'fit_pack_register', ['off', 'normal', 'minimize_area', 'minimize_area_with_chains', 'auto']],
   ['EnumParameter', 'fit_tdc', ['on', 'off']]
 ]
+
+dbfilename = # NAME_OF_RESULTS_DATABASE (e.g. 'results')
+
+dbtablename = # NAME_OF_SWEEP_TABLE_IN_DATABASE (e.g. 'shift')
 
 designdir = # PATH_TO_DESIGN_FOLDER (e.g. '$DATUNER_HOME/designs/quartus/diffeq1')
 
