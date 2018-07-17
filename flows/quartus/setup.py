@@ -19,9 +19,13 @@ class ProgramTunerWrapper(MeasurementInterface):
       if not line: break
       if 'Combinational ALUTs' in line:
         comb_alut = line.split(':')[1].split('/')[0].rstrip().lstrip()
+        if ',' in comb_alut:
+          comb_alut = comb_alut.split(',')[0] + comb_alut.split(',')[1]
         continue
       if 'Memory ALUTs' in line:
         mem_alut = line.split(':')[1].split('/')[0].rstrip().lstrip()
+        if ',' in mem_alut:
+          mem_alut = mem_alut.split(',')[0] + mem_alut.split(',')[1]
         continue
       if 'Total registers' in line:
         reg = line.split(':')[1].split('/')[0].rstrip().lstrip()
