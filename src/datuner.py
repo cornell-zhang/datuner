@@ -346,12 +346,11 @@ else: #if not sweeping, datuner is tuning
   subspaces.append([space, 0, 1])
   
   best_res, total_search_count = 1e9, 0
-
   for e in range(epoch): 
     #Time check before new jobs are submitted
     stoptime = updatetime(stoptime)
     if stoptime <= 0:
-      print('Timeout has been reached.')
+      print 'Timeout has been reached.'
       sys.exit(1)
 
     jobs = []
@@ -363,12 +362,15 @@ else: #if not sweeping, datuner is tuning
 
     stoptime = updatetime(stoptime)
     cluster.wait(timeout=updatetime(stoptime)) #start termination if jobs are in progress when timeout is reached.
-    runs_per_epoch = budget - runs_per_epoch
+    if (budget % proc_num) > 0:
+      budget = budget - runs_per_epoch
+      if budget < runs_per_epoch:
+        runs_per_epoch = budget
 
     stoptime = updatetime(stoptime)
     #Start termination if necessary
     if stoptime <= 0:
-      print('Timeout has been reached. Do not forget to clear port 51348.')
+      print 'Timeout has been reached. Do not forget to clear port 51348.'
       for job in jobs:
         cluster.cancel(job)
       sys.exit(1)
