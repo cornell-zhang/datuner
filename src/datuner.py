@@ -4,6 +4,7 @@
 # run DATUNER
 #===================================================
 
+import uuid, platform
 import sys, os, argparse, socket, pickle, subprocess, sqlite3, dispy, time
 from threading import Thread
 from datetime import datetime
@@ -314,7 +315,12 @@ else: #if not sweeping, datuner is tuning
     os.system('cp -R ' + designdir + '/* files/design')
   os.system('cd files; zip -r ../package.zip *')
 
-  cluster = dispy.JobCluster(tune_function, depends = ['package.zip'],cleanup = False) 
+  secret = uuid.uuid4()
+  cluster = dispy.JobCluster(tune_function, 
+                             depends = ['package.zip'],
+                             secret = str(secret),
+                             cleanup = False) 
+
   #dispy.jobCluster() creates and returns cluster
   #sends tune_function to the given nodes (no nodes given). also broadcasts ID request to find nodes if none given.
   #needs package.zip to run tune_function.
@@ -324,10 +330,19 @@ else: #if not sweeping, datuner is tuning
   for i in range(len(machines)):
     machine_addr = machines[i % len(machines)]
   
-    subprocess.call(['scp', DATUNER_HOME + '/releases/Linux_x86_64/install/bin/dispynode.py', machine_addr + ':' +workspace]);
-    subprocess.Popen(['ssh', machine_addr, 'cd ' + workspace + \
-      '; python dispynode.py --serve 1 --clean --dest_path_prefix dispytmp_' + str(i)])
-  
+    platformArch = platform.system() + '_' + platform.machine()
+    subprocess.call(['scp', DATUNER_HOME + '/releases/' + platformArch + '/install/bin/dispynode.py', machine_addr + ':' +workspace]);
+    sshProcess = subprocess.Popen(['ssh', 
+                                   machine_addr],
+                                   stdin=subprocess.PIPE,
+                                   stdout=subprocess.PIPE,
+                                   universal_newlines=True,
+                                   bufsize=0) 
+    sshProcess.stdin.write("cd " + workspace + "\n")
+    sshProcess.stdin.write("python dispynode.py --serve 1 --clean --secret " + \
+                           str(secret) + " --dest_path_prefix dispytmp_" + str(i) + "\n")
+    sshProcess.stdin.close()
+
   # Wait for the last node to be ready 
   time.sleep(3)
   
