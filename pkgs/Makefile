@@ -6,3 +6,4 @@ include $(PKG_LEVEL)/Makefile.pkg.common
 
 DIRS = python-opentuner
 DIRS += sqlite
+DIRS += vtr

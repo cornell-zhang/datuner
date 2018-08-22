@@ -20,6 +20,10 @@ jobs:
 
       - run: pip install --user pytest
 
+      - run: source setup.sh
+
+      - run: python auto_test.py
+
 #      - save_cache:
 #          paths:
 #            - build
