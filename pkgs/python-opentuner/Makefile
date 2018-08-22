@@ -11,7 +11,7 @@ PythonSrcDir = $(PkgBuildDir)/Python-$(PyVersion)
 PythonInstallDir = $(PkgBuildDir)/install
 
 ## Rules
-all:: download-python config-python make-python make-pip install-OpenTuner install-matplotlib install-dispy install-psutil
+all:: download-python config-python make-python make-pip install-OpenTuner install-matplotlib install-dispy install-psutil install-numpy install-scipy install-pandas install-sklearn install-xgboost
 
 #=== Build Python ===#
 
@@ -53,7 +53,7 @@ install-OpenTuner:
 install-matplotlib:
 	cd $(PythonInstallDir)/bin; \
 	export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
-	./python -m pip install matplotlib;
+	./python -m pip install matplotlib==1.5.3;
 
 install-dispy:
 	cd $(PythonInstallDir)/bin; \
@@ -64,3 +64,28 @@ install-psutil:
 	cd $(PythonInstallDir)/bin; \
         export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
         ./python -m pip install psutil;
+
+install-numpy:
+	cd $(PythonInstallDir)/bin; \
+        export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
+        ./python -m pip install numpy;
+
+install-scipy:
+	cd $(PythonInstallDir)/bin; \
+        export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
+        ./python -m pip install scipy;
+
+install-pandas:
+	cd $(PythonInstallDir)/bin; \
+        export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
+        ./python -m pip install pandas;
+
+install-sklearn:
+	cd $(PythonInstallDir)/bin; \
+        export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
+        ./python -m pip install sklearn;
+
+install-xgboost:
+	cd $(PythonInstallDir)/bin; \
+        export LD_LIBRARY_PATH=$(PythonInstallDir)/lib; \
+        ./python -m pip install xgboost;
