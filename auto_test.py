@@ -1,44 +1,43 @@
 import os
 import platform
 
+s = platform.system()
+a = platform.machine()
+
 pwd = os.getcwd()
 vtr_path = pwd + '/build/pkgs/vtr/vtr_release/vtr_flow'
 workspace_path = pwd + '/build_test'
+os.environ["DATUNER_HOME"] = pwd
+
 try:
   os.makedirs(workspace_path)
 except:
   pass
 
-s = platform.system()
-a = platform.machine()
-
-script_folder = pwd + '/releases/' + platform.system() + '_' + platform.machine() + '/scripts'
-test_config_file = script_folder + '/tests/vtr.py'
+test_config_file = pwd  + '/auto_cfg.py'
 config_out = workspace_path + '/vtr.py'
-
-# update hostname
-f = open(script_folder + '/my_hosts', 'w')
-f.write(platform.node())
-f.close()
 
 # update config file
 f1 = open(test_config_file, 'r')
 f2 = open(config_out, 'w')
 for line in f1:
-    line = line.replace('vtr_flow_holder', vtr_path)
+    line = line.replace('vtrpath_holder', vtr_path)
+    line = line.replace('workspace_holder', workspace_path)
+    line = line.replace('machine_holder', platform.node())
+    line = line.replace('server_holder', platform.node())
     f2.write(line)
 f1.close()
 f2.close()
 
 # run datuner
 os.chdir(workspace_path)
-os.system('datuner.py -f vtr -p 2 -b 4 -t 0.0d:120s')
+os.system('python ../src/datuner.py -f vtr -p 2 -b 4 -t 0.0d:120s')
 
 # check results
 
-# make sure tune.log and results/result.db exist
-assert os.path.isfile(workspace_path + '/datuner.db/vtr/diffeq1/tune.log')
-assert os.path.isfile(workspace_path + '/datuner.db/vtr/diffeq1/results/result.db')
+# make sure glocal_result.txt and result.db exist
+assert os.path.isfile(workspace_path + '/global_result.txt')
+assert os.path.isfile(workspace_path + '/results.db')
 
 # make sure DATuner terminates normally
-assert 'finish tuning' in open(workspace_path + '/datuner.db/vtr/diffeq1/tune.log').read()
+# assert 'finish tuning' in open(workspace_path + '/datuner.db/vtr/diffeq1/tune.log').read()
