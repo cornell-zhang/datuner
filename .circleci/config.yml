@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: hecmay/demo:v1
+      - image: hecmay/demo:v2
 
     working_directory: ~/datuner
 
