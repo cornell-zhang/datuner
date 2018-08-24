@@ -21,7 +21,9 @@ jobs:
 
       - run: pip install --user pytest
 
-      - run: source setup.sh
+      - run: source setup.sh 
+
+      - run: unalias python && which python
 
       - run: python auto_test.py
 

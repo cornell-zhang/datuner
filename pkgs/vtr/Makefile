@@ -16,7 +16,7 @@ download-vtr: $(PkgBuildDir)/$(PkgTarBall)
 
 $(PkgBuildDir)/$(PkgTarBall): $(PkgBuildDir)/.dir
 	cd $(PkgBuildDir); \
-		wget http://www.eecg.utoronto.ca/vtr/vtr_release_1.0_full.tar.gz;
+		wget http://www.eecg.utoronto.ca/vtr/vtr_release_7.0_full.tar.gz;
 	@touch $@
 
 make-vtr:: $(PKG_LEVEL)/.unpacked $(vtrSrcDir)/.dir $(vtrSrcDir)/vtr
