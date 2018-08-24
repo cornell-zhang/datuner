@@ -341,7 +341,7 @@ else: #if not sweeping, datuner is tuning
       
     subprocess.call([remoteCpy, DATUNER_HOME + '/releases/' + platformArch + '/install/bin/dispynode.py', machineAddr + ':' +workspace]);
     sshProcess = subprocess.Popen([remoteSsh, 
-                                   machine_addr],
+                                   machineAddr],
                                    stdin=subprocess.PIPE,
                                    stdout=subprocess.PIPE,
                                    universal_newlines=True,
