@@ -329,12 +329,15 @@ else: #if not sweeping, datuner is tuning
   # this can be removed from release code if we assume users manually start dispy
   for i in range(len(machines)):
     machine_addr = machines[i % len(machines)]
-  
     platformArch = platform.system() + '_' + platform.machine()
+
     # For Tesiting purpose on CircleCI (python -O datuner.py)
     if not __debug__:
       remoteCpy, remoteSsh = 'sshpass -p docker scp', 'sshpass -p docker ssh'
       machineAddr = 'root@' + machine_addr
+      warningDisabler = ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+      remoteCpy += warningDisabler
+      remoteSsh += warningDisabler
     else:
       remoteCpy, remoteSsh = 'scp', 'ssh'
       machineAddr = machine_addr
