@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: hecmay/demo:v2
+      - image: hecmay/demo:v3
 
     working_directory: ~/datuner
 
@@ -19,9 +19,12 @@ jobs:
 
       - run: make
 
-      - run: pip install --user pytest
-
-      - run: source setup.sh 
+      - run: 
+          name: set environment variable
+          command: |
+            PREFIX="$(./DATuner_uname -s)_$(./DATuner_uname -a)"
+            export PATH=$(pwd)/releases/$PREFIX/install/bin:$PATH
+            export LD_LIBRARY_PATH=$(pwd)/releases/$PREFIX/install/lib:$LD_LIBRARY_PATH
 
       - run: which python
 
