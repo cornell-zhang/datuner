@@ -23,7 +23,7 @@ jobs:
 
       - run: source setup.sh 
 
-      - run: unalias python && which python
+      - run: which python
 
       - run: python auto_test.py
 
