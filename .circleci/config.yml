@@ -22,8 +22,10 @@ jobs:
       - run: 
           name: set environment variable
           command: |
-            source ./setup.sh
-            whoami
+            echo 'PREFIX="$(./DATuner_uname -s)_$(./DATuner_uname -a)"' >> $BASH_ENV
+            echo 'export PATH=$(pwd)/releases/$PREFIX/install/bin:$PATH' >> $BASH_ENV
+            echo 'export LD_LIBRARY_PATH=$(pwd)/releases/$PREFIX/install/lib:$LD_LIBRARY_PATH' >> $BASH_ENV
+            source $BASH_ENV
 
       - run: which python
 
