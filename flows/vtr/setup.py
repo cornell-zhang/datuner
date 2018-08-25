@@ -8,9 +8,9 @@ class ProgramTunerWrapper(MeasurementInterface):
     f = open('results.txt', 'r')
     while True:
       line = f.readline()
-      if 'num_mem0' not in line.split():
+      if 'tns' not in line.split():
         line = line.rstrip()
-        results = line.split('\t')
+        results = line.replace('\t', ' ').split()
         timing = results.pop(-1)
         timing = float(timing)
         break

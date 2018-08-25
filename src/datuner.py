@@ -354,9 +354,13 @@ else: #if not sweeping, datuner is tuning
                                   universal_newlines=True,
                                   bufsize=0) 
     sshProcess.stdin.write("cd " + workspace + "\n")
-    sshProcess.stdin.write("python dispynode.py --serve 1 --clean --secret " + \
-                           str(secret) + " --dest_path_prefix dispytmp_" + str(i) + "\n")
+     # sshProcess.stdin.write("export PATH=" + DATUNER_HOME + "/releases/" + platformArch + "/install/bin" + ":$PATH"  + "\n")
+    # sshProcess.stdin.write("python dispynode.py --serve 1 --clean --secret " + \
+    #                        str(secret) + " --dest_path_prefix dispytmp_" + str(i) + "\n")
     sshProcess.stdin.close()
+
+    subprocess.Popen(["python dispynode.py --serve 1 --clean --secret " + \
+                      str(secret) + " --dest_path_prefix dispytmp_" + str(i) + "\n"], shell=True)
 
   # Wait for the last node to be ready 
   time.sleep(3)
