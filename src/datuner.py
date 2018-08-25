@@ -342,13 +342,17 @@ else: #if not sweeping, datuner is tuning
       remoteCpy, remoteSsh = 'scp', 'ssh'
       machineAddr = machine_addr
       
-    subprocess.call([remoteCpy, DATUNER_HOME + '/releases/' + platformArch + '/install/bin/dispynode.py', machineAddr + ':' +workspace]);
-    sshProcess = subprocess.Popen([remoteSsh, 
-                                   machineAddr],
-                                   stdin=subprocess.PIPE,
-                                   stdout=subprocess.PIPE,
-                                   universal_newlines=True,
-                                   bufsize=0) 
+    scpComm = (' '.join([remoteCpy, DATUNER_HOME + '/releases/' + platformArch + '/install/bin/dispynode.py', machineAddr + ':' +workspace])).split() 
+    subprocess.call(scpComm)  
+    #subprocess.call([remoteCpy, DATUNER_HOME + '/releases/' + platformArch + '/install/bin/dispynode.py', machineAddr + ':' +workspace]);
+
+    sshComm = (' '.join([remoteCpy, DATUNER_HOME + '/releases/' + platformArch + '/install/bin/dispynode.py', machineAddr + ':' +workspace])).split()     
+
+    sshProcess = subprocess.Popen(sshComm,
+                                  stdin=subprocess.PIPE,
+                                  stdout=subprocess.PIPE,
+                                  universal_newlines=True,
+                                  bufsize=0) 
     sshProcess.stdin.write("cd " + workspace + "\n")
     sshProcess.stdin.write("python dispynode.py --serve 1 --clean --secret " + \
                            str(secret) + " --dest_path_prefix dispytmp_" + str(i) + "\n")

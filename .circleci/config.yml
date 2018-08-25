@@ -27,8 +27,6 @@ jobs:
             echo 'export LD_LIBRARY_PATH=$(pwd)/releases/$PREFIX/install/lib:$LD_LIBRARY_PATH' >> $BASH_ENV
             source $BASH_ENV
 
-      - run: which python
-
       - run: python auto_test.py
 
 #      - save_cache:
