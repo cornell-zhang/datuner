@@ -36,12 +36,12 @@ class ProgramTunerWrapper(MeasurementInterface):
 
     vtr_place_flags = [
       'alpha_t', 'seed', 'inner_num', 'timing_tradeoff',
-      'inner_loop_recompute_divider', 'td_place_exp_first',
+      'td_place_exp_first',# 'inner_loop_recompute_divider', 'td_place_exp_first',
       'td_place_exp_last'
       ]
 
     vtr_route_flags = [
-      'max_router_iterations', 'initial_pres_fac', 'pres_fac_mult',
+      'initial_pres_fac', 'pres_fac_mult',# 'max_router_iterations', 'initial_pres_fac', 'pres_fac_mult',
       'acc_fac', 'bb_factor', 'base_cost_type', 'astar_fac', 
       'max_criticality'
       ]

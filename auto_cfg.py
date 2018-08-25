@@ -1,4 +1,7 @@
 space = [
+  ['EnumParameter', 'resyn', ['on', 'off']],
+  ['EnumParameter', 'resyn2', ['on', 'off']],
+  ['EnumParameter', 'resyn3', ['on', 'off']],
   ['EnumParameter', 'connection_driven_clustering', [ 'on', 'off' ]],
   ['EnumParameter', 'allow_unrelated_clustering', [ 'on', 'off' ]],
   ['EnumParameter', 'alpha_clustering', ['0.5', '0.55', '0.6','0.65', '0.7', '0.75', '0.8', '0.85', '0.9', '0.95', '1']],
@@ -27,7 +30,7 @@ dbfilename = 'results'
 
 dbtablename = 'SS'
 
-designdir = '$DATUNER_HOME/designs/vtr/mkPktMerge.v'
+designdir = '$DATUNER_HOME/designs/vtr/diffeq1.v'
 
 archdir = '$DATUNER_HOME/archs/vtr/k6_frac_N10_mem32K_40nm.xml'
 
