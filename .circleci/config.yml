@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:2.7
+      - image: hecmay/demo:v4
 
     working_directory: ~/datuner
 
@@ -17,25 +17,17 @@ jobs:
 #          key: v1-datuner-{{ checksum "Makefile" }}-{{ checksum "Makefile.config" }}
 #
 
-      - run: 
-          name: install dependencies 
-          command: |
-            wget http://prdownloads.sourceforge.net/ctags/ctags-5.8.tar.gz
-            tar zxf ctags-5.8.tar.gz
-            cd ctags-5.8 && ./configure --prefix=$HOME
-            make && make install
-            cd ..
-            wget http://ftp.gnu.org/gnu/bison/bison-2.7.tar.gz
-            tar -xvf bison-2.7.tar.gz
-            cd bison-2.7 && ./configure --prefix=$HOME
-            make && make install
-
+      - run: ifconfig
       - run: make
-
-      - run: pip install --user pytest
-
-      - run: source setup.sh
-
+      - run: 
+          name: set environment variable
+          command: |
+            echo 'PREFIX="$(./DATuner_uname -s)_$(./DATuner_uname -a)"' >> $BASH_ENV
+            echo 'export PATH=$(pwd)/releases/$PREFIX/install/bin:$PATH' >> $BASH_ENV
+            echo 'export LD_LIBRARY_PATH=$(pwd)/releases/$PREFIX/install/lib:$LD_LIBRARY_PATH' >> $BASH_ENV
+            echo 'export DATUNER_HOME=$(pwd)' >> $BASH_ENV
+            source $BASH_ENV
+      - run: sudo service ssh restart
       - run: python auto_test.py
 
 #      - save_cache:
@@ -43,4 +35,18 @@ jobs:
 #            - build
 #          key: v1-datuner-{{ checksum "Makefile" }}-{{ checksum "Makefile.config" }}
         
-      # run tests
+  build2:
+    docker:
+      - image: hecmay/demo:v4
+    steps:
+      - checkout
+      - run: ifconfig
+      - run: make
+      
+
+workflows:
+  version: 2
+  parallel_flows:
+    jobs:
+      - build
+      - build2

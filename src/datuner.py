@@ -329,19 +329,38 @@ else: #if not sweeping, datuner is tuning
   # this can be removed from release code if we assume users manually start dispy
   for i in range(len(machines)):
     machine_addr = machines[i % len(machines)]
-  
     platformArch = platform.system() + '_' + platform.machine()
-    subprocess.call(['scp', DATUNER_HOME + '/releases/' + platformArch + '/install/bin/dispynode.py', machine_addr + ':' +workspace]);
-    sshProcess = subprocess.Popen(['ssh', 
-                                   machine_addr],
-                                   stdin=subprocess.PIPE,
-                                   stdout=subprocess.PIPE,
-                                   universal_newlines=True,
-                                   bufsize=0) 
+
+    # For Tesiting purpose on CircleCI (python -O datuner.py)
+    if not __debug__:
+      remoteCpy, remoteSsh = 'sshpass -p docker scp', 'sshpass -p docker ssh'
+      machineAddr = 'root@' + machine_addr
+      warningDisabler = ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+      remoteCpy += warningDisabler
+      remoteSsh += warningDisabler
+    else:
+      remoteCpy, remoteSsh = 'scp', 'ssh'
+      machineAddr = machine_addr
+      
+    scpComm = (' '.join([remoteCpy, DATUNER_HOME + '/releases/' + platformArch + '/install/bin/dispynode.py', machineAddr + ':' +workspace])).split() 
+    subprocess.call(scpComm)  
+    #subprocess.call([remoteCpy, DATUNER_HOME + '/releases/' + platformArch + '/install/bin/dispynode.py', machineAddr + ':' +workspace]);
+
+    sshComm = (' '.join([remoteCpy, DATUNER_HOME + '/releases/' + platformArch + '/install/bin/dispynode.py', machineAddr + ':' +workspace])).split()     
+
+    sshProcess = subprocess.Popen(sshComm,
+                                  stdin=subprocess.PIPE,
+                                  stdout=subprocess.PIPE,
+                                  universal_newlines=True,
+                                  bufsize=0) 
     sshProcess.stdin.write("cd " + workspace + "\n")
-    sshProcess.stdin.write("python dispynode.py --serve 1 --clean --secret " + \
-                           str(secret) + " --dest_path_prefix dispytmp_" + str(i) + "\n")
+     # sshProcess.stdin.write("export PATH=" + DATUNER_HOME + "/releases/" + platformArch + "/install/bin" + ":$PATH"  + "\n")
+    # sshProcess.stdin.write("python dispynode.py --serve 1 --clean --secret " + \
+    #                        str(secret) + " --dest_path_prefix dispytmp_" + str(i) + "\n")
     sshProcess.stdin.close()
+
+    subprocess.Popen(["python dispynode.py --serve 1 --clean --secret " + \
+                      str(secret) + " --dest_path_prefix dispytmp_" + str(i) + "\n"], shell=True)
 
   # Wait for the last node to be ready 
   time.sleep(3)

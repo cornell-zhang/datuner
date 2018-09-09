@@ -31,7 +31,7 @@ f2.close()
 
 # run datuner
 os.chdir(workspace_path)
-os.system('python ../src/datuner.py -f vtr -p 2 -b 4 -t 0.0d:120s')
+os.system('python -O ../src/datuner.py -f vtr -p 1 -b 4 -t 0.0d:360s')
 
 # check results
 
